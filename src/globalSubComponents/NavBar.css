@@ -1,0 +1,25 @@
+.active {
+  color: #f31260;
+  font-weight: 700;
+}
+
+.notActive {
+  color: white;
+}
+
+.notActive:hover{
+    color: #f31260;
+}
+
+.nav::after {
+  content: "";
+  position: absolute;
+  bottom: 1.5rem;
+  left: 0;
+  right: 0;
+  height: 0.25rem;
+  border-radius: 1rem;
+  background-color: #f31260;
+  transform: translateY(1.75rem);
+  filter: drop-shadow(0 -0.3rem 0.4rem #f31260);
+}

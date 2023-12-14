@@ -1,0 +1,45 @@
+name: Build and Deploy
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build ⛏️
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Checkout Repository
+        uses: actions/checkout@main
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+      - name: Build dependencies
+        run: npm run build
+        env: 
+          CI: false
+      - name: Archive production artifact
+        uses: actions/upload-artifact@main
+        with:
+          name: build
+          path: build
+  deploy:
+    name: Deploy 🚀
+    needs: build
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Checkout Repository
+        uses: actions/checkout@main
+      - name: Download Artifact
+        uses: actions/download-artifact@main
+        with:
+          name: build
+      - name: Sync files to hosting
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ftp.infinityfree.com
+          username: ${{ secrets.ftp_username }}
+          password: ${{ secrets.ftp_password }}
+          server-dir: /htdocs/
+    
+          
+    

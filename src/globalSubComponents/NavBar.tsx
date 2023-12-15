@@ -20,7 +20,7 @@ import {
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { RiArrowDropDownLine, RiH1 } from "react-icons/ri";
+import { RiArrowDropDownLine} from "react-icons/ri";
 
 // Local Files
 import "./NavBar.css";

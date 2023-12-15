@@ -8,6 +8,7 @@ import Benefit from "./subComponents/Benefit";
 import Mission from "./subComponents/Mission";
 import Achievement from "./subComponents/Achievement";
 import Help from "./subComponents/Help";
+import Services from "./subComponents/Services";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const Home = () => {
       <Mission />
       <Achievement />
       <Help />
+      <Services />
     </div>
   );
 };

@@ -26,7 +26,7 @@ const NavBar = () => {
   const menuItems = ["Home", "About", "Contact", "FAQ", "Log In"];
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen} className="dark bg-[black] h-[5rem] nav" maxWidth="xl">
+    <Navbar onMenuOpenChange={setIsMenuOpen} className="dark bg-[black] h-[5rem] nav" maxWidth="xl" shouldHideOnScroll>
       <NavbarContent>
         <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"} className="sm:hidden text-white" />
         <Link to="../Home">
@@ -41,34 +41,34 @@ const NavBar = () => {
 
       <NavbarContent className="hidden sm:flex gap-[2rem] md:gap-[4rem]" justify="center">
         <NavbarItem>
-          <Link to="../Home" className={curTab === "Home" ? "active" : "notActive"}>
+          <Link to="../Home" className={curTab === "Home" ? "active navActive flex flex-col" : "notActive"}>
             Home
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link to="../About" className={curTab === "About" ? "active" : "notActive"}>
+          <Link to="../About" className={curTab === "About" ? "active navActive flex flex-col" : "notActive"}>
             About
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link to="../Contact" className={curTab === "Contact" ? "active" : "notActive"}>
+          <Link to="../Contact" className={curTab === "Contact" ? "active navActive flex flex-col" : "notActive"}>
             Contact Us
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link to="../FAQ" className={curTab === "FAQ" ? "active" : "notActive"}>
+          <Link to="../FAQ" className={curTab === "FAQ" ? "active navActive flex flex-col" : "notActive"}>
             FAQ
           </Link>
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
-          <Button color="danger" href="#" variant="ghost" radius="full">
+          <Button color="danger" variant="ghost" radius="full">
             Login
           </Button>
         </NavbarItem>
         <NavbarItem>
-          <Button color="danger" href="#" variant="solid" radius="full" className="font-semibold">
+          <Button color="danger" variant="solid" radius="full" className="font-semibold">
             Sign Up
           </Button>
         </NavbarItem>

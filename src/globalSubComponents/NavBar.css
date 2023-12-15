@@ -11,12 +11,12 @@
     color: #f31260;
 }
 
-.nav::after {
+.nav{
+  font-family: "poppins";
+}
+
+.navActive::after {
   content: "";
-  position: absolute;
-  bottom: 1.5rem;
-  left: 0;
-  right: 0;
   height: 0.25rem;
   border-radius: 1rem;
   background-color: #f31260;

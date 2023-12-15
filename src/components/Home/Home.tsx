@@ -5,6 +5,9 @@ import { useDispatch } from "react-redux";
 import { updateTab } from "../../store/curTabSlice";
 import HeroSection from "./subComponents/HeroSection";
 import Benefit from "./subComponents/Benefit";
+import Mission from "./subComponents/Mission";
+import Achievement from "./subComponents/Achievement";
+import Help from "./subComponents/Help";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -14,6 +17,9 @@ const Home = () => {
     <div>
       <HeroSection />
       <Benefit />
+      <Mission />
+      <Achievement />
+      <Help />
     </div>
   );
 };

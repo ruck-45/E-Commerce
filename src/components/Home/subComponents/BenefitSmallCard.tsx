@@ -9,7 +9,7 @@ type BenefitSmallCardProps = {
 
 const BenefitSmallCard = (props: BenefitSmallCardProps) => {
   return (
-    <Card className="max-w-[17rem] p-[2rem] gap-[1rem] hover:scale-105" isPressable>
+    <Card className="max-w-[17rem] p-[2rem] gap-[2rem] hover:scale-105 shrink-0" isPressable>
       <CardHeader className="justify-center p-0">
         <Button isIconOnly color="danger" variant="flat" radius="full" className="w-[5rem] h-[5rem]" aria-label="Like">
           {props.logo}

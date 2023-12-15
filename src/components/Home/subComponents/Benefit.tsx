@@ -8,29 +8,30 @@ import { TbBulbFilled } from "react-icons/tb";
 // Local Files
 import './Benefit.css'
 import BenefitSmallCard from "./BenefitSmallCard";
+import MissionChip from "./MissionChip";
 
 const smallCardData = [
   {
     heading: "Fast Process",
     caption: "Dedicated to providing a fast and efficient service.",
-    logo: <IoRocketSharp className="text-[2.2rem]" />,
+    logo: <IoRocketSharp className="text-[2rem]" />,
   },
   {
     heading: "Best Quality",
     caption: "Elevating Your Financial Experience.",
-    logo: <FaThumbsUp className="text-[2.2rem]" />,
+    logo: <FaThumbsUp className="text-[2rem]" />,
   },
   {
     heading: "Solution",
     caption: "Your Pathway to Financial Growth.",
-    logo: <TbBulbFilled className="text-[2.2rem]" />,
+    logo: <TbBulbFilled className="text-[2rem]" />,
   },
 ];
 
 const Benefit = () => {
   return (
-    <div className="p-[5rem] flex justify-between items-center benefit">
-      <Card className="max-w-[400px] p-[2rem] dark bg-[#F31260]" isPressable>
+    <div className="p-[5rem] flex justify-center items-center benefit gap-[2rem]">
+      <Card className="max-w-[400px] p-[2rem] dark bg-[#F31260] shrink-0 benefitCard" isPressable>
         <CardHeader className="font-['Concert_One'] text-[3rem]">Our Benefit</CardHeader>
         <CardBody className="text-justify">
           Navigate the exciting world of trading and investing with confidence. Whether you’re a seasoned investor or
@@ -43,9 +44,17 @@ const Benefit = () => {
         </CardFooter>
       </Card>
 
-      {smallCardData.map((data, index) => (
-        <BenefitSmallCard key={index} heading={data.heading} caption={data.caption} logo={data.logo} />
-      ))}
+      <div className="flex gap-[2rem] skills">
+        {smallCardData.map((data, index) => (
+          <BenefitSmallCard key={index} heading={data.heading} caption={data.caption} logo={data.logo} />
+        ))}
+      </div>
+
+      <div className="flex gap-[2rem] hidden skillsChip">
+        {smallCardData.map((data, index) => (
+          <MissionChip logo={data.logo} heading={data.heading} caption={data.caption} default={true}/>
+        ))}
+      </div>
     </div>
   );
 };

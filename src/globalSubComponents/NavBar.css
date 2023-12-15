@@ -7,11 +7,11 @@
   color: white;
 }
 
-.notActive:hover{
-    color: #f31260;
+.notActive:hover {
+  color: #f31260;
 }
 
-.nav{
+.nav {
   font-family: "poppins";
 }
 
@@ -22,4 +22,18 @@
   background-color: #f31260;
   transform: translateY(1.75rem);
   filter: drop-shadow(0 -0.3rem 0.4rem #f31260);
+}
+
+.navActiveServices::after {
+  content: "";
+  height: 0.25rem;
+  border-radius: 1rem;
+  transform: translate(1.25rem, 1rem) !important;
+  background-color: #f31260;
+  max-width: 6rem;
+  filter: drop-shadow(0 -0.3rem 0.4rem #f31260);
+}
+
+.logo {
+  justify-content: center !important;
 }

@@ -1,0 +1,24 @@
+.Auth{
+    min-width: 27rem;
+    z-index: 2;
+    background-color: white;
+}
+
+.LogoName{
+    font-weight: bolder;
+}
+
+.welcomeText{
+    line-height: 0;
+}
+
+.welcomeText p{
+    font-size: larger;
+}
+
+.Divider{
+    width: 100%;
+    height: 0.1rem;
+    background-color: #D4D4D8;
+    border-radius: 100px;
+}

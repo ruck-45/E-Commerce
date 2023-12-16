@@ -1,5 +1,6 @@
 // Dependencies
 import { Routes, Route, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 // Local Files
 import NavBar from "./globalSubComponents/NavBar";
@@ -13,11 +14,14 @@ import Crypto from "./components/Crypto/Crypto";
 import Options from "./components/Options/Options";
 import Retirement from "./components/Retirement/Retirement";
 import Footer from "./globalSubComponents/Footer";
+import { RootState } from "./store/store";
 
 function App() {
+  const curTab = useSelector((state: RootState) => state.curTab.value);
+
   return (
     <>
-      <NavBar />
+      {curTab === "Auth" ? null : <NavBar />}
       <Routes>
         <Route path="/" element={<Navigate to="/Home" />} />
         <Route path="/Home" element={<Home />} />
@@ -31,7 +35,7 @@ function App() {
         <Route path="/Retirement" element={<Retirement />} />
         <Route path="*" element={<Navigate to="/Home" />} />
       </Routes>
-      <Footer />
+      {curTab === "Auth" ? null : <Footer />}
     </>
   );
 }

@@ -20,7 +20,7 @@ import {
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { RiArrowDropDownLine} from "react-icons/ri";
+import { RiArrowDropDownLine } from "react-icons/ri";
 
 // Local Files
 import "./NavBar.css";
@@ -126,14 +126,18 @@ const NavBar = () => {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
-          <Button color="danger" variant="bordered" radius="full">
-            Login
-          </Button>
+          <Link to="../Auth">
+            <Button color="danger" variant="bordered" radius="full">
+              Login
+            </Button>
+          </Link>
         </NavbarItem>
         <NavbarItem>
-          <Button color="danger" variant="solid" radius="full" className="font-semibold">
-            Sign Up
-          </Button>
+          <Link to="../Auth">
+            <Button color="danger" variant="solid" radius="full" className="font-semibold">
+              Sign Up
+            </Button>
+          </Link>
         </NavbarItem>
       </NavbarContent>
       <NavbarMenu className="bg-[#28292b] mt-[1rem]">
@@ -174,7 +178,7 @@ const NavBar = () => {
               <NavbarMenuItem key={`${item}-${index}`}>
                 <Link
                   className={curTab === item ? "active" : "notActive"}
-                  to={`../${item}`}
+                  to={index === 5 ? "../Auth" : `../${item}`}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item}

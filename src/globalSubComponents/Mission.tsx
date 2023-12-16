@@ -8,7 +8,7 @@ import { TbBrandYoutubeFilled } from "react-icons/tb";
 
 // Local Files
 import "./Mission.css";
-import MissionChip from "./MissionChip";
+import MissionChip from "../components/Home/subComponents/MissionChip";
 
 const missionChips = [
   {

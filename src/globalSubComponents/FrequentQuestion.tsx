@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 
 // Local Files
 import "./FrequentQuestion.css";
-import questions from "../assets/frequetQuestions.json";
-import QuestionAccordion from "../../../globalSubComponents/QuestionAccordion";
+import questions from "../components/Contact/assets/frequetQuestions.json";
+import QuestionAccordion from "./QuestionAccordion";
 
 const FrequentQuestion = () => {
   return (
@@ -39,7 +39,7 @@ const FrequentQuestion = () => {
       </div>
 
       <div className="md:w-[50%] md:ps-[2rem]">
-        <QuestionAccordion className="dark" questions={questions} varient="splitted"/>
+        <QuestionAccordion className="dark" questions={questions} varient="splitted" />
       </div>
     </div>
   );

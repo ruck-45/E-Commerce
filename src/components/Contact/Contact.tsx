@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { updateTab } from "../../store/curTabSlice";
 import ContactIntro from "./subComponents/ContactIntro";
 import ContactInfo from "./subComponents/ContactInfo";
-import FrequentQuestion from "./subComponents/FrequentQuestion";
+import FrequentQuestion from "../../globalSubComponents/FrequentQuestion";
 import Contactmap from "./subComponents/Contactmap";
 
 const Contact = () => {

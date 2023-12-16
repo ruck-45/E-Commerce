@@ -8,6 +8,7 @@ import { MdEmail } from "react-icons/md";
 import { IoLocation } from "react-icons/io5";
 
 // Local Files
+import "./Footer.css";
 import logo from "../globalAssets/logo.svg";
 
 const contactInfo = [
@@ -51,9 +52,9 @@ const footerLinks = [
 
 const Footer = () => {
   return (
-    <div className="flex flex-col justify-center items-center p-[5rem] bg-[rgba(0,0,0,0.5)] gap-[2rem] text-white">
-      <div className="flex gap-[4rem]">
-        <div className="max-w-[20rem] flex flex-col gap-[2rem]">
+    <div className="flex flex-col justify-center items-center py-[5rem] bg-[rgba(0,0,0,0.5)] gap-[2rem] text-white footer">
+      <div className="flex gap-[4rem] upperFooter">
+        <div className="max-w-[20rem] flex flex-col gap-[2rem] companySection">
           <Image width={170} src={logo} alt="logo" radius="none" />
           <p className="text-justify">
             Your destination for versatile investment brokerage and trading services. Our platform offers a range of
@@ -69,7 +70,7 @@ const Footer = () => {
         </div>
 
         <div className="flex flex-col items-center justify-center gap-[1.2rem]">
-          <div className="flex gap-[2rem]">
+          <div className="flex gap-[2rem] w-full justify-between contactInfo">
             {contactInfo.map((data, index) => (
               <div className="flex items-center  gap-[1rem]">
                 <Button isIconOnly variant="solid" radius="full" className="w-[3rem] h-[3rem] text-[1.5rem]">
@@ -83,16 +84,16 @@ const Footer = () => {
             ))}
           </div>
 
-          <div className="w-[100%]">
+          <div className="w-[100%] upperDivider">
             <Divider className="dark" />
             <Divider className="dark" />
           </div>
 
-          <div className="flex justify-between w-full">
+          <div className="flex justify-between w-full footerLinks">
             {footerLinks.map((ele, index) => (
               <div className="flex flex-col gap-[1rem]">
                 <p className="font-['poppins'] text-[#F31260] font-bold text-[1.1rem]">{ele.type}</p>
-                <Listbox items={ele.data} aria-label="navigation" className="dark">
+                <Listbox items={ele.data} aria-label="navigation" className="dark" variant="light">
                   {(item) => (
                     <ListboxItem key={item.key}>
                       <Link to={`../${item.value}`}>{item.value}</Link>

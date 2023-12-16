@@ -1,0 +1,25 @@
+@media only screen and (max-width: 1231px) {
+  .footer {
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+
+  .upperFooter {
+    flex-direction: column;
+  }
+
+  .companySection {
+    max-width: 100%;
+  }
+}
+
+@media only screen and (max-width: 855px) {
+  .upperDivider,
+  .footerLinks {
+    display: none;
+  }
+
+  .contactInfo{
+    flex-direction: column;
+  }
+}

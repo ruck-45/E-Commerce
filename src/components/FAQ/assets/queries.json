@@ -1,0 +1,122 @@
+[
+  {
+    "question": "Q. What is the Charles Investment Security Guarantee?",
+    "answer": [
+      {
+        "data": {
+          "main": "Under the Charles Investment Security Guarantee, Charles Investment will cover 100% of any losses in your Charles Investment accounts due to unauthorized activity. Read more at Charles Investment.com/guarantee.",
+          "points": []
+        },
+        "bullet": false
+      }
+    ]
+  },
+  {
+    "question": "Q. How much does it cost to work with Charles Investment?",
+    "answer": [
+      {
+        "data": {
+          "main": "$0 online listed stock, option, and ETF trade commissions1,2 Thousands of non-load, no-transaction-fee mutual funds3 No charge to work with a Charles Investment Financial Consultant (other account fees, fund expenses, and brokerage commissions may apply) *See all our pricing.",
+          "points": []
+        },
+        "bullet": false
+      },
+      {
+        "data": {
+          "main": "There are certain eligibility requirements for working with a dedicated Financial Consultant.",
+          "points": [
+            "Standard online $0 commission does not apply to over-the-counter (OTC) equities, transaction-fee mutual funds, futures, fixed-income investments, or trades placed directly on a foreign exchange or in the Canadian market. Options trades will be subject to the standard $0.65 per-contract fee. Service charges apply for trades placed through a broker ($25) or by automated phone ($5). Exchange process, ADR, and Stock Borrow fees still apply. See the Charles Charles Investment Pricing Guide for Individual Investors for full fee and commission schedules.",
+
+            "ETFs at Charles Charles Investment & Co., Inc. ('Charles Investment') which are U.S. exchange-listed can be traded without a commission on buy and sell transactions made online in a Charles Investment account. Unlisted ETFs are subject to a commission. Please see pricing guide for additional information. Charles Investment does not receive payment to promote any particular ETF to its customers. Charles Investment's affiliate Charles Charles Investment Investment Management, Inc. ('CSIM') serves as investment advisor to the Charles Investment ETFs, which compensate CSIM out of the applicable operating expense ratios. The amount of the fees is disclosed in the prospectus of each ETF.",
+
+            "Trades in no load funds available through Charles Investment's Mutual Fund OneSource® service (including Charles Investment Funds), as well as certain other funds, are available without transaction fees when placed through Charles Investment.com or our automated phone channels. For each of these trade orders placed through a broker, a $25 service charge applies. Charles Investment's short-term redemption fee of $49.95 will be charged on redemption of funds purchased through Mutual Fund OneSource® service and held for 90 days or less. Charles Investment reserves the right to change the funds we make available without transaction fees and to reinstate fees on any funds. Charles Charles Investment & Co., Inc. receives remuneration from fund companies participating in the Mutual Fund OneSource service for recordkeeping and shareholder services and other administrative services. Charles Investment also may receive remuneration from transaction fee fund companies for certain administrative services."
+          ]
+        },
+        "bullet": true
+      }
+    ]
+  },
+  {
+    "question": "Q. How do I open an account?",
+    "answer": [
+      {
+        "data": {
+          "main": "You can open an account online, by phone, or in one of over 300 branches. Click here to open an account online in about 10 minutes.",
+          "points": [
+            "Choose your account type",
+            "Complete an application",
+            "Get started funding and investing",
+            "Or call us at 800-435-4000 ",
+            "Or find a branch"
+          ]
+        },
+        "bullet": true
+      }
+    ]
+  },
+  {
+    "question": "Q. What kind of investment products does Charles Investment offer?",
+    "answer": [
+      {
+        "data": {
+          "main": "Charles Investment offers a wide selection of investment products to help you build a diversified portfolio and reach your goals.",
+          "points": []
+        },
+        "bullet": false
+      }
+    ]
+  },
+  {
+    "question": "Q. How easy is it to switch brokerage providers?",
+    "answer": [
+      {
+        "data": {
+          "main": "Moving your existing account to a new brokerage firm may seem daunting, but Charles Investment makes the process easy:",
+          "points": [
+            "Open a Charles Investment account.",
+            "Use our online account transfer tool to initiate the process and monitor progress.",
+            "View and access your assets in your Charles Investment account."
+          ]
+        },
+        "bullet": true
+      },
+      {
+        "data": {
+          "main": "Help? Our account transfer specialists can assist you every step of the way. Call us at 800-435-4000.",
+          "points": []
+        },
+        "bullet": false
+      },
+      {
+        "data": {
+          "main": "Click here to open a Charles Investment account or log in to begin the transfer process.",
+          "points": []
+        },
+        "bullet": false
+      }
+    ]
+  },
+  {
+    "question": "Q. Why should I bank with Charles Investment Bank?",
+    "answer": [
+      {
+        "data": {
+          "main": "This is why we think you should bank with Charles Investment Bank?",
+          "points": [
+            "You'll get unlimited ATM fee rebates4 plus no foreign transaction fees5 and have no account minimums while banking anytime, anywhere with Charles Investment Mobile6. The Charles Investment Bank High Yield Investor Checking®7 account is linked to a Charles Investment One® brokerage account so you can easily manage both accounts with a single login.",
+
+            "There are no monthly account service fees, you'll earn interest on your balance, and your account is FDIC-insured8 up to $250,000. You'll receive free standard checks once your account is funded with at least $100, and Charles Investment Bank Bill Pay™ will be activated and a Visa® Platinum Debit Card will be sent upon account opening."
+          ]
+        },
+        "bullet": true
+      },
+      {
+        "data": {
+          "main": "Open a Charles Investment Bank High Yield Investor Checking account or learn more.",
+          "points": []
+        },
+        "bullet": false
+      }
+    ]
+  }
+]

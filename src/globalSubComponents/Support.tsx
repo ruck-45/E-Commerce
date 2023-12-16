@@ -47,7 +47,7 @@ const Support = () => {
   return (
     <div className="p-[5rem] support flex flex-col justify-center items-center gap-[2rem]">
       <h1 className="font-['concert_one'] text-[2.5rem] font-semibold">Enhance Your Experince</h1>
-      <div className="grid grid-cols-3 gap-[2rem]">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[2rem]">
         {supportInfo.map((data, index) => (
           <Card isFooterBlurred radius="lg" className="border-none">
             <Image

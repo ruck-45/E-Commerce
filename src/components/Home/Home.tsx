@@ -14,6 +14,11 @@ const Home = () => {
   const dispatch = useDispatch();
   dispatch(updateTab("Home"));
 
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+
   return (
     <div>
       <HeroSection />

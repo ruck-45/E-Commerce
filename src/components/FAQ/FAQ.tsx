@@ -12,6 +12,11 @@ const FAQ = () => {
   const dispatch = useDispatch();
   dispatch(updateTab("FAQ"));
 
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+
   return (
     <div>
       <FAQIntro />

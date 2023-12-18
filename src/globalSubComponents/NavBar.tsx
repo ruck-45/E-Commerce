@@ -17,8 +17,7 @@ import {
   Listbox,
   ListboxItem,
 } from "@nextui-org/react";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { RiArrowDropDownLine } from "react-icons/ri";
 
@@ -26,18 +25,29 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import "./NavBar.css";
 import logo from "../globalAssets/logo.svg";
 import { RootState } from "../store/store";
+import { updateNavStatus } from "../store/navOpenStatusSlice";
 
 const menuItems = ["Home", "Services", "About", "Contact", "FAQ", "Log In"];
 
 const NavBar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const curTab = useSelector((state: RootState) => state.curTab.value);
+  const navOpenStatus = useSelector((state: RootState) => state.navOpenStatus.value);
+  const dispatch = useDispatch();
+
+  const setIsMenuOpen = () => {
+    dispatch(updateNavStatus(!navOpenStatus));
+  };
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen} className="dark bg-[black] h-[5rem] nav" maxWidth="xl" shouldHideOnScroll>
+    <Navbar
+      isMenuOpen={navOpenStatus}
+      onMenuOpenChange={setIsMenuOpen}
+      className="dark bg-[black] h-[5rem] nav"
+      maxWidth="xl"
+      shouldHideOnScroll
+    >
       <NavbarContent>
-        <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"} className="lg:hidden text-white" />
+        <NavbarMenuToggle aria-label={navOpenStatus ? "Close menu" : "Open menu"} className="lg:hidden text-white" />
         <Link to="../Home">
           <Image width={120} src={logo} alt="logo" radius="none" className="hidden lg:block" />
         </Link>
@@ -153,22 +163,30 @@ const NavBar = () => {
                   >
                     <Listbox aria-label="Services" color="danger">
                       <ListboxItem key="Investment" className="p-0" textValue="Investment">
-                        <Link style={{ display: "block", padding: "6px 8px" }} to={"./Investment"}>
+                        <Link
+                          style={{ display: "block", padding: "6px 8px" }}
+                          to={"./Investment"}
+                          onClick={setIsMenuOpen}
+                        >
                           Investment
                         </Link>
                       </ListboxItem>
                       <ListboxItem key="Crypto" className="p-0" textValue="Crypto">
-                        <Link style={{ display: "block", padding: "6px 8px" }} to={"./Crypto"}>
+                        <Link style={{ display: "block", padding: "6px 8px" }} to={"./Crypto"} onClick={setIsMenuOpen}>
                           Crypto
                         </Link>
                       </ListboxItem>
                       <ListboxItem key="Options" className="p-0" textValue="Options">
-                        <Link style={{ display: "block", padding: "6px 8px" }} to={"./Options"}>
+                        <Link style={{ display: "block", padding: "6px 8px" }} to={"./Options"} onClick={setIsMenuOpen}>
                           Options
                         </Link>
                       </ListboxItem>
                       <ListboxItem key="Retirement" className="p-0" textValue="Retirement">
-                        <Link style={{ display: "block", padding: "6px 8px" }} to={"./Retirement"}>
+                        <Link
+                          style={{ display: "block", padding: "6px 8px" }}
+                          to={"./Retirement"}
+                          onClick={setIsMenuOpen}
+                        >
                           Retirement
                         </Link>
                       </ListboxItem>
@@ -183,7 +201,7 @@ const NavBar = () => {
                 <Link
                   className={curTab === item ? "active" : "notActive"}
                   to={index === 5 ? "../Auth" : `../${item}`}
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={setIsMenuOpen}
                 >
                   {item}
                 </Link>

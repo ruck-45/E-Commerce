@@ -12,12 +12,12 @@ const HeroSection = () => {
   return (
     <div className="HeroSection flex flex-col justify-center items-center">
       <div className="flex flex-col justify-center items-center gap-[3rem] w-[100%] px-[3rem] py-[2rem] bg-[rgba(0,0,0,0.5)]">
-        <div className="flex flex-col items-center text-center text-[3rem] lg:text-[3.5rem]">
-          <span className="HeroHeading text-[white]">
+        <div className="flex flex-col items-center text-center text-[3rem] lg:text-[3.5rem] font-['Kalnia'] font-bold leading-[3.4rem] lg:leading-[4rem]">
+          <span className="text-[white]">
             Build <span className="text-[#f31260]">your</span> tomorrow
           </span>
 
-          <span className="HeroHeading text-[#f31260]">
+          <span className="text-[#f31260]">
             on a <span className="text-[white]">strong</span> foundation.
           </span>
         </div>

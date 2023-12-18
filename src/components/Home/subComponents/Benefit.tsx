@@ -30,7 +30,7 @@ const smallCardData = [
 
 const Benefit = () => {
   return (
-    <div className="p-[5rem] flex justify-center items-center benefit gap-[2rem]">
+    <div className="py-[5rem] lg:px-[5rem] flex justify-center items-center benefit gap-[2rem]">
       <Card className="max-w-[400px] p-[2rem] dark bg-[#F31260] shrink-0 benefitCard" isPressable>
         <CardHeader className="font-['Concert_One'] text-[3rem]">Our Benefit</CardHeader>
         <CardBody className="text-justify">
@@ -52,7 +52,13 @@ const Benefit = () => {
 
       <div className="flex gap-[2rem] hidden skillsChip">
         {smallCardData.map((data, index) => (
-          <MissionChip logo={data.logo} heading={data.heading} caption={data.caption} default={true}/>
+          <MissionChip
+            logo={data.logo}
+            heading={data.heading}
+            caption={data.caption}
+            default={true}
+            innerWrapperClassName = "w-[16rem]"
+          />
         ))}
       </div>
     </div>

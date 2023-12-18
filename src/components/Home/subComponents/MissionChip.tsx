@@ -6,6 +6,7 @@ type MissionChipProps = {
   heading: string;
   caption: string;
   default?: Boolean;
+  innerWrapperClassName?: string;
 };
 
 const MissionChip = (props: MissionChipProps) => {
@@ -24,9 +25,9 @@ const MissionChip = (props: MissionChipProps) => {
       }
       variant="flat"
       color={props.default ? "primary" : "danger"}
-      className="min-w-[15rem] min-h-[3rem] text-center py-[2rem] px-[0]"
+      className= "min-w-[15rem] min-h-[3rem] text-center py-[2rem] px-[0] "
     >
-      <div className="ml-[1rem] mr-[1.5rem]">
+      <div className={"ml-[1rem] mr-[1.5rem] " + props.innerWrapperClassName}>
         <h1 className="font-['poppins'] text-left text-[1rem]">{props.heading}</h1>
         <p className="text-left text-xs">{props.caption}</p>
       </div>

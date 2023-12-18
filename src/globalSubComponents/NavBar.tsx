@@ -145,8 +145,12 @@ const NavBar = () => {
           if (item === "Services") {
             return (
               <NavbarMenuItem key={`${item}-${index}`}>
-                <Accordion className="p-0 text-white" isCompact>
-                  <AccordionItem aria-label={item} title={item} className="dark ">
+                <Accordion className="p-0" isCompact>
+                  <AccordionItem
+                    aria-label={item}
+                    title={item}
+                    classNames={{ title: curTab === item ? "active" : "notActive", content: "text-white" }}
+                  >
                     <Listbox aria-label="Services" color="danger">
                       <ListboxItem key="Investment" className="p-0" textValue="Investment">
                         <Link style={{ display: "block", padding: "6px 8px" }} to={"./Investment"}>

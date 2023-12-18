@@ -1,10 +1,12 @@
 .active {
   color: #f31260;
   font-weight: 700;
+  font-size: large;
 }
 
 .notActive {
   color: white;
+  font-size: large;
 }
 
 .notActive:hover {

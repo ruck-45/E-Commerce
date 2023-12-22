@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { value: "" };
+const initialState = {
+  value: "",
+};
 
 const curTabSlice = createSlice({
   name: "curTab",

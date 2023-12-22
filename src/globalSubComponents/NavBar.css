@@ -1,5 +1,5 @@
 .active {
-  color: #f31260;
+  color: #f5a524;
   font-weight: 700;
   font-size: large;
 }
@@ -10,20 +10,20 @@
 }
 
 .notActive:hover {
-  color: #f31260;
+  color: #f5a524;
 }
 
 .nav {
-  font-family: "poppins";
+  font-family: "Acme";
 }
 
 .navActive::after {
   content: "";
   height: 0.25rem;
   border-radius: 1rem;
-  background-color: #f31260;
+  background-color: #f5a524;
   transform: translateY(1.75rem);
-  filter: drop-shadow(0 -0.3rem 0.4rem #f31260);
+  filter: drop-shadow(0 -0.3rem 0.4rem #f5a524);
 }
 
 .navActiveServices::after {
@@ -31,11 +31,48 @@
   height: 0.25rem;
   border-radius: 1rem;
   transform: translate(1.25rem, 1rem) !important;
-  background-color: #f31260;
+  background-color: #f5a524;
   max-width: 6rem;
-  filter: drop-shadow(0 -0.3rem 0.4rem #f31260);
+  filter: drop-shadow(0 -0.3rem 0.4rem #f5a524);
 }
 
 .logo {
   justify-content: center !important;
+}
+
+.ribbon {
+  background: radial-gradient(circle, #ffffff 10%, transparent 11%),
+    radial-gradient(circle at bottom left, #ffffff 5%, transparent 6%),
+    radial-gradient(circle at bottom right, #ffffff 5%, transparent 6%),
+    radial-gradient(circle at top left, #ffffff 5%, transparent 6%),
+    radial-gradient(circle at top right, #ffffff 5%, transparent 6%);
+  background-size: 1em 1em;
+  background-color: #e9ecef;
+  border: 3px solid black;
+
+}
+
+.slant-down {
+  position: relative;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 30px), 50% 100%, 0 calc(100% - 30px));
+}
+
+.left-ribbon-border {
+  position: absolute;
+  height: 7px;
+  width: 100%;
+  left: -4rem;
+  rotate: 21deg;
+  background-color: black;
+  top: 13.45rem;
+}
+
+.right-ribbon-border {
+  position: absolute;
+  height: 7px;
+  width: 100%;
+  right: -4rem;
+  rotate: -21deg;
+  background-color: black;
+  top: 13.45rem;
 }

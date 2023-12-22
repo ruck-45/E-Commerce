@@ -8,33 +8,35 @@ import Home from "./components/Home/Home";
 import About from "./components/About/About";
 import Contact from "./components/Contact/Contact";
 import FAQ from "./components/FAQ/FAQ";
+import Services from "./components/Services/Services";
 import Auth from "./components/Auth/Auth";
-import Investment from "./components/Investment/Investment";
-import Crypto from "./components/Crypto/Crypto";
-import Options from "./components/Options/Options";
-import Retirement from "./components/Retirement/Retirement";
 import Footer from "./globalSubComponents/Footer";
 import { RootState } from "./store/store";
+import HomeHero from "./globalAssets/HomeHero.png";
 
 function App() {
   const curTab = useSelector((state: RootState) => state.curTab.value);
 
   return (
     <>
-      {curTab === "Auth" ? null : <NavBar />}
-      <Routes>
-        <Route path="/" element={<Navigate to="/Home" />} />
-        <Route path="/Home" element={<Home />} />
-        <Route path="/About" element={<About />} />
-        <Route path="/Contact" element={<Contact />} />
-        <Route path="/FAQ" element={<FAQ />} />
-        <Route path="/Auth" element={<Auth />} />
-        <Route path="/Investment" element={<Investment />} />
-        <Route path="/Crypto" element={<Crypto />} />
-        <Route path="/Options" element={<Options />} />
-        <Route path="/Retirement" element={<Retirement />} />
-        <Route path="*" element={<Navigate to="/Home" />} />
-      </Routes>
+      <div
+        style={{
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.3) 20%,rgba(0,0,0,0.2)),url(${HomeHero})`,
+        }}
+        className="bg-no-repeat bg-top lg:bg-right-top bg-[#ef233c]"
+      >
+        {curTab === "Auth" ? null : <NavBar />}
+        <Routes>
+          <Route path="/" element={<Navigate to="/Home" />} />
+          <Route path="/Home" element={<Home />} />
+          <Route path="/About" element={<About />} />
+          <Route path="/Contact" element={<Contact />} />
+          <Route path="/FAQ" element={<FAQ />} />
+          <Route path="/Auth" element={<Auth />} />
+          <Route path="/Services" element={<Services />} />
+          <Route path="*" element={<Navigate to="/Home" />} />
+        </Routes>
+      </div>
       {curTab === "Auth" ? null : <Footer />}
     </>
   );

@@ -1,7 +1,16 @@
+.footer {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6) 20%, rgba(0, 0, 0, 0.6)), url("../globalAssets/FooterBg.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: right;
+}
+
 @media only screen and (max-width: 1231px) {
   .footer {
     padding-left: 10%;
     padding-right: 10%;
+    background-size: cover;
+  background-position: center;
   }
 
   .upperFooter {
@@ -19,7 +28,7 @@
     display: none;
   }
 
-  .contactInfo{
+  .contactInfo {
     flex-direction: column;
   }
 }

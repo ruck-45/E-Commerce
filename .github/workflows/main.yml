@@ -39,7 +39,7 @@ jobs:
           server: ftp.infinityfree.com
           username: ${{ secrets.ftp_username }}
           password: ${{ secrets.ftp_password }}
-          server-dir: /solutioncharl.wuaze.com/htdocs/
+          server-dir: /kreativemachinez.kesug.com/htdocs/
     
           
     

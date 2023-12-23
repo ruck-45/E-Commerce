@@ -1,0 +1,29 @@
+.img-after:after {
+  color: white;
+  position: absolute;
+  z-index: 100;
+  transform: translate(-50%, -50%);
+  font-family: 'DM Serif Display';
+  font-size: 1.5rem;
+}
+
+.smm:hover:after {
+  content: "Social Media Marketing";
+  font-size: 2rem;
+}
+
+.seo:hover:after {
+  content: "Search Engine Optimization";
+}
+
+.graph:hover:after {
+  content: "Graphic Design";
+}
+
+.web:hover:after {
+  content: "Website Development";
+}
+
+.analytics:hover:after {
+  content: "Web Analytics";
+}

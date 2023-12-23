@@ -1,55 +1,39 @@
 // Dependencies
-import { Image, Card, CardFooter } from "@nextui-org/react";
+import { Image, Card } from "@nextui-org/react";
 import { useState } from "react";
 
+// Local Files
+import "./ServiceImage.css";
+
 type ServiceImageProps = {
-  heading: string;
+  className: string;
   width: number;
   textSize: string;
   image: string;
 };
 
 const ServiceImage = (props: ServiceImageProps) => {
-  let [dropClassName, setDropClassName] = useState("hidden");
+  const className =
+    "rounded-none relative hover:before:content-[''] hover:before:absolute hover:before:top-0 hover:before:left-0 hover:before:z-[100]  hover:before:h-full hover:before:w-full hover:before:bg-[rgba(0,0,0,0.5)] img-after hover:after:top-1/2 hover:after:left-1/2 " +
+    props.className;
+
+  const [scaleUp, setScaleUp] = useState(false);
 
   return (
     <Card
       isFooterBlurred
-      radius="lg"
-      className="rounded-none"
-      onMouseEnter={() =>
-        setDropClassName("absolute w-full bg-[rgba(0,0,0,0.5)] justify-center shadow-small z-10 h-full")
-      }
-      onMouseOut={() => setDropClassName("hidden")}
+      className={className}
+      isPressable
+      onMouseEnter={() => setScaleUp(true)}
+      onMouseLeave={() => setScaleUp(false)}
     >
       <Image
-        className="object-cover"
+        className={scaleUp ? "object-cover scale-125" : "object-cover"}
         src={props.image}
         width={props.width}
         isBlurred
         radius="none"
-        onMouseEnter={() =>
-          setDropClassName("absolute w-full bg-[rgba(0,0,0,0.5)] justify-center shadow-small z-10 h-full")
-        }
-        onMouseOut={() => setDropClassName("hidden")}
       />
-      <CardFooter
-        className={dropClassName}
-        onMouseEnter={() =>
-          setDropClassName("absolute w-full bg-[rgba(0,0,0,0.5)] justify-center shadow-small z-10 h-full")
-        }
-        onMouseOut={() => setDropClassName("hidden")}
-      >
-        <p
-          className={`text-white text-[${props.textSize}] font-['DM_Serif_Display'] text-center`}
-          onMouseEnter={() =>
-            setDropClassName("absolute w-full bg-[rgba(0,0,0,0.5)] justify-center shadow-small z-10 h-full")
-          }
-          onMouseOut={() => setDropClassName("hidden")}
-        >
-          {props.heading}
-        </p>
-      </CardFooter>
     </Card>
   );
 };

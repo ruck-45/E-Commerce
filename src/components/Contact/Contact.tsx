@@ -7,15 +7,12 @@ import ContactInfo from "./subComponents/ContactInfo";
 import FrequentQuestion from "../../globalSubComponents/FrequentQuestion";
 import Contactmap from "./subComponents/Contactmap";
 import Intro from "../../globalSubComponents/Intro";
+import { scrollTop } from "../../utils/scrollTop";
 
 const Contact = () => {
   const dispatch = useDispatch();
   dispatch(updateTab("Contact"));
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
+  scrollTop();
 
   return (
     <div>

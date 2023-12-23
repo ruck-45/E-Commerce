@@ -7,15 +7,12 @@ import FAQIntro from "./subComponents/FAQIntro";
 import FAQAccordion from "./subComponents/FAQAccordion";
 import FAQTailCard from "./subComponents/FAQTailCard";
 import FAQBlog from "./subComponents/FAQBlog";
+import { scrollTop } from "../../utils/scrollTop";
 
 const FAQ = () => {
   const dispatch = useDispatch();
   dispatch(updateTab("FAQ"));
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
+  scrollTop();
 
   return (
     <div>

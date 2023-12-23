@@ -9,24 +9,21 @@ import Mission from "../../globalSubComponents/Mission";
 import Achievement from "./subComponents/Achievement";
 import Help from "./subComponents/Help";
 import Services from "./subComponents/Services";
+import { scrollTop } from "../../utils/scrollTop";
 
 const Home = () => {
   const dispatch = useDispatch();
   dispatch(updateTab("Home"));
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
+  scrollTop();
 
   return (
     <div>
       <HeroSection />
       <Benefit />
+      <Services />
       <Mission />
       <Achievement />
       <Help />
-      <Services />
     </div>
   );
 };

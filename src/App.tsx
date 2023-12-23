@@ -13,18 +13,28 @@ import Auth from "./components/Auth/Auth";
 import Footer from "./globalSubComponents/Footer";
 import { RootState } from "./store/store";
 import HomeHero from "./globalAssets/HomeHero.png";
+import ScrollToTop from "./globalSubComponents/ScrollToTop";
+import QuickContacts from "./globalSubComponents/QuickContacts";
 
 function App() {
   const curTab = useSelector((state: RootState) => state.curTab.value);
 
+  let className = "";
+  let background = "linear-gradient(rgba(0,0,0,0.3) 20%,rgba(0,0,0,0.2))";
+
+  switch (curTab) {
+    case "Home":
+      className = "bg-no-repeat bg-top lg:bg-right-top bg-[#ef233c]";
+      background += `,url(${HomeHero})`;
+      break;
+    
+    default:
+      break;
+  }
+
   return (
     <>
-      <div
-        style={{
-          backgroundImage: `linear-gradient(rgba(0,0,0,0.3) 20%,rgba(0,0,0,0.2)),url(${HomeHero})`,
-        }}
-        className="bg-no-repeat bg-top lg:bg-right-top bg-[#ef233c]"
-      >
+      <div style={{ backgroundImage: background }} className={className}>
         {curTab === "Auth" ? null : <NavBar />}
         <Routes>
           <Route path="/" element={<Navigate to="/Home" />} />
@@ -38,6 +48,8 @@ function App() {
         </Routes>
       </div>
       {curTab === "Auth" ? null : <Footer />}
+      {curTab === "Auth" ? null : <QuickContacts />}
+      {curTab === "Auth" ? null : <ScrollToTop />}
     </>
   );
 }

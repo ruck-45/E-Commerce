@@ -6,15 +6,12 @@ import { updateTab } from "../../store/curTabSlice";
 import Intro from "../../globalSubComponents/Intro";
 import Support from "../../globalSubComponents/Support";
 import CryptoStrategies from "./subComponents/CryptoStrategies";
+import { scrollTop } from "../../utils/scrollTop";
 
 const Crypto = () => {
   const dispatch = useDispatch();
   dispatch(updateTab("Services"));
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
+  scrollTop();
 
   return (
     <div>

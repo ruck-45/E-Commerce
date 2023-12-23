@@ -7,15 +7,12 @@ import Mission from "../../globalSubComponents/Mission";
 import Specialization from "./subComponents/Specialization";
 import FrequentQuestion from "../../globalSubComponents/FrequentQuestion";
 import Intro from "../../globalSubComponents/Intro";
+import { scrollTop } from "../../utils/scrollTop";
 
 const About = () => {
   const dispatch = useDispatch();
   dispatch(updateTab("About"));
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
+  scrollTop();
 
   return (
     <div>

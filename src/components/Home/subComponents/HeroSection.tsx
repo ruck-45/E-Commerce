@@ -1,6 +1,7 @@
 // Dependencies
 import { Button } from "@nextui-org/react";
 import { FaArrowCircleRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
@@ -20,10 +21,12 @@ const HeroSection = () => {
           variant="ghost"
           color="default"
           radius="full"
-          endContent={<FaArrowCircleRight className="mt-[0.2rem]" />}
-          className="w-[10rem] text-white hover:text-[#ef233c]"
+          endContent={<FaArrowCircleRight className="mt-[0.2rem] mr-[1rem]" />}
+          className="w-[8rem] p-0 gap-0 text-white hover:text-[#ef233c]"
         >
-          Learn More
+          <Link to="../About" className="p-[8px] grow">
+            Learn More
+          </Link>
         </Button>
       </div>
     </div>

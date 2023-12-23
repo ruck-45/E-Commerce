@@ -1,64 +1,51 @@
 // Dependencies
-import { Card, CardHeader, CardBody, CardFooter, Button } from "@nextui-org/react";
+import { Link } from "react-router-dom";
+import { Button } from "@nextui-org/react";
 import { FaArrowCircleRight } from "react-icons/fa";
-import { IoRocketSharp } from "react-icons/io5";
-import { FaThumbsUp } from "react-icons/fa";
-import { TbBulbFilled } from "react-icons/tb";
 
-// Local Files
-import './Benefit.css'
-import BenefitSmallCard from "./BenefitSmallCard";
-import MissionChip from "./MissionChip";
-
-const smallCardData = [
+const benefitData = [
   {
-    heading: "Fast Process",
-    caption: "Dedicated to providing a fast and efficient service.",
-    logo: <IoRocketSharp className="text-[2rem]" />,
+    heading: "Excellence",
+    caption: '"Empowering Brands, Inspiring Connections"',
+    content:
+      "We bring proven expertise, creative excellence, & a personalized approach to every project. With years of industry experience, we are committed to delivering results that set your brand apart in the digital landscape. Our client-centric approach ensures transparent communication, making your success our top priority. Elevate your brand with a digital partnership that goes beyond expectations.",
+    link: { text: "About Us", dest: "../About" },
   },
   {
-    heading: "Best Quality",
-    caption: "Elevating Your Financial Experience.",
-    logo: <FaThumbsUp className="text-[2rem]" />,
-  },
-  {
-    heading: "Solution",
-    caption: "Your Pathway to Financial Growth.",
-    logo: <TbBulbFilled className="text-[2rem]" />,
+    heading: "Solutions",
+    caption: '"Elevate Your Brand with Our Comprehensive Services"',
+    content:
+      "Our comprehensive digital marketing services encompass strategic planning, creative content creation, social media management, SEO optimization, and performance analytics. With a focus on tailored solutions, we amplify your online impact, driving engagement and conversions. Trust us to navigate the dynamic digital landscape, ensuring your brand stands out and thrives in the ever-evolving world of online marketing.",
+    link: { text: "Services", dest: "../Services" },
   },
 ];
 
 const Benefit = () => {
   return (
-    <div className="py-[5rem] lg:px-[5rem] flex justify-center items-center benefit gap-[2rem]">
-      <Card className="max-w-[400px] p-[2rem] dark bg-[#F31260] shrink-0 benefitCard" isPressable>
-        <CardHeader className="font-['Concert_One'] text-[3rem]">Our Benefit</CardHeader>
-        <CardBody className="text-justify">
-          Navigate the exciting world of trading and investing with confidence. Whether you’re a seasoned investor or
-          just starting out, we offer the tools, resources, and expertise you need to achieve your financial goals.
-        </CardBody>
-        <CardFooter>
-          <Button variant="light" radius="full" endContent={<FaArrowCircleRight className="mt-[0.2rem]" />}>
-            Learn More
-          </Button>
-        </CardFooter>
-      </Card>
+    <div className="flex justify-center items-center bg-[#e9ecef] lg:px-[6rem] gap-[3rem] lg:gap-[6rem] xl:px-[8rem] xl:gap-[8rem] flex-col lg:flex-row px-[3rem] py-[5rem] lg:p-0 ">
+      <h1 className="lg:py-[5rem] font-['lilita_one'] text-[4rem] lg:text-[5rem] lg:max-w-[25rem] leading-[5rem]">
+        Why Choose Us <span className="text-[#F31260]">?</span>
+      </h1>
+      <div className="grow flex lg:py-[5rem] xl:py-0 gap-[2rem] xl:gap-[5rem] flex-col xl:flex-row">
+        {benefitData.map((data, index) => (
+          <div key={index} className="xl:w-[50%] xl:py-[5rem] flex flex-col gap-[2rem]">
+            <div>
+              <h1 className="font-['DM_Serif_Display'] text-[2.5rem] font-semibold">{data.heading}</h1>
+              <p className="italic text-md text-default-800">{data.caption}</p>
+            </div>
+            <p className="text-justify text-default-500">{data.content}</p>
 
-      <div className="flex gap-[2rem] skills">
-        {smallCardData.map((data, index) => (
-          <BenefitSmallCard key={index} heading={data.heading} caption={data.caption} logo={data.logo} />
-        ))}
-      </div>
-
-      <div className="flex gap-[2rem] hidden skillsChip">
-        {smallCardData.map((data, index) => (
-          <MissionChip
-            logo={data.logo}
-            heading={data.heading}
-            caption={data.caption}
-            default={true}
-            innerWrapperClassName = "w-[16rem]"
-          />
+            <Button
+              variant="bordered"
+              radius="full"
+              endContent={<FaArrowCircleRight className="mt-[0.2rem] text-default-500 mr-[1rem]" />}
+              className="w-[8rem] p-0 gap-0"
+            >
+              <Link to={data.link.dest} className="p-[8px] grow">
+                {data.link.text}
+              </Link>
+            </Button>
+          </div>
         ))}
       </div>
     </div>

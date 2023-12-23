@@ -18,7 +18,7 @@ import logo from "../globalAssets/logo.svg";
 import { RootState } from "../store/store";
 import { updateNavStatus } from "../store/navOpenStatusSlice";
 
-const menuItems = ["Home", "Services", "About", "Contact", "FAQ", "Log In"];
+const menuItems = ["Home", "Services", "About", "Contact", "Pricing", "Log In"];
 
 const NavBar = () => {
   const curTab = useSelector((state: RootState) => state.curTab.value);
@@ -93,10 +93,10 @@ const NavBar = () => {
         </NavbarItem>
         <NavbarItem>
           <Link
-            to="../FAQ"
-            className={curTab === "FAQ" ? "active navActive flex flex-col px-[1rem]" : "notActive px-[1rem]"}
+            to="../Pricing"
+            className={curTab === "Pricing" ? "active navActive flex flex-col px-[1rem]" : "notActive px-[1rem]"}
           >
-            FAQ
+            PRICING
           </Link>
         </NavbarItem>
       </NavbarContent>
@@ -117,7 +117,7 @@ const NavBar = () => {
         </NavbarItem>
       </NavbarContent>
 
-      <NavbarMenu className="mt-[1rem] bg-[rgba(0,0,0,0.4)]">
+      <NavbarMenu className="mt-[1rem] bg-[rgba(0,0,0,0.4)] z-[200]">
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
             <Link

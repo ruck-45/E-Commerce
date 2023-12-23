@@ -9,7 +9,7 @@ import { TbWorldWww } from "react-icons/tb";
 import { RiComputerFill } from "react-icons/ri";
 
 // Local Files
-import "./Mission.css";
+import "./Offer.css";
 import MissionChip from "../components/Home/subComponents/MissionChip";
 
 const missionChips = [
@@ -25,9 +25,9 @@ const missionChips = [
   },
 ];
 
-const Mission = () => {
+const Offer = () => {
   return (
-    <div className="flex justify-center items-center p-[3rem] py-[5rem] bg-[white]">
+    <div className="flex justify-center items-center px-[0.5rem] sm:px-[3rem] py-[5rem] bg-[white]">
       <Card isBlurred className="border-none bg-transparent max-w-[80rem]">
         <CardBody>
           <div className="grid grid-cols-6 lg:grid-cols-12 gap-6 lg:gap-4 items-center justify-center">
@@ -42,13 +42,13 @@ const Mission = () => {
                     Unlock Your Digital Success
                   </h1>
                   <h1 className="font-['DM_Serif_Display']  font-bold text-[2.7rem] lg:text-[3rem] text-[#191f22] leading-[3.7rem] text-center lg:text-left">
-                    For $99 Only!
+                    For <span className="text-[#F31260]">$99</span> Only!
                   </h1>
                 </div>
                 <p className="text-justify text-default-500">
-                  For just $99 elevate your online presence with two free websites and essential services
-                  like SEO and web analytics. Unleash the power of digital marketing without the hefty price tag, seize
-                  this opportunity for your brand's success!
+                  For just $99 elevate your online presence with two free websites and essential services like SEO and
+                  web analytics. Unleash the power of digital marketing without the hefty price tag, seize this
+                  opportunity for your brand's success!
                 </p>
               </div>
 
@@ -86,4 +86,4 @@ const Mission = () => {
   );
 };
 
-export default Mission;
+export default Offer;

@@ -16,7 +16,7 @@ const Services = () => {
   }
 
   return (
-    <div className="flex flex-col md:flex-row">
+    <div className="flex flex-col md:flex-row bg-white">
       <ServiceImage className="smm" textSize="3rem" width={800} image={socialMedia} />
       <div className="grow grid grid-cols-1 md:grid-cols-2">
         <ServiceImage className="seo" textSize="2rem" width={miniWidth} image={seo} />

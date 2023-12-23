@@ -10,7 +10,7 @@ import city from '../assets/city.jpg';
 const Help = () => {
   return (
     <div className="bg-[white] flex">
-      <div className="flex justify-center lg:justify-start items-center grow p-[5rem] xl:ml-[2rem]">
+      <div className="flex justify-center lg:justify-start items-center grow px-[2rem] sm:px-[5rem] py-[5rem] xl:ml-[2rem]">
         <div className="max-w-[50rem] flex flex-col items-start gap-[3rem]">
           <div>
             <h1 className="font-['DM_Serif_Display'] font-bold text-[3rem] text-[#191f22] leading-[3.7rem]">
@@ -39,14 +39,7 @@ const Help = () => {
           </Button>
         </div>
       </div>
-      <Image
-        isBlurred
-        src={city}
-        alt="Help"
-        width={500}
-        radius="none"
-        className="border-[1rem] hidden lg:block"
-      />
+      <Image isBlurred src={city} alt="Help" width={500} radius="none" className="border-[1rem] hidden lg:block" />
     </div>
   );
 };

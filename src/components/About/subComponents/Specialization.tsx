@@ -1,68 +1,53 @@
 // Dependencies
-import { Image, Button, Progress } from "@nextui-org/react";
-import { FaArrowCircleRight } from "react-icons/fa";
+import { Chip } from "@nextui-org/react";
 
-const progressData = [
-  {
-    label: "Growth",
-    value: 85,
-  },
-  {
-    label: "Business Guidance",
-    value: 97,
-  },
-  {
-    label: "Industry Building",
-    value: 90,
-  },
+const serviceArea = [
+  "Photography",
+  "Education",
+  "Real Estate",
+  "Medical",
+  "Automobile",
+  "Insurance",
+  "Technology",
+  "Health",
+  "Hotel & Travel",
+  "Ecommerce",
 ];
 
 const Specialization = () => {
   return (
-    <div className="bg-[black] flex items-center justify-between text-white px-[1rem] lg:px-[5rem] py-[5rem] gap-[3rem]">
-      <div className="flex items-center w-full lg:w-[50%]">
-        <div className="w-full flex flex-col items-center lg:items-start gap-[3rem] ms-[3rem] lg:ms-[0]">
-          <div>
-            <h1 className="font-['Kalnia'] font-bold text-[2rem] lg:text-[3rem] leading-[2rem] lg:leading-[3.7rem] text-center lg:text-left">
-              Getting the Best Terms
-            </h1>
-            <h1 className="font-['Kalnia'] font-bold text-[2rem] lg:text-[3rem] leading-[2rem] lg:leading-[3.7rem] text-center lg:text-left">
-              On Your Investment
-            </h1>
-          </div>
-          <p>We specialize in securing optimal terms for your investment ventures.</p>
-
-          <div className="w-full flex flex-col gap-[1rem] items-center lg:items-start">
-            {progressData.map((data, indx) => (
-              <Progress
-                label={data.label}
-                size="sm"
-                value={data.value}
-                color="success"
-                showValueLabel={true}
-                className="max-w-md italic"
-              />
-            ))}
-          </div>
-
-          <Button
-            variant="shadow"
-            color="danger"
-            radius="full"
-            endContent={<FaArrowCircleRight className="mt-[0.2rem]" />}
-          >
-            Learn More
-          </Button>
-        </div>
+    <div className="bg-[black] flex flex-col items-center text-white px-[2rem] py-[5rem] gap-[3rem]">
+      <div className="text-center">
+        <h1 className="font-['lilita_one'] text-[3rem]">Our Area Of Service</h1>
+        <p className="text-default-400 max-w-[35rem]">
+          Explore our versatile services, spanning SEO, web design, analytics, and more tailored for diverse industries,
+          ensuring impactful online strategies.
+        </p>
       </div>
-      <Image
-        isBlurred
-        src="https://images.unsplash.com/photo-1573167036629-fd1d76448ddf?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        alt="Help"
-        width={500}
-        radius="none"
-        className="border border-[1rem] hidden lg:block rotate-3 hover:rotate-1"
-      />
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-[2rem]">
+        {serviceArea.map((data, index) => {
+          let baseClass = "h-[5rem] rounded-lg hover:scale-110 cursor-pointer duration-200";
+
+          if (index === 9) {
+            baseClass += " md:mx-auto md:col-span-3 lg:col-span-1 lg:mx-0";
+          }
+
+          return (
+            <Chip
+              key={index}
+              classNames={{
+                base: baseClass,
+                content: "w-[8rem] font-semibold text-center",
+              }}
+              size="lg"
+              color="warning"
+              variant="shadow"
+            >
+              {data}
+            </Chip>
+          );
+        })}
+      </div>
     </div>
   );
 };

@@ -20,7 +20,7 @@ const AboutUs = () => {
         </div>
         <Image width={350} src={who} alt="NextUI Album Cover" className="m-5" />
       </div>
-      <Divider className="max-w-[55rem] self-center" />
+      <Divider className="max-w-[28rem] sm:max-w-[36rem] md:max-w-[47rem] lg:max-w-[55rem] self-center" />
     </div>
   );
 };

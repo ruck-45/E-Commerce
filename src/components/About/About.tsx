@@ -9,6 +9,7 @@ import Intro from "../../globalSubComponents/Intro";
 import { scrollTop } from "../../utils/scrollTop";
 import AboutUs from "./subComponents/AboutUs";
 import AboutWork from "./subComponents/AboutWork";
+import Leadership from "./subComponents/Leadership";
 
 const About = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const About = () => {
       <AboutUs />
       <AboutWork />
       <Specialization />
+      <Leadership />
       <FrequentQuestion />
     </div>
   );

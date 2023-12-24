@@ -33,7 +33,7 @@ const NavBar = () => {
     <Navbar
       isMenuOpen={navOpenStatus}
       onMenuOpenChange={setIsMenuOpen}
-      className="h-[5rem] nav"
+      className="h-[5rem] nav z-[200]"
       maxWidth="xl"
       shouldHideOnScroll
       classNames={{ base: "bg-[rgba(0,0,0,0.4)]" }}

@@ -3,11 +3,11 @@ import { useDispatch } from "react-redux";
 
 // Local Files
 import { updateTab } from "../../store/curTabSlice";
-import ContactInfo from "./subComponents/ContactInfo";
 import FrequentQuestion from "../../globalSubComponents/FrequentQuestion";
 import Contactmap from "./subComponents/Contactmap";
 import Intro from "../../globalSubComponents/Intro";
 import { scrollTop } from "../../utils/scrollTop";
+import Info from "./subComponents/Info";
 
 const Contact = () => {
   const dispatch = useDispatch();
@@ -19,13 +19,11 @@ const Contact = () => {
       <Intro
         normalHead="✤ Contact "
         redHead="Us ✤"
-        caption="Have questions or need assistance? Contact our team for personalized support. We’re dedicated to addressing
-          your queries and ensuring a seamless experience with our services. Reach out via phone or email, and let us
-          assist you on your investment journey."
+        caption="Need help? Our team is here for you! Reach out for personalized support, whether it's about your website, social media, or any digital marketing need. Contact us via phone or email, and let's make your online journey smooth and successful."
       />
-      <ContactInfo />
-      <FrequentQuestion />
+      <Info />
       <Contactmap />
+      <FrequentQuestion />
     </div>
   );
 };

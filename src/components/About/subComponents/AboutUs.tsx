@@ -7,7 +7,7 @@ const AboutUs = () => {
     <div className="bg-[#e9ecef] flex flex-col">
       <div className="bg-[#e9ecef] flex flex-col items-center lg:flex-row justify-evenly px-[3rem] md:px-[5rem] lg:px-[8rem] py-[5rem] gap-[3rem]">
         <div className="flex flex-col gap-[1rem]">
-          <h1 className="font-['DM_Serif_Display'] text-[2.5rem] font-semibold">Who Are We ?</h1>
+          <h1 className="font-['DM_Serif_Display'] text-[2.5rem] font-semibold">Who We Are ?</h1>
           <p className="italic text-md text-default-800">" We Care for your Brand as Passionately as you do. "</p>
           <p className="text-justify text-default-500 text-[0.95rem] sm:text-md lg:max-w-[30rem]">
             Welcome to Kreative Machinez, a dynamic collective of designers, web developers, engineers, analysts,

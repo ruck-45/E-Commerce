@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { updateTab } from "../../store/curTabSlice";
 import HeroSection from "./subComponents/HeroSection";
 import WhyChooseUs from "./subComponents/WhyChooseUs";
-import Offer from "../../globalSubComponents/Offer";
+import Offer from "./subComponents/Offer";
 import Achievement from "./subComponents/Achievement";
 import Help from "./subComponents/Help";
 import Services from "./subComponents/Services";

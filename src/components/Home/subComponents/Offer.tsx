@@ -10,7 +10,7 @@ import { RiComputerFill } from "react-icons/ri";
 
 // Local Files
 import "./Offer.css";
-import MissionChip from "../components/Home/subComponents/MissionChip";
+import MissionChip from "../../../globalSubComponents/MissionChip";
 
 const missionChips = [
   {

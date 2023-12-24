@@ -20,8 +20,8 @@ const About = () => {
   return (
     <div>
       <Intro
-        normalHead="✤ About "
-        redHead="Us ✤"
+        normalHead=" About "
+        redHead="Us "
         caption="Your brand's digital success is our mission. With expertise, creativity, and a personal touch, we amplify your online presence. Join us to reshape your narrative, foster connections, and unlock growth."
       />
       <AboutUs />

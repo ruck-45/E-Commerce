@@ -33,21 +33,21 @@ const footerLinks = [
   {
     type: "Navigation",
     data: [
-      { key: "home", value: "Home" },
-      { key: "services", value: "Services" },
-      { key: "about", value: "About" },
-      { key: "contact", value: "Contact" },
-      { key: "faq", value: "FAQ" },
+      { key: "home", value: "Home", link: "Home", state: {} },
+      { key: "services", value: "Services", link: "Services", state: {} },
+      { key: "about", value: "About", link: "About", state: {} },
+      { key: "contact", value: "Contact", link: "Contact", state: {} },
+      { key: "pricing", value: "Pricing", link: "Pricing", state: {} },
     ],
   },
   {
     type: "Quick Links",
     data: [
-      { key: "investment", value: "Digital Marketing" },
-      { key: "crypto", value: "Search Engine Optimization" },
-      { key: "options", value: "Web Design & Development" },
-      { key: "retirement", value: "Paid Advertising" },
-      { key: "retirement", value: "Social Media Optimization" },
+      { key: "webdev", value: "Website Development", link: "Services/Individual", state: { id: 0 } },
+      { key: "seo", value: "Search Engine Optimization", link: "Services/Individual", state: { id: 1 } },
+      { key: "socialmarketing", value: "Social Media Marketing", link: "Services/Individual", state: { id: 2 } },
+      { key: "webanalytics", value: "Web Analytics", link: "Services/Individual", state: { id: 3 } },
+      { key: "graphicdesign", value: "Graphics Design", link: "Services/Individual", state: { id: 4 } },
     ],
   },
 ];
@@ -55,13 +55,17 @@ const footerLinks = [
 const Footer = () => {
   return (
     <>
-      <Button color="warning" className="w-full p-[3rem] font-['DM_Serif_Display'] text-[1rem] sm:text-[1.5rem]" radius="none">
+      <Button
+        color="warning"
+        className="w-full p-[3rem] font-['DM_Serif_Display'] text-[1rem] sm:text-[1.5rem]"
+        radius="none"
+      >
         ❝ We Care for your Brand as Passionately as You Do. ❞
       </Button>
       <div className="flex flex-col justify-center items-center py-[6rem] gap-[2rem] text-white footer">
         <div className="flex gap-[4rem] upperFooter">
           <div className="max-w-[20rem] flex flex-col gap-[2rem] companySection">
-            <Image width={170} src={logo} alt="logo" className="bg-white p-[1rem]"/>
+            <Image width={170} src={logo} alt="logo" className="bg-white p-[1rem]" />
             <p className="text-justify text-sm">
               At Kreative Machinez, we are a dynamic digital marketing agency dedicated to crafting innovative solutions
               for businesses seeking a powerful online presence. With a fusion of expertise and creativity, we
@@ -101,8 +105,10 @@ const Footer = () => {
                   <p className="font-['poppins'] text-[#F5A524] font-bold text-[1.1rem]">{ele.type}</p>
                   <Listbox items={ele.data} aria-label="navigation" className="dark" variant="light">
                     {(item) => (
-                      <ListboxItem key={item.key} className="px-[0]">
-                        <Link to={`../${item.value}`}>{item.value}</Link>
+                      <ListboxItem key={item.key} className="px-[0]" textValue={item.key}>
+                        <Link to={`../${item.link}`} state={item.state}>
+                          {item.value}
+                        </Link>
                       </ListboxItem>
                     )}
                   </Listbox>

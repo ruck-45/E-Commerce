@@ -17,8 +17,8 @@ const Pricing = () => {
   return (
     <div>
       <Intro
-        normalHead="✤ Pricing "
-        redHead="& FAQ ✤"
+        normalHead=" Pricing "
+        redHead="& FAQ "
         caption="Your partner in trading and investment. We simplify financial markets with tailored solutions and expert
           guidance. Whether you’re new or experienced, we’re here to support your financial journey."
       />

@@ -18,6 +18,7 @@ import HomeHero from "./globalAssets/HomeHero.png";
 import AboutHero from "./globalAssets/About.jpg";
 import ContactHero from "./globalAssets/contact.jpg";
 import PricingHero from "./globalAssets/Prices.png";
+import ServiceHero from "./globalAssets/Services.jpg";
 
 function App() {
   const curTab = useSelector((state: RootState) => state.curTab.value);
@@ -46,6 +47,11 @@ function App() {
       background += `,url(${PricingHero})`;
       break;
     
+    case "Services":
+      className = "bg-no-repeat bg-top";
+      background += `,url(${ServiceHero})`;
+      break;
+    
     default:
       break;
   }
@@ -61,7 +67,7 @@ function App() {
           <Route path="/Contact" element={<Contact />} />
           <Route path="/Pricing" element={<Pricing />} />
           <Route path="/Auth" element={<Auth />} />
-          <Route path="/Services" element={<Services />} />
+          <Route path="/Services/*" element={<Services />} />
           <Route path="*" element={<Navigate to="/Home" />} />
         </Routes>
       </div>

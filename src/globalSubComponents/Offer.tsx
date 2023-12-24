@@ -66,9 +66,9 @@ const Offer = () => {
                   color="secondary"
                   radius="full"
                   endContent={<FaArrowCircleRight className="mt-[0.2rem] mr-[1rem]" />}
-                  className="w-[8rem] p-0 gap-0"
+                  className="w-[9rem] p-0 gap-0"
                 >
-                  <Link to="../FAQ" className="p-[8px] grow">
+                  <Link to="../Pricing" className="p-[8px] grow">
                     Learn More
                   </Link>
                 </Button>

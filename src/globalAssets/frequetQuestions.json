@@ -1,0 +1,38 @@
+[
+  {
+    "question": "Q. What is the Role of Digital Marketing to a Company?",
+    "answer": [
+      {
+        "data": {
+          "main": "Digital marketing plays a pivotal role in enhancing a company's success by expanding its online presence, fostering brand awareness, and engaging target audiences. Through strategic channels like SEO, social media, and web analytics, it drives targeted traffic, amplifies brand messaging, and ensures measurable results. It enables businesses to connect with a global audience, optimize marketing strategies based on data insights, and ultimately, achieve sustainable growth in the dynamic digital landscape.",
+          "points": []
+        },
+        "bullet": false
+      }
+    ]
+  },
+  {
+    "question": "Q. Why SEO is Important for Your Business?",
+    "answer": [
+      {
+        "data": {
+          "main": "SEO is crucial for your business as it enhances online visibility, drives targeted traffic, and improves credibility. By optimizing your website for search engines, you increase the likelihood of attracting potential customers, ensuring your brand is easily discoverable in a competitive digital landscape.",
+          "points": []
+        },
+        "bullet": false
+      }
+    ]
+  },
+  {
+    "question": "Q. What services do you offer in digital marketing?",
+    "answer": [
+      {
+        "data": {
+          "main": "We offer a full spectrum of digital marketing services, including SEO optimization for higher search rankings, website design and development, social media marketing strategies, content creation, analytics for performance tracking, and personalized solutions. Our comprehensive approach ensures your brand's success and visibility in the competitive digital landscape.",
+          "points": []
+        },
+        "bullet": false
+      }
+    ]
+  }
+]

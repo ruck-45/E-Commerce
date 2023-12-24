@@ -26,7 +26,7 @@ const HeroSection = () => {
           color="default"
           radius="full"
           endContent={<FaArrowCircleRight className="mt-[0.2rem] mr-[1rem]" />}
-          className="w-[8rem] p-0 gap-0 text-white hover:text-[#ef233c]"
+          className="w-[9rem] p-0 gap-0 text-white hover:text-[#ef233c]"
         >
           <Link to="../About" className="p-[8px] grow">
             Learn More

@@ -54,7 +54,17 @@ const Offer = () => {
 
               <div className="flex flex-col gap-[1rem]">
                 {missionChips.map((data, index) => (
-                  <MissionChip key={index} logo={data.logo} heading={data.heading} caption={data.caption} />
+                  <MissionChip
+                    key={index}
+                    logo={data.logo}
+                    heading={data.heading}
+                    caption={data.caption}
+                    headingClass="font-['poppins']"
+                    chipvarient="flat"
+                    buttonvarient="flat"
+                    chipcolor="secondary"
+                    buttoncolor="secondary"
+                  />
                 ))}
               </div>
 

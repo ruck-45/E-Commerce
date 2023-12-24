@@ -23,25 +23,25 @@ const moral = [
 const contactChips = [
   {
     logo: <FaPhoneAlt className="text-[1.5rem]" />,
-    heading: "Call Us",
+    heading: "Call Us @ ",
     caption: "+1 (xxx) xxx-xxxx",
   },
   {
     logo: <FaLocationDot className="text-[1.5rem]" />,
-    heading: "Visit Us",
+    heading: "Visit Us @ ",
     caption: "London Eye, UK",
   },
   {
     logo: <MdEmail className="text-[1.5rem]" />,
-    heading: "Mail Us",
+    heading: "Mail Us @ ",
     caption: "support@kmachinez.com",
   },
 ];
 
 const Info = () => {
   return (
-    <div className="flex flex-col md:flex-row px-[3rem] lg:px-[5rem] py-[5rem] gap-[2rem] md:gap-[4rem] bg-[#e9ecef]">
-      <div className="flex flex-col gap-[2rem] max-w-[40rem]">
+    <div className="flex flex-col lg:flex-row px-[2rem] sm:px-[3rem] lg:px-[5rem] py-[5rem] gap-[2rem] lg:gap-[3rem] xl:gap-[4rem] bg-[#e9ecef] justify-center">
+      <div className="flex flex-col gap-[2rem] max-w-[40rem] mx-auto lg:mx-0">
         {moral.map((data, index) => (
           <div className="flex flex-col gap-[1rem]">
             <h1 className="font-['DM_Serif_Display'] text-[2.5rem] font-semibold">{data.heading}</h1>
@@ -52,9 +52,21 @@ const Info = () => {
       <div>
         <Divider orientation="vertical" className="h-full" />
       </div>
-      <div className="flex flex-col justify-center gap-[1rem] grow">
+      <div className="flex flex-col justify-center gap-[1rem] mx-auto lg:mx-0">
         {contactChips.map((data, index) => (
-          <MissionChip key={index} logo={data.logo} heading={data.heading} caption={data.caption} />
+          <MissionChip
+            key={index}
+            logo={data.logo}
+            heading={data.heading}
+            caption={data.caption}
+            headingClass="text-[1.25rem] sm:text-[1.6rem] font-['lilita_one']"
+            innerWrapperClass="flex flex-col sm:flex-row sm:items-center gap-[0.1rem] sm:gap-[0.5rem] text-default-800"
+            captionClass="sm:text-lg"
+            chipvarient="flat"
+            buttonvarient="shadow"
+            chipcolor="warning"
+            buttoncolor="warning"
+          />
         ))}
       </div>
     </div>

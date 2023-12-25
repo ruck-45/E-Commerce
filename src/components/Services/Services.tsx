@@ -14,14 +14,12 @@ const Services = () => {
   scrollTop();
 
   return (
-    <div>
-      <Routes>
-        <Route path="/" element={<Navigate to="./All" />} />
-        <Route path="/All" element={<AllServices />} />
-        <Route path="/Individual" element={<IndividualServices />} />
-        <Route path="*" element={<Navigate to="./All" />} />
-      </Routes>
-    </div>
+    <Routes>
+      <Route path="/" element={<Navigate to="./All" />} />
+      <Route path="/All" element={<AllServices />} />
+      <Route path="/Individual" element={<IndividualServices />} />
+      <Route path="*" element={<Navigate to="./All" />} />
+    </Routes>
   );
 };
 

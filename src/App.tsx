@@ -17,7 +17,7 @@ import { RootState } from "./store/store";
 import HomeHero from "./globalAssets/HomeHero.png";
 import AboutHero from "./globalAssets/About.jpg";
 import ContactHero from "./globalAssets/contact.svg";
-import PricingHero from "./globalAssets/Prices.png";
+import PricingHero from "./globalAssets/Prices.svg";
 import ServiceHero from "./globalAssets/Services.jpg";
 
 function App() {
@@ -43,7 +43,7 @@ function App() {
       break;
 
     case "Pricing":
-      className = "bg-no-repeat bg-top";
+      className = "";
       background += `,url(${PricingHero})`;
       break;
     

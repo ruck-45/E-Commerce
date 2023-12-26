@@ -17,6 +17,7 @@ import "./NavBar.css";
 import logo from "../globalAssets/logo.svg";
 import { RootState } from "../store/store";
 import { updateNavStatus } from "../store/navOpenStatusSlice";
+import { updateToLoginStatus } from "../store/toLoginSlice";
 
 const menuItems = ["Home", "Services", "About", "Contact", "Pricing", "Log In"];
 
@@ -25,14 +26,12 @@ const NavBar = () => {
   const navOpenStatus = useSelector((state: RootState) => state.navOpenStatus.value);
   const dispatch = useDispatch();
 
-  const setIsMenuOpen = () => {
-    dispatch(updateNavStatus(!navOpenStatus));
-  };
-
   return (
     <Navbar
       isMenuOpen={navOpenStatus}
-      onMenuOpenChange={setIsMenuOpen}
+      onMenuOpenChange={() => {
+        dispatch(updateNavStatus(!navOpenStatus));
+      }}
       className="h-[5rem] nav z-[200]"
       maxWidth="xl"
       shouldHideOnScroll
@@ -102,18 +101,26 @@ const NavBar = () => {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
-          <Link to="../Auth">
-            <Button color="warning" variant="bordered" radius="full">
+          <Button color="warning" variant="bordered" radius="full" className="p-0">
+            <Link
+              to="../Auth"
+              className="w-full px-[8px] py-[10px]"
+              onClick={() => dispatch(updateToLoginStatus(true))}
+            >
               Login
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </NavbarItem>
         <NavbarItem>
-          <Link to="../Auth">
-            <Button color="warning" variant="solid" radius="full" className="font-semibold">
+          <Button color="warning" variant="solid" radius="full" className="font-semibold p-0">
+            <Link
+              to="../Auth"
+              className="w-full px-[8px] py-[10px]"
+              onClick={() => dispatch(updateToLoginStatus(false))}
+            >
               Sign Up
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </NavbarItem>
       </NavbarContent>
 
@@ -123,7 +130,10 @@ const NavBar = () => {
             <Link
               className={curTab === item ? "active" : "notActive"}
               to={index === 5 ? "../Auth" : `../${item}`}
-              onClick={setIsMenuOpen}
+              onClick={() => {
+                dispatch(updateNavStatus(!navOpenStatus));
+                dispatch(updateToLoginStatus(item === "Log In" ? true : false));
+              }}
             >
               {item}
             </Link>

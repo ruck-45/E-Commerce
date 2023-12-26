@@ -5,20 +5,23 @@ import { FaFacebook } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { AiFillGoogleCircle, AiFillInstagram } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 // Local Files
 import "./UserAuth.css";
 import EyeFilledIcon from "./EyeFilledIcon";
 import EyeSlashFilledIcon from "./EyeSlashFilledIcon";
 import logo from "../../../globalAssets/logoDark.svg";
-
-// Utils
-const emailRe: RegExp = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}$/;
-const passwordRe: RegExp = /^[a-zA-Z0-9!@#$&*^%_\-+]+$/;
-const passwordSpclChar: RegExp = /[!@#$&*^%_\-+]/;
-const passwordLowCase: RegExp = /[a-z]/;
-const passwordHighCase: RegExp = /[A-Z]/;
-const passwordDigit: RegExp = /[0-9]/;
+import {
+  emailRe,
+  passwordRe,
+  passwordSpclChar,
+  passwordDigit,
+  passwordHighCase,
+  passwordLowCase,
+} from "../../../utils/authRegex";
+import { RootState } from "../../../store/store";
+import { updateToLoginStatus } from "../../../store/toLoginSlice";
 
 const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
   if (event.key === "Enter") {
@@ -28,12 +31,15 @@ const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
 
 const UserAuth = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [authStatus, setauthStatus] = useState(false);
+
+  const toLogin = useSelector((state: RootState) => state.toLogin.value);
 
   const toggleVisibility = () => setIsVisible(!isVisible);
+
+  const dispatch = useDispatch();
   const changeAuthStatus = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
-    setauthStatus(!authStatus);
+    dispatch(updateToLoginStatus(!toLogin));
   };
 
   const email = useRef("");
@@ -111,21 +117,21 @@ const UserAuth = () => {
 
   return (
     <form className="flex flex-col justify-center p-12 gap-3 Auth rounded-3xl">
-      <Link to='../Home'>
-        <Image width={120} src={logo} alt="logo" radius="none" className="mb-[1rem]" />
-      </Link>
+      {/* <Link to="../Home">
+        <Image width={70} src={logo} alt="logo" radius="none" className="mb-[1rem]" />
+      </Link> */}
       <div className="flex gap-2 font-semibold welcomeText">
-        <h1>Welcome to Charl Solutions </h1>
+        <h1>Welcome to Kreative Machinez </h1>
         <p>👋</p>
       </div>
-      <p className="text-xs mb-2">Please {authStatus ? "Login to" : "Create"} your account and start the adventure !</p>
+      <p className="text-xs mb-2">Please {toLogin ? "Login to" : "Create"} your account and start the adventure !</p>
       <Input
         type="text"
         label="Username"
         labelPlacement="outside"
         placeholder="Enter your username"
         isClearable
-        className={authStatus ? "hidden" : ""}
+        className={toLogin ? "hidden" : ""}
         onKeyDown={handleKeyPress}
         isInvalid={usernameState}
         errorMessage={usernameState ? invalidUsernameMessage : ""}
@@ -165,7 +171,7 @@ const UserAuth = () => {
         label="Confirm Password"
         labelPlacement="outside"
         placeholder="Confirm your password"
-        className={authStatus ? "hidden" : ""}
+        className={toLogin ? "hidden" : ""}
         endContent={<button className="focus:outline-none" type="button" onClick={toggleVisibility}></button>}
         type={isVisible ? "text" : "password"}
         onKeyDown={handleKeyPress}
@@ -173,17 +179,17 @@ const UserAuth = () => {
         errorMessage={confirmPasswordState ? "Passwords do not match" : ""}
         onChange={checkConfirmPassword}
       />
-      <p className={authStatus ? "text-xs text-right cursor-pointer" : "hidden"} style={{ color: "#006FEE" }}>
+      <p className={toLogin ? "text-xs text-right cursor-pointer" : "hidden"} style={{ color: "#006FEE" }}>
         Forgot Password?
       </p>
-      <Checkbox defaultSelected size="sm" className={authStatus ? "" : "hidden"}>
+      <Checkbox defaultSelected size="sm" className={toLogin ? "" : "hidden"}>
         Remember Me
       </Checkbox>
       <Button className="mt-2 mb-2" color="primary" variant="shadow">
         Submit
       </Button>
       <p className="text-xs text-center">
-        {authStatus ? "New to our platform?" : "Already have an account?"}
+        {toLogin ? "New to our platform?" : "Already have an account?"}
         &nbsp;
         <button
           style={{ color: "#006FEE" }}
@@ -191,15 +197,15 @@ const UserAuth = () => {
             changeAuthStatus(e);
           }}
         >
-          {authStatus ? "Create an account" : "Login"}
+          {toLogin ? "Create an account" : "Login"}
         </button>
       </p>
-      <div className={authStatus ? "flex items-center justify-center gap-5 overflow-hidden mt-1 mb-1" : "hidden"}>
+      <div className={toLogin ? "flex items-center justify-center gap-5 overflow-hidden mt-1 mb-1" : "hidden"}>
         <div className="Divider"></div>
         <p className="text-sm">or</p>
         <div className="Divider"></div>
       </div>
-      <div className={authStatus ? "flex justify-center items-center gap-3" : "hidden"}>
+      <div className={toLogin ? "flex justify-center items-center gap-3" : "hidden"}>
         <Button className="text-2xl" isIconOnly color="danger" variant="flat">
           <AiFillInstagram />
         </Button>

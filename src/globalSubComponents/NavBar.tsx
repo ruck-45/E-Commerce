@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 // Local Files
 import "./NavBar.css";
 import logo from "../globalAssets/logo.svg";
+import icon from "../globalAssets/icon.svg";
 import { RootState } from "../store/store";
 import { updateNavStatus } from "../store/navOpenStatusSlice";
 import { updateToLoginStatus } from "../store/toLoginSlice";
@@ -41,7 +42,7 @@ const NavBar = () => {
         <NavbarMenuToggle aria-label={navOpenStatus ? "Close menu" : "Open menu"} className="lg:hidden text-white" />
         <Link to="../Home">
           <div className="bg-white p-[1rem] pb-[2rem] ribbon slant-down hidden lg:block">
-            <Image width={120} src={logo} alt="logo" radius="none" className="mt-[5rem]" />
+            <Image width={90} src={logo} alt="logo" radius="none" className="mt-[5rem]" />
             <div className="left-ribbon-border"></div>
             <div className="right-ribbon-border"></div>
           </div>
@@ -49,8 +50,8 @@ const NavBar = () => {
       </NavbarContent>
       <NavbarContent className="lg:hidden logo">
         <Link to="../Home">
-          <div className="bg-white px-[1rem] flex justify-center items-center max-h-[5rem] ribbon rounded-xl">
-            <Image width={100} src={logo} alt="logo" radius="none" className="" />
+          <div className="bg-white p-[1rem] flex justify-center items-center max-h-[5rem] ribbon">
+            <Image width={60} src={icon} alt="logo" radius="none" />
           </div>
         </Link>
       </NavbarContent>

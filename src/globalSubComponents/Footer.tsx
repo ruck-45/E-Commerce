@@ -65,7 +65,7 @@ const Footer = () => {
       <div className="flex flex-col justify-center items-center py-[6rem] gap-[2rem] text-white footer">
         <div className="flex gap-[4rem] upperFooter">
           <div className="max-w-[20rem] flex flex-col gap-[2rem] companySection">
-            <Image width={170} src={logo} alt="logo" className="bg-white p-[1rem]" />
+            <Image width={150} src={logo} alt="logo" className="bg-white p-[1rem]" />
             <p className="text-justify text-sm">
               At Kreative Machinez, we are a dynamic digital marketing agency dedicated to crafting innovative solutions
               for businesses seeking a powerful online presence. With a fusion of expertise and creativity, we

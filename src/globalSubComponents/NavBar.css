@@ -61,18 +61,18 @@
   position: absolute;
   height: 7px;
   width: 100%;
-  left: -4rem;
-  rotate: 21deg;
+  left: -1rem;
+  rotate: 25deg;
   background-color: black;
-  top: 13.45rem;
+  top: 15.50rem;
 }
 
 .right-ribbon-border {
   position: absolute;
   height: 7px;
   width: 100%;
-  right: -4rem;
-  rotate: -21deg;
+  right: -1rem;
+  rotate: -25deg;
   background-color: black;
-  top: 13.45rem;
+  top: 15.50rem;
 }

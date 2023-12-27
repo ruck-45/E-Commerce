@@ -2,11 +2,11 @@
 import ServiceImage from "./ServiceImage";
 
 // Local Files
-import socialMedia from "../assets/socialMedia.png";
-import seo from "../assets/seo.png";
+import socialMedia from "../assets/socialMedia.jpg";
+import seo from "../assets/seo.jpg";
 import webDev from "../assets/webDev.jpg";
 import graphic from "../assets/graphic.jpg";
-import analytics from "../assets/analytics.png";
+import analytics from "../assets/analytics.jpg";
 
 const Services = () => {
   let miniWidth = 400;

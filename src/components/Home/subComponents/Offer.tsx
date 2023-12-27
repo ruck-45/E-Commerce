@@ -62,8 +62,8 @@ const Offer = () => {
                     headingClass="font-['poppins']"
                     chipvarient="flat"
                     buttonvarient="flat"
-                    chipcolor="secondary"
-                    buttoncolor="secondary"
+                    chipcolor="danger"
+                    buttoncolor="danger"
                   />
                 ))}
               </div>
@@ -72,8 +72,8 @@ const Offer = () => {
 
               <div className="flex justify-between">
                 <Button
-                  variant="ghost"
-                  color="secondary"
+                  variant="bordered"
+                  color="danger"
                   radius="full"
                   endContent={<FaArrowCircleRight className="mt-[0.2rem] mr-[1rem]" />}
                   className="w-[9rem] p-0 gap-0"

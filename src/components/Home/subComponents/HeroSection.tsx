@@ -1,12 +1,15 @@
 // Dependencies
-import { Button } from "@nextui-org/react";
+import { Button, Image } from "@nextui-org/react";
 import { FaArrowCircleRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
+
+// Local Files
+import HeroAsset from "../assets/HeroAsset.svg";
 
 const HeroSection = () => {
   return (
     <div className="h-[40rem] flex items-center text-white">
-      <div className="w-full flex flex-col items-center lg:items-start gap-[2rem] py-[3rem] px-[1rem] lg:px-[6rem] xl:px-[8rem] bg-[rgba(0,0,0,0.5)] xl:bg-transparent">
+      <div className="w-full flex flex-col items-center lg:items-start gap-[2rem] py-[3rem] px-[1rem] lg:px-[6rem] xl:px-[8rem] bg-[rgba(0,0,0,0.5)] lg:bg-transparent">
         <div>
           <h1 className="font-['rubik_doodle_shadow'] text-[4rem] sm:text-[5rem] leading-[4rem] text-center lg:text-left">
             Kreative
@@ -33,6 +36,7 @@ const HeroSection = () => {
           </Link>
         </Button>
       </div>
+      <Image width={1000} src={HeroAsset} className="translate-x-[25%] hidden lg:block" />
     </div>
   );
 };

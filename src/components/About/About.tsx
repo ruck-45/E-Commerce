@@ -18,8 +18,10 @@ const About = () => {
   scrollTop();
 
   let callOffset = 650;
+  let emailoffset = 1150;
   if (window.innerWidth <= 1024) {
     callOffset = 1000;
+    emailoffset = 1650;
   }
 
   return (
@@ -47,6 +49,7 @@ const About = () => {
         showArrow={true}
         text2="Email Us."
         to="../Contact"
+        offset={emailoffset}
       />
       <Clients />
     </div>

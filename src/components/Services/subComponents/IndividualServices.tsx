@@ -10,7 +10,7 @@ import socialmedia from "../assets/socialmedia.svg";
 import webanalytics from "../assets/webanalytics.svg";
 import graphics from "../assets/graphics.svg";
 import email from "../assets/email.svg";
-import { scrollTop } from "../../../utils/scrollTop";
+import { scrollTop } from "../../../utils/controllers";
 
 const thumbnails = [webdev, seo, socialmedia, webanalytics, graphics, email];
 

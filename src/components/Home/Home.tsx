@@ -12,7 +12,7 @@ import Services from "./subComponents/Services";
 import Specialization from "../../globalSubComponents/Specialization";
 import Clients from "../../globalSubComponents/Clients";
 import CTA from "../../globalSubComponents/CTA";
-import { scrollTop } from "../../utils/scrollTop";
+import { scrollTop } from "../../utils/controllers";
 
 const Home = () => {
   const dispatch = useDispatch();

@@ -3,7 +3,7 @@ import { Button } from "@nextui-org/react";
 import { BiSolidArrowToTop } from "react-icons/bi";
 
 // Local Files
-import { scrollTop } from "../utils/scrollTop";
+import { scrollTop } from "../utils/controllers";
 
 const ScrollToTop = () => {
   return (

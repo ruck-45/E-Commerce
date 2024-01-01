@@ -4,3 +4,4 @@ export const scrollTop = (offset?: number) => {
     behavior: "smooth",
   });
 };
+

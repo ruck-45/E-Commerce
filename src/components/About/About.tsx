@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { updateTab } from "../../store/curTabSlice";
 import Specialization from "../../globalSubComponents/Specialization";
 import Intro from "../../globalSubComponents/Intro";
-import { scrollTop } from "../../utils/scrollTop";
+import { scrollTop } from "../../utils/controllers";
 import AboutUs from "./subComponents/AboutUs";
 import AboutWork from "./subComponents/AboutWork";
 import Leadership from "./subComponents/Leadership";

@@ -11,6 +11,8 @@ import Pricing from "./components/Pricing/Pricing";
 import Services from "./components/Services/Services";
 import Auth from "./components/Auth/Auth";
 import Footer from "./globalSubComponents/Footer";
+import FrequentQuestion from "./globalSubComponents/FrequentQuestion";
+import CTA from "./globalSubComponents/CTA";
 import QuickContacts from "./globalSubComponents/QuickContacts";
 import ScrollToTop from "./globalSubComponents/ScrollToTop";
 import { RootState } from "./store/store";
@@ -71,6 +73,10 @@ function App() {
           <Route path="*" element={<Navigate to="/Home" />} />
         </Routes>
       </div>
+      {curTab === "Auth" || curTab === "Pricing" || curTab === "Services" ? null : <FrequentQuestion />}
+      {curTab === "Auth" ? null : (
+        <CTA text="❝ We Care for your Brand as Passionately as You Do. ❞" color="warning" showArrow={false} />
+      )}
       {curTab === "Auth" ? null : <Footer />}
       {curTab === "Auth" ? null : <QuickContacts />}
       {curTab === "Auth" ? null : <ScrollToTop />}

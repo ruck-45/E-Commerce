@@ -1,9 +1,9 @@
 // Dependencies
 import { useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 // Local Files
 import { updateTab } from "../../store/curTabSlice";
-import FrequentQuestion from "../../globalSubComponents/FrequentQuestion";
 import Contactmap from "./subComponents/Contactmap";
 import Intro from "../../globalSubComponents/Intro";
 import { scrollTop } from "../../utils/scrollTop";
@@ -12,7 +12,10 @@ import Info from "./subComponents/Info";
 const Contact = () => {
   const dispatch = useDispatch();
   dispatch(updateTab("Contact"));
-  scrollTop();
+
+  const location = useLocation();
+  const { offset } = location.state || {};
+  scrollTop(offset);
 
   return (
     <div>
@@ -23,7 +26,6 @@ const Contact = () => {
       />
       <Info />
       <Contactmap />
-      <FrequentQuestion />
     </div>
   );
 };

@@ -12,7 +12,7 @@ const ScrollToTop = () => {
       color="warning"
       aria-label="LinkTop"
       className="fixed bottom-[1rem] right-[1rem] z-[100]"
-      onClick={scrollTop}
+      onClick={() => scrollTop()}
       variant="shadow"
       radius="full"
     >

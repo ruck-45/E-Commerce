@@ -24,7 +24,7 @@ const contactChips = [
   {
     logo: <FaPhoneAlt className="text-[1.5rem]" />,
     heading: "Call Us @ ",
-    caption: "+1 (xxx) xxx-xxxx",
+    caption: "+1 (844) 671-7473",
   },
   {
     logo: <FaLocationDot className="text-[1.5rem]" />,

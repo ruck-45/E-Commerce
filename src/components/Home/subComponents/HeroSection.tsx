@@ -4,6 +4,7 @@ import { FaArrowCircleRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 // Local Files
+import "./HeroSection.css";
 import HeroAsset from "../assets/HeroAsset.svg";
 
 const HeroSection = () => {
@@ -36,7 +37,9 @@ const HeroSection = () => {
           </Link>
         </Button>
       </div>
-      <Image width={1000} src={HeroAsset} className="translate-x-[25%] hidden lg:block" />
+      <div className="translate-x-[25%] hidden lg:block">
+        <Image width={1000} src={HeroAsset} className="rotating" />
+      </div>
     </div>
   );
 };

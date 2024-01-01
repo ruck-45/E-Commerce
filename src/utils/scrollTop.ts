@@ -1,6 +1,6 @@
-export const scrollTop = () => {
+export const scrollTop = (offset?: number) => {
   window.scrollTo({
-    top: 0,
+    top: offset ? offset : 0,
     behavior: "smooth",
   });
 };

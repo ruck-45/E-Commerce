@@ -3,19 +3,24 @@ import { useDispatch } from "react-redux";
 
 // Local Files
 import { updateTab } from "../../store/curTabSlice";
-import Specialization from "./subComponents/Specialization";
-import FrequentQuestion from "../../globalSubComponents/FrequentQuestion";
+import Specialization from "../../globalSubComponents/Specialization";
 import Intro from "../../globalSubComponents/Intro";
 import { scrollTop } from "../../utils/scrollTop";
 import AboutUs from "./subComponents/AboutUs";
 import AboutWork from "./subComponents/AboutWork";
 import Leadership from "./subComponents/Leadership";
-import Clients from "./subComponents/Clients";
+import Clients from "../../globalSubComponents/Clients";
+import CTA from "../../globalSubComponents/CTA";
 
 const About = () => {
   const dispatch = useDispatch();
   dispatch(updateTab("About"));
   scrollTop();
+
+  let callOffset = 650;
+  if (window.innerWidth <= 1024) {
+    callOffset = 1000;
+  }
 
   return (
     <div>
@@ -26,10 +31,24 @@ const About = () => {
       />
       <AboutUs />
       <AboutWork />
+      <CTA
+        text="Want To Boost Your Online Presence ?"
+        color="warning"
+        showArrow={true}
+        text2="Call Us Now !"
+        to="../Contact"
+        offset={callOffset}
+      />
       <Specialization />
       <Leadership />
+      <CTA
+        text="Maximize Your Impact & Get Noticed Now !"
+        color="warning"
+        showArrow={true}
+        text2="Email Us."
+        to="../Contact"
+      />
       <Clients />
-      <FrequentQuestion />
     </div>
   );
 };

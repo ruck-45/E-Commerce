@@ -12,6 +12,7 @@ import Services from "./subComponents/Services";
 import Specialization from "../../globalSubComponents/Specialization";
 import Clients from "../../globalSubComponents/Clients";
 import CTA from "../../globalSubComponents/CTA";
+import Youtube from "./subComponents/Youtube";
 import { scrollTop } from "../../utils/controllers";
 
 const Home = () => {
@@ -41,6 +42,7 @@ const Home = () => {
       <Services />
       <Offer />
       <Achievement />
+      <Youtube />
       <CTA
         text="Maximize Your Impact & Get Noticed Now !"
         color="warning"

@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { SiFacebook } from "react-icons/si";
 import { TbBrandYoutubeFilled } from "react-icons/tb";
 import { FaSquareXTwitter, FaPhone } from "react-icons/fa6";
+import { AiFillInstagram } from "react-icons/ai";
+import { FaPinterest } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { IoLocation } from "react-icons/io5";
 
@@ -14,17 +16,17 @@ import logo from "../globalAssets/logo.svg";
 const contactInfo = [
   {
     name: "Phone",
-    value: "+1 (844) 671-7473",
+    value: "+1 (845) 687-3270",
     icon: <FaPhone />,
   },
   {
     name: "Email",
-    value: "support@kmachinez.com",
+    value: "support@hmsfreedom.com",
     icon: <MdEmail />,
   },
   {
     name: "Address",
-    value: "London Eye, UK",
+    value: "Unit-544, McCabe Street, Port Charlotte, Florida, USA",
     icon: <IoLocation />,
   },
 ];
@@ -65,9 +67,21 @@ const Footer = () => {
             motto : "Empowering Brands, Inspiring Connections"
           </p>
           <div className="flex text-[1.8rem] gap-[1rem]">
-            <SiFacebook className="mt-[0.4rem] cursor-pointer hover:scale-105" />
-            <FaSquareXTwitter className="mt-[0.4rem] cursor-pointer hover:scale-105" />
-            <TbBrandYoutubeFilled className="mt-[0.4rem] cursor-pointer hover:scale-105" />
+            <a href="https://www.facebook.com/profile.php?id=61554936182745" target="_blank" rel="noreferrer">
+              <SiFacebook className="mt-[0.4rem] cursor-pointer hover:scale-105" />
+            </a>
+            <a href="https://twitter.com/Kreativemachinz " target="_blank" rel="noreferrer">
+              <FaSquareXTwitter className="mt-[0.4rem] cursor-pointer hover:scale-105" />
+            </a>
+            <a href="https://www.youtube.com/@KreativeMachinez-23" target="_blank" rel="noreferrer">
+              <TbBrandYoutubeFilled className="mt-[0.4rem] cursor-pointer hover:scale-105" />
+            </a>
+            <a href="https://www.instagram.com/kreativemachinez23/" target="_blank" rel="noreferrer">
+              <AiFillInstagram className="mt-[0.4rem] cursor-pointer hover:scale-105" />
+            </a>
+            <a href="https://www.pinterest.com/KreativeMachinez23/ " target="_blank" rel="noreferrer">
+              <FaPinterest className="mt-[0.4rem] cursor-pointer hover:scale-105" />
+            </a>
           </div>
         </div>
 
@@ -80,7 +94,7 @@ const Footer = () => {
                 </Button>
                 <div className="font-['poppins']">
                   <h1 className="text-[#F5A524] font-bold text-[1.2rem]">{data.name}</h1>
-                  <p className="text-sm">{data.value}</p>
+                  <p className="text-sm max-w-[15rem]">{data.value}</p>
                 </div>
               </div>
             ))}

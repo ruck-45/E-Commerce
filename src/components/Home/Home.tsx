@@ -13,6 +13,7 @@ import Specialization from "../../globalSubComponents/Specialization";
 import Clients from "../../globalSubComponents/Clients";
 import CTA from "../../globalSubComponents/CTA";
 import Youtube from "./subComponents/Youtube";
+import Testimonials from "./subComponents/Testimonials";
 import { scrollTop } from "../../utils/controllers";
 
 const Home = () => {
@@ -62,6 +63,7 @@ const Home = () => {
         offset={callOffset}
       />
       <Specialization />
+      <Testimonials />
     </div>
   );
 };

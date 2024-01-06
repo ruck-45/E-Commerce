@@ -1,11 +1,10 @@
 // Dependencies
-import { Image, Button } from "@nextui-org/react";
+import { Image } from "@nextui-org/react";
 import { FaArrowCircleRight } from "react-icons/fa";
-import { Link } from "react-router-dom";
 
 // Local Files
-import city from '../assets/city.jpg';
-
+import city from "../assets/city.jpg";
+import ButtonElement from "../../../globalElements/ButtonElement";
 
 const Help = () => {
   return (
@@ -26,17 +25,14 @@ const Help = () => {
             success to your business online. Let's grow together in the digital world, hand in hand.
           </p>
 
-          <Button
+          <ButtonElement
+            to="../About"
             variant="light"
             color="danger"
+            label="Learn More"
             radius="full"
-            endContent={<FaArrowCircleRight className="mt-[0.2rem] mr-[1rem]" />}
-            className="w-[8rem] p-0 gap-0"
-          >
-            <Link to="../About" className="p-[8px] grow">
-              Learn More
-            </Link>
-          </Button>
+            endContent={<FaArrowCircleRight className="mt-[0.2rem] ml-[1rem]" />}
+          />
         </div>
       </div>
       <Image isBlurred src={city} alt="Help" width={500} radius="none" className="border-[1rem] hidden lg:block" />

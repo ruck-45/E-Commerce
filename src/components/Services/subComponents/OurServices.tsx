@@ -1,7 +1,10 @@
 // Dependencies
-import { Divider, Button } from "@nextui-org/react";
-import { Link } from "react-router-dom";
+import { Divider } from "@nextui-org/react";
 import { FaArrowCircleRight } from "react-icons/fa";
+
+// Local Files
+import ButtonElement from "../../../globalElements/ButtonElement";
+
 
 const serviceInfo = [
   {
@@ -52,17 +55,16 @@ const OurServices = () => {
           <div key={index} className="flex flex-col gap-[1rem]">
             <h1 className="font-['DM_Serif_Display'] text-[2rem] font-semibold">{data.heading}</h1>
             <p className="text-justify text-default-500 text-[0.95rem] sm:text-md">{data.content}</p>
-            <Button
+            <ButtonElement
+              to="../Individual"
               variant="ghost"
               color="warning"
+              label="Learn More"
               radius="full"
-              endContent={<FaArrowCircleRight className="mt-[0.2rem] mr-[1rem]" />}
-              className="w-[8rem] p-0 gap-0"
-            >
-              <Link to="../Individual" state={{ id: index }} className="p-[8px] grow">
-                Learn More
-              </Link>
-            </Button>
+              endContent={<FaArrowCircleRight className="mt-[0.2rem] ml-[1rem]" />}
+              state={{ id: index }}
+              className="w-[9rem] p-0 gap-0 mt-[1rem]"
+            />
           </div>
         ))}
       </div>

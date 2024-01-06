@@ -1,7 +1,8 @@
 // Dependencies
-import { Link } from "react-router-dom";
-import { Button } from "@nextui-org/react";
 import { FaArrowCircleRight } from "react-icons/fa";
+
+// Local Files
+import ButtonElement from "../../../globalElements/ButtonElement";
 
 const benefitData = [
   {
@@ -35,16 +36,14 @@ const WhyChooseUs = () => {
             </div>
             <p className="text-justify text-default-500 text-[0.95rem] sm:text-md">{data.content}</p>
 
-            <Button
+            <ButtonElement
+              to={`../${data.link.dest}`}
               variant="bordered"
+              label={`${data.link.text}`}
               radius="full"
-              endContent={<FaArrowCircleRight className="mt-[0.2rem] text-default-500 mr-[1rem]" />}
-              className="w-[8rem] p-0 gap-0"
-            >
-              <Link to={data.link.dest} className="p-[8px] grow">
-                {data.link.text}
-              </Link>
-            </Button>
+              endContent={<FaArrowCircleRight className="mt-[0.2rem] ml-[1rem]" />}
+              className="w-[9rem] p-0 gap-0 mt-[1rem]"
+            />
           </div>
         ))}
       </div>

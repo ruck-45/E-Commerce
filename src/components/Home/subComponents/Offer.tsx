@@ -1,16 +1,16 @@
 // Dependencies
-import { Card, CardBody, Divider, Button } from "@nextui-org/react";
+import { Card, CardBody, Divider } from "@nextui-org/react";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaArrowCircleRight } from "react-icons/fa";
 import { SiFacebook } from "react-icons/si";
 import { TbBrandYoutubeFilled } from "react-icons/tb";
-import { Link } from "react-router-dom";
 import { TbWorldWww } from "react-icons/tb";
 import { RiComputerFill } from "react-icons/ri";
 
 // Local Files
 import "./Offer.css";
 import MissionChip from "../../../globalSubComponents/MissionChip";
+import ButtonElement from "../../../globalElements/ButtonElement";
 
 const missionChips = [
   {
@@ -71,17 +71,14 @@ const Offer = () => {
               <Divider />
 
               <div className="flex justify-between">
-                <Button
+                <ButtonElement
+                  to="../Pricing"
                   variant="bordered"
                   color="danger"
+                  label="Learn More"
                   radius="full"
-                  endContent={<FaArrowCircleRight className="mt-[0.2rem] mr-[1rem]" />}
-                  className="w-[9rem] p-0 gap-0"
-                >
-                  <Link to="../Pricing" className="p-[8px] grow">
-                    Learn More
-                  </Link>
-                </Button>
+                  endContent={<FaArrowCircleRight className="mt-[0.2rem] ml-[1rem]" />}
+                />
                 <div className="flex text-[1.8rem] gap-[1rem]">
                   <a href="https://www.facebook.com/profile.php?id=61554936182745" target="_blank" rel="noreferrer">
                     <SiFacebook className="mt-[0.4rem] cursor-pointer hover:scale-105" />

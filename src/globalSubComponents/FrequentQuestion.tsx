@@ -1,11 +1,10 @@
 // Dependencies
-import { Button } from "@nextui-org/react";
 import { FaArrowCircleRight } from "react-icons/fa";
-import { Link } from "react-router-dom";
 
 // Local Files
 import questions from "../globalAssets/frequetQuestions.json";
 import QuestionAccordion from "./QuestionAccordion";
+import ButtonElement from "../globalElements/ButtonElement";
 
 const FrequentQuestion = () => {
   return (
@@ -23,18 +22,15 @@ const FrequentQuestion = () => {
           <li>What strategies is suggested for beginners entering the digital marketing space?</li>
           <li>What are the costs associated with various digital marketing packages?</li>
         </ul>
-
-        <Button
+        <ButtonElement
+          to="../Pricing"
           variant="shadow"
           color="warning"
+          label="Learn More"
           radius="full"
-          endContent={<FaArrowCircleRight className="mt-[0.2rem] mr-[1rem]" />}
+          endContent={<FaArrowCircleRight className="mt-[0.2rem] ml-[1rem]" />}
           className="w-[9rem] p-0 gap-0 mt-[1rem]"
-        >
-          <Link to="../Pricing" className="p-[8px] grow">
-            Learn More
-          </Link>
-        </Button>
+        />
       </div>
 
       <div className="md:w-[50%] md:ps-[2rem]">

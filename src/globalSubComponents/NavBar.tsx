@@ -3,7 +3,6 @@ import {
   Navbar,
   NavbarContent,
   NavbarItem,
-  Button,
   NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
@@ -19,6 +18,7 @@ import icon from "../globalAssets/icon.svg";
 import { RootState } from "../store/store";
 import { updateNavStatus } from "../store/navOpenStatusSlice";
 import { updateToLoginStatus } from "../store/toLoginSlice";
+import ButtonElement from "../globalElements/ButtonElement";
 
 const menuItems = ["Home", "Services", "About", "Contact", "Pricing", "Log In"];
 
@@ -26,7 +26,6 @@ const NavBar = () => {
   const curTab = useSelector((state: RootState) => state.curTab.value);
   const navOpenStatus = useSelector((state: RootState) => state.navOpenStatus.value);
   const dispatch = useDispatch();
-
   return (
     <Navbar
       isMenuOpen={navOpenStatus}
@@ -102,26 +101,26 @@ const NavBar = () => {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
-          <Button color="warning" variant="bordered" radius="full" className="p-0">
-            <Link
-              to="../Auth"
-              className="w-full px-[8px] py-[10px]"
-              onClick={() => dispatch(updateToLoginStatus(true))}
-            >
-              Login
-            </Link>
-          </Button>
+          <ButtonElement
+            to="../Auth"
+            variant="bordered"
+            color="warning"
+            label="Login"
+            radius="full"
+            className="w-full px-[8px] py-[10px]"
+            onClickFunction={() => dispatch(updateToLoginStatus(true))}
+          />
         </NavbarItem>
         <NavbarItem>
-          <Button color="warning" variant="solid" radius="full" className="font-semibold p-0">
-            <Link
-              to="../Auth"
-              className="w-full px-[8px] py-[10px]"
-              onClick={() => dispatch(updateToLoginStatus(false))}
-            >
-              Sign Up
-            </Link>
-          </Button>
+          <ButtonElement
+            to="../Auth"
+            variant="solid"
+            color="warning"
+            label="Sign Up"
+            radius="full"
+            className="w-full px-[8px] py-[10px] font-semibold"
+            onClickFunction={() => dispatch(updateToLoginStatus(false))}
+          />
         </NavbarItem>
       </NavbarContent>
 

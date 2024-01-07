@@ -36,6 +36,6 @@ jobs:
       - name: Sync files to hosting
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: ftp.hmsfreedom.com
+          server: 162.213.251.215
           username: ${{ secrets.ftp_username }}
           password: ${{ secrets.ftp_password }}

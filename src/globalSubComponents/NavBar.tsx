@@ -19,10 +19,12 @@ import { RootState } from "../store/store";
 import { updateNavStatus } from "../store/navOpenStatusSlice";
 import { updateToLoginStatus } from "../store/toLoginSlice";
 import ButtonElement from "../globalElements/ButtonElement";
-
-const menuItems = ["Home", "Services", "About", "Contact", "Pricing", "Log In"];
+import UserAvatar from "./UserAvatar";
+import { getCookie } from "../cookies/cookies";
+const menuItems = ["Home", "Services", "About", "Contact", "Pricing", "Blog", "Log In"];
 
 const NavBar = () => {
+  const isLoggedIn = getCookie("token") ? true : false;
   const curTab = useSelector((state: RootState) => state.curTab.value);
   const navOpenStatus = useSelector((state: RootState) => state.navOpenStatus.value);
   const dispatch = useDispatch();
@@ -98,47 +100,71 @@ const NavBar = () => {
             PRICING
           </Link>
         </NavbarItem>
+        {isLoggedIn ? (
+          <NavbarItem>
+            <Link
+              to="../Blog"
+              className={curTab === "Blog" ? "active navActive flex flex-col px-[1rem]" : "notActive px-[1rem]"}
+            >
+              BLOG
+            </Link>
+          </NavbarItem>
+        ) : null}
       </NavbarContent>
-      <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
-          <ButtonElement
-            to="../Auth"
-            variant="bordered"
-            color="warning"
-            label="Login"
-            radius="full"
-            className="w-full px-[8px] py-[10px]"
-            onClickFunction={() => dispatch(updateToLoginStatus(true))}
-          />
-        </NavbarItem>
-        <NavbarItem>
-          <ButtonElement
-            to="../Auth"
-            variant="solid"
-            color="warning"
-            label="Sign Up"
-            radius="full"
-            className="w-full px-[8px] py-[10px] font-semibold"
-            onClickFunction={() => dispatch(updateToLoginStatus(false))}
-          />
-        </NavbarItem>
-      </NavbarContent>
+      {isLoggedIn ? (
+        <NavbarContent justify="end">
+          <NavbarItem>
+            <UserAvatar />
+          </NavbarItem>
+        </NavbarContent>
+      ) : (
+        <NavbarContent justify="end">
+          <NavbarItem className="hidden lg:flex">
+            <ButtonElement
+              to="../Auth"
+              variant="bordered"
+              color="warning"
+              label="Login"
+              radius="full"
+              className="w-full px-[8px] py-[10px]"
+              onClickFunction={() => dispatch(updateToLoginStatus(true))}
+            />
+          </NavbarItem>
+          <NavbarItem>
+            <ButtonElement
+              to="../Auth"
+              variant="solid"
+              color="warning"
+              label="Sign Up"
+              radius="full"
+              className="w-full px-[8px] py-[10px] font-semibold"
+              onClickFunction={() => dispatch(updateToLoginStatus(false))}
+            />
+          </NavbarItem>
+        </NavbarContent>
+      )}
 
       <NavbarMenu className="mt-[1rem] bg-[rgba(0,0,0,0.4)] z-[200]">
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              className={curTab === item ? "active" : "notActive"}
-              to={index === 5 ? "../Auth" : `../${item}`}
-              onClick={() => {
-                dispatch(updateNavStatus(!navOpenStatus));
-                dispatch(updateToLoginStatus(item === "Log In" ? true : false));
-              }}
-            >
-              {item}
-            </Link>
-          </NavbarMenuItem>
-        ))}
+        {menuItems.map((item, index) => {
+          if (isLoggedIn || index !== 5) {
+            return (
+              <NavbarMenuItem key={`${item}-${index}`}>
+                <Link
+                  className={curTab === item ? "active" : "notActive"}
+                  to={index === 6 ? "../Auth" : `../${item}`}
+                  onClick={() => {
+                    dispatch(updateNavStatus(!navOpenStatus));
+                    dispatch(updateToLoginStatus(item === "Log In" ? true : false));
+                  }}
+                >
+                  {item}
+                </Link>
+              </NavbarMenuItem>
+            );
+          } else {
+            return null;
+          }
+        })}
       </NavbarMenu>
     </Navbar>
   );

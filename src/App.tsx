@@ -10,6 +10,9 @@ import Contact from "./components/Contact/Contact";
 import Pricing from "./components/Pricing/Pricing";
 import Services from "./components/Services/Services";
 import Auth from "./components/Auth/Auth";
+import Profile from "./components/Profile/Profile";
+import Blog from "./components/Blog/Blog";
+import Privacy from "./components/Privacy/Privacy";
 import Footer from "./globalSubComponents/Footer";
 import FrequentQuestion from "./globalSubComponents/FrequentQuestion";
 import CTA from "./globalSubComponents/CTA";
@@ -54,6 +57,10 @@ function App() {
       background += `,url(${ServiceHero})`;
       break;
 
+    case "Profile":
+      className = "bg-no-repeat bg-top";
+      background += `,url(${ServiceHero})`;
+      break;
     default:
       break;
   }
@@ -70,10 +77,19 @@ function App() {
           <Route path="/Pricing" element={<Pricing />} />
           <Route path="/Auth" element={<Auth />} />
           <Route path="/Services/*" element={<Services />} />
+          <Route path="/Profile" element={<Profile />} />
+          <Route path="/Blog" element={<Blog />} />
+          <Route path="/Privacy" element={<Privacy />} />
           <Route path="*" element={<Navigate to="/Home" />} />
         </Routes>
       </div>
-      {curTab === "Auth" || curTab === "Pricing" || curTab === "Services" ? null : <FrequentQuestion />}
+      {curTab === "Auth" ||
+      curTab === "Pricing" ||
+      curTab === "Services" ||
+      curTab === "Profile" ||
+      curTab === "Privacy" ? null : (
+        <FrequentQuestion />
+      )}
       {curTab === "Auth" ? null : (
         <CTA text="❝ We Care for your Brand as Passionately as You Do. ❞" color="warning" showArrow={false} />
       )}

@@ -24,6 +24,7 @@ import AboutHero from "./globalAssets/About.jpg";
 import ContactHero from "./globalAssets/Contact.jpg";
 import PricingHero from "./globalAssets/Prices.jpg";
 import ServiceHero from "./globalAssets/Services.jpg";
+import { getCookie } from "./cookies/cookies";
 
 function App() {
   const curTab = useSelector((state: RootState) => state.curTab.value);
@@ -64,7 +65,6 @@ function App() {
     default:
       break;
   }
-
   return (
     <>
       <div style={{ backgroundImage: background }} className={className}>

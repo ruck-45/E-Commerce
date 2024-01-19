@@ -22,6 +22,7 @@ import { FaCloudUploadAlt } from "react-icons/fa";
 import "./ProfileInfo.css";
 import profilepic from "../../../globalAssets/profilepic.jpg";
 import { getCookie, setCookie } from "../../../utils/cookies";
+import { imageExists } from "../../../utils/controllers";
 
 const toastSetting: {
   position: ToastPosition;
@@ -50,7 +51,7 @@ const ProfileInfo = () => {
   const address = getCookie("address") || "please provide us with your Address";
   const phone = getCookie("phone") || "None";
   const plan = getCookie("plan") || "None";
-  const image = getCookie("image") || "None";
+  const image = getCookie("image");
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [formData, setFormData] = useState({ phone, address, about, profession });
@@ -130,12 +131,7 @@ const ProfileInfo = () => {
     }
   };
 
-  const imageUrl = `${apiUrl}/users/profileImages/${image}.png`;
-  const imageExists = (url: string) => {
-    const img = new Image();
-    img.src = url;
-    return img.complete || img.height !== 0;
-  };
+  const imageUrl = `${apiUrl}/users/profileImages/${image}.jpg`;
 
   return (
     <div className="flex justify-between gap-[2rem] items-center UserStat">
@@ -157,12 +153,11 @@ const ProfileInfo = () => {
             </PopoverTrigger>
             <PopoverContent className="p-0">
               <form className="p-[1rem] flex flex-col gap-[1rem]">
-                <p>Please Upload .png file</p>
                 <input
                   type="file"
                   id="myFile"
                   name="profilepic"
-                  accept=".png"
+                  accept=".jpg,.jpeg"
                   className="p-[1rem] bg-[#E4E4E7] rounded-xl"
                   onChange={(e) => setUserProfilePic(e.target.files ? e.target.files[0] : null)}
                 />

@@ -4,14 +4,24 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { updateToLoginStatus } from "../store/toLoginSlice";
 import { useDispatch } from "react-redux";
+
 // Local Files
 import profilepic from "../globalAssets/profilepic.jpg";
 import { getCookie, removeCookie } from "../utils/cookies";
+import { imageExists } from "../utils/controllers";
 
 const UserAvatar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  let apiUrl = process.env.REACT_APP_API_URL;
+  if (process.env.NODE_ENV === "development") {
+    apiUrl = process.env.REACT_APP_DEV_API_URL;
+  }
+
   const userEmail = getCookie("email");
+  const image = getCookie("image");
+
   const handleLogout = () => {
     removeCookie("token");
     removeCookie("plan");
@@ -23,15 +33,24 @@ const UserAvatar = () => {
     removeCookie("email");
     removeCookie("expiration");
     removeCookie("image");
-    
+
     dispatch(updateToLoginStatus(true));
     navigate("/Auth");
   };
+
+  const imageUrl = `${apiUrl}/users/profileImages/${image}.jpg`;
+
   return (
     <>
       <Dropdown placement="bottom-end">
         <DropdownTrigger>
-          <Avatar isBordered as="button" className="transition-transform" src={profilepic} color="danger" />
+          <Avatar
+            isBordered
+            as="button"
+            className="transition-transform"
+            src={imageExists(imageUrl) ? imageUrl : profilepic}
+            color="danger"
+          />
         </DropdownTrigger>
         <DropdownMenu aria-label="Profile Actions" variant="flat">
           <DropdownItem key="email" className="h-14 gap-2" textValue="email">

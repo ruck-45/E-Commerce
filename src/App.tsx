@@ -24,7 +24,9 @@ import AboutHero from "./globalAssets/About.jpg";
 import ContactHero from "./globalAssets/Contact.jpg";
 import PricingHero from "./globalAssets/Prices.jpg";
 import ServiceHero from "./globalAssets/Services.jpg";
+import PrivacyHero from "./globalAssets/privacy.jpg"
 import { getCookie } from "./utils/cookies";
+
 
 function App() {
   const curTab = useSelector((state: RootState) => state.curTab.value);
@@ -58,6 +60,11 @@ function App() {
       background += `,url(${ServiceHero})`;
       break;
 
+    case "Privacy":
+      className = "bg-no-repeat bg-top";
+      background += `,url(${PrivacyHero})`;
+      break;  
+
     case "Profile":
       className = "bg-no-repeat bg-top";
       background += `,url(${ServiceHero})`;
@@ -81,6 +88,8 @@ function App() {
           <Route path="/Blog" element={<Blog />} />
           <Route path="/Privacy" element={<Privacy />} />
           <Route path="*" element={<Navigate to="/Home" />} />
+          
+
         </Routes>
       </div>
       {curTab === "Auth" ||

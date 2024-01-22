@@ -1,10 +1,10 @@
 // Dependencies
 import { useLocation } from "react-router-dom";
-import "./service.css"
+import "./service.css";
+
 // Local Files
 import serviceData from "../assets/Services.json";
 import { scrollTop } from "../../../utils/controllers";
-
 
 const IndividualServices = () => {
   let id = 0;

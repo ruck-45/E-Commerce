@@ -25,7 +25,6 @@ import ContactHero from "./globalAssets/Contact.jpg";
 import PricingHero from "./globalAssets/Prices.jpg";
 import ServiceHero from "./globalAssets/Services.jpg";
 import PrivacyHero from "./globalAssets/privacy.jpg"
-import { getCookie } from "./utils/cookies";
 
 
 function App() {
@@ -85,7 +84,7 @@ function App() {
           <Route path="/Auth" element={<Auth />} />
           <Route path="/Services/*" element={<Services />} />
           <Route path="/Profile" element={<Profile />} />
-          <Route path="/Blog" element={<Blog />} />
+          <Route path="/Blog/*" element={<Blog />} />
           <Route path="/Privacy" element={<Privacy />} />
           <Route path="*" element={<Navigate to="/Home" />} />
           
@@ -94,6 +93,7 @@ function App() {
       </div>
       {curTab === "Auth" ||
       curTab === "Pricing" ||
+      curTab === "Blog" ||
       curTab === "Services" ||
       curTab === "Profile" ||
       curTab === "Privacy" ? null : (

@@ -2,9 +2,7 @@
 import { useState, useRef } from "react";
 import axios from "axios";
 import { Button, Input, Checkbox } from "@nextui-org/react";
-import { FaFacebook } from "react-icons/fa";
-import { FaSquareXTwitter, FaArrowRightLong } from "react-icons/fa6";
-import { AiFillGoogleCircle, AiFillInstagram } from "react-icons/ai";
+import { FaArrowRightLong } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -307,25 +305,6 @@ const UserAuth = () => {
           {toLogin ? "Create an account" : "Login"}
         </button>
       </p>
-      <div className={toLogin ? "flex items-center justify-center gap-5 overflow-hidden mt-1 mb-1" : "hidden"}>
-        <div className="Divider"></div>
-        <p className="text-sm">or</p>
-        <div className="Divider"></div>
-      </div>
-      <div className={toLogin ? "flex justify-center items-center gap-3" : "hidden"}>
-        <Button className="text-2xl" isIconOnly color="danger" variant="flat">
-          <AiFillInstagram />
-        </Button>
-        <Button className="text-2xl" isIconOnly color="primary" variant="flat">
-          <FaFacebook />
-        </Button>
-        <Button className="text-2xl" isIconOnly color="default" variant="flat">
-          <FaSquareXTwitter />
-        </Button>
-        <Button className="text-2xl" isIconOnly color="danger" variant="flat">
-          <AiFillGoogleCircle />
-        </Button>
-      </div>
       <Toaster />
     </form>
   );

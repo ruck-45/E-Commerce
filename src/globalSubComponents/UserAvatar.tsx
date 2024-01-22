@@ -67,6 +67,11 @@ const UserAvatar = () => {
               Privacy & Policies
             </Link>
           </DropdownItem>
+          <DropdownItem key="privacy" className="p-0" textValue="privacy">
+            <Link to="/Blog/Create" style={{ display: "block", padding: "6px 8px" }}>
+              Create Blog
+            </Link>
+          </DropdownItem>
           <DropdownItem key="logout" color="danger" onClick={handleLogout} textValue="logout">
             Log Out
           </DropdownItem>

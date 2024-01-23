@@ -1,15 +1,44 @@
 // Dependencies
 import { Pagination, Divider } from "@nextui-org/react";
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useState } from "react";
+import axios from "axios";
 
 // Local Files
 import BlogCard from "./BlogCard";
-import blogSummary from "../assets/data.json";
+import { scrollTop } from "../../../utils/controllers";
+
+const pageSize = 8;
 
 const OurBlogs = () => {
-  const courseCount = 50;
+  scrollTop();
 
-  useLayoutEffect(() => {});
+  const [blogsData, setBlogsData] = useState([{ blog_id: "", created_at: "", image: "", summary: "", title: "" }]);
+  const [blogsCount, setBlogsCount] = useState(-1);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  let apiUrl = process.env.REACT_APP_API_URL;
+  if (process.env.NODE_ENV === "development") {
+    apiUrl = process.env.REACT_APP_DEV_API_URL;
+  }
+
+  useLayoutEffect(() => {
+    const getBlogs = async () => {
+      try {
+        const start = (currentPage - 1) * pageSize;
+        const end = currentPage * pageSize;
+        const response = await axios.get(`${apiUrl}/blogs/latest`, {
+          params: { start, end },
+        });
+
+        setBlogsData(response.data.payload.result);
+        setBlogsCount(response.data.payload.total);
+      } catch (error) {
+        console.log("No Blog Found");
+      }
+    };
+
+    getBlogs();
+  }, [apiUrl, currentPage]);
 
   return (
     <div className="bg-[#e9ecef] px-[2rem] sm:px-[5rem] py-[5rem] flex flex-col gap-[3rem]">
@@ -19,20 +48,35 @@ const OurBlogs = () => {
         </h1>
         <Divider />
       </div>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[3rem]">
-        {blogSummary.map((data, index) => (
-          <BlogCard key={index} thumbnail={data.thumbnail} title={data.title} summary={data.summary} />
-        ))}
-      </div>
+
+      {blogsCount > 0 ? (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[3rem]">
+          {blogsData.map((data, index) => (
+            <BlogCard
+              key={index}
+              thumbnail={`${apiUrl}/blogs/blogImages/${data.image}.jpg`}
+              title={data.title}
+              summary={data.summary}
+              blogId={data.blog_id}
+              createdAt={data.created_at}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="w-full h-[15rem] flex justify-center items-center">
+          <p className="font-bold text-default-300 text-4xl">No Blog Found</p>
+        </div>
+      )}
+
       <Pagination
         loop
         showControls
         color="warning"
         variant="flat"
-        total={courseCount ? Math.ceil(courseCount / 15) : 1}
+        total={blogsCount ? Math.ceil(blogsCount / 8) : 1}
         initialPage={1}
         className="self-center"
-        // onChange={setCurPage}
+        onChange={(pageNumber) => setCurrentPage(pageNumber)}
       />
     </div>
   );

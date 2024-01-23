@@ -7,6 +7,10 @@ import { Button, Input, Textarea } from "@nextui-org/react";
 import { useState, useRef } from "react";
 import toast, { Toaster, ToastPosition } from "react-hot-toast";
 import { RawDraftContentBlock } from "draft-js";
+import axios from "axios";
+
+// Local Files
+import { getCookie } from "../../../utils/cookies";
 
 const toastSetting: {
   position: ToastPosition;
@@ -20,9 +24,16 @@ const errorToast = (message: string): void => {
   toast.error(message, toastSetting);
 };
 
+let apiUrl = process.env.REACT_APP_API_URL;
+if (process.env.NODE_ENV === "development") {
+  apiUrl = process.env.REACT_APP_DEV_API_URL;
+}
+
 const CreateBlog = () => {
   const [blogPic, setBlogPic] = useState<File | null>(null);
   const [previewImageUrl, setPreviewImageUrl] = useState("");
+
+  const token = getCookie("token");
 
   const title = useRef("");
   const summary = useRef("");
@@ -48,7 +59,7 @@ const CreateBlog = () => {
     return data;
   };
 
-  const handleCreateBlog = () => {
+  const handleCreateBlog = async () => {
     if (title.current === "" || summary.current === "" || blogPic === null || content.current[0].text === "") {
       return errorToast("Please Fill All Required Fields");
     }
@@ -57,7 +68,45 @@ const CreateBlog = () => {
       return errorToast("Image is Bigger Than 1.5 MB");
     }
 
-    const filteredContent = getFilteredContent(content.current);
+    const filteredContent = JSON.stringify(getFilteredContent(content.current));
+
+    try {
+      const response = await axios.post(
+        `${apiUrl}/blogs/create`,
+        { title: title.current, summary: summary.current, content: filteredContent },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.data.success) {
+        errorToast("Blog Creation Failed");
+      } else {
+        const { imageId } = response.data.payload;
+        const BlogImageData = new FormData();
+        BlogImageData.append("image", blogPic);
+
+        try {
+          const response2 = await axios.post(`${apiUrl}/blogs/blogImages`, BlogImageData, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              imageId,
+            },
+          });
+          if (!response2.data.success) {
+            errorToast("Blog Creation Failed");
+          } else {
+            successToast("Blog Creation Successful");
+          }
+        } catch (error) {
+          errorToast("Blog Creation Failed");
+        }
+      }
+    } catch (error) {
+      errorToast("Blog Creation Failed");
+    }
   };
 
   return (

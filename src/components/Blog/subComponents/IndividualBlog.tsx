@@ -5,9 +5,6 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { useLayoutEffect, useState } from "react";
 import axios from "axios";
 
-// Local Files
-import { scrollTop } from "../../../utils/controllers";
-
 const getFormattedDate = (cDate: string) => {
   const date = new Date(cDate);
 
@@ -19,8 +16,6 @@ const getFormattedDate = (cDate: string) => {
 };
 
 const IndividualBlog = () => {
-  scrollTop();
-
   let apiUrl = process.env.REACT_APP_API_URL;
   if (process.env.NODE_ENV === "development") {
     apiUrl = process.env.REACT_APP_DEV_API_URL;
@@ -50,7 +45,7 @@ const IndividualBlog = () => {
         if (!response.data.success) {
           console.log("blog Not Found");
         } else {
-          setContent(response.data.payload.result);
+          setContent(JSON.parse(response.data.payload.result));
         }
       } catch (error) {
         console.log("Blog Not Found");

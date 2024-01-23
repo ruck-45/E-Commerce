@@ -5,10 +5,13 @@ import axios from "axios";
 
 // Local Files
 import BlogCard from "./BlogCard";
+import { scrollTop } from "../../../utils/controllers";
 
 const pageSize = 8;
 
 const OurBlogs = () => {
+  scrollTop();
+
   const [blogsData, setBlogsData] = useState([{ blog_id: "", created_at: "", image: "", summary: "", title: "" }]);
   const [blogsCount, setBlogsCount] = useState(-1);
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,20 +26,19 @@ const OurBlogs = () => {
       try {
         const start = (currentPage - 1) * pageSize;
         const end = currentPage * pageSize;
-        const response = await axios.get(`${apiUrl}/blogs/getBlogs`, {
+        const response = await axios.get(`${apiUrl}/blogs/latest`, {
           params: { start, end },
         });
 
         setBlogsData(response.data.payload.result);
         setBlogsCount(response.data.payload.total);
-
       } catch (error) {
         console.log("No Blog Found");
       }
     };
 
     getBlogs();
-  });
+  }, [apiUrl, currentPage]);
 
   return (
     <div className="bg-[#e9ecef] px-[2rem] sm:px-[5rem] py-[5rem] flex flex-col gap-[3rem]">
@@ -48,8 +50,8 @@ const OurBlogs = () => {
       </div>
 
       {blogsCount > 0 ? (
-        blogsData.map((data, index) => (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[3rem]">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[3rem]">
+          {blogsData.map((data, index) => (
             <BlogCard
               key={index}
               thumbnail={`${apiUrl}/blogs/blogImages/${data.image}.jpg`}
@@ -58,8 +60,8 @@ const OurBlogs = () => {
               blogId={data.blog_id}
               createdAt={data.created_at}
             />
-          </div>
-        ))
+          ))}
+        </div>
       ) : (
         <div className="w-full h-[15rem] flex justify-center items-center">
           <p className="font-bold text-default-300 text-4xl">No Blog Found</p>

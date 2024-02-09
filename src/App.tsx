@@ -90,6 +90,12 @@ function App() {
           <Route path="*" element={<Navigate to="/Home" />} />
         </Routes>
       </div>
+      {curTab === "Auth" || curTab === "Password Reset" ? null : (
+        <CTA text="❝ We Care for your Brand as Passionately as You Do. ❞" color="warning" showArrow={false} />
+      )}
+      {curTab === "Auth" || curTab === "Password Reset" ? null : <Footer />}
+      {curTab === "Auth" || curTab === "Password Reset" ? null : <QuickContacts />}
+      {curTab === "Auth" || curTab === "Password Reset" ? null : <ScrollToTop />}
     </>
   );
 }

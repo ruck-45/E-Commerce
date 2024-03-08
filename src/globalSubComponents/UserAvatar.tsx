@@ -2,11 +2,12 @@
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { updateToLoginStatus } from "../store/toLoginSlice";
+
 import { useDispatch } from "react-redux";
 
 // Local Files
 import { getCookie, removeCookie } from "../utils/cookies";
+import { updateToLoginStatus } from "../Redux/Slices/toLoginSlice";
 
 const UserAvatar = () => {
   const navigate = useNavigate();
@@ -45,13 +46,7 @@ const UserAvatar = () => {
     <>
       <Dropdown placement="bottom-end">
         <DropdownTrigger>
-          <Avatar
-            isBordered
-            as="button"
-            className="transition-transform"
-            src={imageUrl}
-            color="danger"
-          />
+          <Avatar isBordered as="button" className="transition-transform" src={imageUrl} color="danger" />
         </DropdownTrigger>
         <DropdownMenu aria-label="Profile Actions" variant="flat">
           <DropdownItem key="email" className="h-14 gap-2" textValue="email">

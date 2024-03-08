@@ -3,8 +3,9 @@ import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 
 // Local Files
-import { updateTab } from "../../store/curTabSlice";
+
 import { scrollTop } from "../../utils/controllers";
+import { updateTab } from "../../Redux/Slices/curTabSlice";
 
 const Contact = () => {
   const dispatch = useDispatch();

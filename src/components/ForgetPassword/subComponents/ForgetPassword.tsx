@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import queryString from "query-string";
-import { updateToLoginStatus } from "../../../store/toLoginSlice";
+
 import toast, { Toaster, ToastPosition } from "react-hot-toast";
 import {
   emailRe,
@@ -17,6 +17,7 @@ import {
   passwordHighCase,
   passwordLowCase,
 } from "../../../utils/authRegex";
+import { updateToLoginStatus } from "../../../Redux/Slices/toLoginSlice";
 // Local Files
 
 const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {

@@ -15,12 +15,12 @@ import { Link } from "react-router-dom";
 import "./NavBar.css";
 import logo from "../globalAssets/logo.svg";
 import icon from "../globalAssets/icon.svg";
-import { RootState } from "../store/store";
-import { updateNavStatus } from "../store/navOpenStatusSlice";
-import { updateToLoginStatus } from "../store/toLoginSlice";
 import ButtonElement from "../globalElements/ButtonElement";
 import UserAvatar from "./UserAvatar";
 import { getCookie } from "../utils/cookies";
+import { updateToLoginStatus } from "../Redux/Slices/toLoginSlice";
+import { updateNavStatus } from "../Redux/Slices/navOpenStatusSlice";
+import { RootState } from "../Redux/store";
 const menuItems = ["Home", "Services", "About", "Contact", "Pricing", "Blog", "Log In"];
 
 const NavBar = () => {

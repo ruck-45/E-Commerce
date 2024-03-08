@@ -2,8 +2,12 @@
 import { useDispatch } from "react-redux";
 
 // Local Files
-import { updateTab } from "../../store/curTabSlice";
+
 import { scrollTop } from "../../utils/controllers";
+import { updateTab } from "../../Redux/Slices/curTabSlice";
+
+
+
 
 const About = () => {
   const dispatch = useDispatch();

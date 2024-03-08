@@ -2,10 +2,12 @@
 import { useDispatch } from "react-redux";
 
 // Local Files
-import { updateTab } from "../../store/curTabSlice";
+
 import UserAuth from "./subComponents/UserAuth";
 import loginBg from "./assets/loginBg.jpg";
 import AuthCard from "./subComponents/AuthCard";
+import { updateTab } from "../../Redux/Slices/curTabSlice";
+
 const Auth = () => {
   const dispatch = useDispatch();
   dispatch(updateTab("Auth"));

@@ -3,9 +3,10 @@ import { useDispatch } from "react-redux";
 import { Accordion, AccordionItem } from "@nextui-org/react";
 
 // Local Files
-import { updateTab } from "../../store/curTabSlice";
+
 import { scrollTop } from "../../utils/controllers";
 import Intro from "../../globalSubComponents/Intro";
+import { updateTab } from "../../Redux/Slices/curTabSlice";
 
 const definations = [
   `Account means a unique account created for You to access our Service or parts of our Service`,

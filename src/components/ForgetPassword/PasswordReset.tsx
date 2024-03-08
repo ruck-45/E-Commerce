@@ -2,12 +2,11 @@
 import { useDispatch } from "react-redux";
 
 // Local Files
-import { updateTab } from "../../store/curTabSlice";
+
 import AuthCard from "../Auth/subComponents/AuthCard";
-import loginBg from "../Auth/assets/loginBg.jpg"
+import loginBg from "../Auth/assets/loginBg.jpg";
 import ForgetPassword from "./subComponents/ForgetPassword";
-
-
+import { updateTab } from "../../Redux/Slices/curTabSlice";
 
 const PasswordReset = () => {
   const dispatch = useDispatch();

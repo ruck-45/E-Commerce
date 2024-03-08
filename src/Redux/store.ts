@@ -2,9 +2,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 // Local Files
-import curTabSlice from "./curTabSlice";
-import navOpenStatusSlice from "./navOpenStatusSlice";
-import toLoginSlice from "./toLoginSlice";
+import curTabSlice from "./Slices/curTabSlice";
+import navOpenStatusSlice from "./Slices/navOpenStatusSlice";
+import toLoginSlice from "./Slices/toLoginSlice";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +12,7 @@ const store = configureStore({
     navOpenStatus: navOpenStatusSlice,
     toLogin: toLoginSlice,
   },
+  devTools:true
 });
 
 export type RootState = ReturnType<typeof store.getState>;

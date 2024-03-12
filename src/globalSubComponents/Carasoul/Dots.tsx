@@ -2,7 +2,7 @@
 type fetching = {
   activeIndex: number;
   onclick: any;
-  sliderImage:any;
+  sliderData: any;
 };
 
 
@@ -10,7 +10,7 @@ type fetching = {
 function Dots(props:fetching) {
   return (
     <div className="all-dots">
-      {props.sliderImage.map((slide:any, index:any) => (
+      {props.sliderData.map((slide: any, index: any) => (
         <span
           key={index}
           className={`${props.activeIndex === index ? "dot active-dot" : "dot"}`}

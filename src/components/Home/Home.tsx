@@ -10,7 +10,6 @@ import Explore from "./SubComponents/Explore";
 import EmailContact from "./SubComponents/EmailContact";
 import HomeProductSection from "./SubComponents/HomeProductSection";
 import { mens_kurta } from "../../Data/Men/men_kurta";
-import { lengha_page1 } from "../../Data/Women/LenghaCholi";
 import { mensShoesPage1 } from "../../Data/shoes";
 import AttractiveSection from "./SubComponents/AttractiveSection";
 

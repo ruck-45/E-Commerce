@@ -1,13 +1,9 @@
-
 import { Fragment, useState } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from "@heroicons/react/20/solid";
-import { ContentBlock } from "draft-js";
 import ProductCards from "./SubComponents.tsx/ProductCards";
-import { mens_kurta } from "./assets/data"
-
-
+import { mens_kurta } from "./assets/data";
 
 const sortOptions = [
   { name: "Most Popular", href: "#", current: true },
@@ -61,7 +57,7 @@ const filters = [
   },
 ];
 
-function classNames(...classes) {
+function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
@@ -71,7 +67,6 @@ export default function ShopPage() {
   return (
     <div className="bg-white">
       <div>
-        {/* Mobile filter dialog */}
         <Transition.Root show={mobileFiltersOpen} as={Fragment}>
           <Dialog as="div" className="relative z-40 lg:hidden" onClose={setMobileFiltersOpen}>
             <Transition.Child
@@ -299,7 +294,7 @@ export default function ShopPage() {
               <div className="lg:col-span-4 w-full">
                 <div className="flex flex-wrap justify-center py-5 bg-white">
                   {mens_kurta.map((detail) => (
-                    <ProductCards product={detail} />
+                    <ProductCards {...detail} />
                   ))}
                 </div>
               </div>

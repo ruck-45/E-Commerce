@@ -27,6 +27,7 @@ import ServiceHero from "./globalAssets/Services.jpg";
 import PrivacyHero from "./globalAssets/privacy.jpg";
 import PasswordReset from "./components/ForgetPassword/PasswordReset";
 import { RootState } from "./Redux/store";
+import Checkout from "./components/Checkout/Checkout";
 
 function App() {
   const curTab = useSelector((state: RootState) => state.curTab.value);
@@ -69,6 +70,11 @@ function App() {
       className = "bg-no-repeat bg-top";
       background += `,url(${ServiceHero})`;
       break;
+
+    case "Checkout":
+      className = "bg-no-repeat bg-top";
+      background += `,url(${ServiceHero})`;
+      break;
     default:
       break;
   }
@@ -87,6 +93,7 @@ function App() {
           <Route path="/Profile" element={<Profile />} />
           <Route path="/Blog/*" element={<Blog />} />
           <Route path="/Privacy" element={<Privacy />} />
+          <Route path="/Checkout" element={<Checkout />} />
           <Route path="/ResetPassword" element={<PasswordReset />} />
           <Route path="*" element={<Navigate to="/Home" />} />
         </Routes>

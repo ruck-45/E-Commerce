@@ -23,7 +23,7 @@ import {
 } from "../../../utils/authRegex";
 import { RootState } from "../../../Redux/store";
 import { updateToLoginStatus } from "../../../Redux/Slices/toLoginSlice";
-
+import axiosInstance from "../../../Helper/axiosinstance";
 
 const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
   if (event.key === "Enter") {
@@ -149,7 +149,7 @@ const UserAuth = () => {
     if (toLogin) {
       try {
         setHandleLoginButton(true);
-        const response = await axios.post(`${apiUrl}/users/login`, {
+        const response = await axiosInstance.post(`/users/login`, {
           email: email.current,
           password: password.current,
           remember: rememberMe,
@@ -163,7 +163,7 @@ const UserAuth = () => {
           setCookie("expiration", response.data.payload.expires, cookieOptions);
           setCookie("isEmployee", response.data.payload.isEmployee, cookieOptions);
 
-          const profileResponse = await axios.get(`${apiUrl}/users/profile`, {
+          const profileResponse = await axiosInstance.get(`/users/profile`, {
             headers: {
               Authorization: `Bearer ${response.data.payload.token}`,
             },
@@ -197,7 +197,7 @@ const UserAuth = () => {
       }
 
       try {
-        const response = await axios.post(`${apiUrl}/users/signup`, {
+        const response = await axiosInstance.post(`/users/signup`, {
           email: email.current,
           username: username.current,
           password: password.current,
@@ -227,7 +227,7 @@ const UserAuth = () => {
         <p>Home</p>
       </Link>
       <div className="flex gap-2 font-semibold welcomeText">
-        <h1>Welcome to Kreative Machinez </h1>
+        <h1>Welcome to Shop Nest </h1>
         <p>👋</p>
       </div>
       <p className="text-xs mb-2">Please {toLogin ? "Login to" : "Create"} your account and start the adventure !</p>

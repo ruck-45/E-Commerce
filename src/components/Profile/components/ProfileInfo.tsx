@@ -21,6 +21,7 @@ import { FaCloudUploadAlt } from "react-icons/fa";
 // Local Files
 import "./ProfileInfo.css";
 import { getCookie, setCookie } from "../../../utils/cookies";
+import axiosInstance from "../../../Helper/axiosinstance";
 
 const toastSetting: {
   position: ToastPosition;
@@ -61,7 +62,6 @@ const ProfileInfo = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isEditLoading, setIsEditLoading] = useState(false);
 
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -74,13 +74,13 @@ const ProfileInfo = () => {
     e.preventDefault();
     try {
       setIsEditLoading(true);
-      const response = await axios.put(`${apiUrl}/users/profile`, formData, {
+      const response = await axiosInstance.put(`/users/profile`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
-        },    
+        },
       });
       if (response.data.success) {
-        const profileResponse = await axios.get(`${apiUrl}/users/profile`, {
+        const profileResponse = await axiosInstance.get(`/users/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -121,7 +121,7 @@ const ProfileInfo = () => {
 
     try {
       setIsuploadButtonDisabled(true);
-      const response = await axios.put(`${apiUrl}/users/profile/images`, userProfilePicData, {
+      const response = await axiosInstance.put(`/users/profile/images`, userProfilePicData, {
         headers: {
           Authorization: `Bearer ${token}`,
           imageId: image,
@@ -142,7 +142,7 @@ const ProfileInfo = () => {
     }
   };
 
-  const imageUrl = `${apiUrl}/users/profileImages/${image}.jpg`;
+  const imageUrl = `/users/profileImages/${image}.jpg`;
 
   return (
     <div className="flex justify-between gap-[2rem] items-center UserStat">

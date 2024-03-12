@@ -1,39 +1,37 @@
 .active {
-  color: #f5a524;
+  color: #d4a373;
   font-weight: 700;
   font-size: large;
 }
 
 .notActive {
-  color: white;
+  color: black;
   font-size: large;
 }
 
 .notActive:hover {
-  color: #f5a524;
+  color: #d4a373;
+}
+.navActive::after {
+  content: "";
+  height: 0.15rem;
+  border-radius: 1rem;
+  background-color: #d4a373;
+  transform: translateY(0.2rem);
+  animation: drawLine 0.5s forwards;
+}
+
+@keyframes drawLine {
+  from {
+    width: 0rem; /* Start with width 0 */
+  }
+  to {
+    width: 4.3rem; /* End with full width */
+  }
 }
 
 .nav {
   font-family: "Acme";
-}
-
-.navActive::after {
-  content: "";
-  height: 0.25rem;
-  border-radius: 1rem;
-  background-color: #f5a524;
-  transform: translateY(1.75rem);
-  filter: drop-shadow(0 -0.3rem 0.4rem #f5a524);
-}
-
-.navActiveServices::after {
-  content: "";
-  height: 0.25rem;
-  border-radius: 1rem;
-  transform: translate(1.25rem, 1rem) !important;
-  background-color: #f5a524;
-  max-width: 6rem;
-  filter: drop-shadow(0 -0.3rem 0.4rem #f5a524);
 }
 
 .logo {

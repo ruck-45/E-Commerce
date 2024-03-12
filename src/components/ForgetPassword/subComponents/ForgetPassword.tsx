@@ -18,6 +18,7 @@ import {
   passwordLowCase,
 } from "../../../utils/authRegex";
 import { updateToLoginStatus } from "../../../Redux/Slices/toLoginSlice";
+import axiosInstance from "../../../Helper/axiosinstance";
 // Local Files
 
 const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -120,8 +121,8 @@ const ForgetPassword = () => {
           return;
         }
         if (token) {
-          const response = await axios.put(
-            `${apiUrl}/users/reset-password`,
+          const response = await axiosInstance.put(
+            `/users/reset-password`,
             { password: password.current },
             {
               headers: {
@@ -149,7 +150,7 @@ const ForgetPassword = () => {
           return;
         }
 
-        const response = await axios.post(`${apiUrl}/users/forgot-password`, { email: email.current });
+        const response = await axiosInstance.post(`/users/forgot-password`, { email: email.current });
         if (response.data.success) {
           successToast("Reset password link is sent to your email address");
           setTimeout(() => {

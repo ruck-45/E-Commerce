@@ -1,9 +1,9 @@
 // Dependencies
 import { useDispatch } from "react-redux";
-import { updateTab } from "../../Redux/Slices/curTabSlice";
 import { Button, Input } from "@nextui-org/react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { updateTab } from "../../Redux/Slices/curTabSlice";
 
 // Local Files
 

@@ -1,17 +1,11 @@
 // Dependencies
-import { Divider, Image, Button, Listbox, ListboxItem } from "@nextui-org/react";
-import { Link } from "react-router-dom";
 import { SiFacebook } from "react-icons/si";
 import { TbBrandYoutubeFilled } from "react-icons/tb";
-import { FaSquareXTwitter, FaPhone } from "react-icons/fa6";
 import { AiFillInstagram } from "react-icons/ai";
-import { FaPinterest, FaTwitterSquare } from "react-icons/fa";
-import { MdEmail } from "react-icons/md";
-import { IoLocation } from "react-icons/io5";
+import {  FaTwitterSquare } from "react-icons/fa";
 
 // Local Files
 import "./Footer.css";
-import logo from "../globalAssets/logo.svg";
 
 // const contactInfo = [
 //   {

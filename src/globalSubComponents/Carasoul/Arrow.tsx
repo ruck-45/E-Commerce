@@ -3,12 +3,11 @@ import React from "react";
 type fetching = {
   prevSlide: any;
   nextSlide: any;
-  
 };
 
-function Arrows(props:fetching) {
+function Arrows(props: fetching) {
   return (
-    <div className="arrows">
+    <div className="arrows noselect">
       <span className="prev" onClick={props.prevSlide}>
         &#10094;
       </span>

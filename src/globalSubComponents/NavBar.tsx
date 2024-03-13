@@ -7,9 +7,13 @@ import {
   NavbarMenu,
   NavbarMenuItem,
   Image,
+  Divider,
 } from "@nextui-org/react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { LuShoppingCart } from "react-icons/lu";
+import { FaRegHeart } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 
 // Local Files
 import "./NavBar.css";
@@ -33,10 +37,12 @@ const NavBar = () => {
       onMenuOpenChange={() => {
         dispatch(updateNavStatus(!navOpenStatus));
       }}
-      className="h-[5rem] nav z-[200]"
+      className="h-[5rem] nav z-[200] bg-white justify-center"
       maxWidth="xl"
+      isBordered
       classNames={{ base: "bg-[rgba(0,0,0,0.4)]" }}
-      position="static"
+      position="sticky"
+      
     >
       <NavbarContent>
         <NavbarMenuToggle aria-label={navOpenStatus ? "Close menu" : "Open menu"} className="lg:hidden text-white" />
@@ -44,6 +50,7 @@ const NavBar = () => {
           <Image width={60} src={icon} alt="logo" radius="none" />
         </div>
       </NavbarContent>
+
       <NavbarContent className="lg:hidden logo">
         <Link to="../Home">
           <div className="bg-white p-[1rem] flex justify-center items-center max-h-[5rem] ribbon">
@@ -53,59 +60,57 @@ const NavBar = () => {
       </NavbarContent>
 
       <NavbarContent className="hidden lg:flex" justify="center">
-        <NavbarItem>
+        <NavbarItem className="">
           <Link
             to="../Home"
             className={curTab === "Home" ? "active navActive flex flex-col px-[1rem]" : "notActive px-[1rem]"}
           >
-            HOME
+            Home
           </Link>
         </NavbarItem>
-
+        <Divider orientation="vertical" className="h-[2.5rem] " style={{ transform: "rotate(15deg)" }} />
         <NavbarItem>
           <Link
-            to="../Services"
-            className={curTab === "Services" ? "active navActive flex flex-col px-[1rem]" : "notActive px-[1rem]"}
+            to="../Store"
+            className={curTab === "Store" ? "active navActive flex flex-col px-[1rem]" : "notActive px-[1rem]"}
           >
-            SERVICES
+            Store
           </Link>
         </NavbarItem>
-
+        <Divider
+          orientation="vertical"
+          className="h-[2.5rem] transform rotate-30"
+          style={{ transform: "rotate(15deg)" }}
+        />
         <NavbarItem>
           <Link
             to="../About"
             className={curTab === "About" ? "active navActive flex flex-col px-[1rem]" : "notActive px-[1rem]"}
           >
-            ABOUT
+            About
           </Link>
         </NavbarItem>
+        <Divider orientation="vertical" className="h-[2.5rem] " style={{ transform: "rotate(15deg)" }} />
         <NavbarItem>
           <Link
             to="../Contact"
             className={curTab === "Contact" ? "active navActive flex flex-col px-[1rem]" : "notActive px-[1rem]"}
           >
-            CONTACT US
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link
-            to="../Pricing"
-            className={curTab === "Pricing" ? "active navActive flex flex-col px-[1rem]" : "notActive px-[1rem]"}
-          >
-            PRICING
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link
-            to="../Blog"
-            className={curTab === "Blog" ? "active navActive flex flex-col px-[1rem]" : "notActive px-[1rem]"}
-          >
-            BLOG
+            Contact
           </Link>
         </NavbarItem>
       </NavbarContent>
       {isLoggedIn ? (
         <NavbarContent justify="end">
+          <NavbarItem>
+            <FaSearch />
+          </NavbarItem>
+          <NavbarItem>
+            <FaRegHeart />
+          </NavbarItem>
+          <NavbarItem>
+            <LuShoppingCart />
+          </NavbarItem>
           <NavbarItem>
             <UserAvatar />
           </NavbarItem>
@@ -115,22 +120,23 @@ const NavBar = () => {
           <NavbarItem className="hidden lg:flex">
             <ButtonElement
               to="../Auth"
-              variant="bordered"
-              color="warning"
+              variant="light"
               label="Login"
-              radius="full"
-              className="w-full px-[8px] py-[10px]"
+              radius="none"
+              className="w-full px-[8px] py-[10px] text-[#d4a373] hover:bg-[#d4a373]"
+              size="md"
               onClickFunction={() => dispatch(updateToLoginStatus(true))}
             />
           </NavbarItem>
+          <Divider orientation="vertical" className="h-[2rem] bg-[#d4a373] " style={{ transform: "rotate(15deg)" }} />
           <NavbarItem>
             <ButtonElement
               to="../Auth"
-              variant="solid"
-              color="warning"
+              variant="light"
               label="Sign Up"
-              radius="full"
-              className="w-full px-[8px] py-[10px] font-semibold"
+              radius="none"
+              size="sm"
+              className="w-full px-[8px] py-[10px] text-[#d4a373] "
               onClickFunction={() => dispatch(updateToLoginStatus(false))}
             />
           </NavbarItem>

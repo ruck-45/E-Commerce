@@ -39,7 +39,7 @@ const UserAvatar = () => {
     navigate("/Auth");
   };
 
-  const imageUrl = `${apiUrl}/users/profileImages/${image}.jpg`;
+  const imageUrl = `/users/profileImages/${image}.jpg`;
   const createBlogClassName = isEmployee === "true" ? "p-0" : "hidden";
 
   return (

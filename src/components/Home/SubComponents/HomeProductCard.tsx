@@ -1,8 +1,12 @@
-import React from "react";
-
 import { useNavigate } from "react-router-dom";
 
-const HomeProductCard = ({ product }) => {
+type HomeProductCardProps = {
+  imageUrl: string;
+  title: string;
+  brand: string;
+};
+
+const HomeProductCard = (props: HomeProductCardProps) => {
   const navigate = useNavigate();
 
   return (
@@ -12,12 +16,12 @@ const HomeProductCard = ({ product }) => {
     >
       <div
         className="h-[13rem] w-full bg-cover bg-no-repeat bg-center"
-        style={{ backgroundImage: `url(${product?.image || product?.imageUrl})` }}
+        style={{ backgroundImage: `url(${props.imageUrl})` }}
       ></div>
 
       <div className="p-4 ">
-        <h3 className="text-[1rem] font-semibold text-gray-900">{product?.title}</h3>
-        <p className="mt-2 text-sm text-gray-500">{product?.brand}</p>
+        <h3 className="text-[1rem] font-semibold text-gray-900">{props.title}</h3>
+        <p className="mt-2 text-sm text-gray-500">{props.brand}</p>
       </div>
     </div>
   );

@@ -14,7 +14,7 @@ const HomeProductSection = ({ section, data }) => {
 
   const responsive = {
     0: {
-      items: 1,
+      items: 1.3,
       itemsFit: "contain",
     },
     420: {

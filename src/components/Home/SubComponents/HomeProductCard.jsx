@@ -8,7 +8,7 @@ const HomeProductCard = ({ product }) => {
   return (
     <div
       onClick={() => navigate(`/men/clothing/mens_kurta`)}
-      className="cursor-pointer flex flex-col items-center bg-white rounded-lg shadow-lg overflow-hidden w-[15rem] mx-3 min-h-[20rem]"
+      className="cursor-pointer flex flex-col items-center bg-white rounded-lg shadow-lg overflow-hidden w-[15rem] mx-3 min-h-[20rem] hover:scale-105 transition-all"
     >
       <div
         className="h-[13rem] w-full bg-cover bg-no-repeat bg-center"

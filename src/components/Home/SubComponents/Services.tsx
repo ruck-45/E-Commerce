@@ -12,7 +12,7 @@ const content = [
   },
   {
     title: "Money Back Guarantee",
-    des: "If good have Problems",
+    des: "If Product has Problems",
     icon: FaMoneyBills,
   },
   {
@@ -31,12 +31,10 @@ const Services = () => {
   return (
     <div className="flex lg:flex-row flex-wrap gap-[2rem] items-center justify-evenly bg-white h-auto p-[2rem] md:p-[4rem]">
       {content.map((data, index) => (
-        <div key={index} className="flex flex-row items-end justify-center gap-[1rem]">
-          <div className="text-4xl">
-            {<data.icon />}
-          </div>
+        <div key={index} className="flex flex-row items-center justify-center gap-[1rem]">
+          <data.icon className="text-4xl" />
           <div className="flex-col items-start justify-between ">
-            <h1 className="text-1xl font-semibold py-[0.3rem]">{data.title}</h1>
+            <h1 className="text-1xl font-semibold">{data.title}</h1>
             <p className="opacity-50">{data.des}</p>
           </div>
         </div>

@@ -41,7 +41,8 @@ const NavBar = () => {
       maxWidth="xl"
       isBordered
       classNames={{ base: "bg-[rgba(0,0,0,0.4)]" }}
-      position="static"
+      position="sticky"
+      
     >
       <NavbarContent>
         <NavbarMenuToggle aria-label={navOpenStatus ? "Close menu" : "Open menu"} className="lg:hidden text-white" />

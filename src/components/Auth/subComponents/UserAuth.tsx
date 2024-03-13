@@ -221,7 +221,10 @@ const UserAuth = () => {
   };
 
   return (
-    <form className="flex flex-col justify-center sm:min-w-[27rem] p-12 gap-3 Auth rounded-3xl" onSubmit={handleSubmit}>
+    <form
+      className="flex flex-col justify-center sm:min-w-[27rem] p-12 gap-3 Auth rounded-3xl "
+      onSubmit={handleSubmit}
+    >
       <Link to="../" className="mb-[2rem] flex items-center gap-[0.5rem] hover:gap-[1rem] duration-100 text-[#006FEE]">
         <FaArrowRightLong />
         <p>Home</p>

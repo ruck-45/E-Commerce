@@ -1,4 +1,3 @@
-
 import HomeProductCard from "./HomeProductCard";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useState } from "react";
@@ -6,16 +5,12 @@ import "react-alice-carousel/lib/alice-carousel.css";
 import { Button } from "@mui/material";
 import AliceCarousel from "react-alice-carousel";
 
-
 const HomeProductSection = ({ section, data }) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  console.log(activeIndex)
 
   const slidePrev = () => setActiveIndex(activeIndex - 1);
   const slideNext = () => setActiveIndex(activeIndex + 1);
   const syncActiveIndex = ({ item }) => setActiveIndex(item);
-
-  console.log(syncActiveIndex)
 
   const responsive = {
     0: {
@@ -23,19 +18,35 @@ const HomeProductSection = ({ section, data }) => {
       itemsFit: "contain",
     },
     420: {
+      items: 1.6,
+      itemsFit: "contain",
+    },
+    550: {
+      items: 1.9,
+      itemsFit: "contain",
+    },
+    700: {
       items: 2.5,
       itemsFit: "contain",
     },
-    720: {
-      items: 3.5,
+    850: {
+      items: 2.9,
       itemsFit: "contain",
     },
     1024: {
+      items: 3.5,
+      itemsFit: "contain",
+    },
+    1060: {
+      items: 3.9,
+      itemsFit: "contain",
+    },
+    1170: {
       items: 4.5,
       itemsFit: "contain",
     },
-    1115: {
-      items: 5.5,
+    1300: {
+      items: 5,
       itemsFit: "contain",
     },
   };
@@ -45,12 +56,8 @@ const HomeProductSection = ({ section, data }) => {
     </div>
   ));
 
-  // const slideInFromRight = (t) => {
-  //   return `translateX(${100 - t * 100}%)`;
-  // };
-
   return (
-    <div className="relative px-4 sm:px-6 lg:px-8 bg-white">
+    <div className="relative px-4 sm:px-6 lg:px-8 bg-white my-[3rem]">
       <h2 className="text-2xl font-extrabold text-gray-900 py-5">{section}</h2>
       <div className="relative border p-5">
         <AliceCarousel
@@ -67,7 +74,8 @@ const HomeProductSection = ({ section, data }) => {
           <Button
             onClick={slideNext}
             variant="contained"
-            className="z-50 bg-[]"
+            className="z-50 "
+            color="inherit"
             sx={{
               position: "absolute",
               top: "8rem",
@@ -85,6 +93,7 @@ const HomeProductSection = ({ section, data }) => {
           <Button
             onClick={slidePrev}
             variant="contained"
+            color="inherit"
             className="z-50 bg-[]"
             sx={{
               position: "absolute",

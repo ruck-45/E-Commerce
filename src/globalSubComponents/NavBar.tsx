@@ -17,7 +17,6 @@ import { FaSearch } from "react-icons/fa";
 
 // Local Files
 import "./NavBar.css";
-import logo from "../globalAssets/logo.svg";
 import icon from "../globalAssets/icon.svg";
 import ButtonElement from "../globalElements/ButtonElement";
 import UserAvatar from "./UserAvatar";
@@ -41,6 +40,8 @@ const NavBar = () => {
       className="h-[5rem] nav z-[200] bg-white justify-center"
       maxWidth="xl"
       isBordered
+      classNames={{ base: "bg-[rgba(0,0,0,0.4)]" }}
+      position="static"
     >
       <NavbarContent>
         <NavbarMenuToggle aria-label={navOpenStatus ? "Close menu" : "Open menu"} className="lg:hidden text-white" />

@@ -8,6 +8,7 @@ import {
   NavbarMenuItem,
   Image,
   Divider,
+  Button,
 } from "@nextui-org/react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
@@ -42,7 +43,6 @@ const NavBar = () => {
       isBordered
       classNames={{ base: "bg-[rgba(0,0,0,0.4)]" }}
       position="sticky"
-      
     >
       <NavbarContent>
         <NavbarMenuToggle aria-label={navOpenStatus ? "Close menu" : "Open menu"} className="lg:hidden text-white" />
@@ -71,10 +71,10 @@ const NavBar = () => {
         <Divider orientation="vertical" className="h-[2.5rem] " style={{ transform: "rotate(15deg)" }} />
         <NavbarItem>
           <Link
-            to="../Store"
+            to="../Shop"
             className={curTab === "Store" ? "active navActive flex flex-col px-[1rem]" : "notActive px-[1rem]"}
           >
-            Store
+            Shop
           </Link>
         </NavbarItem>
         <Divider
@@ -103,20 +103,14 @@ const NavBar = () => {
       {isLoggedIn ? (
         <NavbarContent justify="end">
           <NavbarItem>
-            <FaSearch />
-          </NavbarItem>
-          <NavbarItem>
-            <FaRegHeart />
-          </NavbarItem>
-          <NavbarItem>
-            <LuShoppingCart />
-          </NavbarItem>
-          <NavbarItem>
             <UserAvatar />
           </NavbarItem>
         </NavbarContent>
       ) : (
         <NavbarContent justify="end">
+          <NavbarItem>
+            <ButtonElement to="/Cart" startContent={<LuShoppingCart />} label="Cart" variant="light" />
+          </NavbarItem>
           <NavbarItem className="hidden lg:flex">
             <ButtonElement
               to="../Auth"

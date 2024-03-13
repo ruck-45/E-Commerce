@@ -35,13 +35,13 @@ const Explore = () => {
           <p className="text-center opacity-30">Latest Collection</p>
         </div>
         <div
-          className=" w-[18rem] h-[15rem] bg-cover bg-center bg-norepeat hover:scale-105 transition-all cursor-pointer"
+          className=" w-[18rem] h-[15rem] bg-cover bg-center bg-no-repeat hover:scale-105 transition-all cursor-pointer"
           style={{
             backgroundImage: `url(https://images.unsplash.com/photo-1546550879-3b71f2427ae0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`,
           }}
         ></div>
         <div
-          className=" w-[18rem] h-[15rem] bg-cover bg-center bg-norepeat hover:scale-105 transition-all cursor-pointer"
+          className=" w-[18rem] h-[15rem] bg-cover bg-center bg-no-repeat hover:scale-105 transition-all cursor-pointer"
           style={{
             backgroundImage: `url(https://images.unsplash.com/photo-1575886672692-34cb9b65a074?q=80&w=1791&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`,
           }}

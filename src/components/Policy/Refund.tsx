@@ -8,7 +8,7 @@ import { updateTab } from "../../Redux/Slices/curTabSlice";
 
 const Refund = () => {
   const dispatch = useDispatch();
-  dispatch(updateTab("Refund"));
+  dispatch(updateTab("Policy"));
   scrollTop();
   return (
     <>

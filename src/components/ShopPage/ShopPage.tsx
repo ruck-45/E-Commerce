@@ -7,7 +7,8 @@ import { carpetData } from "../../Data/carpets";
 import { useDispatch } from "react-redux";
 import { scrollTop } from "../../utils/controllers";
 import { updateTab } from "../../Redux/Slices/curTabSlice";
-import { Pagination } from "@nextui-org/react";
+import { Input, Pagination } from "@nextui-org/react";
+import { IoSearch } from "react-icons/io5";
 
 const sortOptions = [
   { name: "Most Popular", href: "#", current: true },
@@ -179,12 +180,24 @@ export default function ShopPage() {
         </Transition.Root>
 
         <main className="mx-auto  px-4 sm:px-6 lg:px-20">
-          <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900">Categories</h1>
+          <div className="flex items-baseline md:justify-between border-b border-gray-200 pb-6 pt-24">
+            <h1 className="text-4xl font-bold tracking-tight text-gray-900 hidden md:block">Categories</h1>
 
-            <div className="flex items-center">
+            <div className="flex items-center grow md:grow-0 justify-end">
               <Menu as="div" className="relative inline-block text-left">
-                <div>
+                <div className="flex justify-center items-center gap-[1rem]">
+                  <Input
+                    classNames={{
+                      base: "w-full h-10",
+                      mainWrapper: "h-full",
+                      input: "text-small",
+                      inputWrapper: "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
+                    }}
+                    placeholder="Search"
+                    size="sm"
+                    startContent={<IoSearch className="text-xl" />}
+                    type="search"
+                  />
                   <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
                     Sort
                     <ChevronDownIcon

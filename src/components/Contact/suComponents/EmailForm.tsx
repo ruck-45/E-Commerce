@@ -66,7 +66,7 @@ const EmailForm = () => {
   };
 
   return (
-    <div className="bg-white flex flex-col md:px-[8rem] py-[5rem] gap-[2rem] lg:gap-[5rem]">
+    <div className="bg-white flex flex-col lg:px-[8rem] py-[5rem] gap-[2rem] lg:gap-[5rem]">
       <div className="flex flex-col gap-y-[1rem]">
         <h1 className="font-bold text-[2rem]">Contact Info</h1>
         <ContactCard heading="Address" icon={<FaAddressBook />} value="Sunny Isles Beach, FL 33160, United States" />

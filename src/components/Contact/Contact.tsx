@@ -1,6 +1,6 @@
 // Dependencies
 import { useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 // Local Files
 import EmailForm from "./suComponents/EmailForm";
@@ -23,14 +23,14 @@ const Contact = () => {
 
   return (
     <>
-      <div className="flex flex-row gap-x-[1rem] px-[3rem] md:px-[8rem] mt-[2rem]">
-        <FaHome className="mt-[0.3rem]" />
-        <p className="cursor-pointer font-bold" onClick={() => navigate("/Home")}>
+      <div className="flex flex-row gap-x-[1rem] px-[3rem] lg:px-[8rem] mt-[2rem]">
+        <Link className="font-bold flex gap-[1rem] cursor-pointer" to="/Home">
+          <FaHome className="mt-[0.3rem]" />
           Home
-        </p>
+        </Link>
         <p> {">"} Contact</p>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 justify-start">
+      <div className="grid grid-cols-1 lg:grid-cols-2 justify-start px-[3rem] lg:pl-0 lg:pr-[5rem]">
         <EmailForm />
         <Map />
       </div>

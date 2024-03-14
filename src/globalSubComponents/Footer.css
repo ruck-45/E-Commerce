@@ -2,6 +2,14 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  background-color: #130f40;
+}
+
+.footer-bg {
+  background: rgb(19, 15, 64);
+  background: -moz-radial-gradient(circle, rgba(19, 15, 64, 1) 32%, rgba(0, 0, 0, 1) 100%);
+  background: -webkit-radial-gradient(circle, rgba(19, 15, 64, 1) 32%, rgba(0, 0, 0, 1) 100%);
+  background: radial-gradient(circle, rgba(19, 15, 64, 1) 32%, rgba(0, 0, 0, 1) 100%);
 }
 
 @media only screen and (max-width: 1231px) {
@@ -9,7 +17,7 @@
     padding-left: 10%;
     padding-right: 10%;
     background-size: cover;
-  background-position: center;
+    background-position: center;
   }
 
   .upperFooter {

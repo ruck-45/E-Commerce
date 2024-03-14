@@ -14,8 +14,8 @@ const product = {
   price: "₹996",
   href: "#",
   breadcrumbs: [
-    { id: 1, name: "Men", href: "#" },
-    { id: 2, name: "Clothing", href: "#" },
+    { id: 1, name: "Home", href: "/Home" },
+    { id: 2, name: "Shop", href: "/Shop" },
   ],
   images: [
     {
@@ -277,7 +277,7 @@ export default function ProductDetails() {
                 </div>
               </div>
 
-              {/* <div className="mt-10">
+              <div className="mt-10">
                 <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
 
                 <div className="mt-4">
@@ -289,15 +289,15 @@ export default function ProductDetails() {
                     ))}
                   </ul>
                 </div>
-              </div> */}
+              </div>
 
-              {/* <div className="mt-10">
+              <div className="mt-10">
                 <h2 className="text-sm font-medium text-gray-900">Details</h2>
 
                 <div className="mt-4 space-y-6">
                   <p className="text-sm text-gray-600">{product.details}</p>
                 </div>
-              </div> */}
+              </div>
             </div>
           </div>
         </section>

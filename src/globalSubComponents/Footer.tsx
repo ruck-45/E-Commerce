@@ -13,7 +13,7 @@ import "./Footer.css";
 
 const Footer = () => {
   return (
-    <div className="bg-black flex flex-col sm:items-center justify-between">
+    <div className="footer-bg flex flex-col sm:items-center justify-between">
       <div className="lg:p-[5rem] px-[2rem] py-[5rem] flex md:flex-row flex-col items-start justify-between lg:gap-[6rem] gap-[3rem] text-white border-b-1 border-white ">
         <div className="flex flex-col items-start gap-[0.5rem]">
           <Image width={150} src={logo} alt="logo" className="bg-white p-[1rem]" />

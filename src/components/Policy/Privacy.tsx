@@ -8,7 +8,7 @@ import { updateTab } from "../../Redux/Slices/curTabSlice";
 
 const Privacy = () => {
   const dispatch = useDispatch();
-  dispatch(updateTab("Privacy"));
+  dispatch(updateTab("Policy"));
   scrollTop();
 
   return (

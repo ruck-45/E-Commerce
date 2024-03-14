@@ -18,9 +18,10 @@ import ScrollToTop from "./globalSubComponents/ScrollToTop";
 import ShopPage from "./components/ShopPage/ShopPage";
 import { RootState } from "./Redux/store";
 import Cart from "./components/Cart/Cart";
-import Checkout from "./components/Checkout/Checkout";
 import OrderSummary from "./components/Checkout/OrderSummary";
 import AddAddress from "./components/Checkout/AddAddress";
+import Checkout from "./components/Checkout/Checkout";
+import Term from "./components/Privacy/Term";
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
           <Route path="/Profile" element={<Profile />} />
           <Route path="/Blog/*" element={<Blog />} />
           <Route path="/Privacy" element={<Privacy />} />
+          <Route path="/Term" element={<Term />} />
           <Route path="*" element={<Navigate to="/Home" />} />
         </Routes>
       </div>

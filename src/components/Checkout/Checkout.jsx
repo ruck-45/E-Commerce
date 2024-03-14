@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import AddDeliveryAddressForm from "./AddAddress";
 import { useLocation, useNavigate } from "react-router-dom";
 import OrderSummary from "./OrderSummary";
+import Cart from "../Cart/Cart";
 
 const steps = [
   "Cart",
@@ -36,7 +37,7 @@ console.log("step",step)
   };
 
   const handleBack = () => {
-    navigate(`/checkout?step=${step-1}`)
+    navigate(`/Checkout?step=${step-1}`)
   };
 
 
@@ -91,7 +92,7 @@ console.log("step",step)
           {/* <Typography sx={{ my: 6 }}>Title</Typography> */}
 
           <div className="my-5">
-            {step == 2? <AddDeliveryAddressForm  />:<OrderSummary/>}
+            {step == 1? <Cart  />:(step==2? <AddDeliveryAddressForm/>:<OrderSummary/>)}
           </div>
 
           {/* <AddDeliveryAddressForm handleNext={handleNext} /> */}

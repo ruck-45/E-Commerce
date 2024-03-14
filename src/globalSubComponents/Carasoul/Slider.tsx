@@ -8,7 +8,7 @@ import { sliderData } from "./SliderImage";
 
 const len = sliderData.length - 1;
 
-function Slider(props: any) {
+function Slider() {
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
   useEffect(() => {

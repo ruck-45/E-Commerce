@@ -1,17 +1,29 @@
 import HomeProductCard from "./HomeProductCard";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useState } from "react";
-import "react-alice-carousel/lib/alice-carousel.css";
 import { Button } from "@mui/material";
 import AliceCarousel from "react-alice-carousel";
+import { FaArrowRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import "react-alice-carousel/lib/alice-carousel.css";
 
-const HomeProductSection = ({ section, data }) => {
+type Data = {
+  imageUrl: string;
+  brand: string;
+  title: string;
+};
+
+type HomeProductSectionProps = {
+  section: string;
+  data: Data[];
+};
+
+const HomeProductSection = (props: HomeProductSectionProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const slidePrev = () => setActiveIndex(activeIndex - 1);
   const slideNext = () => setActiveIndex(activeIndex + 1);
-  const syncActiveIndex = ({ item }) => setActiveIndex(item);
-
+  const syncActiveIndex = (item: any) => setActiveIndex(item);
   const responsive = {
     0: {
       items: 1.3,
@@ -50,15 +62,24 @@ const HomeProductSection = ({ section, data }) => {
       itemsFit: "contain",
     },
   };
-  const items = data?.slice(0, 10).map((item) => (
+  const items = props.data.slice(0, 10).map((item) => (
     <div className="">
-      <HomeProductCard product={item} />
+      <HomeProductCard {...item} />
     </div>
   ));
 
   return (
     <div className="relative px-4 sm:px-6 lg:px-8 bg-white my-[3rem]">
-      <h2 className="text-2xl font-extrabold text-gray-900 py-5">{section}</h2>
+      <div className="flex justify-between">
+        <h2 className="text-2xl font-extrabold text-gray-900 py-5">{props.section}</h2>
+        <Link
+          to="/Shop"
+          className="flex flex-row justify-start items-center text-[1rem] font-medium py-[1rem] gap-[0.5rem] hover:gap-[1rem] transition-all"
+        >
+          <p>Shop Now</p>
+          <FaArrowRight className="" />
+        </Link>
+      </div>
       <div className="relative border p-5">
         <AliceCarousel
           disableButtonsControls

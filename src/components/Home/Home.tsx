@@ -10,8 +10,11 @@ import Explore from "./SubComponents/Explore";
 import EmailContact from "./SubComponents/EmailContact";
 import HomeProductSection from "./SubComponents/HomeProductSection";
 import AttractiveSection from "./SubComponents/AttractiveSection";
+import HomeCard from "./SubComponents/HomeCard";
 import { carpetData } from "../../Data/carpets";
 import { antiqueData } from "../../Data/antiques";
+import Achievement from "./SubComponents/Achievement";
+import ImageRow from "./SubComponents/ImageRow";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -25,8 +28,11 @@ const Home = () => {
       <AttractiveSection />
       <Services />
       <HomeProductSection data={carpetData} section={"Carpets On Demand"} />
+      <Achievement />
       <Explore />
+      <HomeCard />
       <EmailContact />
+      <ImageRow />
     </div>
   );
 };

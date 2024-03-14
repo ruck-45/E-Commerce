@@ -23,7 +23,10 @@ const AttractiveSection = () => {
                 items in our exclusive <br /> collection.
               </p>
             </div>
-            <Link className="flex flex-row justify-start items-center text-[1rem] font-medium py-[1rem] gap-[0.5rem] hover:gap-[1rem] transition-all">
+            <Link
+              to="/Shop"
+              className="flex flex-row justify-start items-center text-[1rem] font-medium py-[1rem] gap-[0.5rem] hover:gap-[1rem] transition-all"
+            >
               <p>Shop Now</p>
               <FaArrowRight className="" />
             </Link>
@@ -41,7 +44,10 @@ const AttractiveSection = () => {
                   Products
                 </h1>
               </div>
-              <Link className="flex flex-row justify-start items-center text-[1rem] font-medium py-[1rem] gap-[0.5rem] hover:gap-[1rem] transition-all">
+              <Link
+                to="/Shop"
+                className="flex flex-row justify-start items-center text-[1rem] font-medium py-[1rem] gap-[0.5rem] hover:gap-[1rem] transition-all"
+              >
                 <p>Shop Now</p>
                 <FaArrowRight className="" />
               </Link>
@@ -58,7 +64,10 @@ const AttractiveSection = () => {
                   Discounts
                 </h1>
               </div>
-              <Link className="flex flex-row justify-start items-center text-[1rem] font-medium py-[1rem] gap-[0.5rem] hover:gap-[1rem] transition-all">
+              <Link
+                to="/Shop"
+                className="flex flex-row justify-start items-center text-[1rem] font-medium py-[1rem] gap-[0.5rem] hover:gap-[1rem] transition-all"
+              >
                 <p>Shop Now</p>
                 <FaArrowRight className="" />
               </Link>

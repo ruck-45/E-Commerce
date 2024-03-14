@@ -3,7 +3,11 @@ import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from "@heroicons/react/20/solid";
 import ProductCards from "./SubComponents.tsx/ProductCards";
-import { mens_kurta } from "./assets/data";
+import { carpetData } from "../../Data/carpets";
+import { useDispatch } from "react-redux";
+import { scrollTop } from "../../utils/controllers";
+import { updateTab } from "../../Redux/Slices/curTabSlice";
+import { Pagination } from "@nextui-org/react";
 
 const sortOptions = [
   { name: "Most Popular", href: "#", current: true },
@@ -14,16 +18,17 @@ const sortOptions = [
 ];
 const subCategories = [
   { name: "Carpets", href: "#" },
+  { name: "Rugs", href: "#" },
   { name: "Antiques", href: "#" },
-  { name: "Latest Antiques", href: "#" },
-  { name: "Kashmiri Carpets", href: "#" },
-  { name: "Kalin", href: "#" },
+  { name: "Kalins", href: "#" },
+  { name: "Decoratives", href: "#" },
 ];
 const filters = [
   {
     id: "color",
     name: "Color",
     options: [
+      { value: "all", label: "All", checked: false },
       { value: "white", label: "White", checked: false },
       { value: "beige", label: "Beige", checked: false },
       { value: "blue", label: "Blue", checked: true },
@@ -38,8 +43,8 @@ const filters = [
     options: [
       { value: "new-arrivals", label: "New Arrivals", checked: false },
       { value: "sale", label: "Sale", checked: false },
-      { value: "travel", label: "Travel", checked: true },
-      { value: "organization", label: "Organization", checked: false },
+      { value: "popular", label: "Popular", checked: true },
+      { value: "trendy", label: "Trendy", checked: false },
       { value: "accessories", label: "Accessories", checked: false },
     ],
   },
@@ -61,8 +66,15 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
+const pageSize = 16;
+
 export default function ShopPage() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [itemCount, setItemCount] = useState(0);
+
+  const dispatch = useDispatch();
+  dispatch(updateTab("Shop"));
+  scrollTop();
 
   return (
     <div className="bg-white">
@@ -108,8 +120,8 @@ export default function ShopPage() {
                   <form className="mt-4 border-t border-gray-200">
                     <h3 className="sr-only">Categories</h3>
                     <ul role="list" className="px-2 py-3 font-medium text-gray-900">
-                      {subCategories.map((category) => (
-                        <li key={category.name}>
+                      {subCategories.map((category, index) => (
+                        <li key={index}>
                           <a href={category.href} className="block px-2 py-3">
                             {category.name}
                           </a>
@@ -117,8 +129,8 @@ export default function ShopPage() {
                       ))}
                     </ul>
 
-                    {filters.map((section) => (
-                      <Disclosure as="div" key={section.id} className="border-t border-gray-200 px-4 py-6">
+                    {filters.map((section, index) => (
+                      <Disclosure as="div" key={index} className="border-t border-gray-200 px-4 py-6">
                         {({ open }) => (
                           <>
                             <h3 className="-mx-2 -my-3 flow-root">
@@ -168,7 +180,7 @@ export default function ShopPage() {
 
         <main className="mx-auto  px-4 sm:px-6 lg:px-20">
           <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900">New Arrivals</h1>
+            <h1 className="text-4xl font-bold tracking-tight text-gray-900">Categories</h1>
 
             <div className="flex items-center">
               <Menu as="div" className="relative inline-block text-left">
@@ -293,9 +305,21 @@ export default function ShopPage() {
               {/* Product grid */}
               <div className="lg:col-span-4 w-full">
                 <div className="flex flex-wrap justify-center py-5 bg-white">
-                  {mens_kurta.map((detail) => (
+                  {carpetData.map((detail) => (
                     <ProductCards {...detail} />
                   ))}
+                  <div className="py-[2rem]">
+                    <Pagination
+                      loop
+                      showControls
+                      color="primary"
+                      variant="light"
+                      onChange={(pageNumber) => setItemCount(pageNumber)}
+                      // total={itemCount ? Math.ceil(itemCount / pageSize) : 1}
+                      total={8}
+                      initialPage={1}
+                    />
+                  </div>
                 </div>
               </div>
             </div>

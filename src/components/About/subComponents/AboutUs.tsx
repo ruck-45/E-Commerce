@@ -19,7 +19,12 @@ const AboutUs = () => {
             eaque quas quasi voluptate!
           </p>
         </div>
-        <Image width={350} src="" className="m-5" isBlurred />
+        <Image
+          width={350}
+          src="https://images.unsplash.com/photo-1600166898405-da9535204843?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          className="m-5"
+          isBlurred
+        />
       </div>
       <Divider className="max-w-[28rem] sm:max-w-[36rem] md:max-w-[47rem] lg:max-w-[55rem] self-center" />
     </div>

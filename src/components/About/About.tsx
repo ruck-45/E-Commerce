@@ -10,6 +10,7 @@ import AboutWork from "./subComponents/AboutWork";
 import Intro from "../../globalSubComponents/Intro";
 import ImageRow from "../Home/SubComponents/ImageRow";
 import Achievement from "../Home/SubComponents/Achievement";
+import OurTeam from "./subComponents/OurTeam";
 
 const About = () => {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const About = () => {
       </div>
       <AboutUs />
       <AboutWork />
-      {/* Team */}
+      <OurTeam />
       <Achievement />
       {/* Our Services */}
       <ImageRow />

@@ -49,7 +49,7 @@ const EmailContact = () => {
 
           <div>
             <h3 className="font-bold text-lg">Phone:</h3>
-            <p className="text-md max-w-[15rem]">010-020-0340</p>
+            <p className="text-md max-w-[15rem]">+1-888-678-1234</p>
           </div>
           <div>
             <h3 className="font-bold text-lg">Email:</h3>

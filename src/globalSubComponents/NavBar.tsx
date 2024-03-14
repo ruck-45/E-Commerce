@@ -8,13 +8,10 @@ import {
   NavbarMenuItem,
   Image,
   Divider,
-  Button,
 } from "@nextui-org/react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { LuShoppingCart } from "react-icons/lu";
-import { FaRegHeart } from "react-icons/fa";
-import { FaSearch } from "react-icons/fa";
 
 // Local Files
 import "./NavBar.css";
@@ -25,7 +22,7 @@ import { getCookie } from "../utils/cookies";
 import { updateToLoginStatus } from "../Redux/Slices/toLoginSlice";
 import { updateNavStatus } from "../Redux/Slices/navOpenStatusSlice";
 import { RootState } from "../Redux/store";
-const menuItems = ["Home", "Services", "About", "Contact", "Pricing", "Blog", "Log In"];
+const menuItems = ["Home", "Shop", "About", "Contact", "Cart"];
 
 const NavBar = () => {
   const isLoggedIn = getCookie("token") ? true : false;
@@ -42,60 +39,50 @@ const NavBar = () => {
       maxWidth="xl"
       isBordered
       classNames={{ base: "bg-[rgba(0,0,0,0.4)]" }}
-      position="sticky"
+      position="static"
     >
       <NavbarContent>
-        <NavbarMenuToggle aria-label={navOpenStatus ? "Close menu" : "Open menu"} className="lg:hidden text-white" />
-        <div className="bg-white hidden lg:block">
-          <Image width={60} src={icon} alt="logo" radius="none" />
-        </div>
+        <NavbarMenuToggle aria-label={navOpenStatus ? "Close menu" : "Open menu"} className="lg:hidden" />
+        <Link to="../Home">
+          <div className="bg-white hidden lg:block">
+            <Image width={100} src={icon} alt="logo" radius="none" />
+          </div>
+        </Link>
       </NavbarContent>
 
       <NavbarContent className="lg:hidden logo">
         <Link to="../Home">
-          <div className="bg-white p-[1rem] flex justify-center items-center max-h-[5rem] ribbon">
-            <Image width={60} src={icon} alt="logo" radius="none" />
+          <div className="bg-white p-[1rem] flex justify-center items-center max-h-[5rem]">
+            <Image width={92} src={icon} alt="logo" radius="none" />
           </div>
         </Link>
       </NavbarContent>
 
       <NavbarContent className="hidden lg:flex" justify="center">
         <NavbarItem className="">
-          <Link
-            to="../Home"
-            className={curTab === "Home" ? "active navActive flex flex-col px-[1rem]" : "notActive px-[1rem]"}
-          >
+          <Link to="../Home" className={curTab === "Home" ? "active navActive flex flex-col" : "notActive"}>
             Home
           </Link>
         </NavbarItem>
-        <Divider orientation="vertical" className="h-[2.5rem] " style={{ transform: "rotate(15deg)" }} />
+        <Divider orientation="vertical" className="h-[1rem] " style={{ transform: "rotate(15deg)" }} />
         <NavbarItem>
-          <Link
-            to="../Shop"
-            className={curTab === "Shop" ? "active navActive flex flex-col px-[1rem]" : "notActive px-[1rem]"}
-          >
+          <Link to="../Shop" className={curTab === "Shop" ? "active navActive flex flex-col" : "notActive"}>
             Shop
           </Link>
         </NavbarItem>
         <Divider
           orientation="vertical"
-          className="h-[2.5rem] transform rotate-30"
+          className="h-[1rem] transform rotate-30"
           style={{ transform: "rotate(15deg)" }}
         />
         <NavbarItem>
-          <Link
-            to="../About"
-            className={curTab === "About" ? "active navActive flex flex-col px-[1rem]" : "notActive px-[1rem]"}
-          >
+          <Link to="../About" className={curTab === "About" ? "active navActive flex flex-col" : "notActive"}>
             About
           </Link>
         </NavbarItem>
-        <Divider orientation="vertical" className="h-[2.5rem] " style={{ transform: "rotate(15deg)" }} />
+        <Divider orientation="vertical" className="h-[1rem] " style={{ transform: "rotate(15deg)" }} />
         <NavbarItem>
-          <Link
-            to="../Contact"
-            className={curTab === "Contact" ? "active navActive flex flex-col px-[1rem]" : "notActive px-[1rem]"}
-          >
+          <Link to="../Contact" className={curTab === "Contact" ? "active navActive flex flex-col" : "notActive"}>
             Contact
           </Link>
         </NavbarItem>
@@ -108,36 +95,24 @@ const NavBar = () => {
         </NavbarContent>
       ) : (
         <NavbarContent justify="end">
-          <NavbarItem>
+          <NavbarItem className="hidden lg:flex">
             <ButtonElement to="/Cart" startContent={<LuShoppingCart />} label="Cart" variant="light" />
           </NavbarItem>
-          <NavbarItem className="hidden lg:flex">
+          <NavbarItem className="flex">
             <ButtonElement
               to="../Auth"
-              variant="light"
+              variant="shadow"
               label="Login"
-              radius="none"
-              className="w-full px-[8px] py-[10px] text-[#d4a373] hover:bg-[#d4a373]"
+              color="primary"
+              radius="full"
               size="md"
               onClickFunction={() => dispatch(updateToLoginStatus(true))}
-            />
-          </NavbarItem>
-          <Divider orientation="vertical" className="h-[2rem] bg-[#d4a373] " style={{ transform: "rotate(15deg)" }} />
-          <NavbarItem>
-            <ButtonElement
-              to="../Auth"
-              variant="light"
-              label="Sign Up"
-              radius="none"
-              size="sm"
-              className="w-full px-[8px] py-[10px] text-[#d4a373] "
-              onClickFunction={() => dispatch(updateToLoginStatus(false))}
             />
           </NavbarItem>
         </NavbarContent>
       )}
 
-      <NavbarMenu className="mt-[1rem] bg-[rgba(0,0,0,0.4)] z-[200]">
+      <NavbarMenu className="mt-[1rem] bg-white z-[200]">
         {menuItems.map((item, index) => {
           return (
             <NavbarMenuItem key={`${item}-${index}`}>

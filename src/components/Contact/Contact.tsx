@@ -5,10 +5,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 // Local Files
 import EmailForm from "./suComponents/EmailForm";
 import Map from "./suComponents/Map";
+import ImageRow from "../Home/SubComponents/ImageRow";
 
 import { scrollTop } from "../../utils/controllers";
 import { updateTab } from "../../Redux/Slices/curTabSlice";
-import ImageRow from "../Home/SubComponents/ImageRow";
 import { FaHome } from "react-icons/fa";
 
 const Contact = () => {

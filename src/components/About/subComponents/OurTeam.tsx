@@ -4,10 +4,8 @@ const OurTeam = () => {
   return (
     <div className="flex flex-col justify-center items-center text-center p-[5rem] gap-[1rem]">
       <h1 className="font-bold text-5xl">Our Amazing Team</h1>
-      <p className="text-default-400 text-md">
-        Details to details is what makes Hexashop different from the other themes.
-      </p>
-      <div className="grid grid-cols-3 mt-[1rem] gap-[2rem]">
+      <p className="text-default-400 text-md">What makes ShopNest different from Others.</p>
+      <div className="flex flex-wrap mt-[1rem] gap-[2rem] justify-center items-center">
         <Card>
           <CardBody>
             <Image
@@ -16,8 +14,8 @@ const OurTeam = () => {
             />
           </CardBody>
           <CardFooter className="flex flex-col items-center justify-center">
-            <h1 className="font-bold text-2xl">Ragnar Lodbrok</h1>
-            <p className="text-default-400">Product Caretaker</p>
+            <h1 className="font-bold text-2xl">Ragnar Bennett</h1>
+            <p className="text-default-400">Chief Marketing Officer</p>
           </CardFooter>
         </Card>
         <Card>
@@ -28,8 +26,8 @@ const OurTeam = () => {
             />
           </CardBody>
           <CardFooter className="flex flex-col items-center justify-center">
-            <h1 className="font-bold text-2xl">Ragnar Lodbrok</h1>
-            <p className="text-default-400">Product Caretaker</p>
+            <h1 className="font-bold text-2xl">Alex Darwin</h1>
+            <p className="text-default-400">Head of Operations</p>
           </CardFooter>
         </Card>
         <Card>
@@ -40,8 +38,8 @@ const OurTeam = () => {
             />
           </CardBody>
           <CardFooter className="flex flex-col items-center justify-center">
-            <h1 className="font-bold text-2xl">Ragnar Lodbrok</h1>
-            <p className="text-default-400">Product Caretaker</p>
+            <h1 className="font-bold text-2xl">Rachel Faux</h1>
+            <p className="text-default-400">Director of Product Management</p>
           </CardFooter>
         </Card>
       </div>

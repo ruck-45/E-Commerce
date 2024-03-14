@@ -6,6 +6,7 @@ import { FaTwitterSquare, FaPhoneAlt } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { Image } from "@nextui-org/react";
 import logo from "../globalAssets/logo.svg";
+import { Link } from "react-router-dom";
 
 // Local Files
 import "./Footer.css";
@@ -34,12 +35,30 @@ const Footer = () => {
           <h1 className="font-bold text-[1.2rem] ">Carpet Shoping</h1>
 
           <ul>
-            <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">Artisan's Rugs</li>
-            <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">Heritage Carpets</li>
-            <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">Modern Living Rugs</li>
-            <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">Rustic Charm Rugs</li>
-            <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">Costal Living Rugs</li>
-            <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">Elegant Living Rugs</li>
+            <Link to="/Shop">
+              <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">Artisan's Rugs</li>
+            </Link>
+            <Link to="/Shop">
+              <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">Heritage Carpets</li>
+            </Link>
+            <Link to="/Shop">
+              <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">
+                Modern Living Rugs
+              </li>
+            </Link>
+            <Link to="/Shop">
+              <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">Rustic Charm Rugs</li>
+            </Link>
+            <Link to="/Shop">
+              <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">
+                Costal Living Rugs
+              </li>
+            </Link>
+            <Link to="/Shop">
+              <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">
+                Elegant Living Rugs
+              </li>
+            </Link>
           </ul>
         </div>
 
@@ -47,13 +66,29 @@ const Footer = () => {
           <h1 className="font-bold text-[1.2rem] ">Antique Shoping</h1>
 
           <ul>
-            <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">Vintage Elegance</li>
-            <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">Vintage Charm</li>
-            <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">Rustic Treasures</li>
-            <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">Artisanal Crafts</li>
-            <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">Antique Finds</li>
-            <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">Victorian Splendor</li>
-            <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">Rustic Artistry</li>
+            <Link to="/Shop">
+              <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">Vintage Elegance</li>
+            </Link>
+            <Link to="/Shop">
+              <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">Vintage Charm</li>
+            </Link>
+            <Link to="/Shop">
+              <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">Rustic Treasures</li>
+            </Link>
+            <Link to="/Shop">
+              <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">Artisanal Crafts</li>
+            </Link>
+            <Link to="/Shop">
+              <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">Antique Finds</li>
+            </Link>
+            <Link to="/Shop">
+              <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">
+                Victorian Splendor
+              </li>
+            </Link>
+            <Link to="/Shop">
+              <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">Rustic Artistry</li>
+            </Link>
           </ul>
         </div>
 
@@ -61,14 +96,28 @@ const Footer = () => {
           <h1 className="font-bold text-[1.2rem] ">Useful Links</h1>
 
           <ul>
-            <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">Home Page</li>
-            <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">About Us</li>
-            <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">Contact Us</li>
-            <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">Privacy Policy</li>
-            <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">Terms & Conditions</li>
-            <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">
-              Refund & Cancellation
-            </li>
+            <Link to="/Home">
+              <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">Home Page</li>
+            </Link>
+            <Link to="/About">
+              <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">About Us</li>
+            </Link>
+            <Link to="/Contact">
+              <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">Contact Us</li>
+            </Link>
+            <Link to="/Privacy">
+              <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">Privacy Policy</li>
+            </Link>
+            <Link to="/Terms">
+              <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">
+                Terms & Conditions
+              </li>
+            </Link>
+            <Link to="/Refund">
+              <li className="list-disc list-inside cursor-pointer hover:translate-x-1 transition">
+                Refund & Cancellation
+              </li>
+            </Link>
           </ul>
         </div>
       </div>

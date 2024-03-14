@@ -17,12 +17,8 @@ import Footer from "./globalSubComponents/Footer";
 import ScrollToTop from "./globalSubComponents/ScrollToTop";
 import ShopPage from "./components/ShopPage/ShopPage";
 import { RootState } from "./Redux/store";
-import Cart from "./components/Cart/Cart";
-import OrderSummary from "./components/Checkout/OrderSummary";
-import AddAddress from "./components/Checkout/AddAddress";
 import Checkout from "./components/Checkout/Checkout";
 import Term from "./components/Privacy/Term";
-
 
 function App() {
   const curTab = useSelector((state: RootState) => state.curTab.value);
@@ -35,7 +31,6 @@ function App() {
           <Route path="/" element={<Navigate to="/Home" />} />
           <Route path="/Home" element={<Home />} />
           <Route path="/Shop" element={<ShopPage />} />
-          <Route path="/Cart" element={<Cart />} />
           <Route path="/Checkout" element={<Checkout />} />
           <Route path="/About" element={<About />} />
           <Route path="/Profile" element={<Profile />} />
@@ -46,7 +41,7 @@ function App() {
           <Route path="/Profile" element={<Profile />} />
           <Route path="/Blog/*" element={<Blog />} />
           <Route path="/Privacy" element={<Privacy />} />
-          <Route path="/Term" element={<Term />} />
+          <Route path="/Terms" element={<Term />} />
           <Route path="*" element={<Navigate to="/Home" />} />
         </Routes>
       </div>

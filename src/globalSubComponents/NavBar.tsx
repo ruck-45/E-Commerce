@@ -96,7 +96,7 @@ const NavBar = () => {
       ) : (
         <NavbarContent justify="end">
           <NavbarItem className="hidden lg:flex">
-            <ButtonElement to="/Cart" startContent={<LuShoppingCart />} label="Cart" variant="light" />
+            <ButtonElement to="/Checkout?step=1" startContent={<LuShoppingCart />} label="Cart" variant="light" />
           </NavbarItem>
           <NavbarItem className="flex">
             <ButtonElement

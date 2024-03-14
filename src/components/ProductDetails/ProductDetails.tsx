@@ -75,7 +75,7 @@ export default function ProductDetails() {
   // const jwt = localStorage.getItem("jwt");
   // console.log("param",productId,customersProduct.product)
 
-  const handleSetActiveImage = (image) => {
+  const handleSetActiveImage = (image: any) => {
     setActiveImage(image);
   };
 

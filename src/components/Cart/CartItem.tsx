@@ -14,11 +14,11 @@ const CartItem = () => {
     // const data = { cartItemId: item?._id, jwt };
     // dispatch(removeCartItem(data));
   };
-  const handleUpdateCartItem=(num)=>{
+  const handleUpdateCartItem = (num: number) => {
     // const data={data:{quantity:item.quantity+num}, cartItemId:item?._id, jwt}
     // console.log("update data ",data)
     // dispatch(updateCartItem(data))
-  }
+  };
   return (
     <div className="p-5 shadow-lg border rounded-md">
       <div className="flex items-center">

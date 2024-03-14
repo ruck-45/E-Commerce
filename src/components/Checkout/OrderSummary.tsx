@@ -1,4 +1,3 @@
-import React from "react";
 // import { Badge, Button } from "@mui/material";
 // import { useLocation, useNavigate } from "react-router-dom";
 import CartItem from "../Cart/CartItem";

@@ -1,5 +1,3 @@
-import React from "react";
-
 const AddressCard = () => {
   return (
     <div>
@@ -7,9 +5,7 @@ const AddressCard = () => {
       <div className="space-y-3">
         <p className="font-semibold">Anish Kumar</p>
 
-        <p>
-          Nagla nagli gali no 4, noida sector 134, 201305
-        </p>
+        <p>Nagla nagli gali no 4, noida sector 134, 201305</p>
 
         <div className="space-y-1">
           <p className="font-semibold">Phone Number</p>

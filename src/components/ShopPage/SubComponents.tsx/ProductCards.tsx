@@ -1,4 +1,5 @@
 import "./Product.css";
+import { useNavigate } from "react-router-dom";
 
 type ProductProps = {
   imageUrl: string;
@@ -20,8 +21,12 @@ type ProductProps = {
 };
 
 const ProductCards = (props: ProductProps) => {
+  const navigate = useNavigate();
   return (
-    <div className="productCard w-[15rem] border m-3 transition-all cursor-pointer ">
+    <div
+      className="productCard w-[15rem] border m-3 transition-all cursor-pointer "
+      onClick={() => navigate(`/ProductDetails`)}
+    >
       <div className="h-[16.5rem]">
         <img className="h-full w-full object-cover object-left-top" src={props.imageUrl} alt="" />
       </div>

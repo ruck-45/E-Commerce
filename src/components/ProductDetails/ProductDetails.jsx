@@ -6,11 +6,8 @@ import { Box, Button, Grid, LinearProgress, Rating } from "@mui/material";
 // import HomeProductCard from "../../Home/HomeProductCard";
 // import { useEffect } from "react";
 // import { useDispatch, useSelector } from "react-redux";
-// import { findProductById } from "../../../../Redux/Customers/Product/Action";
-// import { addItemToCart } from "../../../../Redux/Customers/Cart/Action";
-// import { getAllReviews } from "../../../../Redux/Customers/Review/Action";
-// import { lengha_page1 } from "../../../../Data/Women/LenghaCholi";
-// import { gounsPage1 } from "../../../../Data/Gouns/gouns";
+
+import { scrollTop } from "../../utils/controllers";
 
 const product = {
   name: "Carpets",
@@ -62,11 +59,13 @@ const product = {
 };
 const reviews = { href: "#", average: 4, totalCount: 117 };
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+// function classNames(...classes) {
+//   return classes.filter(Boolean).join(" ");
+// }
 
 export default function ProductDetails() {
+  scrollTop();
+
   // const [selectedSize, setSelectedSize] = useState();
   const [activeImage, setActiveImage] = useState(null);
   // const navigate = useNavigate();

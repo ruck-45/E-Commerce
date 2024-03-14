@@ -304,10 +304,12 @@ export default function ShopPage() {
 
               {/* Product grid */}
               <div className="lg:col-span-4 w-full">
-                <div className="flex flex-wrap justify-center py-5 bg-white">
-                  {carpetData.map((detail) => (
-                    <ProductCards {...detail} />
-                  ))}
+                <div className="flex flex-col items-center justify-center">
+                  <div className="flex flex-wrap justify-center py-5 bg-white">
+                    {carpetData.map((detail) => (
+                      <ProductCards {...detail} />
+                    ))}
+                  </div>
                   <div className="py-[2rem]">
                     <Pagination
                       loop

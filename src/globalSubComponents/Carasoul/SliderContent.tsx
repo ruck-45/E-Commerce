@@ -27,6 +27,7 @@ function SliderContent(props: index) {
               variant="ghost"
               color="warning"
               size="lg"
+              radius="full"
               onClick={() => navigate("/Shop")}
             >
               Shop Now

@@ -1,22 +1,22 @@
 .active {
-  color: #d4a373;
+  color: #005BC4;
   font-weight: 700;
-  font-size: large;
+  font-size: medium;
 }
 
 .notActive {
-  color: black;
-  font-size: large;
+  font-weight: 600;
+  font-size: medium;
 }
 
 .notActive:hover {
-  color: #d4a373;
+  color: #005BC4;
 }
 .navActive::after {
   content: "";
   height: 0.15rem;
   border-radius: 1rem;
-  background-color: #d4a373;
+  background-color: #005BC4;
   transform: translateY(0.2rem);
   animation: drawLine 0.5s forwards;
 }
@@ -31,7 +31,7 @@
 }
 
 .nav {
-  font-family: "Acme";
+  font-family: "Inter";
 }
 
 .logo {

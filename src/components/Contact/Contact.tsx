@@ -10,6 +10,7 @@ import ImageRow from "../Home/SubComponents/ImageRow";
 import { scrollTop } from "../../utils/controllers";
 import { updateTab } from "../../Redux/Slices/curTabSlice";
 import { FaHome } from "react-icons/fa";
+import EmailContact from "../Home/SubComponents/EmailContact";
 
 const Contact = () => {
   const navigate = useNavigate();
@@ -33,6 +34,7 @@ const Contact = () => {
         <EmailForm />
         <Map />
       </div>
+      <EmailContact />
       <ImageRow />
     </>
   );

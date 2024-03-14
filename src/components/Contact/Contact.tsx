@@ -12,7 +12,7 @@ import { updateTab } from "../../Redux/Slices/curTabSlice";
 import { FaHome } from "react-icons/fa";
 
 const Contact = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   dispatch(updateTab("Contact"));
 
@@ -23,8 +23,10 @@ const Contact = () => {
   return (
     <>
       <div className="flex flex-row gap-x-[1rem] px-[3rem] md:px-[8rem] mt-[2rem]">
-        <FaHome className="mt-1" />
-        <p className="cursor-pointer font-bold" onClick={() => navigate("/Home")}>Home</p>
+        <FaHome className="mt-[0.3rem]" />
+        <p className="cursor-pointer font-bold" onClick={() => navigate("/Home")}>
+          Home
+        </p>
         <p> {">"} Contact</p>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 justify-start">

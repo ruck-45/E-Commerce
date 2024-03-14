@@ -8,9 +8,8 @@ import { updateTab } from "../../Redux/Slices/curTabSlice";
 import AboutUs from "./subComponents/AboutUs";
 import AboutWork from "./subComponents/AboutWork";
 import Intro from "../../globalSubComponents/Intro";
-
-
-
+import ImageRow from "../Home/SubComponents/ImageRow";
+import Achievement from "../Home/SubComponents/Achievement";
 
 const About = () => {
   const dispatch = useDispatch();
@@ -27,6 +26,10 @@ const About = () => {
       />
       <AboutUs />
       <AboutWork />
+      {/* Team */}
+      <Achievement />
+      {/* Our Services */}
+      <ImageRow />
     </>
   );
 };

@@ -25,7 +25,7 @@ const CartItem = () => {
         <div className="w-[5rem] h-[5rem] lg:w-[9rem] lg:h-[9rem] ">
           <img
             className="w-full h-full object-cover object-top"
-            src="https://rukminim1.flixcart.com/image/612/612/l0wrafk0/dress/l/2/o/3xl-m2s13003-peach-madame-original-imagchhhwbypcann.jpeg?q=70"
+            src="https://m.media-amazon.com/images/I/81zzpFxg+vL.jpg"
             alt=""
           />
         </div>
@@ -40,7 +40,7 @@ const CartItem = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="lg:flex items-center lg:space-x-10 pt-4">
         <div className="flex items-center space-x-2 ">
           <IconButton onClick={() => handleUpdateCartItem(-1)} color="primary" aria-label="add an alarm">

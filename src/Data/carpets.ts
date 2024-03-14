@@ -4,8 +4,8 @@ export const carpetData = [
     brand: "Artisan Rugs",
     title: "Handwoven Wool Area Rug",
     color: "Beige",
-    discountedPrice: 299,
-    price: 599,
+    discountedPrice: 2990,
+    price: 5990,
     discountPersent: 50,
     size: [
       {
@@ -33,8 +33,8 @@ export const carpetData = [
     brand: "Heritage Carpets",
     title: "Vintage Floral Pattern Rug",
     color: "Multicolor",
-    discountedPrice: 399,
-    price: 799,
+    discountedPrice: 3990,
+    price: 7990,
     discountPersent: 50,
     size: [
       {
@@ -63,8 +63,8 @@ export const carpetData = [
     brand: "Modern Living Rugs",
     title: "Geometric Shag Area Rug",
     color: "Grey",
-    discountedPrice: 199,
-    price: 299,
+    discountedPrice: 1990,
+    price: 2990,
     discountPersent: 33,
     size: [
       {
@@ -88,8 +88,8 @@ export const carpetData = [
     brand: "Artisan Rugs",
     title: "Hand-Tufted Moroccan Trellis Rug",
     color: "Navy Blue",
-    discountedPrice: 259,
-    price: 499,
+    discountedPrice: 2590,
+    price: 4990,
     discountPersent: 48,
     size: [
       {
@@ -117,8 +117,8 @@ export const carpetData = [
     brand: "Heritage Carpets",
     title: "Traditional Oriental Area Rug",
     color: "Red",
-    discountedPrice: 349,
-    price: 699,
+    discountedPrice: 3490,
+    price: 6990,
     discountPersent: 50,
     size: [
       {
@@ -146,8 +146,8 @@ export const carpetData = [
     brand: "Modern Living Rugs",
     title: "Abstract Watercolor Area Rug",
     color: "Pastel Pink",
-    discountedPrice: 179,
-    price: 299,
+    discountedPrice: 1790,
+    price: 2990,
     discountPersent: 40,
     size: [
       {
@@ -171,8 +171,8 @@ export const carpetData = [
     brand: "Rustic Charm Rugs",
     title: "Braided Jute Accent Rug",
     color: "Natural",
-    discountedPrice: 79,
-    price: 129,
+    discountedPrice: 2790,
+    price: 1290,
     discountPersent: 39,
     size: [
       {
@@ -197,8 +197,8 @@ export const carpetData = [
     brand: "Coastal Living Rugs",
     title: "Nautical Striped Indoor-Outdoor Rug",
     color: "Blue/White",
-    discountedPrice: 99,
-    price: 149,
+    discountedPrice: 3990,
+    price: 1490,
     discountPersent: 33,
     size: [
       {
@@ -226,8 +226,8 @@ export const carpetData = [
     brand: "Elegant Living Rugs",
     title: "Vintage Distressed Medallion Rug",
     color: "Grey/Beige",
-    discountedPrice: 199,
-    price: 299,
+    discountedPrice: 1990,
+    price: 2990,
     discountPersent: 33,
     size: [
       {
@@ -251,8 +251,8 @@ export const carpetData = [
     brand: "Artisan Rugs",
     title: "Handmade Persian Style Rug",
     color: "Red/Blue",
-    discountedPrice: 349,
-    price: 599,
+    discountedPrice: 3490,
+    price: 5990,
     discountPersent: 42,
     size: [
       {
@@ -280,8 +280,8 @@ export const carpetData = [
     brand: "Artisan Rugs",
     title: "Handwoven Natural Fiber Jute Rug",
     color: "Natural",
-    discountedPrice: 149,
-    price: 249,
+    discountedPrice: 1490,
+    price: 2490,
     discountPersent: 40,
     size: [
       {
@@ -310,8 +310,8 @@ export const carpetData = [
     brand: "Heritage Carpets",
     title: "Persian Kashan Medallion Rug",
     color: "Burgundy/Beige",
-    discountedPrice: 599,
-    price: 999,
+    discountedPrice: 5990,
+    price: 9990,
     discountPersent: 40,
     size: [
       {
@@ -339,8 +339,8 @@ export const carpetData = [
     brand: "Modern Living Rugs",
     title: "Geometric Diamond Pattern Rug",
     color: "Black/White",
-    discountedPrice: 199,
-    price: 299,
+    discountedPrice: 1990,
+    price: 2990,
     discountPersent: 33,
     size: [
       {
@@ -364,8 +364,8 @@ export const carpetData = [
     brand: "Rustic Charm Rugs",
     title: "Farmhouse Braided Area Rug",
     color: "Grey",
-    discountedPrice: 129,
-    price: 199,
+    discountedPrice: 1290,
+    price: 1990,
     discountPersent: 35,
     size: [
       {
@@ -389,8 +389,8 @@ export const carpetData = [
     brand: "Coastal Living Rugs",
     title: "Seashell Border Indoor-Outdoor Rug",
     color: "Blue/Beige",
-    discountedPrice: 89,
-    price: 149,
+    discountedPrice: 2890,
+    price: 1490,
     discountPersent: 40,
     size: [
       {
@@ -414,8 +414,8 @@ export const carpetData = [
     brand: "Elegant Living Rugs",
     title: "Distressed Vintage Floral Rug",
     color: "Blue/Grey",
-    discountedPrice: 199,
-    price: 299,
+    discountedPrice: 1990,
+    price: 2990,
     discountPersent: 33,
     size: [
       {
@@ -433,35 +433,5 @@ export const carpetData = [
     thirdLavelCategory: "Carpets & Rugs",
     description:
       "Create a vintage-inspired look in your home with this distressed floral rug. Its muted tones and weathered appearance add character to any space.",
-  },
-  {
-    imageUrl:
-      "https://5.imimg.com/data5/SELLER/Default/2023/2/WR/KE/XH/25917800/oriental-silk-carpets-hand-knotted-.png",
-    brand: "Artisan Rugs",
-    title: "Hand-Knotted Oriental Silk Rug",
-    color: "Red/Gold",
-    discountedPrice: 799,
-    price: 1299,
-    discountPersent: 38,
-    size: [
-      {
-        name: "6x9 ft",
-        quantity: 10,
-      },
-      {
-        name: "8x10 ft",
-        quantity: 8,
-      },
-      {
-        name: "9x12 ft",
-        quantity: 5,
-      },
-    ],
-    quantity: 23,
-    topLavelCategory: "Home",
-    secondLavelCategory: "Furniture",
-    thirdLavelCategory: "Carpets & Rugs",
-    description:
-      "Add opulence to your space with this hand-knotted silk rug. Its intricate design and luxurious texture make it a statement piece in any room.",
   },
 ];

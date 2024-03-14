@@ -72,7 +72,7 @@ const NavBar = () => {
         <NavbarItem>
           <Link
             to="../Shop"
-            className={curTab === "Store" ? "active navActive flex flex-col px-[1rem]" : "notActive px-[1rem]"}
+            className={curTab === "Shop" ? "active navActive flex flex-col px-[1rem]" : "notActive px-[1rem]"}
           >
             Shop
           </Link>

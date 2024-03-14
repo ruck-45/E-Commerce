@@ -1,4 +1,5 @@
 import { Button } from "@nextui-org/react";
+import { useNavigate } from "react-router-dom";
 
 type index = {
   activeIndex: number;
@@ -6,6 +7,7 @@ type index = {
 };
 
 function SliderContent(props: index) {
+  const navigate = useNavigate();
   return (
     <section>
       {props.sliderData.map((slide: any, index: any) => (
@@ -25,6 +27,7 @@ function SliderContent(props: index) {
               variant="ghost"
               color="warning"
               size="lg"
+              onClick={() => navigate("/Shop")}
             >
               Shop Now
             </Button>

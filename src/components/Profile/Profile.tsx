@@ -1,5 +1,7 @@
-import { Image } from "@nextui-org/react";
-import React from "react";
+import { Button, Divider, Image } from "@nextui-org/react";
+import HomeProductSection from "../Home/SubComponents/HomeProductSection";
+import { antiqueData } from "../../Data/antiques";
+import Orders from "./subComponents/Orders";
 
 const Profile = () => {
   return (
@@ -14,7 +16,22 @@ const Profile = () => {
           />
         </div>
       </div>
-      <div className="bg-white h-screen"></div>
+      <div className="bg-white h-screen py-[2rem] px-[8rem] flex flex-row gap-x-[8rem]">
+        <div className="flex flex-col gap-1 mt-[6rem]">
+          <h1 className="text-black font-bold text-2xl">CONTACT</h1>
+          <p className="text-default-500 text-xl">user@gmail.com</p>
+          <Button className="mt-[2rem]" variant="ghost" radius="none">
+            Edit Profile
+          </Button>
+        </div>
+        <div className="flex flex-col gap-3 grow">
+          <h1 className="font-bold text-black text-2xl">ORDERS</h1>
+          <Divider />
+          <div>
+            <Orders data={antiqueData} section={"Popular Antiques"} />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

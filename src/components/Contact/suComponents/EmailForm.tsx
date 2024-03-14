@@ -66,14 +66,19 @@ const EmailForm = () => {
   };
 
   return (
-    <div className="bg-white px-[3rem] md:px-[8rem] py-[5rem]  flex flex-col items-center  gap-[2rem] lg:gap-[5rem]">
+    <div className="bg-white px-[3rem] md:px-[8rem] py-[5rem]  flex flex-col  gap-[2rem] lg:gap-[5rem]">
       <div className="flex flex-col gap-y-[1rem]">
-        <ContactCard heading="Email" value="support@tripcanny.com" icon={<MdEmail />} />
-        <ContactCard heading="Phone" value="+1 (888) 891-7176" icon={<MdPhone />} />
-        <ContactCard heading="Address" value="16616 Woodruff Ave, Bellflower, CA 90706, USA" icon={<FaAddressBook />} />
+        <h1 className="font-bold text-xl">CONTACT INFO</h1>
+        <ContactCard
+          heading="Address"
+          icon={<FaAddressBook />}
+          value="160 Pennsylvania Ave NW, Washington, Castle, PA 16101-5161"
+        />
+        <ContactCard heading="Email" icon={<MdEmail />} value="Support.photography@gmail.com" />
+        <ContactCard heading="Phone" icon={<MdPhone />} value="125-711-811 | 125-668-886" />
       </div>
       <h1 className="text-[3rem] text-black ">Email Us</h1>
-      <form className="flex flex-col gap-[1rem] items-center lg:w-[100%] grow" ref={form} onSubmit={sendEmail}>
+      <form className="flex flex-col gap-[1rem] lg:w-[100%] grow" ref={form} onSubmit={sendEmail}>
         <div className="flex gap-[1rem] w-full">
           <Input
             type="text"
@@ -125,8 +130,6 @@ const EmailForm = () => {
         </Button>
         <Toaster />
       </form>
-
-      {/* <form className="flex flex-col gap-[1rem] items-start w-[100%] grow" ref={form} onSubmit={sendEmail}></form> */}
     </div>
   );
 };

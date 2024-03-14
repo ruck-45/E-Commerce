@@ -12,17 +12,16 @@ import Services from "./components/Services/Services";
 import Auth from "./components/Auth/Auth";
 import Profile from "./components/Profile/Profile";
 import Blog from "./components/Blog/Blog";
-import Privacy from "./components/Privacy/Privacy";
+import Privacy from "./components/Policy/Privacy";
 import Footer from "./globalSubComponents/Footer";
 import ScrollToTop from "./globalSubComponents/ScrollToTop";
 import ShopPage from "./components/ShopPage/ShopPage";
 import { RootState } from "./Redux/store";
-import Cart from "./components/Cart/Cart";
-import OrderSummary from "./components/Checkout/OrderSummary";
-import AddAddress from "./components/Checkout/AddAddress";
 import Checkout from "./components/Checkout/Checkout";
-import Term from "./components/Privacy/Term";
-
+import Term from "./components/Policy/Term";
+import ProductDetails from "./components/ProductDetails/ProductDetails";
+import Refund from "./components/Policy/Refund";
+import Cart from "./components/Cart/Cart";
 
 function App() {
   const curTab = useSelector((state: RootState) => state.curTab.value);
@@ -35,6 +34,8 @@ function App() {
           <Route path="/" element={<Navigate to="/Home" />} />
           <Route path="/Home" element={<Home />} />
           <Route path="/Shop" element={<ShopPage />} />
+          <Route path="/ProductDetails" element={<ProductDetails />} />
+          <Route path="/Refund" element={<Refund />} />
           <Route path="/Cart" element={<Cart />} />
           <Route path="/Checkout" element={<Checkout />} />
           <Route path="/About" element={<About />} />
@@ -46,7 +47,7 @@ function App() {
           <Route path="/Profile" element={<Profile />} />
           <Route path="/Blog/*" element={<Blog />} />
           <Route path="/Privacy" element={<Privacy />} />
-          <Route path="/Term" element={<Term />} />
+          <Route path="/Terms" element={<Term />} />
           <Route path="*" element={<Navigate to="/Home" />} />
         </Routes>
       </div>

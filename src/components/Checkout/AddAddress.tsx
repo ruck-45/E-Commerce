@@ -50,31 +50,25 @@ export default function AddDeliveryAddressForm(props:Cardsprops) {
 
   return (
     <Grid container spacing={4} className="p-[3rem]">
-      {/* <Grid item xs={12} lg={5}>
+      <Grid item xs={12} lg={5} className="lg:inline-block hidden">
         <Box className="border rounded-md shadow-md h-[30.5rem] overflow-y-scroll ">
-          {auth.user?.addresses.map((item) => (
-            <div onClick={() => setSelectedAdress(item)} className="p-5 py-7 border-b cursor-pointer">
-              {" "}
-              <AddressCard address={item} />
-              {selectedAddress?.id === item.id && (
-                <Button
-                  sx={{ mt: 2 }}
-                  size="large"
-                  variant="contained"
-                  color="primary"
-                  onClick={() => handleCreateOrder(item)}
-                >
-                  Deliverd Here
-                </Button>
-              )}
-            </div>
-          ))}
+          <img
+            src="https://images.unsplash.com/photo-1601656125693-aac12521664f?q=80&w=1438&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt=""
+          />
+          <div className="flex flex-col items-start justify-between p-[2rem]">
+            <h1 className="font-bold py-[1rem] text-[1.2rem]">Importance Of Delivery Address:</h1>
+            <p className="text-gray-600 py-[0.5rem] ">
+              Providing the correct delivery address ensures that the package or service reaches the intended recipient
+              without delay or error. Accuracy in the address minimizes the risk of misdelivery or lost packages.
+            </p>
+          </div>
         </Box>
-      </Grid> */}
+      </Grid>
       <Grid item xs={12} lg={7}>
         <Box className="border rounded-md shadow-md p-5">
           <form>
-            <Grid container spacing={3} >
+            <Grid container spacing={3}>
               <Grid item xs={12} sm={6}>
                 <TextField
                   required
@@ -141,9 +135,14 @@ export default function AddDeliveryAddressForm(props:Cardsprops) {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Button 
-                onClick={() => navigate('/Checkout/?step=3')}
-                sx={{ padding: ".9rem 1.5rem" }} size="large" type="submit" variant="contained" color="primary">
+                <Button
+                  onClick={() => navigate("/Checkout/?step=3")}
+                  sx={{ padding: ".9rem 1.5rem" }}
+                  size="large"
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                >
                   Deliverd Here
                 </Button>
               </Grid>

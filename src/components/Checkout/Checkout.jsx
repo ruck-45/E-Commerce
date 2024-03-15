@@ -84,45 +84,52 @@ export default function Checkout() {
   };
 
   return (
-    <Box className="px-5 lg:px-32 " sx={{ width: "100%" }}>
-      <Stepper activeStep={step}>
-        {steps.map((label, index) => (
-          <Step key={label} completed={completed[index]}>
-            <StepButton color="inherit" onClick={handleStep(index)}>
-              {label}
-            </StepButton>
-          </Step>
-        ))}
-      </Stepper>
-      {allStepsCompleted() ? (
-        <React.Fragment>
-          <Typography sx={{ mt: 2, mb: 1 }}>All steps completed - you&apos;re finished</Typography>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={handleReset}>Reset</Button>
-          </Box>
-        </React.Fragment>
-      ) : (
-        <React.Fragment>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Button color="inherit" disabled={step <= 1} onClick={handleBack} sx={{ mr: 1 }}>
-              Back
-            </Button>
-            <Box sx={{ flex: "1 1 auto" }} />
-            {/* <Button onClick={handleNext} sx={{ mr: 1 }}>
+    <div className="py-[3rem]">
+      <Box className="px-5 lg:px-32 " sx={{ width: "100%" }}>
+        <Stepper activeStep={step}>
+          {steps.map((label, index) => (
+            <Step key={label} completed={completed[index]}>
+              <StepButton color="inherit" onClick={handleStep(index)}>
+                {label}
+              </StepButton>
+            </Step>
+          ))}
+        </Stepper>
+        {allStepsCompleted() ? (
+          <React.Fragment>
+            <Typography sx={{ mt: 2, mb: 1 }}>All steps completed - you&apos;re finished</Typography>
+            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+              <Box sx={{ flex: "1 1 auto" }} />
+              <Button onClick={handleReset}>Reset</Button>
+            </Box>
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+              <Button color="inherit" disabled={step <= 1} onClick={handleBack} sx={{ mr: 1 }}>
+                Back
+              </Button>
+              <Box sx={{ flex: "1 1 auto" }} />
+              {/* <Button onClick={handleNext} sx={{ mr: 1 }}>
               Next
             </Button> */}
-          </Box>
-          {/* <Typography sx={{ my: 6 }}>Title</Typography> */}
+            </Box>
+            {/* <Typography sx={{ my: 6 }}>Title</Typography> */}
 
-          <div className="my-5">
-            {step == 1 ? <Cart /> : (step == 2 ? <AddDeliveryAddressForm handleNext={handleNext} /> :(step == 3 ? <OrderSummary/> : null ))}
-           
+            <div className="my-5">
+              {step == 1 ? (
+                <Cart />
+              ) : step == 2 ? (
+                <AddDeliveryAddressForm handleNext={handleNext} />
+              ) : step == 3 ? (
+                <OrderSummary />
+              ) : null}
             </div>
 
-          {/* <AddDeliveryAddressForm handleNext={handleNext} /> */}
-        </React.Fragment>
-      )}
-    </Box>
+            {/* <AddDeliveryAddressForm handleNext={handleNext} /> */}
+          </React.Fragment>
+        )}
+      </Box>
+    </div>
   );
 }

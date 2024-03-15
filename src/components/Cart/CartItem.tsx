@@ -30,9 +30,9 @@ const CartItem = () => {
           />
         </div>
         <div className="ml-5 space-y-1">
-          <p className="font-semibold">Full Sleve Tshirt</p>
-          <p className="opacity-70">Size: XL,White</p>
-          <p className="opacity-70 mt-2">Seller: PUMA</p>
+          <p className="font-semibold">Full Size Carpet</p>
+          <p className="opacity-70">Size: 6 Ft * 5ft</p>
+          <p className="opacity-70 mt-2">Seller: ShopNest</p>
           <div className="flex space-x-2 items-center pt-3">
             <p className="opacity-50 line-through">₹1999</p>
             <p className="font-semibold text-lg">₹200</p>

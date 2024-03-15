@@ -7,7 +7,7 @@ import { carpetData } from "../../Data/carpets";
 import { useDispatch } from "react-redux";
 import { scrollTop } from "../../utils/controllers";
 import { updateTab } from "../../Redux/Slices/curTabSlice";
-import { Input, Pagination } from "@nextui-org/react";
+import { Button, Input, Pagination } from "@nextui-org/react";
 import { IoSearch } from "react-icons/io5";
 
 const sortOptions = [
@@ -186,18 +186,22 @@ export default function ShopPage() {
             <div className="flex items-center grow md:grow-0 justify-end">
               <Menu as="div" className="relative inline-block text-left">
                 <div className="flex justify-center items-center gap-[1rem]">
-                  <Input
-                    classNames={{
-                      base: "w-full h-10",
-                      mainWrapper: "h-full",
-                      input: "text-small",
-                      inputWrapper: "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
-                    }}
-                    placeholder="Search"
-                    size="sm"
-                    startContent={<IoSearch className="text-xl" />}
-                    type="search"
-                  />
+                  <div className="flex gap-[0.5rem] mr-[1rem]">
+                    <Input
+                      classNames={{
+                        base: "w-full h-10",
+                        mainWrapper: "h-full",
+                        input: "text-small",
+                        inputWrapper: "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
+                      }}
+                      placeholder="Search"
+                      size="sm"
+                      type="search"
+                    />
+                    <Button color="primary" isIconOnly>
+                      <IoSearch className="text-xl" />
+                    </Button>
+                  </div>
                   <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
                     Sort
                     <ChevronDownIcon

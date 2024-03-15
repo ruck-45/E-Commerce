@@ -3,7 +3,7 @@ import { Image } from "@nextui-org/react";
 
 const AboutUs = () => {
   return (
-    <div className="flex flex-col items-center lg:flex-row justify-evenly px-[3rem] md:px-[5rem] lg:px-[8rem] py-[5rem] gap-[3rem] pb-0">
+    <div className="flex flex-col  items-center lg:flex-row justify-evenly px-[3rem] md:px-[5rem] lg:px-[8rem] py-[5rem] gap-[3rem] pb-0">
       <div className="flex flex-col gap-[1rem]">
         <h1 className="font-['DM_Serif_Display'] text-[2.5rem] font-semibold">Our Story</h1>
         <p className="italic text-md text-default-800">“The Carpets & Antiques Whisperer”</p>

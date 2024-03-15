@@ -2,11 +2,11 @@ import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 
 const OurTeam = () => {
   return (
-    <div className="flex flex-col justify-center items-center text-center p-[5rem] gap-[1rem]">
+    <div className="flex flex-col justify-center items-center text-center p-[5rem] gap-[1rem] bg-[#e9ecef]">
       <h1 className="font-bold text-5xl">Our Amazing Team</h1>
       <p className="text-default-400 text-md">What makes ShopNest different from Others.</p>
       <div className="flex flex-wrap mt-[1rem] gap-[2rem] justify-center items-center">
-        <Card>
+        <Card isPressable isHoverable>
           <CardBody>
             <Image
               width={400}
@@ -18,7 +18,7 @@ const OurTeam = () => {
             <p className="text-default-400">Chief Marketing Officer</p>
           </CardFooter>
         </Card>
-        <Card>
+        <Card isPressable isHoverable>
           <CardBody>
             <Image
               width={400}
@@ -30,7 +30,7 @@ const OurTeam = () => {
             <p className="text-default-400">Head of Operations</p>
           </CardFooter>
         </Card>
-        <Card>
+        <Card isPressable isHoverable>
           <CardBody>
             <Image
               width={400}

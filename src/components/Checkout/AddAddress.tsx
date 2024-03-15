@@ -7,7 +7,11 @@ import userEvent from "@testing-library/user-event";
 import AddressCard from "../adreess/AdreessCard";
 import { useState } from "react";
 
-export default function AddDeliveryAddressForm({handleNext}) {
+type Cardsprops={
+  handleNext : any
+}
+
+export default function AddDeliveryAddressForm(props:Cardsprops) {
   const navigate = useNavigate();
   // const dispatch = useDispatch();
   // const jwt = localStorage.getItem("jwt");
@@ -19,7 +23,7 @@ export default function AddDeliveryAddressForm({handleNext}) {
 
   
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event:any) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
@@ -36,7 +40,7 @@ export default function AddDeliveryAddressForm({handleNext}) {
      
     // dispatch(createOrder({ address, jwt, navigate }));
     // after perfoming all the opration
-    handleNext();
+    props.handleNext();
   };
 
   // const handleCreateOrder = () => {

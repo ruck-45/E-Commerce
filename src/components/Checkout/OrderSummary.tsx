@@ -1,23 +1,23 @@
 // import { Badge, Button } from "@mui/material";
-// import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import CartItem from "../Cart/CartItem";
 // import { useEffect } from "react";
 // import { useDispatch, useSelector } from "react-redux";
 // import { getOrderById } from "../../../Redux/Customers/Order/Action";
 import AddressCard from "../adreess/AdreessCard";
 import { Button } from "@mui/material";
-import { useLocation } from "react-router-dom";
+
 // import { createPayment } from "../../../Redux/Customers/Payment/Action";
 
 const OrderSummary = () => {
-    const navigate = useNavigate();
-  //   const location = useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
   //   const searchParams = new URLSearchParams(location.search);
   // const orderId = searchParams.get("order_id");
   // const dispatch=useDispatch();
   //   const jwt=localStorage.getItem("jwt");
   //   const {order}=useSelector(state=>state)
-  const location = useLocation();
+
   const queryParams = new URLSearchParams(location.search);
   const step = queryParams.get("step");
 

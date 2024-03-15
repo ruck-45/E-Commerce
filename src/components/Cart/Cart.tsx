@@ -1,7 +1,21 @@
 import CartItem from "./CartItem";
 import { Button } from "@mui/material";
+// import { Badge, Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+// import { useDispatch, useSelector } from "react-redux";
+// import { useEffect } from "react";
+// import { getCart } from "../../../Redux/Customers/Cart/Action";
 
 const Cart = () => {
+  // const dispatch = useDispatch();
+  const navigate = useNavigate();
+  // const jwt = localStorage.getItem("jwt");
+  // const {cart}=useSelector(store=>store);
+  // console.log("cart ",cart)
+
+  // useEffect(() => {
+  //   dispatch(getCart(jwt));
+  // }, [jwt]);
   return (
     <div className="p-[3rem]">
       <div className="lg:grid grid-cols-3 lg:px-16 relative">
@@ -37,7 +51,7 @@ const Cart = () => {
             </div>
 
             <Button
-              // onClick={() => navigate("/checkout?step=2")}
+              onClick={() => navigate("/Checkout?step=2")}
               variant="contained"
               type="submit"
               sx={{ padding: ".8rem 2rem", marginTop: "2rem", width: "100%" }}

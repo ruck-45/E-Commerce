@@ -23,6 +23,7 @@ import ProductDetails from "./components/ProductDetails/ProductDetails";
 import Refund from "./components/Policy/Refund";
 import Cart from "./components/Cart/Cart";
 
+
 function App() {
   const curTab = useSelector((state: RootState) => state.curTab.value);
 

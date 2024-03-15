@@ -1,40 +1,43 @@
 import * as React from "react";
 import { Grid, TextField, Button, Box } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // import { createOrder } from "../../../Redux/Customers/Order/Action";
 import userEvent from "@testing-library/user-event";
 import AddressCard from "../adreess/AdreessCard";
 import { useState } from "react";
 
-export default function AddDeliveryAddressForm() {
-  // const navigate = useNavigate();
+export default function AddDeliveryAddressForm({handleNext}) {
+  const navigate = useNavigate();
   // const dispatch = useDispatch();
   // const jwt = localStorage.getItem("jwt");
   // const { auth } = useSelector((store) => store);
   // const [selectedAddress, setSelectedAdress] = useState(null);
+  
 
   // console.log("auth", auth);
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  //   // eslint-disable-next-line no-console
+  
 
-  //   const address = {
-  //     firstName: data.get("firstName"),
-  //     lastName: data.get("lastName"),
-  //     streetAddress: data.get("address"),
-  //     city: data.get("city"),
-  //     state: data.get("state"),
-  //     zipCode: data.get("zip"),
-  //     mobile: data.get("phoneNumber"),
-  //   };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    // eslint-disable-next-line no-console
 
-  //   // dispatch(createOrder({ address, jwt, navigate }));
-  //   // after perfoming all the opration
-  //   handleNext();
-  // };
+    const address = {
+      firstName: data.get("firstName"),
+      lastName: data.get("lastName"),
+      streetAddress: data.get("address"),
+      city: data.get("city"),
+      state: data.get("state"),
+      zipCode: data.get("zip"),
+      mobile: data.get("phoneNumber"),
+    };
+     
+    // dispatch(createOrder({ address, jwt, navigate }));
+    // after perfoming all the opration
+    handleNext();
+  };
 
   // const handleCreateOrder = () => {
   //   // dispatch(createOrder({ address:item, jwt, navigate }));
@@ -43,34 +46,31 @@ export default function AddDeliveryAddressForm() {
 
   return (
     <Grid container spacing={4} className="p-[3rem]">
-      <Grid item xs={12} lg={5}>
+      {/* <Grid item xs={12} lg={5}>
         <Box className="border rounded-md shadow-md h-[30.5rem] overflow-y-scroll ">
-         
-            <div
-              
-              className="p-[5rem] border-b cursor-pointer"
-            >
-              
-              <AddressCard />
-              
+          {auth.user?.addresses.map((item) => (
+            <div onClick={() => setSelectedAdress(item)} className="p-5 py-7 border-b cursor-pointer">
+              {" "}
+              <AddressCard address={item} />
+              {selectedAddress?.id === item.id && (
                 <Button
                   sx={{ mt: 2 }}
                   size="large"
                   variant="contained"
                   color="primary"
-                
+                  onClick={() => handleCreateOrder(item)}
                 >
                   Deliverd Here
                 </Button>
-              
+              )}
             </div>
-          
+          ))}
         </Box>
-      </Grid>
+      </Grid> */}
       <Grid item xs={12} lg={7}>
         <Box className="border rounded-md shadow-md p-5">
-          <form >
-            <Grid container spacing={3}>
+          <form>
+            <Grid container spacing={3} onSubmit={handleSubmit}>
               <Grid item xs={12} sm={6}>
                 <TextField
                   required
@@ -114,13 +114,7 @@ export default function AddDeliveryAddressForm() {
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  id="state"
-                  name="state"
-                  label="State/Province/Region"
-                  fullWidth
-                />
+                <TextField required id="state" name="state" label="State/Province/Region" fullWidth />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -143,13 +137,7 @@ export default function AddDeliveryAddressForm() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Button
-                  sx={{ padding: ".9rem 1.5rem" }}
-                  size="large"
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                >
+                <Button sx={{ padding: ".9rem 1.5rem" }} size="large" type="submit" variant="contained" color="primary">
                   Deliverd Here
                 </Button>
               </Grid>

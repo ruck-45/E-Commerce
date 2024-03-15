@@ -6,16 +6,22 @@ import CartItem from "../Cart/CartItem";
 // import { getOrderById } from "../../../Redux/Customers/Order/Action";
 import AddressCard from "../adreess/AdreessCard";
 import { Button } from "@mui/material";
+import { useLocation } from "react-router-dom";
 // import { createPayment } from "../../../Redux/Customers/Payment/Action";
 
 const OrderSummary = () => {
-  //   const navigate = useNavigate();
+    const navigate = useNavigate();
   //   const location = useLocation();
   //   const searchParams = new URLSearchParams(location.search);
   // const orderId = searchParams.get("order_id");
   // const dispatch=useDispatch();
   //   const jwt=localStorage.getItem("jwt");
   //   const {order}=useSelector(state=>state)
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const step = queryParams.get("step");
+
+  console.log("stepping", step);
 
   // console.log("orderId ", order)
 
@@ -65,7 +71,12 @@ const OrderSummary = () => {
               </div>
             </div>
 
-            <Button variant="contained" type="submit" sx={{ padding: ".8rem 2rem", marginTop: "2rem", width: "100%" }}>
+            <Button
+              onClick={() => navigate("/Checkout?step=3")}
+              variant="contained"
+              type="submit"
+              sx={{ padding: ".8rem 2rem", marginTop: "2rem", width: "100%" }}
+            >
               Payment
             </Button>
           </div>

@@ -23,25 +23,25 @@ export default function AddDeliveryAddressForm(props:Cardsprops) {
 
   
 
-  const handleSubmit = (event:any) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
+  // const handleSubmit = (event:any) => {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+  //   // eslint-disable-next-line no-console
 
-    const address = {
-      firstName: data.get("firstName"),
-      lastName: data.get("lastName"),
-      streetAddress: data.get("address"),
-      city: data.get("city"),
-      state: data.get("state"),
-      zipCode: data.get("zip"),
-      mobile: data.get("phoneNumber"),
-    };
-     
-    // dispatch(createOrder({ address, jwt, navigate }));
-    // after perfoming all the opration
-    props.handleNext();
-  };
+  //   const address = {
+  //     firstName: data.get("firstName"),
+  //     lastName: data.get("lastName"),
+  //     streetAddress: data.get("address"),
+  //     city: data.get("city"),
+  //     state: data.get("state"),
+  //     zipCode: data.get("zip"),
+  //     mobile: data.get("phoneNumber"),
+  //   };
+  //    navigate('/Checkout/?step=3')
+  //   // dispatch(createOrder({ address, jwt, navigate }));
+  //   // after perfoming all the opration
+  //   props.handleNext();
+  // };
 
   // const handleCreateOrder = () => {
   //   // dispatch(createOrder({ address:item, jwt, navigate }));
@@ -74,7 +74,7 @@ export default function AddDeliveryAddressForm(props:Cardsprops) {
       <Grid item xs={12} lg={7}>
         <Box className="border rounded-md shadow-md p-5">
           <form>
-            <Grid container spacing={3} onSubmit={handleSubmit}>
+            <Grid container spacing={3} >
               <Grid item xs={12} sm={6}>
                 <TextField
                   required
@@ -141,7 +141,9 @@ export default function AddDeliveryAddressForm(props:Cardsprops) {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Button sx={{ padding: ".9rem 1.5rem" }} size="large" type="submit" variant="contained" color="primary">
+                <Button 
+                onClick={() => navigate('/Checkout/?step=3')}
+                sx={{ padding: ".9rem 1.5rem" }} size="large" type="submit" variant="contained" color="primary">
                   Deliverd Here
                 </Button>
               </Grid>

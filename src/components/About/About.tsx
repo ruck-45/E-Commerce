@@ -11,6 +11,7 @@ import ImageRow from "../Home/SubComponents/ImageRow";
 import Achievement from "../Home/SubComponents/Achievement";
 import OurTeam from "./subComponents/OurTeam";
 import EmailContact from "../Home/SubComponents/EmailContact";
+import OurServices from "./subComponents/OurServices";
 
 const About = () => {
   const dispatch = useDispatch();
@@ -30,9 +31,9 @@ const About = () => {
       </div>
       <AboutUs />
       <AboutWork />
-      <Achievement />
       <OurTeam />
-      {/* Our Services */}
+      <Achievement />
+      <OurServices />
       <EmailContact />
       <ImageRow />
     </>

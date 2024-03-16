@@ -162,7 +162,7 @@ const NavBar = () => {
               <NavbarMenuItem key={`${item}-${index}`}>
                 <Link
                   className={curTab === item ? "nav-active" : "notActive"}
-                  to={index === 6 ? "../Auth" : `../${item}`}
+                  to={index === 4 ? "/Checkout?step=1" : `../${item}`}
                   onClick={() => {
                     dispatch(updateNavStatus(!navOpenStatus));
                     dispatch(updateToLoginStatus(item === "Log In" ? true : false));

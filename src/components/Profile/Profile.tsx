@@ -1,7 +1,11 @@
 import { Button, Divider, Image } from "@nextui-org/react";
 import Orders from "./subComponents/Orders";
+import { updateTab } from "../../Redux/Slices/curTabSlice";
+import { useDispatch } from "react-redux";
 
 const Profile = () => {
+  const dispatch = useDispatch();
+  dispatch(updateTab("Profile"));
   return (
     <div className="flex flex-col bg-white">
       <div className="flex h-[10rem] bg-black/80 relative text-center justify-center items-center">

@@ -1,6 +1,5 @@
 // Dependencies
 import { useState, useRef } from "react";
-import axios from "axios";
 import { Button, Input, Checkbox } from "@nextui-org/react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { Link } from "react-router-dom";
@@ -23,7 +22,7 @@ import {
 } from "../../../utils/authRegex";
 import { RootState } from "../../../Redux/store";
 import { updateToLoginStatus } from "../../../Redux/Slices/toLoginSlice";
-import axiosInstance from "../../../Helper/axiosinstance";
+import axios from "axios";
 
 const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
   if (event.key === "Enter") {
@@ -42,11 +41,6 @@ const errorToast = (message: string): void => {
 };
 
 const UserAuth = () => {
-  let apiUrl = process.env.REACT_APP_API_URL;
-  if (process.env.NODE_ENV === "development") {
-    apiUrl = process.env.REACT_APP_DEV_API_URL;
-  }
-
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
 
@@ -58,7 +52,10 @@ const UserAuth = () => {
     event.preventDefault();
     dispatch(updateToLoginStatus(!toLogin));
   };
-
+  let apiUrl = process.env.REACT_APP_API_URL;
+  if (process.env.NODE_ENV === "development") {
+    apiUrl = process.env.REACT_APP_DEV_API_URL;
+  }
   const email = useRef("");
   const password = useRef("");
   const confirmPassword = useRef("");
@@ -149,7 +146,12 @@ const UserAuth = () => {
     if (toLogin) {
       try {
         setHandleLoginButton(true);
-        const response = await axiosInstance.post(`/users/login`, {
+        // const response = await axios.post(`/users/login`, {
+        //   email: email.current,
+        //   password: password.current,
+        //   remember: rememberMe,
+        // });
+        const response = await axios.post(`${apiUrl}/users/login`, {
           email: email.current,
           password: password.current,
           remember: rememberMe,
@@ -163,18 +165,19 @@ const UserAuth = () => {
           setCookie("expiration", response.data.payload.expires, cookieOptions);
           setCookie("isEmployee", response.data.payload.isEmployee, cookieOptions);
 
-          const profileResponse = await axiosInstance.get(`/users/profile`, {
+          const profileResponse = await axios.get(`${apiUrl}/users/profile`, {
             headers: {
               Authorization: `Bearer ${response.data.payload.token}`,
             },
           });
-
           setCookie("about", profileResponse.data.payload.about, cookieOptions);
           setCookie("profession", profileResponse.data.payload.profession, cookieOptions);
           setCookie("address", profileResponse.data.payload.address, cookieOptions);
           setCookie("phone", profileResponse.data.payload.phone, cookieOptions);
           setCookie("plan", profileResponse.data.payload.plan, cookieOptions);
           setCookie("image", profileResponse.data.payload.image, cookieOptions);
+
+          successToast("Login Successfully");
 
           navigate("/Profile");
         } else {
@@ -197,7 +200,7 @@ const UserAuth = () => {
       }
 
       try {
-        const response = await axiosInstance.post(`/users/signup`, {
+        const response = await axios.post(`${apiUrl}/users/signup`, {
           email: email.current,
           username: username.current,
           password: password.current,

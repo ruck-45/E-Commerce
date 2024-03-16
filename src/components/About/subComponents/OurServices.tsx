@@ -8,7 +8,7 @@ const OurServices = () => {
         Details to details is what makes ShopNest different from the other themes.
       </p>
       <div className="flex flex-wrap mt-[1rem] gap-[2rem] justify-center items-center">
-        <Card className="flex flex-col px-[2rem] py-[1rem] max-w-[25rem] h-[26rem]" radius="none">
+        <Card className="flex flex-col md:px-[2rem] md:py-[1rem] max-w-[25rem] h-[26rem]" radius="none">
           <CardHeader className=" justify-center text-center font-bold text-2xl">REFUND POLICY</CardHeader>
           <CardBody className="flex text-center">
             Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.
@@ -21,7 +21,7 @@ const OurServices = () => {
             />
           </CardFooter>
         </Card>
-        <Card className="flex flex-col px-[2rem] py-[1rem] max-w-[25rem] h-[26rem]" radius="none">
+        <Card className="flex flex-col md:px-[2rem] md:py-[1rem] max-w-[25rem] h-[26rem]" radius="none">
           <CardHeader className="flex justify-center text-center font-bold text-2xl">PREMIUM PACKAGING</CardHeader>
           <CardBody className="flex text-center">
             Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.
@@ -34,7 +34,7 @@ const OurServices = () => {
             />
           </CardFooter>
         </Card>
-        <Card className="flex flex-col px-[2rem] py-[1rem] max-w-[25rem] h-[26rem]" radius="none">
+        <Card className="flex flex-col md:px-[2rem] md:py-[1rem] max-w-[25rem] h-[26rem]" radius="none">
           <CardHeader className="flex justify-center text-center font-bold text-2xl">SUPERIOR QUALITY</CardHeader>
           <CardBody className="flex text-center">
             Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.

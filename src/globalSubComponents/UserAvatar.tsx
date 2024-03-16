@@ -13,11 +13,6 @@ const UserAvatar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  let apiUrl = process.env.REACT_APP_API_URL;
-  if (process.env.NODE_ENV === "development") {
-    apiUrl = process.env.REACT_APP_DEV_API_URL;
-  }
-
   const userEmail = getCookie("email");
   const image = getCookie("image");
   const isEmployee = getCookie("isEmployee");

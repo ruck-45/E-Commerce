@@ -1,28 +1,31 @@
 import CartItem from "./CartItem";
 import { Button } from "@mui/material";
-// import { Badge, Button } from "@mui/material";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-// import { useDispatch, useSelector } from "react-redux";
-// import { useEffect } from "react";
-// import { getCart } from "../../../Redux/Customers/Cart/Action";
+import { getCartTotal } from "../../Redux/Slices/CartSlice";
+
 
 const Cart = () => {
-  // const dispatch = useDispatch();
+  
   const navigate = useNavigate();
-  // const jwt = localStorage.getItem("jwt");
-  // const {cart}=useSelector(store=>store);
-  // console.log("cart ",cart)
+  const { cart, totalPrice, totalQuantity } = useSelector((state: any) => state?.allCart);
+  console.log(cart)
 
-  // useEffect(() => {
-  //   dispatch(getCart(jwt));
-  // }, [jwt]);
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+   dispatch(getCartTotal())
+  },[cart])
+ 
   return (
     <div className="p-[3rem]">
       <div className="lg:grid grid-cols-3 lg:px-16 relative">
         <div className="lg:col-span-2 lg:px-5 bg-white">
           <div className=" space-y-3">
-            <CartItem />
-            <CartItem />
+            {cart.map((data: any) => (
+              <CartItem {...data} />
+            ))}
           </div>
         </div>
         <div className="px-5 sticky top-0 h-[100vh] mt-5 lg:mt-0 ">
@@ -32,8 +35,12 @@ const Cart = () => {
 
             <div className="space-y-3 font-semibold">
               <div className="flex justify-between pt-3 text-black ">
-                <span>Price (10 item)</span>
-                <span>₹999</span>
+                <span>Total Price</span>
+                <span>{totalPrice}</span>
+              </div>
+              <div className="flex justify-between pt-3 text-black ">
+                <span>Total Quantity</span>
+                <span>{totalQuantity}</span>
               </div>
               <div className="flex justify-between">
                 <span>Discount</span>

@@ -1,5 +1,6 @@
 export const carpetData = [
   {
+    id: 1,
     imageUrl: "https://m.media-amazon.com/images/I/51GYhxldIJL._AC_UF894,1000_QL80_.jpg",
     brand: "Artisan Rugs",
     title: "Handwoven Wool Area Rug",
@@ -22,6 +23,7 @@ export const carpetData = [
       },
     ],
     quantity: 33,
+    orderQuantity: 1,
     topLavelCategory: "Home",
     secondLavelCategory: "Furniture",
     thirdLavelCategory: "Carpets & Rugs",
@@ -29,6 +31,8 @@ export const carpetData = [
       "Add warmth and texture to your home with this handwoven wool area rug. Its neutral color palette complements any decor style.",
   },
   {
+    orderQuantity: 1,
+    id: 2,
     imageUrl: "https://m.media-amazon.com/images/I/81zzpFxg+vL.jpg",
     brand: "Heritage Carpets",
     title: "Vintage Floral Pattern Rug",
@@ -58,6 +62,8 @@ export const carpetData = [
       "Transform any room into a sophisticated space with this vintage-inspired floral pattern rug. Made with durable materials for long-lasting beauty.",
   },
   {
+    orderQuantity: 1,
+    id: 3,
     imageUrl:
       "https://images.thdstatic.com/productImages/c6a2da8d-95d6-4d89-9025-2b5d2e3204f7/svn/ivory-black-well-woven-area-rugs-fel-23-5-64_600.jpg",
     brand: "Modern Living Rugs",
@@ -84,6 +90,8 @@ export const carpetData = [
       "Enhance your living space with this plush shag rug featuring a modern geometric design. Soft underfoot and stylish, perfect for cozying up any room.",
   },
   {
+    orderQuantity: 1,
+    id: 4,
     imageUrl: "https://m.media-amazon.com/images/I/91V3NyDTkaL._AC_UF894,1000_QL80_.jpg",
     brand: "Artisan Rugs",
     title: "Hand-Tufted Moroccan Trellis Rug",
@@ -113,6 +121,8 @@ export const carpetData = [
       "Bring a touch of Moroccan-inspired style to your home with this hand-tufted rug. Its trellis pattern adds visual interest to any room.",
   },
   {
+    orderQuantity: 1,
+    id: 5,
     imageUrl: "https://images-cdn.ubuy.co.in/635c56ffbd38766d0c1eacbb-sultan-medallion-red-oriental-area-rug-9.jpg",
     brand: "Heritage Carpets",
     title: "Traditional Oriental Area Rug",
@@ -142,6 +152,8 @@ export const carpetData = [
       "Elevate the elegance of your home decor with this stunning traditional Oriental rug. Its rich hues and intricate design create a timeless look.",
   },
   {
+    orderQuantity: 1,
+    id: 6,
     imageUrl: "https://m.media-amazon.com/images/I/91B5iZXxNpL.jpg",
     brand: "Modern Living Rugs",
     title: "Abstract Watercolor Area Rug",
@@ -167,6 +179,8 @@ export const carpetData = [
       "Add a pop of color and artistic flair to your space with this abstract watercolor rug. Its soft hues and fluid design create a calming ambiance.",
   },
   {
+    orderQuantity: 1,
+    id: 7,
     imageUrl: "https://i.etsystatic.com/24844490/r/il/8366c9/3754677313/il_570xN.3754677313_32ey.jpg",
     brand: "Rustic Charm Rugs",
     title: "Braided Jute Accent Rug",
@@ -192,6 +206,8 @@ export const carpetData = [
       "Infuse your home with rustic charm using this braided jute rug. Its natural fibers and simple design add warmth and texture to any room.",
   },
   {
+    orderQuantity: 1,
+    id: 7,
     imageUrl:
       "https://images.thdstatic.com/productImages/32e43997-13a7-4b53-947e-dce82da1dfcc/svn/navy-hampton-bay-outdoor-rugs-3002407-e1_600.jpg",
     brand: "Coastal Living Rugs",
@@ -222,6 +238,8 @@ export const carpetData = [
       "Create a seaside retreat in your home with this nautical-inspired indoor-outdoor rug. Its striped pattern adds a touch of coastal charm.",
   },
   {
+    orderQuantity: 1,
+    id: 8,
     imageUrl: "https://www.touchofclass.com/images/xxl/CK70-003.jpg?v=0-1",
     brand: "Elegant Living Rugs",
     title: "Vintage Distressed Medallion Rug",
@@ -247,6 +265,8 @@ export const carpetData = [
       "Achieve a vintage-inspired look in your home with this distressed medallion rug. Its faded hues and intricate design evoke timeless elegance.",
   },
   {
+    orderQuantity: 1,
+    id: 9,
     imageUrl: "https://www.ecarpetgallery.com/media/wysiwyg/persian-rugs.jpg",
     brand: "Artisan Rugs",
     title: "Handmade Persian Style Rug",
@@ -276,6 +296,8 @@ export const carpetData = [
       "Add a touch of luxury to your space with this handmade Persian style rug. Its vibrant colors and intricate patterns make a statement.",
   },
   {
+    orderQuantity: 1,
+    id: 10,
     imageUrl: "https://m.media-amazon.com/images/I/91QO7SDKNtL._AC_UF894,1000_QL80_.jpg",
     brand: "Artisan Rugs",
     title: "Handwoven Natural Fiber Jute Rug",
@@ -305,6 +327,8 @@ export const carpetData = [
       "Bring natural texture to your space with this handwoven jute rug. Its earthy tones and durable construction make it perfect for high-traffic areas.",
   },
   {
+    orderQuantity: 1,
+    id: 11,
     imageUrl:
       "https://shop.wellwoven.com/cdn/shop/products/541008x10RS_S_01_0b0f4812-a11c-459d-a8f6-0ab35eabee78_476x.jpg?v=1658430894",
     brand: "Heritage Carpets",
@@ -335,6 +359,8 @@ export const carpetData = [
       "Infuse your home with timeless elegance with this Persian Kashan medallion rug. Its intricate design and rich colors create a luxurious look.",
   },
   {
+    orderQuantity: 1,
+    id: 12,
     imageUrl: "https://images-cdn.ubuy.co.in/65b548ba062c5d4c3d15669e-well-woven-naya-blue-modern-geometric.jpg",
     brand: "Modern Living Rugs",
     title: "Geometric Diamond Pattern Rug",
@@ -360,6 +386,8 @@ export const carpetData = [
       "Add a contemporary touch to your space with this geometric diamond pattern rug. Its bold design and contrasting colors make a statement.",
   },
   {
+    orderQuantity: 1,
+    id: 13,
     imageUrl: "https://m.media-amazon.com/images/I/61oUlMYJUIL._AC_UF894,1000_QL80_.jpg",
     brand: "Rustic Charm Rugs",
     title: "Farmhouse Braided Area Rug",
@@ -385,6 +413,8 @@ export const carpetData = [
       "Create a cozy atmosphere in your home with this farmhouse-inspired braided rug. Its durable construction and neutral color complement any decor.",
   },
   {
+    orderQuantity: 1,
+    id: 14,
     imageUrl: "https://www.touchofclass.com/images/xxl/O637-001.jpg?v=0-12",
     brand: "Coastal Living Rugs",
     title: "Seashell Border Indoor-Outdoor Rug",
@@ -410,6 +440,8 @@ export const carpetData = [
       "Bring coastal charm to your indoor or outdoor space with this seashell border rug. Its nautical design and durable construction are perfect for beach-inspired decor.",
   },
   {
+    orderQuantity: 1,
+    id: 15,
     imageUrl: "https://m.media-amazon.com/images/I/71kV9k35JzL._AC_UF894,1000_QL80_.jpg",
     brand: "Elegant Living Rugs",
     title: "Distressed Vintage Floral Rug",

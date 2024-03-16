@@ -13,10 +13,12 @@ import {
   DropdownTrigger,
   Dropdown,
   Button,
+  Badge,
 } from "@nextui-org/react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { LuShoppingCart } from "react-icons/lu";
+
 
 // Local Files
 import "./NavBar.css";
@@ -29,6 +31,8 @@ import { updateNavStatus } from "../Redux/Slices/navOpenStatusSlice";
 import { RootState } from "../Redux/store";
 import TopBar from "./TopBar";
 import { RiArrowDropDownLine } from "react-icons/ri";
+import { useEffect } from "react";
+import { getCartTotal } from "../Redux/Slices/CartSlice";
 
 const menuItems = ["Home", "Shop", "About", "Contact", "Cart"];
 
@@ -37,6 +41,13 @@ const NavBar = () => {
   const curTab = useSelector((state: RootState) => state.curTab.value);
   const navOpenStatus = useSelector((state: RootState) => state.navOpenStatus.value);
   const dispatch = useDispatch();
+
+  const {cart, totalQuantity} = useSelector((state:RootState) => state?.allCart)
+
+  useEffect(() => {
+    dispatch(getCartTotal())
+  },[cart])
+  
   return (
     <>
       <TopBar />
@@ -140,7 +151,9 @@ const NavBar = () => {
         ) : (
           <NavbarContent justify="end">
             <NavbarItem className="hidden lg:flex">
-              <ButtonElement to="/Checkout?step=1" startContent={<LuShoppingCart />} label="Cart" variant="light" />
+              <Badge content={totalQuantity} shape="circle" color="danger">
+                <ButtonElement to="/Checkout?step=1" startContent={<LuShoppingCart />} label="Cart" variant="light" />
+              </Badge>
             </NavbarItem>
             <NavbarItem className="flex">
               <ButtonElement

@@ -11,7 +11,7 @@ const HomeProductCard = (props: HomeProductCardProps) => {
 
   return (
     <div
-      onClick={() => navigate(`/ProductDetails`)}
+      onClick={() => navigate(`/ProductDetails`, {state:{...props}})}
       className="cursor-pointer flex flex-col items-center bg-white rounded-lg shadow-lg overflow-hidden w-[15rem] mx-3 min-h-[20rem] hover:scale-105 transition-all"
     >
       <div

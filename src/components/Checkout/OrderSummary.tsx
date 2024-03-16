@@ -6,6 +6,7 @@ import CartItem from "../Cart/CartItem";
 // import { getOrderById } from "../../../Redux/Customers/Order/Action";
 import AddressCard from "../adreess/AdreessCard";
 import { Button } from "@mui/material";
+import { useSelector } from "react-redux";
 
 // import { createPayment } from "../../../Redux/Customers/Payment/Action";
 
@@ -22,6 +23,7 @@ const OrderSummary = () => {
   const step = queryParams.get("step");
 
   console.log("stepping", step);
+  const { cart} = useSelector((state: any) => state?.allCart);
 
   // console.log("orderId ", order)
 
@@ -43,7 +45,7 @@ const OrderSummary = () => {
       <div className="lg:grid grid-cols-3 relative justify-between">
         <div className="lg:col-span-2 ">
           <div className=" space-y-3">
-            <CartItem />
+           { cart.map((data:any) => (<CartItem {...data} />))}
           </div>
         </div>
         <div className="sticky top-0 h-[100vh] mt-5 lg:mt-0 ml-5">

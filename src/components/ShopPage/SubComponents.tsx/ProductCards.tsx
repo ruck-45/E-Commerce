@@ -1,7 +1,9 @@
+import { useSelector } from "react-redux";
 import "./Product.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 type ProductProps = {
+  id:number,
   imageUrl: string;
   brand: string;
   title: string;
@@ -18,14 +20,19 @@ type ProductProps = {
   secondLavelCategory: string;
   thirdLavelCategory: string;
   description: string;
+  orderQuantity:number;
 };
 
 const ProductCards = (props: ProductProps) => {
+
+  const { state } = useLocation();
+  const { items } = useSelector((state: any) => state.allCart);
+  console.log(items);
   const navigate = useNavigate();
   return (
     <div
       className="productCard w-[15rem] border m-3 transition-all cursor-pointer "
-      onClick={() => navigate(`/ProductDetails`)}
+      onClick={(() => navigate(`/ProductDetails`, { state: { ...props } }))}
     >
       <div className="h-[16.5rem]">
         <img className="h-full w-full object-cover object-left-top" src={props.imageUrl} alt="" />

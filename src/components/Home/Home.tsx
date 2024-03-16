@@ -1,5 +1,5 @@
 // Dependencies
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // Local Files
 import { scrollTop } from "../../utils/controllers";
@@ -21,13 +21,15 @@ const Home = () => {
   dispatch(updateTab("Home"));
   scrollTop();
 
+  const {items,antiques} = useSelector((state:any) => state?.allCart)
+
   return (
     <div>
       <Slider />
-      <HomeProductSection data={antiqueData} section={"Popular Antiques"} />
+      <HomeProductSection data={antiques} section={"Popular Antiques"} />
       <AttractiveSection />
       <Services />
-      <HomeProductSection data={carpetData} section={"Carpets On Demand"} />
+      <HomeProductSection data={items} section={"Carpets On Demand"} />
       <Achievement />
       <Explore />
       <HomeCard />

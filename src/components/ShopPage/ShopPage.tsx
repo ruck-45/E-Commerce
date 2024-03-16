@@ -3,8 +3,7 @@ import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from "@heroicons/react/20/solid";
 import ProductCards from "./SubComponents.tsx/ProductCards";
-import { carpetData } from "../../Data/carpets";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { scrollTop } from "../../utils/controllers";
 import { updateTab } from "../../Redux/Slices/curTabSlice";
 import { Button, Input, Pagination } from "@nextui-org/react";
@@ -74,6 +73,8 @@ const pageSize = 16;
 export default function ShopPage() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [itemCount, setItemCount] = useState(0);
+   const {items} = useSelector((state: any) => state.allCart);
+   console.log(items);
 
   const dispatch = useDispatch();
   dispatch(updateTab("Shop"));
@@ -333,7 +334,7 @@ export default function ShopPage() {
               <div className="lg:col-span-4 w-full">
                 <div className="flex flex-col items-center justify-center">
                   <div className="flex flex-wrap justify-center py-5 bg-white">
-                    {carpetData.map((detail) => (
+                    {items.map((detail:any) => (
                       <ProductCards {...detail} />
                     ))}
                   </div>

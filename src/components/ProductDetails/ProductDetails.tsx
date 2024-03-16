@@ -68,12 +68,13 @@ export default function ProductDetails() {
   const [count, setCount] = useState(0)
 
   const dispatch = useDispatch()
+ 
 
   const {state} = useLocation();
   const store= useSelector((state:any) => state?.allCart?.cart)
   console.log("ghghsghghj",store)
 
-  console.log("location",state);
+  console.log("location",state?.id);
 
   const quantity = store.map((data:any) => data.orderQuantity)
    console.log("quantity", quantity[0]);

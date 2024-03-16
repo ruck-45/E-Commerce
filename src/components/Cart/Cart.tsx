@@ -5,19 +5,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getCartTotal } from "../../Redux/Slices/CartSlice";
 
-
 const Cart = () => {
-  
   const navigate = useNavigate();
   const { cart, totalPrice, totalQuantity } = useSelector((state: any) => state?.allCart);
-  console.log(cart)
+  console.log(cart);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-   dispatch(getCartTotal())
-  },[cart])
- 
+    dispatch(getCartTotal());
+  }, [cart]);
+
   return (
     <div className="p-[3rem]">
       <div className="lg:grid grid-cols-3 lg:px-16 relative">

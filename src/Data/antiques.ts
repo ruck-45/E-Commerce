@@ -1,5 +1,6 @@
 export const antiqueData = [
   {
+    id: 27,
     imageUrl:
       "https://codesustain.in/cdn/shop/products/vintage-brass-candle-holders-gold-taper-candlesticks-tableware-set-of-2-traditional-758.jpg?v=1666777203",
     brand: "Vintage Elegance",
@@ -16,8 +17,10 @@ export const antiqueData = [
     topLevelCategory: "Antiques",
     secondLevelCategory: "Decorative Pieces",
     thirdLevelCategory: "Candle Holders",
+    orderQuantity: 1,
   },
   {
+    id: 28,
     imageUrl: "https://i.etsystatic.com/20801085/r/il/615899/3421123837/il_570xN.3421123837_acri.jpg",
     brand: "Rustic Treasures",
     title: "Handcrafted Wooden Wall Clock",
@@ -32,8 +35,10 @@ export const antiqueData = [
     topLevelCategory: "Antiques",
     secondLevelCategory: "Decorative Pieces",
     thirdLevelCategory: "Wall Decor",
+    orderQuantity: 1,
   },
   {
+    id: 29,
     imageUrl: "https://revivehome.in/cdn/shop/files/RH-MR-39-2_500x.jpg?v=1703929638",
     brand: "Victorian Splendor",
     title: "Vintage Style Decorative Mirror",
@@ -49,8 +54,10 @@ export const antiqueData = [
     topLevelCategory: "Antiques",
     secondLevelCategory: "Decorative Pieces",
     thirdLevelCategory: "Mirrors",
+    orderQuantity: 1,
   },
   {
+    id: 30,
     imageUrl: "https://m.media-amazon.com/images/I/61t-JtVLXtS._AC_UF894,1000_QL80_.jpg",
     brand: "Artisanal Crafts",
     title: "Hand-Painted Ceramic Vase",
@@ -66,8 +73,10 @@ export const antiqueData = [
     topLevelCategory: "Antiques",
     secondLevelCategory: "Decorative Pieces",
     thirdLevelCategory: "Vases",
+    orderQuantity: 1,
   },
   {
+    id: 40,
     imageUrl:
       "https://rukminim2.flixcart.com/image/850/1000/kevpwnk0/showpiece-figurine/c/z/n/brass-antique-telescope-with-tripod-stand-flipkart-perfect-homes-original-imafvgqvgrfp9a36.jpeg?q=90&crop=false",
     brand: "Antique Finds",
@@ -84,8 +93,10 @@ export const antiqueData = [
     topLevelCategory: "Antiques",
     secondLevelCategory: "Decorative Pieces",
     thirdLevelCategory: "Ornaments",
+    orderQuantity: 1,
   },
   {
+    id: 50,
     imageUrl: "https://i.etsystatic.com/5989090/r/il/a4bb45/3157043364/il_fullxfull.3157043364_szs1.jpg",
     brand: "Vintage Charm",
     title: "Antique Brass Photo Frame",
@@ -100,8 +111,10 @@ export const antiqueData = [
     topLevelCategory: "Antiques",
     secondLevelCategory: "Decorative Pieces",
     thirdLevelCategory: "Photo Frames",
+    orderQuantity: 1,
   },
   {
+    id: 60,
     imageUrl: "https://www.homedecorcompany.in/cdn/shop/files/71nyuTAVc_L._AC_SL1448.jpg?v=1696181095",
     brand: "Rustic Artistry",
     title: "Handcrafted Ceramic Table Lamp",
@@ -116,8 +129,10 @@ export const antiqueData = [
     topLevelCategory: "Antiques",
     secondLevelCategory: "Decorative Pieces",
     thirdLevelCategory: "Lamps",
+    orderQuantity: 1,
   },
   {
+    id: 70,
     imageUrl:
       "https://www.cottageartsindia.com/cdn/shop/products/d4_a0f55196-8823-4b52-b24e-1aa2ce02827a_grande.jpg?v=1597072370",
     brand: "Victorian Elegance",
@@ -134,8 +149,10 @@ export const antiqueData = [
     topLevelCategory: "Antiques",
     secondLevelCategory: "Decorative Pieces",
     thirdLevelCategory: "Door Accessories",
+    orderQuantity: 1,
   },
   {
+    id: 71,
     imageUrl: "https://theartisanemporium.co.in/wp-content/uploads/2022/03/Serving_Bowl_1.jpg",
     brand: "Artisanal Craftsmanship",
     title: "Hand-Painted Ceramic Bowl Set",
@@ -151,8 +168,10 @@ export const antiqueData = [
     topLevelCategory: "Antiques",
     secondLevelCategory: "Decorative Pieces",
     thirdLevelCategory: "Bowls",
+    orderQuantity: 1,
   },
   {
+    id: 72,
     imageUrl:
       "https://hitchki.in/wp-content/uploads/Old-School-Sailor-Style-Vintage-Brass-Made-Telescope-with-Box-Case-4.jpg.webp",
     brand: "Antique Finds",
@@ -169,8 +188,10 @@ export const antiqueData = [
     topLevelCategory: "Antiques",
     secondLevelCategory: "Decorative Pieces",
     thirdLevelCategory: "Ornaments",
+    orderQuantity: 1,
   },
   {
+    id: 73,
     imageUrl: "https://m.media-amazon.com/images/I/71ixEfD8UnL._AC_UF894,1000_QL80_.jpg",
     brand: "Elegant Antiques",
     title: "Crystal Decanter Set",
@@ -185,8 +206,10 @@ export const antiqueData = [
     topLevelCategory: "Antiques",
     secondLevelCategory: "Decorative Pieces",
     thirdLevelCategory: "Decanter Sets",
+    orderQuantity: 1,
   },
   {
+    id: 74,
     imageUrl:
       "https://rukminim2.flixcart.com/image/850/1000/j0zlevk0/fm-radio/v/h/p/pyle-ptcdcs32bt-retro-vintage-classic-bluetooth-turntable-original-imaesmtfxmhgejzz.jpeg?q=90&crop=false",
     brand: "Retro Relics",
@@ -203,8 +226,10 @@ export const antiqueData = [
     topLevelCategory: "Antiques",
     secondLevelCategory: "Decorative Pieces",
     thirdLevelCategory: "Music Players",
+    orderQuantity: 1,
   },
   {
+    id: 75,
     imageUrl: "https://theindianweave.com/cdn/shop/products/tibetan-bell4.jpg?v=1549351778",
     brand: "Regal Accents",
     title: "Antique Brass Bell",
@@ -219,8 +244,10 @@ export const antiqueData = [
     topLevelCategory: "Antiques",
     secondLevelCategory: "Decorative Pieces",
     thirdLevelCategory: "Bells",
+    orderQuantity: 1,
   },
   {
+    id: 76,
     imageUrl: "https://5.imimg.com/data5/EW/WJ/RQ/SELLER-56188169/mechanical-models-antique-box-500x500.jpg",
     brand: "Artisanal Accents",
     title: "Handcrafted Wooden Jewelry Box",
@@ -236,8 +263,10 @@ export const antiqueData = [
     topLevelCategory: "Antiques",
     secondLevelCategory: "Decorative Pieces",
     thirdLevelCategory: "Jewelry Boxes",
+    orderQuantity: 1,
   },
   {
+    id: 77,
     imageUrl: "https://i.etsystatic.com/5506208/r/il/5ae6bf/3543405192/il_fullxfull.3543405192_d52s.jpg",
     brand: "Vintage Treasures",
     title: "Antique Brass Candle Snuffer",
@@ -252,8 +281,10 @@ export const antiqueData = [
     topLevelCategory: "Antiques",
     secondLevelCategory: "Decorative Pieces",
     thirdLevelCategory: "Candle Accessories",
+    orderQuantity: 1,
   },
   {
+    id: 78,
     imageUrl: "https://images-cdn.ubuy.co.in/633ff2a0de969f02de163893-vintage-rotary-dial-desk-phone-telephone.jpg",
     brand: "Retro Luxe",
     title: "Vintage Rotary Telephone",
@@ -269,8 +300,10 @@ export const antiqueData = [
     topLevelCategory: "Antiques",
     secondLevelCategory: "Decorative Pieces",
     thirdLevelCategory: "Telephones",
+    orderQuantity: 1,
   },
   {
+    id: 79,
     imageUrl: "https://www.inessa.com/229390/pair-19th-century-english-brass-andirons-bookends.jpg",
     brand: "Regal Designs",
     title: "Antique Brass Bookends",
@@ -285,8 +318,10 @@ export const antiqueData = [
     topLevelCategory: "Antiques",
     secondLevelCategory: "Decorative Pieces",
     thirdLevelCategory: "Bookends",
+    orderQuantity: 1,
   },
   {
+    id: 80,
     imageUrl: "https://m.media-amazon.com/images/I/71e315KhBAL.jpg",
     brand: "Artisanal Accents",
     title: "Handcrafted Wooden Coasters Set",
@@ -302,8 +337,10 @@ export const antiqueData = [
     topLevelCategory: "Antiques",
     secondLevelCategory: "Decorative Pieces",
     thirdLevelCategory: "Coasters",
+    orderQuantity: 1,
   },
   {
+    id: 81,
     imageUrl:
       "https://www.iconicedinburgh.co.uk/cdn/shop/products/il_fullxfull.1257850759_khhq_1024x1024@2x.jpg?v=1606516132",
     brand: "Vintage Finds",
@@ -319,8 +356,10 @@ export const antiqueData = [
     topLevelCategory: "Antiques",
     secondLevelCategory: "Decorative Pieces",
     thirdLevelCategory: "Inkwells",
+    orderQuantity: 1,
   },
   {
+    id: 82,
     imageUrl: "https://i.pinimg.com/originals/3f/41/91/3f4191b19edb5f0f06068bdc4ecddb9f.png",
     brand: "Elegant Antiques",
     title: "Antique Brass Letter Opener",
@@ -335,5 +374,6 @@ export const antiqueData = [
     topLevelCategory: "Antiques",
     secondLevelCategory: "Decorative Pieces",
     thirdLevelCategory: "Letter Openers",
+    orderQuantity: 1,
   },
 ];

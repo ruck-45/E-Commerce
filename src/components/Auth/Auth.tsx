@@ -5,7 +5,6 @@ import { updateTab } from "../../Redux/Slices/curTabSlice";
 // Local Files
 
 import UserAuth from "./subComponents/UserAuth";
-import AuthCard from "./subComponents/AuthCard";
 
 const Auth = () => {
   const dispatch = useDispatch();

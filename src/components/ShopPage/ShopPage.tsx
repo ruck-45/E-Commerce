@@ -9,6 +9,8 @@ import { scrollTop } from "../../utils/controllers";
 import { updateTab } from "../../Redux/Slices/curTabSlice";
 import { Button, Input, Pagination } from "@nextui-org/react";
 import { IoSearch } from "react-icons/io5";
+import { Link } from "react-router-dom";
+import { FaHome } from "react-icons/fa";
 
 const sortOptions = [
   { name: "Most Popular", href: "#", current: true },
@@ -79,6 +81,14 @@ export default function ShopPage() {
 
   return (
     <div className="bg-white">
+      <div className="flex flex-row gap-x-[0.7rem] px-[1.5rem] lg:px-[5rem] mt-[2rem]">
+        <Link className="font-bold cursor-pointer flex gap-2" to="/Home">
+          <FaHome className="mt-[0.3rem]" />
+          <p>Home</p>
+        </Link>
+        <p> {"»"} </p>
+        <p>Shop</p>
+      </div>
       <div>
         <Transition.Root show={mobileFiltersOpen} as={Fragment}>
           <Dialog as="div" className="relative z-40 lg:hidden" onClose={setMobileFiltersOpen}>

@@ -23,12 +23,13 @@ const Contact = () => {
 
   return (
     <>
-      <div className="flex flex-row gap-x-[1rem] px-[3rem] lg:px-[8rem] mt-[2rem]">
-        <Link className="font-bold flex gap-[1rem] cursor-pointer" to="/Home">
+      <div className="flex flex-row gap-x-[0.7rem] px-[3rem] lg:px-[8rem] mt-[2rem]">
+        <Link className="font-bold cursor-pointer flex gap-2" to="/Home">
           <FaHome className="mt-[0.3rem]" />
-          Home
+          <p>Home</p>
         </Link>
-        <p> {">"} Contact</p>
+        <p> {"»"} </p>
+        <p>Contact</p>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 justify-start px-[3rem] lg:pl-0 lg:pr-[5rem]">
         <EmailForm />

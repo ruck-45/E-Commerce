@@ -5,16 +5,18 @@ import { configureStore } from "@reduxjs/toolkit";
 import curTabSlice from "./Slices/curTabSlice";
 import navOpenStatusSlice from "./Slices/navOpenStatusSlice";
 import toLoginSlice from "./Slices/toLoginSlice";
-import cartReducer from "./Slices/CartSlice"
+import cartReducer from "./Slices/CartSlice";
+import apiConfigReducer from "./Slices/apiConfigSlice";
 
 const store = configureStore({
   reducer: {
     curTab: curTabSlice,
     navOpenStatus: navOpenStatusSlice,
     toLogin: toLoginSlice,
-    allCart:cartReducer,
+    allCart: cartReducer,
+    apiConfig: apiConfigReducer,
   },
-  devTools:true
+  devTools: true,
 });
 
 export type RootState = ReturnType<typeof store.getState>;

@@ -43,6 +43,7 @@ const errorToast = (message: string): void => {
 const UserAuth = () => {
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
+  const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
 
   const toLogin = useSelector((state: RootState) => state.toLogin.value);
   const toggleVisibility = () => setIsVisible(!isVisible);
@@ -52,10 +53,7 @@ const UserAuth = () => {
     event.preventDefault();
     dispatch(updateToLoginStatus(!toLogin));
   };
-  let apiUrl = process.env.REACT_APP_API_URL;
-  if (process.env.NODE_ENV === "development") {
-    apiUrl = process.env.REACT_APP_DEV_API_URL;
-  }
+
   const email = useRef("");
   const password = useRef("");
   const confirmPassword = useRef("");
@@ -136,21 +134,17 @@ const UserAuth = () => {
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    setHandleLoginButton(true);
     event.preventDefault();
 
     if (emailState || passwordState || email.current.length === 0 || password.current.length === 0) {
       errorToast("Please The Form Correctly");
+      setHandleLoginButton(false);
       return;
     }
 
     if (toLogin) {
       try {
-        setHandleLoginButton(true);
-        // const response = await axios.post(`/users/login`, {
-        //   email: email.current,
-        //   password: password.current,
-        //   remember: rememberMe,
-        // });
         const response = await axios.post(`${apiUrl}/users/login`, {
           email: email.current,
           password: password.current,
@@ -164,22 +158,10 @@ const UserAuth = () => {
           setCookie("username", response.data.payload.userName, cookieOptions);
           setCookie("expiration", response.data.payload.expires, cookieOptions);
           setCookie("isEmployee", response.data.payload.isEmployee, cookieOptions);
-
-          const profileResponse = await axios.get(`${apiUrl}/users/profile`, {
-            headers: {
-              Authorization: `Bearer ${response.data.payload.token}`,
-            },
-          });
-          setCookie("about", profileResponse.data.payload.about, cookieOptions);
-          setCookie("profession", profileResponse.data.payload.profession, cookieOptions);
-          setCookie("address", profileResponse.data.payload.address, cookieOptions);
-          setCookie("phone", profileResponse.data.payload.phone, cookieOptions);
-          setCookie("plan", profileResponse.data.payload.plan, cookieOptions);
-          setCookie("image", profileResponse.data.payload.image, cookieOptions);
+          setCookie("userId", response.data.payload.userId, cookieOptions);
 
           successToast("Login Successfully");
-
-          navigate("/Profile");
+          navigate("/Shop");
         } else {
           errorToast(response.data.payload.message);
           setHandleLoginButton(false);
@@ -196,6 +178,7 @@ const UserAuth = () => {
         username.current.length === 0
       ) {
         errorToast("Please The Form Correctly");
+        setHandleLoginButton(false);
         return;
       }
 
@@ -211,14 +194,19 @@ const UserAuth = () => {
           dispatch(updateToLoginStatus(true));
           navigate("/Auth");
         } else {
-          errorToast(`${response.data.payload.message}`);
+          console.log(response);
+          errorToast("Sign Up Failed");
         }
+
+        setHandleLoginButton(false);
       } catch (error: any) {
         if (error.response.status === 501) {
           errorToast("Email Address Already Registered");
         } else {
           errorToast("Sign Up Failed");
         }
+
+        setHandleLoginButton(false);
       }
     }
   };

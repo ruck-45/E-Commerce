@@ -19,7 +19,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { LuShoppingCart } from "react-icons/lu";
 
-
 // Local Files
 import "./NavBar.css";
 import icon from "../globalAssets/icon.svg";
@@ -42,12 +41,12 @@ const NavBar = () => {
   const navOpenStatus = useSelector((state: RootState) => state.navOpenStatus.value);
   const dispatch = useDispatch();
 
-  const {cart, totalQuantity} = useSelector((state:RootState) => state?.allCart)
+  const { cart, totalQuantity } = useSelector((state: RootState) => state?.allCart);
 
   useEffect(() => {
-    dispatch(getCartTotal())
-  },[cart])
-  
+    dispatch(getCartTotal());
+  }, [cart]);
+
   return (
     <>
       <TopBar />

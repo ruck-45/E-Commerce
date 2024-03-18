@@ -5,9 +5,8 @@ import { Button, Input } from "@nextui-org/react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import queryString from "query-string";
-
 import toast, { Toaster, ToastPosition } from "react-hot-toast";
 import {
   emailRe,
@@ -18,7 +17,7 @@ import {
   passwordLowCase,
 } from "../../../utils/authRegex";
 import { updateToLoginStatus } from "../../../Redux/Slices/toLoginSlice";
-import axiosInstance from "../../../Helper/axiosinstance";
+import { RootState } from "../../../Redux/store";
 // Local Files
 
 const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -40,11 +39,7 @@ const errorToast = (message: string): void => {
 const ForgetPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  let apiUrl = process.env.REACT_APP_API_URL;
-  if (process.env.NODE_ENV === "development") {
-    apiUrl = process.env.REACT_APP_DEV_API_URL;
-  }
+  const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
 
   const email = useRef("");
   const password = useRef("");
@@ -121,8 +116,8 @@ const ForgetPassword = () => {
           return;
         }
         if (token) {
-          const response = await axiosInstance.put(
-            `/users/reset-password`,
+          const response = await axios.put(
+            `${apiUrl}/users/reset-password`,
             { password: password.current },
             {
               headers: {
@@ -150,7 +145,7 @@ const ForgetPassword = () => {
           return;
         }
 
-        const response = await axiosInstance.post(`/users/forgot-password`, { email: email.current });
+        const response = await axios.post(`${apiUrl}/users/forgot-password`, { email: email.current });
         if (response.data.success) {
           successToast("Reset password link is sent to your email address");
           setTimeout(() => {
@@ -193,7 +188,7 @@ const ForgetPassword = () => {
             placeholder="Enter new password"
             onKeyDown={handleKeyPress}
             isInvalid={passwordState}
-            errorMessage={passwordState ? "Please enter a valid password" : ""}
+            errorMessage={passwordState ? invalidPasswordMessage : ""}
             onChange={checkPassword}
           />
           <Input

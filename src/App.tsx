@@ -22,6 +22,7 @@ import Term from "./components/Policy/Term";
 import ProductDetails from "./components/ProductDetails/ProductDetails";
 import Refund from "./components/Policy/Refund";
 import Cart from "./components/Cart/Cart";
+import PasswordReset from "./components/ForgetPassword/PasswordReset";
 
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
           <Route path="/Blog/*" element={<Blog />} />
           <Route path="/Privacy" element={<Privacy />} />
           <Route path="/Terms" element={<Term />} />
+          <Route path="/ResetPassword" element={<PasswordReset />} />
           <Route path="*" element={<Navigate to="/Home" />} />
         </Routes>
       </div>

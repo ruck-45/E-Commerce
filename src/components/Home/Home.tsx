@@ -11,8 +11,6 @@ import EmailContact from "./SubComponents/EmailContact";
 import HomeProductSection from "./SubComponents/HomeProductSection";
 import AttractiveSection from "./SubComponents/AttractiveSection";
 import HomeCard from "./SubComponents/HomeCard";
-import { carpetData } from "../../Data/carpets";
-import { antiqueData } from "../../Data/antiques";
 import Achievement from "./SubComponents/Achievement";
 import ImageRow from "./SubComponents/ImageRow";
 
@@ -21,7 +19,7 @@ const Home = () => {
   dispatch(updateTab("Home"));
   scrollTop();
 
-  const {items,antiques} = useSelector((state:any) => state?.allCart)
+  const { items, antiques } = useSelector((state: any) => state?.allCart);
 
   return (
     <div>

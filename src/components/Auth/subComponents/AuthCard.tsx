@@ -15,7 +15,7 @@ const AuthCard = (props: AuthCardProps) => {
   return (
     <div className={className}>
       <Link to="../">
-        <Image width={100} src={logo} alt="logo" className="bg-white p-[1rem]" />
+        <Image width={150} src={logo} alt="logo" className="bg-white p-[1rem]" />
       </Link>
       <h1 className="text-white">Shop Nest Pvt Ltd.</h1>
       <p className="text-white max-w-[25rem]">

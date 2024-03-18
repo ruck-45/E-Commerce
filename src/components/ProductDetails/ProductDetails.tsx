@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button,Rating } from "@mui/material";
+import { Button, Rating } from "@mui/material";
 import { scrollTop } from "../../utils/controllers";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -65,33 +65,27 @@ const reviews = { href: "#", average: 4, totalCount: 117 };
 export default function ProductDetails() {
   scrollTop();
 
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
-  const dispatch = useDispatch()
- 
+  const dispatch = useDispatch();
 
-  const {state} = useLocation();
-  const store= useSelector((state:any) => state?.allCart?.cart)
-  console.log("ghghsghghj",store)
+  const { state } = useLocation();
+  const store = useSelector((state: any) => state?.allCart?.cart);
+  console.log("ghghsghghj", store);
 
-  console.log("location",state?.id);
+  console.log("location", state?.id);
 
-  const quantity = store.map((data:any) => data.orderQuantity)
-   console.log("quantity", quantity[0]);
+  const quantity = store.map((data: any) => data.orderQuantity);
+  console.log("quantity", quantity[0]);
 
-   function incQuantity() {
-    return setCount(count+1)
-   }
-   function decQuantity() {
-     return setCount(count - 1);
-   }
-
-  
-
-function addToCard(e:any){
-  e.preventDefault()
-  dispatch(addToCart(state))
-}
+  function addToCard(e: any) {
+    e.preventDefault();
+    dispatch(addToCart(state));
+  }
+  function deleteFromCard(e: any) {
+    e.preventDefault();
+    dispatch(decreaseItem(state?.id));
+  }
 
   const [activeImage, setActiveImage] = useState(null);
 
@@ -184,8 +178,8 @@ function addToCard(e:any){
               <div className="lg:flex items-center lg:space-x-10 pt-4">
                 <div className="flex items-center space-x-2 ">
                   <IconButton
-                    onClick={decQuantity}
-                    disabled={count < 2}
+                    onClick={(event) => deleteFromCard(event)}
+                    disabled={quantity[0] < 2}
                     color="primary"
                     aria-label="add an alarm"
                   >
@@ -197,8 +191,12 @@ function addToCard(e:any){
                   ) : (
                     <span className="py-1 px-7 border rounded-sm">1</span>
                   )} */}
-                  <span className="py-1 px-7 border rounded-sm">{count}</span>
-                  <IconButton onClick={incQuantity} color="primary" aria-label="add an alarm">
+                  {quantity[0] >= 2 ? (
+                    <span className="py-1 px-7 border rounded-sm">{quantity[0]}</span>
+                  ) : (
+                    <span className="py-1 px-7 border rounded-sm">1</span>
+                  )}
+                  <IconButton onClick={(event) => addToCard(event)} color="primary" aria-label="add an alarm">
                     <AddCircleOutlineIcon />
                   </IconButton>
                 </div>
@@ -210,6 +208,7 @@ function addToCard(e:any){
                   variant="contained"
                   type="submit"
                   sx={{ padding: ".8rem 2rem", marginTop: "2rem" }}
+                  disabled={quantity[0] > 0}
                 >
                   Add To Cart
                 </Button>

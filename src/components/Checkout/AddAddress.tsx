@@ -49,7 +49,7 @@ export default function AddDeliveryAddressForm(props:Cardsprops) {
   // };
 
   return (
-    <Grid container spacing={4} className="p-[3rem]">
+    <Grid container spacing={4} className="md:p-[3rem]">
       <Grid item xs={12} lg={5} className="lg:inline-block hidden">
         <Box className="border rounded-md shadow-md h-[30.5rem] overflow-y-scroll ">
           <img

@@ -15,13 +15,17 @@ import { carpetData } from "../../Data/carpets";
 import { antiqueData } from "../../Data/antiques";
 import Achievement from "./SubComponents/Achievement";
 import ImageRow from "./SubComponents/ImageRow";
+import { useEffect } from "react";
+
 
 const Home = () => {
   const dispatch = useDispatch();
   dispatch(updateTab("Home"));
   scrollTop();
 
-  const {items,antiques} = useSelector((state:any) => state?.allCart)
+  const { items, antiques } = useSelector((state: any) => state?.allCart);
+
+ 
 
   return (
     <div>

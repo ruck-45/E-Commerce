@@ -1,17 +1,37 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { carpetData } from "../../Data/carpets";
 import {antiqueData} from "../../Data/antiques"
+import axios from "axios";
+import toast from "react-hot-toast";
+ let apiUrl = process.env.REACT_APP_API_URL;
+ if (process.env.NODE_ENV === "development") {
+   apiUrl = process.env.REACT_APP_DEV_API_URL;
+ }
 
 const initialState = {
   cart: [],
   count:0,
-  items: carpetData,
+  items: [],
   antiques:antiqueData,
   totalQuantity: 0,
   totalPrice: 0,
 };
 
-
+export const getAllitems = createAsyncThunk("/items", async () => {
+  try {
+    const response = axios.get(`${apiUrl}/items/all`);
+    console.log("resonse is", response)
+    toast.promise(response, {
+      loading: "fetching items",
+      success: "fecthed succesfully",
+      error: "failed to load ",
+    });
+    return (await response).data.carpet.carpetData;
+  } catch (error) {
+    console.log("error is define",error)
+    toast.error(error?.response?.data?.message);
+  }
+});
 
 
 const cartSlice = createSlice({
@@ -26,6 +46,7 @@ const cartSlice = createSlice({
       } else {
         state.cart.push(action.payload);
       }
+      localStorage.setItem("cart", JSON.stringify(state.cart));
     },
     getCartTotal: (state) => {
       let { totalPrice, totalQuantity } = state.cart.reduce(
@@ -69,13 +90,21 @@ const cartSlice = createSlice({
         return item;
       });
     },
-    increaseCount:(state) => {
-        state.count += 1
+    increaseCount: (state) => {
+      state.count += 1;
     },
-    decreaseCount:(state) => {
-        state.count -=1
-    }
+    decreaseCount: (state) => {
+      state.count -= 1;
+    },
   },
+  extraReducers: (builder) => {
+    builder.addCase(getAllitems.fulfilled, (state, action) => {
+      if (action.payload) {
+        console.log("hhghjh",action.payload);
+        state.items = [...action.payload];
+      }
+    });
+  }
 });
 
 export const { addToCart, getCartTotal, removeItem, increaseItem ,decreaseItem,increaseCount,decreaseCount} = cartSlice.actions;

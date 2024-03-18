@@ -10,10 +10,17 @@ import { useLocation, useNavigate } from "react-router-dom";
 import OrderSummary from "./OrderSummary";
 import Cart from "../Cart/Cart";
 import { StepButton } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { updateTab } from "../../Redux/Slices/curTabSlice";
+import { scrollTop } from "../../utils/controllers";
 
 const steps = ["Cart", "Delivery Adress", "Order Summary", "Payment"];
 
 export default function Checkout() {
+const dispatch = useDispatch();
+dispatch(updateTab("Checkout"));
+scrollTop();
+
   const [activeStep, setActiveStep] = React.useState(1);
   const [skipped, setSkipped] = React.useState(new Set());
   const [completed, setCompleted] = React.useState({});
@@ -21,6 +28,7 @@ export default function Checkout() {
   const queryParams = new URLSearchParams(location.search);
   const step = queryParams.get("step");
   const navigate = useNavigate();
+  
 
    const totalSteps = () => {
      return steps.length;
@@ -85,8 +93,8 @@ export default function Checkout() {
 
   return (
     <div className="py-[3rem]">
-      <Box className="px-5 lg:px-32 " sx={{ width: "100%" }}>
-        <Stepper activeStep={step}>
+      <Box className="px-5  lg:px-32 " sx={{ width: "100%" }}>
+        <Stepper activeStep={step} className="flex flex-wrap gap-y-[1rem] ">
           {steps.map((label, index) => (
             <Step key={label} completed={completed[index]}>
               <StepButton color="inherit" onClick={handleStep(index)}>

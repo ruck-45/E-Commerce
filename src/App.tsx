@@ -22,6 +22,8 @@ import Term from "./components/Policy/Term";
 import ProductDetails from "./components/ProductDetails/ProductDetails";
 import Refund from "./components/Policy/Refund";
 import Cart from "./components/Cart/Cart";
+import Test from "./components/test/Test"
+import NotCart from "./components/Checkout/subComponents/NotCart";
 
 
 function App() {
@@ -34,6 +36,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/Home" />} />
           <Route path="/Home" element={<Home />} />
+          <Route path="/test" element={<Test />} />
           <Route path="/Shop" element={<ShopPage />} />
           <Route path="/ProductDetails" element={<ProductDetails />} />
           <Route path="/Refund" element={<Refund />} />
@@ -43,6 +46,7 @@ function App() {
           <Route path="/Contact" element={<Contact />} />
           <Route path="/Pricing" element={<Pricing />} />
           <Route path="/Auth" element={<Auth />} />
+          <Route path="/testing" element={<NotCart />} />
           <Route path="/Services/*" element={<Services />} />
           <Route path="/Profile" element={<Profile />} />
           <Route path="/Blog/*" element={<Blog />} />

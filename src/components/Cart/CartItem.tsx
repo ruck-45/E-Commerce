@@ -36,9 +36,9 @@ const CartItem = (props:CardProps) => {
   
  
   return (
-    <div className="p-5 shadow-lg border rounded-md">
-      <div className="flex items-center">
-        <div className="w-[5rem] h-[5rem] lg:w-[9rem] lg:h-[9rem] ">
+    <div className="p-[0.5rem] shadow-lg border rounded-md ">
+      <div className="flex items-center ">
+        <div className="w-[8rem] h-[5rem] lg:w-[9rem] lg:h-[9rem] ">
           <img className="w-full h-full object-cover object-top" src={props.imageUrl} alt="" />
         </div>
         <div className="ml-5 space-y-1">

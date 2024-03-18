@@ -14,7 +14,6 @@ const UserAvatar = () => {
   const dispatch = useDispatch();
 
   const userEmail = getCookie("email");
-  const isEmployee = getCookie("isEmployee");
   const image = getCookie("userId");
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
 
@@ -31,7 +30,6 @@ const UserAvatar = () => {
   };
 
   const imageUrl = `${apiUrl}/users/profileImages/${image}.jpg`;
-  const createBlogClassName = isEmployee === "true" ? "p-0" : "hidden";
 
   return (
     <>
@@ -47,11 +45,6 @@ const UserAvatar = () => {
           <DropdownItem key="profile" className="p-0" textValue="profile">
             <Link to="/Profile" style={{ display: "block", padding: "6px 8px" }}>
               Profile
-            </Link>
-          </DropdownItem>
-          <DropdownItem key="blog" className={createBlogClassName} textValue="blog">
-            <Link to="/Blog/Create" style={{ display: "block", padding: "6px 8px" }}>
-              Create Item
             </Link>
           </DropdownItem>
           <DropdownItem key="logout" color="danger" onClick={handleLogout} textValue="logout">

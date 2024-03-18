@@ -3,27 +3,69 @@ import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 import ProfileProductSection from "./ProfileProductSection";
 import { antiqueData } from "../../../Data/antiques";
-
-const userData = [
-  {
-    name: "Username",
-    value: "Sarah Troy",
-  },
-  {
-    name: "Email",
-    value: "saragtroy123@gmail.com",
-  },
-  {
-    name: "Contact",
-    value: "+1-888-123-1234",
-  },
-  {
-    name: "Address",
-    value: "Sunny Isles Beach, FL 33160, United States",
-  },
-];
+import { getCookie } from "../../../utils/cookies";
+import { useLayoutEffect, useState } from "react";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../Redux/store";
 
 const UserItemDetails = () => {
+  const token = getCookie("token");
+  const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
+
+  const username = getCookie("username");
+  const email = getCookie("email");
+  const [userDetail, setUserDetail] = useState({ address: "", address_code: "", phone: "", state: "" });
+
+  const getProfileData = async () => {
+    try {
+      const profileResponse = await axios.get(`${apiUrl}/users/profile`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!profileResponse.data.success) {
+        console.log(profileResponse.data);
+      }
+
+      setUserDetail((prev) => profileResponse.data.payload);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useLayoutEffect(() => {
+    getProfileData();
+  }, [apiUrl]);
+
+  const userData = [
+    {
+      name: "Username",
+      value: username,
+    },
+    {
+      name: "Email",
+      value: email,
+    },
+    {
+      name: "Contact",
+      value: userDetail.phone ? userDetail.phone : "-----",
+    },
+    {
+      name: "Address",
+      value: userDetail.address ? userDetail.address : "-----",
+    },
+    {
+      name: "State",
+      value: userDetail.state ? userDetail.state : "-----",
+    },
+    {
+      name: "Zip / Postal Code",
+      value: userDetail.address_code ? userDetail.address_code : "-----",
+    },
+  ];
+
   return (
     <div className="flex flex-col gap-y-[2rem] grow lg:px-0 w-[95%] lg:w-[82%]">
       <div className="flex flex-col gap-1">

@@ -144,6 +144,9 @@ const NavBar = () => {
         </NavbarContent>
         {isLoggedIn ? (
           <NavbarContent justify="end">
+            <NavbarItem className="hidden lg:flex">
+              <ButtonElement to="/Checkout?step=1" startContent={<LuShoppingCart />} label="Cart" variant="light" />
+            </NavbarItem>
             <NavbarItem>
               <UserAvatar />
             </NavbarItem>

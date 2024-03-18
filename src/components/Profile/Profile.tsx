@@ -1,9 +1,13 @@
-import { Avatar, Button } from "@nextui-org/react";
+import { Avatar, Button, Divider, Image } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import UserItemDetails from "./subComponents/UserItemDetails";
+import { updateTab } from "../../Redux/Slices/curTabSlice";
+import { useDispatch } from "react-redux";
 
 const Profile = () => {
+  const dispatch = useDispatch();
+  dispatch(updateTab("Profile"));
   return (
     <div className="flex flex-col bg-white">
       <div className="h-[3rem] bg-[#130F40] px-[3rem] sm:px-[5rem] lg:px-[11rem] flex justify-start items-center text-white gap-x-[0.7rem]">

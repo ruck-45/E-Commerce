@@ -32,15 +32,45 @@ const OurServices = () => {
         Details to details is what makes ShopNest different from the other themes.
       </p>
       <div className="flex flex-wrap mt-[1rem] gap-[2rem] justify-center items-center">
-        {serviceData.map((data, index) => (
-          <Card className="flex flex-col max-w-[25rem] h-[26rem]" key={index} isPressable isHoverable>
-            <CardHeader className=" justify-center text-center font-bold text-2xl">{data.name}</CardHeader>
-            <CardBody className="flex text-center">{data.description}</CardBody>
-            <CardFooter className="">
-              <Image src={data.image} />
-            </CardFooter>
-          </Card>
-        ))}
+        <Card className="flex flex-col md:px-[2rem] md:py-[1rem] max-w-[25rem] h-[26rem]" radius="none">
+          <CardHeader className=" justify-center text-center font-bold text-2xl">REFUND POLICY</CardHeader>
+          <CardBody className="flex text-center">
+            Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.
+          </CardBody>
+          <CardFooter className="">
+            <Image
+              width={400}
+              radius="none"
+              src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            />
+          </CardFooter>
+        </Card>
+        <Card className="flex flex-col md:px-[2rem] md:py-[1rem] max-w-[25rem] h-[26rem]" radius="none">
+          <CardHeader className="flex justify-center text-center font-bold text-2xl">PREMIUM PACKAGING</CardHeader>
+          <CardBody className="flex text-center">
+            Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.
+          </CardBody>
+          <CardFooter className="">
+            <Image
+              width={400}
+              radius="none"
+              src="https://images.unsplash.com/photo-1595246135406-803418233494?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            />
+          </CardFooter>
+        </Card>
+        <Card className="flex flex-col md:px-[2rem] md:py-[1rem] max-w-[25rem] h-[26rem]" radius="none">
+          <CardHeader className="flex justify-center text-center font-bold text-2xl">SUPERIOR QUALITY</CardHeader>
+          <CardBody className="flex text-center">
+            Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.
+          </CardBody>
+          <CardFooter className="">
+            <Image
+              width={400}
+              radius="none"
+              src="https://images.unsplash.com/photo-1415604934674-561df9abf539?q=80&w=1980&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            />
+          </CardFooter>
+        </Card>
       </div>
     </div>
   );

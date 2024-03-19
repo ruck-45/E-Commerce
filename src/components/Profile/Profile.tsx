@@ -1,4 +1,17 @@
-import { Avatar, Button, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
+import {
+  Avatar,
+  Button,
+  Input,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  useDisclosure,
+} from "@nextui-org/react";
 import { Link } from "react-router-dom";
 import { FaCloudUploadAlt, FaHome } from "react-icons/fa";
 import UserItemDetails from "./subComponents/UserItemDetails";
@@ -8,7 +21,7 @@ import { getCookie } from "../../utils/cookies";
 import { RootState } from "../../Redux/store";
 import { useState } from "react";
 import axios from "axios";
-import toast, { ToastPosition } from "react-hot-toast";
+import toast, { ToastPosition, Toaster } from "react-hot-toast";
 import { TiTick } from "react-icons/ti";
 
 const toastSetting: {
@@ -31,8 +44,48 @@ const Profile = () => {
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
   const imageUrl = `${apiUrl}/users/profileImages/${image}.jpg`;
 
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [formData, setFormData] = useState({ phone: "", address: "", state: "", addressCode: "" });
+
   const [userProfilePic, setUserProfilePic] = useState<File | null>(null);
   const [uploadButtonDisabled, setIsuploadButtonDisabled] = useState(false);
+  const [isEditLoading, setIsEditLoading] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    setIsEditLoading(true);
+
+    try {
+      const response = await axios.put(`${apiUrl}/users/profile`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!response.data.success) {
+        console.log(response.data);
+
+        errorToast("Couldn't update profile");
+      }
+      successToast("Profile Update Successful !!");
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+    } catch (error) {
+      console.log(error);
+      errorToast("Couldn't update profile");
+    }
+
+    setIsEditLoading(false);
+  };
 
   const handleFileUpload = async () => {
     if (userProfilePic === null) {
@@ -126,9 +179,67 @@ const Profile = () => {
         </div>
       </div>
       <div className="bg-white h-auto py-[2rem] px-[3rem] lg:px-[6.7rem] flex flex-col lg:flex-row lg:gap-x-[8rem] gap-y-[2rem] mt-[2rem] lg:mt-0 items-center lg:items-start">
-        <Button className="mt-[5rem] font-bold text-default-500" variant="ghost" radius="none">
+        <Button className="mt-[5rem] font-bold text-default-500" variant="ghost" radius="none" onPress={onOpen}>
           Edit Profile
         </Button>
+        <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+          <ModalContent>
+            {(onClose) => (
+              <>
+                <ModalHeader className="flex flex-col gap-1">Update Profile</ModalHeader>
+                <ModalBody>
+                  <form>
+                    <Input
+                      type="phone"
+                      label="Contact"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      className="mt-2"
+                    />
+                    <Input
+                      type="text"
+                      label="Address"
+                      name="address"
+                      value={formData.address}
+                      onChange={handleChange}
+                      className="mt-2"
+                    />
+                    <Input
+                      type="text"
+                      label="State"
+                      name="state"
+                      value={formData.state}
+                      onChange={handleChange}
+                      className="mt-2"
+                    />
+                    <Input
+                      type="text"
+                      label="Zip / Postal Code"
+                      name="addressCode"
+                      value={formData.addressCode}
+                      onChange={handleChange}
+                      className="mt-2"
+                    />
+                  </form>
+                </ModalBody>
+                <ModalFooter>
+                  <Button
+                    color="danger"
+                    variant="ghost"
+                    onPress={onClose}
+                    onClick={handleSubmit}
+                    radius="full"
+                    isLoading={isEditLoading}
+                  >
+                    Update
+                  </Button>
+                </ModalFooter>
+              </>
+            )}
+          </ModalContent>
+        </Modal>
+        <Toaster />
         <UserItemDetails />
       </div>
     </div>

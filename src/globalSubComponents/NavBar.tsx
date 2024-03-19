@@ -22,7 +22,7 @@ import { LuShoppingCart } from "react-icons/lu";
 // Local Files
 import "./NavBar.css";
 import icon from "../globalAssets/icon.svg";
-import ButtonElement from "../globalElements/ButtonElement";
+import ButtonElement from "./ButtonElement";
 import UserAvatar from "./UserAvatar";
 import { getCookie } from "../utils/cookies";
 import { updateToLoginStatus } from "../Redux/Slices/toLoginSlice";

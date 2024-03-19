@@ -8,9 +8,10 @@ import { Link } from "react-router-dom";
 import "react-alice-carousel/lib/alice-carousel.css";
 
 type Data = {
-  imageUrl: string;
+  imageUrl: string[];
   brand: string;
   title: string;
+  item_id: string;
 };
 
 type HomeProductSectionProps = {
@@ -62,11 +63,13 @@ const HomeProductSection = (props: HomeProductSectionProps) => {
       itemsFit: "contain",
     },
   };
-  const items = props.data.slice(0, 10).map((item) => (
-    <div className="">
-      <HomeProductCard {...item} />
-    </div>
-  ));
+  const items = props.data.map((item) => {
+    return (
+      <div className="">
+        {<HomeProductCard imageUrl={item.imageUrl[0]} title={item.title} brand={item.brand} itemId={item.item_id} />}
+      </div>
+    );
+  });
 
   return (
     <div className="relative px-4 sm:px-6 lg:px-8 bg-white my-[3rem]">

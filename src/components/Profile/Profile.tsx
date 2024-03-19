@@ -239,8 +239,8 @@ const Profile = () => {
             )}
           </ModalContent>
         </Modal>
-        <Toaster />
         <UserItemDetails />
+        <Toaster />
       </div>
     </div>
   );

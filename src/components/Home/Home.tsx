@@ -13,8 +13,11 @@ import AttractiveSection from "./SubComponents/AttractiveSection";
 import HomeCard from "./SubComponents/HomeCard";
 import Achievement from "./SubComponents/Achievement";
 import ImageRow from "./SubComponents/ImageRow";
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useState } from "react";
 import { RootState } from "../../Redux/store";
+import axios from "axios";
+import HomeProductSectionSkeleton from "./SubComponents/HomeProductSectionSkeleton";
+import HomeProductSectionNotFound from "./SubComponents/HomeProductSectionNotFound";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -22,24 +25,69 @@ const Home = () => {
   scrollTop();
 
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
+  const [receivedAntiqueData, setReceivedAntiqueData] = useState(-1);
+  const [receivedCarpetsData, setReceivedCarpetsData] = useState(-1);
+  const [antiquesData, setAntiquesData] = useState([]);
+  const [carpetsData, setCarpetsData] = useState([]);
 
-  const getData = async () => {
-    
+  const getAntiqueData = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/items/getItems?start=0&end=10&category=antique&popular=true`);
+
+      if (!response.data.success) {
+        console.log(response.data);
+        setReceivedAntiqueData(0);
+      } else {
+        setAntiquesData(response.data.payload.result);
+        setReceivedAntiqueData(1);
+      }
+    } catch (error) {
+      console.log(error);
+      setReceivedAntiqueData(0);
+    }
+  };
+
+  const getCarpetData = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/items/getItems?start=0&end=10&category=carpet&popular=true`);
+
+      if (!response.data.success) {
+        console.log(response.data);
+        setReceivedCarpetsData(0);
+      } else {
+        setCarpetsData(response.data.payload.result);
+        setReceivedCarpetsData(1);
+      }
+    } catch (error) {
+      console.log(error);
+      setReceivedCarpetsData(0);
+    }
   };
 
   useLayoutEffect(() => {
-    getData();
+    getAntiqueData();
+    getCarpetData();
   }, [apiUrl]);
-
-  const { items, antiques } = useSelector((state: any) => state?.allCart);
 
   return (
     <div>
       <Slider />
-      <HomeProductSection data={antiques} section={"Popular Antiques"} />
+      {receivedAntiqueData === 1 ? (
+        <HomeProductSection data={antiquesData} section={"Popular Antiques"} />
+      ) : receivedAntiqueData === -1 ? (
+        <HomeProductSectionSkeleton data={[1, 2, 3, 4, 5]} section={"Popular Antiques"} />
+      ) : (
+        <HomeProductSectionNotFound section={"Popular Antiques"} />
+      )}
       <AttractiveSection />
       <Services />
-      <HomeProductSection data={items} section={"Carpets On Demand"} />
+      {receivedCarpetsData === 1 ? (
+        <HomeProductSection data={carpetsData} section={"Carpets On Demand"} />
+      ) : receivedCarpetsData === -1 ? (
+        <HomeProductSectionSkeleton data={[1, 2, 3, 4, 5]} section={"Carpets On Demand"} />
+      ) : (
+        <HomeProductSectionNotFound section={"Carpets On Demand"} />
+      )}
       <Achievement />
       <Explore />
       <HomeCard />

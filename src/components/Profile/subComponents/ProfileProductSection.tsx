@@ -9,6 +9,7 @@ type Data = {
   imageUrl: string;
   brand: string;
   title: string;
+  // item_id: string;
 };
 
 type ProfileProductSectionProps = {
@@ -61,7 +62,7 @@ const ProfileProductSection = (props: ProfileProductSectionProps) => {
   };
   const items = props.data.slice(0, 10).map((item) => (
     <div className="">
-      <HomeProductCard {...item} />
+      {/* <HomeProductCard {...item} /> */}
     </div>
   ));
 

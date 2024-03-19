@@ -29,6 +29,7 @@ const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     event.preventDefault();
   }
 };
+
 const toastSetting: {
   position: ToastPosition;
 } = { position: "top-center" };

@@ -21,7 +21,7 @@ import { LuShoppingCart } from "react-icons/lu";
 
 // Local Files
 import "./NavBar.css";
-import icon from "../globalAssets/icon.svg";
+import icon from "../globalAssets/logo.svg";
 import ButtonElement from "./ButtonElement";
 import UserAvatar from "./UserAvatar";
 import { getCookie } from "../utils/cookies";

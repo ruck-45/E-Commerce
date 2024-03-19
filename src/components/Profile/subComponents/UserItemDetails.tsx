@@ -1,4 +1,4 @@
-import { Divider } from "@nextui-org/react";
+import { divider, Divider, Skeleton } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 import ProfileProductSection from "./ProfileProductSection";
@@ -8,6 +8,18 @@ import { useLayoutEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../Redux/store";
+import toast, { Toaster, ToastPosition } from "react-hot-toast";
+
+const toastSetting: {
+  position: ToastPosition;
+} = { position: "top-center" };
+
+const successToast = (message: string): void => {
+  toast.success(message, toastSetting);
+};
+const errorToast = (message: string): void => {
+  toast.error(message, toastSetting);
+};
 
 const UserItemDetails = () => {
   const token = getCookie("token");
@@ -16,6 +28,7 @@ const UserItemDetails = () => {
   const username = getCookie("username");
   const email = getCookie("email");
   const [userDetail, setUserDetail] = useState({ address: "", address_code: "", phone: "", state: "" });
+  const [receivedUserDetail, setReceivedUserDetail] = useState(-1);
 
   const getProfileData = async () => {
     try {
@@ -27,11 +40,16 @@ const UserItemDetails = () => {
 
       if (!profileResponse.data.success) {
         console.log(profileResponse.data);
+        setReceivedUserDetail(0);
+        errorToast("Failed To get Personal Information");
+      } else {
+        setReceivedUserDetail(1);
+        setUserDetail((prev) => profileResponse.data.payload);
       }
-
-      setUserDetail((prev) => profileResponse.data.payload);
     } catch (error) {
       console.log(error);
+      setReceivedUserDetail(0);
+      errorToast("Failed To get Personal Information");
     }
   };
 
@@ -73,12 +91,27 @@ const UserItemDetails = () => {
         <Divider />
       </div>
       <div className="flex flex-row flex-wrap flex-grow gap-x-[2rem] gap-y-[1rem]">
-        {userData.map((data, index) => (
-          <div className="flex flex-col" key={index}>
-            <h1 className="font-bold text-xl">{data.name}</h1>
-            <p className="text-default-500 text-md">{data.value}</p>
+        {receivedUserDetail === 1 ? (
+          userData.map((data, index) => (
+            <div className="flex flex-col" key={index}>
+              <h1 className="font-bold text-xl">{data.name}</h1>
+              <p className="text-default-500 text-md">{data.value}</p>
+            </div>
+          ))
+        ) : receivedUserDetail === -1 ? (
+          <div className="flex grow gap-[1.5rem] flex-wrap">
+            {[1, 2, 3, 4].map((data) => (
+              <div className="min-w-[10rem] flex flex-col grow gap-[0.5rem]">
+                <Skeleton className="rounded-lg h-[2rem]" />
+                <Skeleton className="rounded-lg h-[3rem]" />
+              </div>
+            ))}
           </div>
-        ))}
+        ) : (
+          <div className="grow h-[10rem] flex justify-center items-center">
+            <p className="text-default-500 font-bold text-2xl">Information Not Found</p>
+          </div>
+        )}
       </div>
       <div className="flex flex-col gap-1">
         <div className="flex justify-between">
@@ -122,6 +155,7 @@ const UserItemDetails = () => {
         <Divider />
         <ProfileProductSection data={antiqueData} />
       </div>
+      <Toaster />
     </div>
   );
 };

@@ -85,7 +85,7 @@ const UserItemDetails = () => {
   ];
 
   return (
-    <div className="flex flex-col gap-y-[2rem] grow lg:px-0 w-[95%] lg:w-[82%]">
+    <div className="flex flex-col gap-y-[2rem] grow lg:px-0 w-[95%] lg:w-[82%] ">
       <div className="flex flex-col gap-1">
         <h1 className="font-bold  text-2xl">PERSONAL INFORMATION</h1>
         <Divider />

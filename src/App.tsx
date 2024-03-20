@@ -20,6 +20,7 @@ import ProductDetails from "./components/ProductDetails/ProductDetails";
 import Refund from "./components/Policy/Refund";
 import Cart from "./components/Cart/Cart";
 import PasswordReset from "./components/ForgetPassword/PasswordReset";
+import Admin from "./components/admin/Admin";
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
           <Route path="/Checkout" element={<Checkout />} />
           <Route path="/About" element={<About />} />
           <Route path="/Contact" element={<Contact />} />
+          <Route path="/Admin" element={<Admin />} />
           <Route path="/Auth" element={<Auth />} />
           <Route path="/Profile" element={<Profile />} />
           <Route path="/Privacy" element={<Privacy />} />

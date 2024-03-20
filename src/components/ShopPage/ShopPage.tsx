@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useLayoutEffect, useState } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from "@heroicons/react/20/solid";
@@ -10,6 +10,8 @@ import { Button, Input, Pagination } from "@nextui-org/react";
 import { IoSearch } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
+import axios from "axios";
+import { RootState } from "../../Redux/store";
 
 const sortOptions = [
   { name: "Most Popular", href: "#", current: true },
@@ -18,13 +20,19 @@ const sortOptions = [
   { name: "Price: Low to High", href: "#", current: false },
   { name: "Price: High to Low", href: "#", current: false },
 ];
-const subCategories = [
-  { name: "Carpets", href: "#" },
-  { name: "Rugs", href: "#" },
-  { name: "Antiques", href: "#" },
-  { name: "Decoratives", href: "#" },
-];
+
 const filters = [
+  {
+    id: "categories",
+    name: "Categories",
+    options: [
+      { value: "all", label: "All", checked: false },
+      { value: "Carpet", label: "Carpet", checked: false },
+      { value: "Rug", label: "Rug", checked: false },
+      { value: "Antique", label: "Antique", checked: true },
+      { value: "Decorative", label: "Decorative", checked: false },
+    ],
+  },
   {
     id: "color",
     name: "Color",
@@ -39,8 +47,8 @@ const filters = [
     ],
   },
   {
-    id: "category",
-    name: "Category",
+    id: "filters",
+    name: "Filters",
     options: [
       { value: "new-arrivals", label: "New Arrivals", checked: false },
       { value: "sale", label: "Sale", checked: false },
@@ -48,7 +56,7 @@ const filters = [
       { value: "trendy", label: "Trendy", checked: false },
       { value: "accessories", label: "Accessories", checked: false },
     ],
-  }
+  },
 ];
 
 function classNames(...classes: string[]) {
@@ -60,12 +68,44 @@ const pageSize = 16;
 export default function ShopPage() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [itemCount, setItemCount] = useState(0);
-   const {items} = useSelector((state: any) => state.allCart);
-   console.log(items);
+  const [pageNumber, setPageNumber] = useState(1);
+  const { items } = useSelector((state: any) => state.allCart);
+
+  const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
+  const [shopData, setShopData] = useState([]);
+  const [receivedShopData, setReceivedShopData] = useState(-1);
 
   const dispatch = useDispatch();
   dispatch(updateTab("Shop"));
   scrollTop();
+
+  const getShopData = async () => {
+    try {
+      console.log(`${apiUrl}/items/getItems?start=${(pageNumber - 1) * pageSize}&end=16`);
+      const response = await axios.get(`${apiUrl}/items/getItems?start=${(pageNumber - 1) * pageSize}&end=16`);
+      console.log(response);
+
+      if (!response.data.success) {
+        setReceivedShopData(0);
+      } else {
+        setShopData(response.data.payload.result);
+        setItemCount(response.data.payload.total);
+        if (response.data.payload.result.length > 0) {
+          setReceivedShopData(1);
+        } else {
+          setReceivedShopData(0);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      setReceivedShopData(0);
+    }
+  };
+
+  useLayoutEffect(() => {
+    scrollTop();
+    getShopData();
+  }, [apiUrl, pageNumber]);
 
   return (
     <div className="bg-white">
@@ -118,15 +158,6 @@ export default function ShopPage() {
                   {/* Filters */}
                   <form className="mt-4 border-t border-gray-200">
                     <h3 className="sr-only">Categories</h3>
-                    <ul role="list" className="px-2 py-3 font-medium text-gray-900">
-                      {subCategories.map((category, index) => (
-                        <li key={index}>
-                          <a href={category.href} className="block px-2 py-3">
-                            {category.name}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
 
                     {filters.map((section, index) => (
                       <Disclosure as="div" key={index} className="border-t border-gray-200 px-4 py-6">
@@ -179,7 +210,7 @@ export default function ShopPage() {
 
         <main className="mx-auto  px-4 sm:px-6 lg:px-20">
           <div className="flex items-baseline md:justify-between border-b border-gray-200 pb-6 pt-24">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 hidden md:block">Categories</h1>
+            <h1 className="text-4xl font-bold tracking-tight text-gray-900 hidden md:block">Shop</h1>
 
             <div className="flex items-center grow md:grow-0 justify-end">
               <Menu as="div" className="relative inline-block text-left">
@@ -265,13 +296,6 @@ export default function ShopPage() {
               {/* Filters */}
               <form className="hidden lg:block">
                 <h3 className="sr-only">Categories</h3>
-                <ul role="list" className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
-                  {subCategories.map((category) => (
-                    <li key={category.name}>
-                      <a href={category.href}>{category.name}</a>
-                    </li>
-                  ))}
-                </ul>
 
                 {filters.map((section) => (
                   <Disclosure as="div" key={section.id} className="border-b border-gray-200 py-6">
@@ -321,19 +345,18 @@ export default function ShopPage() {
               <div className="lg:col-span-4 w-full">
                 <div className="flex flex-col items-center justify-center">
                   <div className="flex flex-wrap justify-center py-5 bg-white">
-                    {items.map((detail:any) => (
+                    {shopData.map((detail: any) => (
                       <ProductCards {...detail} />
                     ))}
                   </div>
-                  <div className="py-[2rem]">
+                  <div className="py-[2rem] grow">
                     <Pagination
                       loop
                       showControls
                       color="primary"
                       variant="light"
-                      onChange={(pageNumber) => setItemCount(pageNumber)}
-                      // total={itemCount ? Math.ceil(itemCount / pageSize) : 1}
-                      total={8}
+                      onChange={(pageNumber) => setPageNumber(pageNumber)}
+                      total={itemCount ? Math.ceil(itemCount / pageSize) : 1}
                       initialPage={1}
                     />
                   </div>

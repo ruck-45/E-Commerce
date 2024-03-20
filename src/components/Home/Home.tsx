@@ -35,7 +35,6 @@ const Home = () => {
       const response = await axios.get(`${apiUrl}/items/getItems?start=0&end=10&category=antique&popular=true`);
 
       if (!response.data.success) {
-        console.log(response.data);
         setReceivedAntiqueData(0);
       } else {
         setAntiquesData(response.data.payload.result);

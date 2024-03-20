@@ -1,41 +1,44 @@
 import { useSelector } from "react-redux";
 import "./Product.css";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { RootState } from "../../../Redux/store";
 
 type ProductProps = {
-  id:number,
-  imageUrl: string;
-  brand: string;
-  title: string;
-  color: string;
+  item_id: String;
+  imageCount: String;
+  brand: String;
+  title: String;
+  color: String;
   discountedPrice: number;
   price: number;
-  discountPersent: number;
-  size: {
-    name: string;
-    quantity: number;
-  }[];
+  discountPercent: number;
   quantity: number;
-  topLavelCategory: string;
-  secondLavelCategory: string;
-  thirdLavelCategory: string;
-  description: string;
-  orderQuantity:number;
+  material: String;
+  dimension: String;
+  description: String;
+  topLevelCategory: String;
+  secondLevelCategory: String;
+  thirdLevelCategory: String;
+  highlights: String[];
+  minimumOrder: number;
+  details: String;
+  orders: number;
 };
 
 const ProductCards = (props: ProductProps) => {
-
-  const { state } = useLocation();
-  const { items } = useSelector((state: any) => state.allCart);
-  console.log(items);
+  const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
   const navigate = useNavigate();
   return (
     <div
       className="productCard w-[15rem] border m-3 transition-all cursor-pointer "
-      onClick={(() => navigate(`/ProductDetails`, { state: { ...props } }))}
+      onClick={() => navigate(`/ProductDetails/${props.title}/${props.item_id}`)}
     >
       <div className="h-[16.5rem]">
-        <img className="h-full w-full object-cover object-left-top" src={props.imageUrl} alt="" />
+        <img
+          className="h-full w-full object-cover object-left-top"
+          src={`${apiUrl}/items/itemImages/${props.item_id}_img1.jpg`}
+          alt=""
+        />
       </div>
       <div className="textPart bg-white p-3 ">
         <div>
@@ -48,7 +51,7 @@ const ProductCards = (props: ProductProps) => {
         <div className="flex space-x-2 items-center">
           <p className="font-semibold">₹{props.discountedPrice}</p>
           <p className="opacity-50 line-through">₹{props.price}</p>
-          <p className="text-green-600 font-semibold">{props.discountPersent}% off</p>
+          <p className="text-green-600 font-semibold">{props.discountPercent}% off</p>
         </div>
       </div>
     </div>

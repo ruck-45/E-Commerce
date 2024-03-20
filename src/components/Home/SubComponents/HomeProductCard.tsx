@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { RootState } from "../../../Redux/store";
 
 type HomeProductCardProps = {
-  imageUrl: string;
   title: string;
   brand: string;
   itemId: string;
@@ -20,7 +19,7 @@ const HomeProductCard = (props: HomeProductCardProps) => {
     >
       <div
         className="h-[13rem] w-full bg-cover bg-no-repeat bg-center"
-        style={{ backgroundImage: `url(${apiUrl}/items/itemImages/${props.imageUrl}.jpg)` }}
+        style={{ backgroundImage: `url(${apiUrl}/items/itemImages/${props.itemId}_img1.jpg)` }}
       ></div>
 
       <div className="p-4 w-full">

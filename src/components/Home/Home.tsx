@@ -39,7 +39,11 @@ const Home = () => {
         setReceivedAntiqueData(0);
       } else {
         setAntiquesData(response.data.payload.result);
-        setReceivedAntiqueData(1);
+        if (response.data.payload.result.length > 0) {
+          setReceivedAntiqueData(1);
+        } else {
+          setReceivedAntiqueData(0);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -56,7 +60,11 @@ const Home = () => {
         setReceivedCarpetsData(0);
       } else {
         setCarpetsData(response.data.payload.result);
-        setReceivedCarpetsData(1);
+        if (response.data.payload.result.length > 0) {
+          setReceivedCarpetsData(1);
+        } else {
+          setReceivedCarpetsData(0);
+        }
       }
     } catch (error) {
       console.log(error);

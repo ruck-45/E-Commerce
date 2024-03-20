@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 import "react-alice-carousel/lib/alice-carousel.css";
 
 type Data = {
-  imageUrl: string[];
   brand: string;
   title: string;
   item_id: string;
@@ -66,7 +65,7 @@ const HomeProductSection = (props: HomeProductSectionProps) => {
   const items = props.data.map((item) => {
     return (
       <div className="">
-        {<HomeProductCard imageUrl={item.imageUrl[0]} title={item.title} brand={item.brand} itemId={item.item_id} />}
+        {<HomeProductCard title={item.title} brand={item.brand} itemId={item.item_id} />}
       </div>
     );
   });

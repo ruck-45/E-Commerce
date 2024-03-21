@@ -51,7 +51,7 @@ const ProductCards = (props: ProductProps) => {
         </div>
 
         <div className="flex space-x-2 items-center">
-          {props.discountedPrice < 1 ? (
+          {props.discountedPrice === props.price || props.discountPercent === 0 ? (
             <p className="font-semibold">Rs. {props.price}</p>
           ) : (
             <>

@@ -152,7 +152,7 @@ export default function ProductDetails() {
               <div className="mt-4 lg:row-span-3 lg:mt-0">
                 <h2 className="sr-only">Product information</h2>
                 <div className="flex space-x-5 items-center text-lg lg:text-xl tracking-tight text-gray-900 mt-6">
-                  {productsData.discountedPrice < 1 ? (
+                  {productsData.discountedPrice === productsData.price || productsData.discountPercent === 0 ? (
                     <p className="font-semibold">Rs. {productsData.price}</p>
                   ) : (
                     <>

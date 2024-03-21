@@ -4,3 +4,7 @@ export const scrollTop = (offset?: number) => {
     behavior: "smooth",
   });
 };
+
+export const createArray = (n: number) => {
+  return Array.from({ length: n }, (_, index) => index + 1);
+};

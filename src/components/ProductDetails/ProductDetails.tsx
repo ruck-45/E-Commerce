@@ -3,16 +3,12 @@ import { Button, IconButton } from "@mui/material";
 import { scrollTop } from "../../utils/controllers";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { addToCart } from "../../Redux/Slices/CartSlice";
 import { RootState } from "../../Redux/store";
 import axios from "axios";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { Skeleton } from "@nextui-org/react";
-
-function createArray(n: number) {
-  return Array.from({ length: n }, (_, index) => index + 1);
-}
+import { createArray } from "../../utils/controllers";
 
 export default function ProductDetails() {
   const [count, setCount] = useState(0);
@@ -52,8 +48,12 @@ export default function ProductDetails() {
         console.log(response.data);
         setReceivedProductData(0);
       } else {
-        setProductsData(response.data.payload.result);
-        setReceivedProductData(1);
+        if (response.data.payload.result) {
+          setProductsData(response.data.payload.result);
+          setReceivedProductData(1);
+        } else {
+          setReceivedProductData(0);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -66,17 +66,6 @@ export default function ProductDetails() {
     getProductData();
   }, [apiUrl]);
 
-  // const i = useRef(0);
-
-  // setInterval(() => {
-  //   if (i.current >= productsData.imageUrl.length) {
-  //     i.current = 0;
-  //   }
-  //   setActiveImage(productsData.imageUrl[i.current]);
-  //   i.current++;
-  //   console.log(i.current);
-  // }, 5000);
-
   function incQuantity() {
     return setCount(count + 1);
   }
@@ -87,7 +76,6 @@ export default function ProductDetails() {
   function addToCard(e: any) {
     e.preventDefault();
     incQuantity();
-    // dispatch(addToCart(state));
   }
 
   return (

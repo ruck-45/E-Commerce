@@ -6,12 +6,13 @@ import ProductCards from "./SubComponents.tsx/ProductCards";
 import { useDispatch, useSelector } from "react-redux";
 import { scrollTop } from "../../utils/controllers";
 import { updateTab } from "../../Redux/Slices/curTabSlice";
-import { Button, Input, Pagination } from "@nextui-org/react";
+import { Button, Input, Pagination, Skeleton } from "@nextui-org/react";
 import { IoSearch } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import axios from "axios";
 import { RootState } from "../../Redux/store";
+import { createArray } from "../../utils/controllers";
 
 const sortOptions = [
   { name: "Most Popular", href: "#", current: true },
@@ -69,7 +70,6 @@ export default function ShopPage() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [itemCount, setItemCount] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
-  const { items } = useSelector((state: any) => state.allCart);
 
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
   const [shopData, setShopData] = useState([]);
@@ -81,9 +81,7 @@ export default function ShopPage() {
 
   const getShopData = async () => {
     try {
-      console.log(`${apiUrl}/items/getItems?start=${(pageNumber - 1) * pageSize}&end=16`);
       const response = await axios.get(`${apiUrl}/items/getItems?start=${(pageNumber - 1) * pageSize}&end=16`);
-      console.log(response);
 
       if (!response.data.success) {
         setReceivedShopData(0);
@@ -344,22 +342,36 @@ export default function ShopPage() {
               {/* Product grid */}
               <div className="lg:col-span-4 w-full">
                 <div className="flex flex-col items-center justify-center">
-                  <div className="flex flex-wrap justify-center py-5 bg-white">
-                    {shopData.map((detail: any) => (
-                      <ProductCards {...detail} />
-                    ))}
-                  </div>
-                  <div className="py-[2rem] grow">
-                    <Pagination
-                      loop
-                      showControls
-                      color="primary"
-                      variant="light"
-                      onChange={(pageNumber) => setPageNumber(pageNumber)}
-                      total={itemCount ? Math.ceil(itemCount / pageSize) : 1}
-                      initialPage={1}
-                    />
-                  </div>
+                  {receivedShopData === 1 ? (
+                    <>
+                      <div className="flex flex-wrap justify-center py-5 bg-white">
+                        {shopData.map((detail: any) => (
+                          <ProductCards {...detail} />
+                        ))}
+                      </div>
+                      <div className="py-[2rem] grow">
+                        <Pagination
+                          loop
+                          showControls
+                          color="primary"
+                          variant="light"
+                          onChange={(pageNumber) => setPageNumber(pageNumber)}
+                          total={itemCount ? Math.ceil(itemCount / pageSize) : 1}
+                          initialPage={1}
+                        />
+                      </div>
+                    </>
+                  ) : receivedShopData === -1 ? (
+                    <div className="flex flex-wrap justify-center py-5 bg-white">
+                      {createArray(16).map((data) => (
+                        <Skeleton key={data} className="w-[15rem] h-[20rem] m-3" />
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="w-full h-[100vh] flex justify-center items-center">
+                      <p className="font-bold text-2xl text-default-300">No Items Found</p>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

@@ -141,22 +141,22 @@ const NavBar = () => {
             </DropdownMenu>
           </Dropdown>
         </NavbarContent>
-        {isLoggedIn ? (
-          <NavbarContent justify="end">
-            <NavbarItem className="hidden lg:flex">
-              <ButtonElement to="/Checkout?step=1" startContent={<LuShoppingCart />} label="Cart" variant="light" />
-            </NavbarItem>
-            <NavbarItem>
-              <UserAvatar />
-            </NavbarItem>
-          </NavbarContent>
-        ) : (
-          <NavbarContent justify="end">
-            <NavbarItem className="hidden lg:flex">
+
+        <NavbarContent justify="end">
+          <NavbarItem className="hidden lg:flex">
+            {totalQuantity ? (
               <Badge content={totalQuantity} shape="circle" color="danger">
                 <ButtonElement to="/Checkout?step=1" startContent={<LuShoppingCart />} label="Cart" variant="light" />
               </Badge>
+            ) : (
+              <ButtonElement to="/Checkout?step=1" startContent={<LuShoppingCart />} label="Cart" variant="light" />
+            )}
+          </NavbarItem>
+          {isLoggedIn ? (
+            <NavbarItem>
+              <UserAvatar />
             </NavbarItem>
+          ) : (
             <NavbarItem className="flex">
               <ButtonElement
                 to="../Auth"
@@ -168,8 +168,8 @@ const NavBar = () => {
                 onClickFunction={() => dispatch(updateToLoginStatus(true))}
               />
             </NavbarItem>
-          </NavbarContent>
-        )}
+          )}
+        </NavbarContent>
 
         <NavbarMenu className="mt-[3rem] bg-white z-[200]">
           {menuItems.map((item, index) => {

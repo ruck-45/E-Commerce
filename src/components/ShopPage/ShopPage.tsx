@@ -1,7 +1,7 @@
-import { Fragment, useLayoutEffect, useState } from "react";
+import { Fragment, useLayoutEffect, useRef, useState } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from "@heroicons/react/20/solid";
+import { FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from "@heroicons/react/20/solid";
 import ProductCards from "./SubComponents.tsx/ProductCards";
 import { useDispatch, useSelector } from "react-redux";
 import { scrollTop } from "../../utils/controllers";
@@ -72,6 +72,8 @@ export default function ShopPage() {
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [colorFilter, setColorFilter] = useState("all");
   const [otherFilter, setOtherFilter] = useState("none");
+  const [search, setSearch] = useState("");
+  const searchRef = useRef(document.createElement("input"));
 
   const handleRadioChange = (e: React.ChangeEvent<HTMLInputElement>, id: string) => {
     if (id === "categories") {
@@ -91,7 +93,7 @@ export default function ShopPage() {
       const response = await axios.get(
         `${apiUrl}/items/getItems?start=${
           (pageNumber - 1) * pageSize
-        }&end=16&category=${categoryFilter}&color=${colorFilter}&filter=${otherFilter}`
+        }&end=16&category=${categoryFilter}&color=${colorFilter}&filter=${otherFilter}&search=${search}`
       );
 
       if (!response.data.success) {
@@ -114,7 +116,7 @@ export default function ShopPage() {
   useLayoutEffect(() => {
     scrollTop();
     getShopData();
-  }, [apiUrl, pageNumber, categoryFilter, colorFilter, otherFilter]);
+  }, [apiUrl, pageNumber, categoryFilter, colorFilter, otherFilter, search]);
 
   return (
     <div className="bg-white">
@@ -230,8 +232,9 @@ export default function ShopPage() {
                     placeholder="Search"
                     size="sm"
                     type="search"
+                    ref={searchRef}
                   />
-                  <Button color="primary" isIconOnly>
+                  <Button color="primary" isIconOnly onClick={() => setSearch(searchRef.current.value)}>
                     <IoSearch className="text-xl" />
                   </Button>
                 </div>

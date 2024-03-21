@@ -4,10 +4,34 @@ import { BiSolidArrowToTop } from "react-icons/bi";
 
 // Local Files
 import { scrollTop } from "../utils/controllers";
+import { useEffect, useState } from "react";
 
 const ScrollToTop = () => {
+
+  const [show,setShow] =useState(false);
+
+  const getWindowSize=()=>{
+    const current=document.documentElement.scrollTop;
+    if(current>400){
+      setShow(true);
+    }
+    else{
+      setShow(false);
+    }
+  }
+
+  useEffect(()=>{
+    window.addEventListener("scroll",getWindowSize);
+    return ()=>{
+      window.removeEventListener("scroll",getWindowSize);
+    }
+  },[]);
+
+
   return (
-    <Button
+    <>
+      {show && 
+      <Button
       isIconOnly
       color="warning"
       aria-label="LinkTop"
@@ -17,7 +41,9 @@ const ScrollToTop = () => {
       radius="full"
     >
       <BiSolidArrowToTop className="text-5xl text-white p-2 rounded-xl" />
-    </Button>
+    </Button>}
+    </>
+    
   );
 };
 

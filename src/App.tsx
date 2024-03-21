@@ -1,6 +1,7 @@
 // Dependencies
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import React from "react";
 
 // Local Files
 import NavBar from "./globalSubComponents/NavBar";
@@ -29,7 +30,7 @@ function App() {
   return (
     <>
       <div>
-        {curTab === "Auth" || curTab === "Password Reset" ? null : <NavBar />}
+        {curTab === "Auth" || curTab === "Password Reset" || curTab==="admin" ? null : <NavBar />}
         <Routes>
           <Route path="/" element={<Navigate to="/Home" />} />
           <Route path="/Home" element={<Home />} />

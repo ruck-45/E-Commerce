@@ -11,7 +11,7 @@ const Create = () => {
     apiUrl = process.env.REACT_APP_DEV_API_URL;
   }
 
-  const token = getCookie("token");
+  const token = getCookie("token"); 
 
   const colors = ["All", "White", "Beige", "Blue", "Brown", "Green", "Purple"];
   const topLavelCategory = ["Home"];
@@ -498,7 +498,7 @@ const Create = () => {
             type="submit"
             isLoading={loading}
           >
-            Submit
+            Add Product
           </Button>
         </div>
       </form>

@@ -8,6 +8,9 @@ const images = [
 ];
 
 const ImageRow = () => {
+
+  
+
   return (
     <div className="flex justify-center">
       {images.map((data, index) => (

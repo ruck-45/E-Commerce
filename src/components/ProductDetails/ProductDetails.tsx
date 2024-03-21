@@ -7,7 +7,7 @@ import { RootState } from "../../Redux/store";
 import axios from "axios";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import { Skeleton } from "@nextui-org/react";
+import { Image, Skeleton } from "@nextui-org/react";
 import { createArray } from "../../utils/controllers";
 
 export default function ProductDetails() {
@@ -67,10 +67,10 @@ export default function ProductDetails() {
   }, [apiUrl]);
 
   function incQuantity() {
-    return setCount(count + 1);
+    return setCount(count + productsData.minimumOrder);
   }
   function decQuantity() {
-    return setCount(count - 1);
+    return setCount(count - productsData.minimumOrder);
   }
 
   function addToCard(e: any) {
@@ -114,10 +114,10 @@ export default function ProductDetails() {
             {/* Image gallery */}
             <div className="flex flex-col items-center ">
               <div className=" overflow-hidden rounded-lg max-w-[30rem] max-h-[35rem]">
-                <img
+                <Image
                   src={`${apiUrl}/items/itemImages/${productsData.item_id}_img${activeImage}.jpg`}
-                  alt=""
                   className="h-full w-full object-cover object-center"
+                  loading="lazy"
                 />
               </div>
               <div className="flex flex-wrap space-x-5 justify-center">
@@ -126,10 +126,11 @@ export default function ProductDetails() {
                     onClick={() => setActiveImage(`${image}`)}
                     className="max-w-[5rem] mt-4 cursor-pointer hover:scale-105 transition-all flex flex-wrap"
                   >
-                    <img
+                    <Image
                       src={`${apiUrl}/items/itemImages/${productsData.item_id}_img${image}.jpg`}
                       alt={`Product ${index}`}
                       className="h-full w-full object-cover object-center rounded-lg"
+                      loading="lazy"
                     />
                   </div>
                 ))}
@@ -151,9 +152,15 @@ export default function ProductDetails() {
               <div className="mt-4 lg:row-span-3 lg:mt-0">
                 <h2 className="sr-only">Product information</h2>
                 <div className="flex space-x-5 items-center text-lg lg:text-xl tracking-tight text-gray-900 mt-6">
-                  <p className="font-semibold">Rs. {productsData.discountedPrice}</p>
-                  <p className="opacity-50 line-through">Rs. {productsData.price}</p>
-                  <p className="text-green-600 font-semibold">{productsData.discountPercent}% Off</p>
+                  {productsData.discountedPrice < 1 ? (
+                    <p className="font-semibold">Rs. {productsData.price}</p>
+                  ) : (
+                    <>
+                      <p className="font-semibold">Rs. {productsData.discountedPrice}</p>
+                      <p className="opacity-50 line-through">Rs. {productsData.price}</p>
+                      <p className="text-green-600 font-semibold">{productsData.discountPercent}% Off</p>
+                    </>
+                  )}
                 </div>
 
                 {count > 0 ? (
@@ -163,7 +170,12 @@ export default function ProductDetails() {
                         <RemoveCircleOutlineIcon />
                       </IconButton>
                       <span className="py-1 px-7 border rounded-sm">{count}</span>
-                      <IconButton onClick={incQuantity} color="primary" aria-label="add an alarm">
+                      <IconButton
+                        onClick={incQuantity}
+                        color="primary"
+                        aria-label="add an alarm"
+                        disabled={count + productsData.minimumOrder > productsData.quantity}
+                      >
                         <AddCircleOutlineIcon />
                       </IconButton>
                     </div>
@@ -174,6 +186,7 @@ export default function ProductDetails() {
                     variant="contained"
                     type="submit"
                     sx={{ padding: ".8rem 2rem", marginTop: "2rem" }}
+                    disabled={productsData.quantity < productsData.minimumOrder}
                   >
                     Add To Cart
                   </Button>

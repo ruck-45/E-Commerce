@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import "./Product.css";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../../Redux/store";
+import { Image } from "@nextui-org/react";
 
 type ProductProps = {
   item_id: String;
@@ -34,10 +35,11 @@ const ProductCards = (props: ProductProps) => {
       onClick={() => navigate(`/ProductDetails/${props.title}/${props.item_id}`)}
     >
       <div className="h-[16.5rem]">
-        <img
+        <Image
           className="h-full w-full object-cover object-left-top"
           src={`${apiUrl}/items/itemImages/${props.item_id}_img1.jpg`}
-          alt=""
+          radius="none"
+          loading="lazy"
         />
       </div>
       <div className="textPart bg-white p-3 ">
@@ -49,9 +51,15 @@ const ProductCards = (props: ProductProps) => {
         </div>
 
         <div className="flex space-x-2 items-center">
-          <p className="font-semibold">₹{props.discountedPrice}</p>
-          <p className="opacity-50 line-through">₹{props.price}</p>
-          <p className="text-green-600 font-semibold">{props.discountPercent}% off</p>
+          {props.discountedPrice < 1 ? (
+            <p className="font-semibold">Rs. {props.price}</p>
+          ) : (
+            <>
+              <p className="font-semibold">Rs. {props.discountedPrice}</p>
+              <p className="opacity-50 line-through">Rs. {props.price}</p>
+              <p className="text-green-600 font-semibold">{props.discountPercent}% Off</p>
+            </>
+          )}
         </div>
       </div>
     </div>

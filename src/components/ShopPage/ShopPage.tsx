@@ -6,7 +6,7 @@ import ProductCards from "./SubComponents.tsx/ProductCards";
 import { useDispatch, useSelector } from "react-redux";
 import { scrollTop } from "../../utils/controllers";
 import { updateTab } from "../../Redux/Slices/curTabSlice";
-import { Button, Input, Pagination, Skeleton } from "@nextui-org/react";
+import { Button, Input, Pagination, Radio, RadioGroup, Skeleton } from "@nextui-org/react";
 import { IoSearch } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
@@ -27,35 +27,35 @@ const filters = [
     id: "categories",
     name: "Categories",
     options: [
-      { value: "all", label: "All", checked: false },
-      { value: "Carpet", label: "Carpet", checked: false },
-      { value: "Rug", label: "Rug", checked: false },
-      { value: "Antique", label: "Antique", checked: true },
-      { value: "Decorative", label: "Decorative", checked: false },
+      { value: "all", label: "All" },
+      { value: "carpet", label: "Carpet" },
+      { value: "rug", label: "Rug" },
+      { value: "antique", label: "Antique" },
+      { value: "decorative", label: "Decorative" },
     ],
   },
   {
     id: "color",
     name: "Color",
     options: [
-      { value: "all", label: "All", checked: false },
-      { value: "white", label: "White", checked: false },
-      { value: "beige", label: "Beige", checked: false },
-      { value: "blue", label: "Blue", checked: true },
-      { value: "brown", label: "Brown", checked: false },
-      { value: "green", label: "Green", checked: false },
-      { value: "purple", label: "Purple", checked: false },
+      { value: "all", label: "All" },
+      { value: "white", label: "White" },
+      { value: "beige", label: "Beige" },
+      { value: "blue", label: "Blue" },
+      { value: "brown", label: "Brown" },
+      { value: "green", label: "Green" },
+      { value: "purple", label: "Purple" },
     ],
   },
   {
     id: "filters",
     name: "Filters",
     options: [
-      { value: "new-arrivals", label: "New Arrivals", checked: false },
-      { value: "sale", label: "Sale", checked: false },
-      { value: "popular", label: "Popular", checked: true },
-      { value: "trendy", label: "Trendy", checked: false },
-      { value: "accessories", label: "Accessories", checked: false },
+      { value: "new-arrivals", label: "New Arrivals" },
+      { value: "sale", label: "Sale" },
+      { value: "popular", label: "Popular" },
+      { value: "trendy", label: "Trendy" },
+      { value: "accessories", label: "Accessories" },
     ],
   },
 ];
@@ -174,26 +174,13 @@ export default function ShopPage() {
                               </Disclosure.Button>
                             </h3>
                             <Disclosure.Panel className="pt-6">
-                              <div className="space-y-6">
-                                {section.options.map((option, optionIdx) => (
-                                  <div key={option.value} className="flex items-center">
-                                    <input
-                                      id={`filter-mobile-${section.id}-${optionIdx}`}
-                                      name={`${section.id}[]`}
-                                      defaultValue={option.value}
-                                      type="checkbox"
-                                      defaultChecked={option.checked}
-                                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                    />
-                                    <label
-                                      htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
-                                      className="ml-3 min-w-0 flex-1 text-gray-500"
-                                    >
-                                      {option.label}
-                                    </label>
-                                  </div>
+                              <RadioGroup>
+                                {section.options.map((option, index) => (
+                                  <Radio key={`filter-${section.id}-${index}`} value={option.value}>
+                                    {option.label}
+                                  </Radio>
                                 ))}
-                              </div>
+                              </RadioGroup>
                             </Disclosure.Panel>
                           </>
                         )}
@@ -312,26 +299,13 @@ export default function ShopPage() {
                           </Disclosure.Button>
                         </h3>
                         <Disclosure.Panel className="pt-6">
-                          <div className="space-y-4">
-                            {section.options.map((option, optionIdx) => (
-                              <div key={option.value} className="flex items-center">
-                                <input
-                                  id={`filter-${section.id}-${optionIdx}`}
-                                  name={`${section.id}[]`}
-                                  defaultValue={option.value}
-                                  type="checkbox"
-                                  defaultChecked={option.checked}
-                                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                />
-                                <label
-                                  htmlFor={`filter-${section.id}-${optionIdx}`}
-                                  className="ml-3 text-sm text-gray-600"
-                                >
-                                  {option.label}
-                                </label>
-                              </div>
+                          <RadioGroup>
+                            {section.options.map((option, index) => (
+                              <Radio key={`filter-${section.id}-${index}`} value={option.value}>
+                                {option.label}
+                              </Radio>
                             ))}
-                          </div>
+                          </RadioGroup>
                         </Disclosure.Panel>
                       </>
                     )}

@@ -38,7 +38,7 @@ export default function AddProduct() {
     apiUrl = process.env.REACT_APP_DEV_API_URL;
   }
 
-  const [itemData, setItemData] = React.useState<any>([]);
+  const [images, setImages] = React.useState<any>([]);
 
   const token = getCookie("token");
 
@@ -67,7 +67,7 @@ export default function AddProduct() {
   const addProduct = async () => {
     const discountedPrice: Number =
       ((+product.price - +product.discountedPrice) / +product.price) * 100;
-      setProduct({ ...product, imageCount: product.imageArray.length });
+      setProduct({ ...product, imageCount: images });
     if (
       product.brand === "" ||
       product.title === "" ||
@@ -175,7 +175,7 @@ export default function AddProduct() {
                   <TextField
                     fullWidth
                     id="outlined-basic"
-                    label="Quantity"
+                    label="Minimum Quantity"
                     name="quantity"
                     variant="outlined"
                     type="number"
@@ -253,11 +253,11 @@ export default function AddProduct() {
                             id="myFile"
                             name="profilepic"
                             accept=".jpg,.jpeg"
-                            onChange={(e) => setItemData([...itemData,e.target.files && URL.createObjectURL(e.target.files[0])])}
+                            onChange={(e) => setimages([...images,e.target.files && URL.createObjectURL(e.target.files[0])])}
                             multiple
                         /> */}
             {/* <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
-                            {itemData.map((item:any) => (
+                            {images.map((item:any) => (
                                 <ImageListItem key={Math.random()*10}>
                                 <img
                                     style={{margin:'10px'}}
@@ -280,7 +280,7 @@ export default function AddProduct() {
                     for (let i = 0; i < e.target.files.length; i++) {
                       tempArr.push(URL.createObjectURL(e.target.files[i]));
                     }
-                    setItemData([...itemData, ...tempArr]);
+                    setImages([...images, ...tempArr]);
                   }
                 }}
                 multiple
@@ -292,7 +292,7 @@ export default function AddProduct() {
                 rowHeight={164}
                 className="cp-img-list"
               >
-                { itemData.length>0 ? itemData.map((item: any, i: any) => (
+                { images.length>0 ? images.map((item: any, i: any) => (
                   <ImageListItem key={i}>
                     <div className="img-content-wrapper">
                       <img
@@ -307,8 +307,8 @@ export default function AddProduct() {
                       <IconButton
                           aria-label="delete"
                           onClick={() => {
-                            setItemData(
-                              itemData.filter((img: any) => img !== item)
+                            setImages(
+                              images.filter((img: any) => img !== item)
                             );
                           }}
                         ><DeleteIcon/></IconButton>

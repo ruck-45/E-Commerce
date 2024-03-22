@@ -27,7 +27,6 @@ const EditAddressCard = (props: CardProps) => {
       <h1 className="text-lg font-semibold py-4">Delivery Address</h1>
       <div className="space-y-3">
         <p className="font-semibold">
-          {" "}
           Name:
           {props.firstName} {props.lastName}
         </p>

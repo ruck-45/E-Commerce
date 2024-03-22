@@ -1,55 +1,43 @@
-import React from "react";
 import { Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { IconButton } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { decreaseItem, increaseItem, removeItem } from "../../Redux/Slices/CartSlice";
-import { useLocation } from "react-router-dom";
+import { productsType } from "../../utils/types";
+import { Image } from "@nextui-org/react";
+import { RootState } from "../../Redux/store";
 
-type CardProps = {
-  item_id: number;
-  imageUrl: any;
-  brand: string;
-  title: string;
-  color: string;
-  discountedPrice: number;
-  price: number;
-  discountPercent: number;
-  highlights: any;
-  details: any;
-  material: any;
-  dimension: any;
-  quantity: number;
-  topLavelCategory: string;
-  secondLavelCategory: string;
-  thirdLavelCategory: string;
-  description: string;
-  minimumOrder: number;
-};
-
-const CartItem = (props:CardProps) => {
+const CartItem = (props: productsType) => {
   const dispatch = useDispatch();
+  const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
 
- 
- 
-
-  
- 
   return (
     <div className="p-5 shadow-lg border rounded-md">
       <div className="flex items-center">
         <div className="w-[5rem] h-[5rem] lg:w-[9rem] lg:h-[9rem] ">
-          <img className="w-full h-full object-cover object-top" src={props.imageUrl[0]} alt="" />
+          <Image
+            className="w-full h-full object-cover object-top"
+            src={`${apiUrl}/items/itemImages/${props.item_id}_img1.jpg`}
+            loading="lazy"
+            radius="sm"
+            alt=""
+          />
         </div>
         <div className="ml-5 space-y-1">
           <p className="font-semibold">{props.title}</p>
           <p className="opacity-70">Size:{props.dimension}</p>
           <p className="opacity-70 mt-2">Seller: ShopNest</p>
           <div className="flex space-x-2 items-center pt-3">
-            <p className="opacity-50 line-through">{props.price}</p>
-            <p className="font-semibold text-lg">{props.discountedPrice}</p>
-            <p className="text-green-600 font-semibold">{props.discountPercent}% off</p>
+            {props.discountedPrice === props.price || props.discountPercent === 0 ? (
+              <p className="font-semibold">Rs. {props.price}</p>
+            ) : (
+              <>
+                <p className="font-semibold">Rs. {props.discountedPrice}</p>
+                <p className="opacity-50 line-through">Rs. {props.price}</p>
+                <p className="text-green-600 font-semibold">{props.discountPercent}% Off</p>
+              </>
+            )}
           </div>
         </div>
       </div>

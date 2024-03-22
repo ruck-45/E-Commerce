@@ -2,14 +2,14 @@ import CartItem from "./CartItem";
 import { Button } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getCartTotal } from "../../Redux/Slices/CartSlice";
+import { RootState } from "../../Redux/store";
 
 const Cart = () => {
   const navigate = useNavigate();
-  const { cart, totalPrice, totalQuantity, totalDiscountPrice } = useSelector((state: any) => state?.allCart);
-  const { allCart } = useSelector((state: any) => state);
-  console.log("hjhjhj", allCart);
+  const { cart, totalPrice, totalQuantity, totalDiscountPrice } = useSelector((state: RootState) => state.allCart);
+  const { allCart } = useSelector((state: RootState) => state);
 
   const dispatch = useDispatch();
 

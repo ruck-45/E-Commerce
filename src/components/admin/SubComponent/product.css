@@ -1,0 +1,81 @@
+.cp-title {
+    font-family: 'Merriweather' sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.cp-textarea {
+    width: 100% !important;
+    padding: 15px;
+    font-size: 18px;
+    border-radius: 5px;
+    border : 1px solid rgb(133, 133, 133) !important;
+}
+
+.cp-textarea:hover {
+    border-color: black !important;
+}
+
+/* .cp-textarea:focus-visible {
+    border-color: blue !important;
+} */
+
+.cp-textarea:focus {
+    border: 2px solid blue !important;
+    border-radius: 5px;
+    /* border-color: blue;  */
+    outline: none; /* Remove default focus outline */
+}
+
+.cp-form-wrapper {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+}
+
+.cp-wrapper {
+    margin: 100px 0px;
+    padding: 0px 30px;
+}
+.cp-container {
+    max-width: 80%;
+    margin: 0 auto !important;
+    width: 100%;
+}
+
+.cp-img-list {
+    margin-top: 20px;
+}
+
+/* .cp-img-upload input::file-selector-button {
+    font-weight: bold;
+    color: dodgerblue;
+    padding:10px;
+    border: thin solid grey;
+    border-radius: 3px;
+} */
+.cp-img-upload label{
+  background-color: indigo;
+  width: 100%;
+  display: block;
+  text-align: center;
+  color: white;
+  padding: 1rem;
+  font-family: sans-serif;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  text-align: center;
+}
+
+.img-content-wrapper{
+    position: relative;
+}
+.cp-icon{
+    position: absolute;
+    top: 0px;
+    right: -17px;
+    cursor: pointer;
+    border-radius: 48px 47px;
+    background-color: white;
+}

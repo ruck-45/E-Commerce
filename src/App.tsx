@@ -11,7 +11,6 @@ import Auth from "./components/Auth/Auth";
 import Profile from "./components/Profile/Profile";
 import Privacy from "./components/Policy/Privacy";
 import Footer from "./globalSubComponents/Footer";
-import ScrollToTop from "./globalSubComponents/ScrollToTop";
 import ShopPage from "./components/ShopPage/ShopPage";
 import { RootState } from "./Redux/store";
 import Checkout from "./components/Checkout/Checkout";
@@ -21,7 +20,9 @@ import Refund from "./components/Policy/Refund";
 import Cart from "./components/Cart/Cart";
 import PasswordReset from "./components/ForgetPassword/PasswordReset";
 import Admin from "./components/admin/Admin";
-
+import ScrollToTop from "./globalSubComponents/ScrollToTop";
+import EditProducts from "./components/admin/SubComponent/EditProducts";
+import AddProduct from "./components/admin/SubComponent/AddProduct";
 
 function App() {
   const curTab = useSelector((state: RootState) => state.curTab.value);
@@ -29,12 +30,19 @@ function App() {
   return (
     <>
       <div>
-        {curTab === "Auth" || curTab === "Password Reset" ? null : <NavBar />}
+        {curTab === "Auth" ||
+        curTab === "Password Reset" ||
+        curTab === "admin" ? null : (
+          <NavBar />
+        )}
         <Routes>
           <Route path="/" element={<Navigate to="/Home" />} />
           <Route path="/Home" element={<Home />} />
           <Route path="/Shop" element={<ShopPage />} />
-          <Route path="/ProductDetails/:name/:id" element={<ProductDetails />} />
+          <Route
+            path="/ProductDetails/:name/:id"
+            element={<ProductDetails />}
+          />
           <Route path="/Refund" element={<Refund />} />
           <Route path="/Cart" element={<Cart />} />
           <Route path="/Checkout" element={<Checkout />} />
@@ -46,11 +54,15 @@ function App() {
           <Route path="/Privacy" element={<Privacy />} />
           <Route path="/Terms" element={<Term />} />
           <Route path="/ResetPassword" element={<PasswordReset />} />
+          <Route path="/admin/addProduct" element={<AddProduct />} />
+          <Route path="/admin/editProduct" element={<EditProducts />} />
           <Route path="*" element={<Navigate to="/Home" />} />
         </Routes>
       </div>
       {curTab === "Auth" || curTab === "Password Reset" ? null : <Footer />}
-      {curTab === "Auth" || curTab === "Password Reset" ? null : <ScrollToTop />}
+      {curTab === "Auth" || curTab === "Password Reset" ? null : (
+        <ScrollToTop />
+      )}
     </>
   );
 }

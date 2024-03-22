@@ -10,10 +10,55 @@ import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { Image, Skeleton } from "@nextui-org/react";
 import { createArray } from "../../utils/controllers";
 
+  
+import { useEffect, useLayoutEffect, useState } from "react";
+import { Button, Rating } from "@mui/material";
+import { scrollTop } from "../../utils/controllers";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { addToCart, decreaseCount, decreaseItem, getAllItems, increaseCount } from "../../Redux/Slices/CartSlice";
+import { IconButton } from "@mui/material";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import { RootState } from "../../Redux/store";
+import axios from "axios";
+import toast from "react-hot-toast";
+
 export default function ProductDetails() {
   const [count, setCount] = useState(0);
   const { id } = useParams();
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
+   const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const { name, id } = useParams();
+  const apiUrl = useSelector((state) => state.apiConfig.value);
+  const {state} = useLocation()
+
+  const { carpetData,count } = useSelector((state) => state?.allCart);
+  const cartData = useSelector((state) => state?.allCart?.cart);
+  console.log("jihhh", cartData);
+
+  function checkquantity(data, idx) {
+    //checking if cart has one item or more than one items
+    if (data && data.length >= 0) {
+      const filter = data.filter((item) => idx === item.item_id);
+
+      return filter.length;
+    } else {
+      return 0;
+    }
+  }
+
+  const myQuantity = checkquantity(cartData, id);
+
+  console.log("checkinghhhj", myQuantity);
+
+  function getall(id) {
+    return dispatch(getAllItems(id));
+  }
+  useEffect(() => {
+    getall(id);
+  }, []);
 
   const [productsData, setProductsData] = useState({
     item_id: "",
@@ -77,6 +122,21 @@ export default function ProductDetails() {
     e.preventDefault();
     incQuantity();
   }
+
+  function decrese(e) {
+    e.preventDefault();
+    dispatch(decreaseItem(carpetData.item_id));
+  }
+
+  function addToCard(e) {
+    e.preventDefault();
+    dispatch(addToCart(carpetData));
+    navigate("/Checkout?step=1",{state:{...state}});
+  }
+
+  const handleSetActiveImage = (image) => {
+    setActiveImage(image);
+  };
 
   return (
     <div className="bg-white lg:px-20">

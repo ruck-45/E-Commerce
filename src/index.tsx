@@ -8,7 +8,11 @@ import { Toaster } from "react-hot-toast";
 // Local Files
 import "./index.css";
 import App from "./App";
+import { PersistGate } from "redux-persist/integration/react";
 import store from "./Redux/store";
+import persistStore from "redux-persist/es/persistStore";
+
+let persistor =persistStore(store)
 
 
 
@@ -17,11 +21,14 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <NextUIProvider>
-          <App />
-          <Toaster />
-        </NextUIProvider>
-      </BrowserRouter>
-    </Provider>
+      <NextUIProvider>
+    <PersistGate  persistor={persistor}>
+      <App />
+      <Toaster/>
+    </PersistGate>
+    </NextUIProvider>
+    </BrowserRouter>
+  </Provider>,
+  
   </React.StrictMode>
 );

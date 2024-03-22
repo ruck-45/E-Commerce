@@ -21,7 +21,7 @@ type ButtonProps = {
   isDisabled?: boolean;
   className?: string;
   index?: number;
-  state?: MyState;
+  state?: any;
   icon?: ReactNode;
   onClickFunction?: () => void;
 };

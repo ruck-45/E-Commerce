@@ -16,11 +16,12 @@ import ShopPage from "./components/ShopPage/ShopPage";
 import { RootState } from "./Redux/store";
 import Checkout from "./components/Checkout/Checkout";
 import Term from "./components/Policy/Term";
-import ProductDetails from "./components/ProductDetails/ProductDetails";
 import Refund from "./components/Policy/Refund";
 import Cart from "./components/Cart/Cart";
 import PasswordReset from "./components/ForgetPassword/PasswordReset";
 import Admin from "./components/admin/Admin";
+import Test from "./components/Test";
+import ProductDetails from "./components/ProductDetails/ProductDetails";
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
           <Route path="/Contact" element={<Contact />} />
           <Route path="/Admin" element={<Admin />} />
           <Route path="/Auth" element={<Auth />} />
+          <Route path="/Test" element={<Test />} />
           <Route path="/Profile" element={<Profile />} />
           <Route path="/Privacy" element={<Privacy />} />
           <Route path="/Terms" element={<Term />} />

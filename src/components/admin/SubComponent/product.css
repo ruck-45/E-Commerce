@@ -3,6 +3,12 @@
     font-size: 20px;
     font-weight: 800;
 }
+.cp-errors{
+    color: red;
+    font-size:12px;
+    font-family:'Merriweather';
+    margin-left: 5px;
+}
 
 .cp-textarea {
     width: 100% !important;

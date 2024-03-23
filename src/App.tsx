@@ -15,7 +15,6 @@ import ShopPage from "./components/ShopPage/ShopPage";
 import { RootState } from "./Redux/store";
 import Checkout from "./components/Checkout/Checkout";
 import Term from "./components/Policy/Term";
-import ProductDetails from "./components/ProductDetails/ProductDetails";
 import Refund from "./components/Policy/Refund";
 import Cart from "./components/Cart/Cart";
 import PasswordReset from "./components/ForgetPassword/PasswordReset";
@@ -23,6 +22,8 @@ import Admin from "./components/admin/Admin";
 import ScrollToTop from "./globalSubComponents/ScrollToTop";
 import EditProducts from "./components/admin/SubComponent/EditProducts";
 import AddProduct from "./components/admin/SubComponent/AddProduct";
+import ProductDetails from "./components/ProductDetails/ProductDetails";
+
 
 function App() {
   const curTab = useSelector((state: RootState) => state.curTab.value);

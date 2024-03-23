@@ -24,23 +24,16 @@ const OrderSummary = () => {
 
   console.log("stepping", step);
   const { cart} = useSelector((state: any) => state?.allCart);
+  const { allCart } = useSelector((state: any) => state);
 
-  // console.log("orderId ", order)
+  const data = allCart.shippingInfo;
+  
 
-  // useEffect(()=>{
-
-  //   dispatch(getOrderById(orderId))
-  // },[orderId])
-
-  // const handleCreatePayment=()=>{
-  //   const data={orderId:order.order?._id,jwt}
-  //   dispatch(createPayment(data))
-  // }
-
+  console.log("addres here", data);
   return (
     <div className="space-y-5">
       <div className="p-5 shadow-lg rounded-md border ">
-        <AddressCard />
+        <AddressCard  {...data}/>
       </div>
       <div className="lg:grid grid-cols-3 relative justify-between">
         <div className="lg:col-span-2 ">

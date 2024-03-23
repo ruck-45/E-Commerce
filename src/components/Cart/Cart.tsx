@@ -4,11 +4,12 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getCartTotal } from "../../Redux/Slices/CartSlice";
+import { RootState } from "../../Redux/store";
 
 const Cart = () => {
   const navigate = useNavigate();
-  const { cart, totalPrice, totalQuantity } = useSelector((state: any) => state?.allCart);
-  console.log(cart);
+  const { cart, totalPrice, totalQuantity, totalDiscountPrice } = useSelector((state: RootState) => state.allCart);
+  const { allCart } = useSelector((state: RootState) => state);
 
   const dispatch = useDispatch();
 
@@ -34,6 +35,10 @@ const Cart = () => {
             <div className="space-y-3 font-semibold">
               <div className="flex justify-between pt-3 text-black ">
                 <span>Total Price</span>
+                <span className="opacity-30 line-through">{totalDiscountPrice}</span>
+              </div>
+              <div className="flex justify-between pt-3 text-black ">
+                <span>Discount Price</span>
                 <span>{totalPrice}</span>
               </div>
               <div className="flex justify-between pt-3 text-black ">
@@ -42,7 +47,9 @@ const Cart = () => {
               </div>
               <div className="flex justify-between">
                 <span>Discount</span>
-                <span className="text-green-700">-₹20%</span>
+                <span className="text-green-700">
+                  -{(((totalDiscountPrice - totalPrice) / totalDiscountPrice) * 100).toFixed(0)}%
+                </span>
               </div>
               <div className="flex justify-between">
                 <span>Delivery Charges</span>
@@ -56,7 +63,7 @@ const Cart = () => {
             </div>
 
             <Button
-              onClick={() => navigate("/Checkout?step=2")}
+              onClick={() => navigate("/Checkout?step=2", { state: { ...allCart } })}
               variant="contained"
               type="submit"
               sx={{ padding: ".8rem 2rem", marginTop: "2rem", width: "100%" }}

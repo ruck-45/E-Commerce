@@ -42,6 +42,7 @@ const NavBar = () => {
   const dispatch = useDispatch();
 
   const { cart, totalQuantity } = useSelector((state: RootState) => state?.allCart);
+  const { allCart} = useSelector((state: RootState) => state);
 
   useEffect(() => {
     dispatch(getCartTotal());
@@ -146,7 +147,7 @@ const NavBar = () => {
           <NavbarItem className="hidden lg:flex">
             {totalQuantity ? (
               <Badge content={totalQuantity} shape="circle" color="danger">
-                <ButtonElement to="/Checkout?step=1" startContent={<LuShoppingCart />} label="Cart" variant="light" />
+                <ButtonElement to="/Checkout?step=1" state={cart} startContent={<LuShoppingCart />} label="Cart" variant="light" />
               </Badge>
             ) : (
               <ButtonElement to="/Checkout?step=1" startContent={<LuShoppingCart />} label="Cart" variant="light" />

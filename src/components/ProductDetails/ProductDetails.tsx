@@ -1,44 +1,53 @@
-import { useLayoutEffect, useState } from "react";
 import { Button, IconButton } from "@mui/material";
 import { scrollTop } from "../../utils/controllers";
-import { useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
 import { RootState } from "../../Redux/store";
 import axios from "axios";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { Image, Skeleton } from "@nextui-org/react";
 import { createArray } from "../../utils/controllers";
+import { useLayoutEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
+import { addToCart, decreaseItem, increaseItem, removeItem } from "../../Redux/Slices/CartSlice";
+
+const defaultProductsData = {
+  item_id: "",
+  imageCount: "",
+  brand: "",
+  title: "",
+  color: "",
+  discountedPrice: 0,
+  price: 0,
+  discountPercent: 0,
+  quantity: 0,
+  material: "",
+  dimension: "",
+  description: "",
+  topLevelCategory: "",
+  secondLevelCategory: "",
+  thirdLevelCategory: "",
+  highlights: [""],
+  minimumOrder: 0,
+  details: "",
+  orders: 0,
+};
 
 export default function ProductDetails() {
-  const [count, setCount] = useState(0);
+  const dispatch = useDispatch();
+
   const { id } = useParams();
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
 
-  const [productsData, setProductsData] = useState({
-    item_id: "",
-    imageCount: "",
-    brand: "",
-    title: "",
-    color: "",
-    discountedPrice: 0,
-    price: 0,
-    discountPercent: 0,
-    quantity: 0,
-    material: "",
-    dimension: "",
-    description: "",
-    topLevelCategory: "",
-    secondLevelCategory: "",
-    thirdLevelCategory: "",
-    highlights: [""],
-    minimumOrder: 0,
-    details: "",
-    orders: 0,
-  });
-
+  const [productsData, setProductsData] = useState(defaultProductsData);
   const [receivedProductData, setReceivedProductData] = useState(-1);
   const [activeImage, setActiveImage] = useState("1");
+  const [inCart, setInCart] = useState(false);
+
+  const cartData = useSelector((state: RootState) => state.allCart.cart);
+  const count = cartData.filter((item) => item.item_id === productsData.item_id)[0]
+    ? cartData.filter((item) => item.item_id === productsData.item_id)[0].count
+    : 0;
 
   const getProductData = async () => {
     try {
@@ -50,6 +59,9 @@ export default function ProductDetails() {
       } else {
         if (response.data.payload.result) {
           setProductsData(response.data.payload.result);
+          cartData.findIndex((item) => item.item_id === response.data.payload.result.item_id) === -1
+            ? setInCart(false)
+            : setInCart(true);
           setReceivedProductData(1);
         } else {
           setReceivedProductData(0);
@@ -61,22 +73,11 @@ export default function ProductDetails() {
     }
   };
 
+  // API call
   useLayoutEffect(() => {
     scrollTop();
     getProductData();
   }, [apiUrl]);
-
-  function incQuantity() {
-    return setCount(count + productsData.minimumOrder);
-  }
-  function decQuantity() {
-    return setCount(count - productsData.minimumOrder);
-  }
-
-  function addToCard(e: any) {
-    e.preventDefault();
-    incQuantity();
-  }
 
   return (
     <div className="bg-white lg:px-20">
@@ -163,28 +164,48 @@ export default function ProductDetails() {
                   )}
                 </div>
 
-                {count > 0 ? (
-                  <div className="lg:flex items-center lg:space-x-10 pt-4">
-                    <div className="flex items-center space-x-2 ">
-                      <IconButton onClick={decQuantity} disabled={count < 1} color="primary" aria-label="add an alarm">
-                        <RemoveCircleOutlineIcon />
-                      </IconButton>
-                      <span className="py-1 px-7 border rounded-sm">{count}</span>
-                      <IconButton
-                        onClick={incQuantity}
-                        color="primary"
-                        aria-label="add an alarm"
-                        disabled={count + productsData.minimumOrder > productsData.quantity}
-                      >
-                        <AddCircleOutlineIcon />
-                      </IconButton>
+                {inCart ? (
+                  <>
+                    <div className="lg:flex items-center lg:space-x-10 pt-4">
+                      <div className="flex items-center space-x-2 ">
+                        <IconButton
+                          onClick={() => dispatch(decreaseItem(productsData.item_id))}
+                          disabled={count - 1 < productsData.minimumOrder}
+                          color="primary"
+                          aria-label="add an alarm"
+                        >
+                          <RemoveCircleOutlineIcon />
+                        </IconButton>
+                        <span className="py-1 px-7 border rounded-sm">{count}</span>
+                        <IconButton
+                          onClick={() => dispatch(increaseItem(productsData.item_id))}
+                          color="primary"
+                          aria-label="add an alarm"
+                          disabled={count + 1 > productsData.quantity}
+                        >
+                          <AddCircleOutlineIcon />
+                        </IconButton>
+                      </div>
                     </div>
-                  </div>
+                    <Button
+                      onClick={() => {
+                        dispatch(removeItem(productsData.item_id));
+                        setInCart(false);
+                      }}
+                      variant="contained"
+                      color="error"
+                      sx={{ padding: ".8rem 2rem", marginTop: "1rem" }}
+                    >
+                      Remove
+                    </Button>
+                  </>
                 ) : (
                   <Button
-                    onClick={(event) => addToCard(event)}
+                    onClick={() => {
+                      dispatch(addToCart(productsData));
+                      setInCart(true);
+                    }}
                     variant="contained"
-                    type="submit"
                     sx={{ padding: ".8rem 2rem", marginTop: "2rem" }}
                     disabled={productsData.quantity < productsData.minimumOrder}
                   >

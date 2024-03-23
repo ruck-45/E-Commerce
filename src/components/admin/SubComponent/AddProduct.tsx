@@ -17,6 +17,28 @@ const StyledTextField = styled(TextField)(({ theme, error }) => ({
   },
 }));
 
+const initialProduct: any = {
+  brand: "",
+  title: "",
+  color: "",
+  discountedPrice: 0,
+  price: 0,
+  discountPercent: 0,
+  highlights: [],
+  details: "",
+  quantity: 0,
+  material: "",
+  dimension: "",
+  description: "",
+  topLevelCategory: "",
+  secondLevelCategory: "",
+  thirdLevelCategory: "",
+  orders: 0,
+  registerCounter: 0,
+  imageCount: 0,
+  imageArray: [],
+};
+
 type Product = {
   brand: String;
   title: String;
@@ -25,7 +47,7 @@ type Product = {
   price: Number;
   discountPercent: Number;
   highlights: [];
-  details: String;
+  details: string;
   quantity: Number;
   material: String;
   dimension: String;
@@ -73,87 +95,105 @@ export default function AddProduct() {
 
   const token = getCookie("token");
 
-  const [product, setProduct] = React.useState<Product>({
-    brand: "",
-    title: "",
-    color: "",
-    discountedPrice: 0,
-    price: 0,
-    discountPercent: 0,
-    highlights: [],
-    details: "",
-    quantity: 0,
-    material: "",
-    dimension: "",
-    description: "",
-    topLevelCategory: "",
-    secondLevelCategory: "",
-    thirdLevelCategory: "",
-    orders: 0,
-    registerCounter: 0,
-    imageCount: 0,
-    imageArray: [],
-  });
+  const [product, setProduct] = React.useState<Product>(initialProduct);
 
   const addProduct = async () => {
     const percentage: Number =
       100 -
       ((+product.price - +product.discountedPrice) / +product.price) * 100;
+    setProduct({
+      ...product,
+      imageArray: images,
+      imageCount: images.length,
+      discountPercent: +percentage.toFixed(2),
+    });
+    console.log(product);
 
-    setProduct({ ...product, imageCount: images.length });
-    setProduct({ ...product, discountPercent: +percentage.toFixed(2) });
-    
-    if(validateProduct()){
-      toast.error('please insert data in required field');
+    if (images.length === 0) {
+      toast.error("please insert atleast one image");
+      return;
     }
-    else{
-      toast.success('api calling..... ');
+
+    if (validateProduct()) {
+      toast.error("please insert data in required field");
+    } else {
+      if (product.price <= product.discountedPrice) {
+        toast.error("Price must be greater than discount price");
+        return;
+      }
+      toast.success("Adding product ...");
+      setImages([]);
+      setProduct(initialProduct);
+      setHighlights('');
     }
   };
 
+  const validateProduct = () => {
+    let status: boolean = false;
 
-  const validateProduct=()=>{
-    let status=true;
-    status= product.brand.length === 0
-      ? (isError.brand.isError = true)
-      : false;
-    status=product.title.length === 0
-      ? (isError.title.isError = true)
-      : false;
-    status=product.color.length === 0
-      ? (isError.color.isError = true)
-      : false;
-    status=product.description.length === 0
-      ? (isError.description.isError = true)
-      : false;
-    status=product.details.length === 0
-      ? (isError.details.isError = true)
-      : false;
-    status=product.quantity === 0
-      ? (isError.quantity.isError = true)
-      : false;
-    status=product.orders === 0
-      ? (isError.orders.isError = true)
-      : false;
-    status=product.price === 0
-      ? (isError.price.isError = true)
-      : false;
-    status=product.topLevelCategory.length === 0
-      ? (isError.topLevelCategory.isError = true)
-      : false;
-    status=product.secondLevelCategory.length === 0
-      ? (isError.secondLevelCategory.isError = true)
-      : false;
-    status=product.thirdLevelCategory.length === 0
-      ? (isError.thirdLevelCategory.isError = true)
-      : false;
+    const requiredFields: (keyof Product)[] = [
+      "brand",
+      "title",
+      "color",
+      "highlights",
+      "details",
+      "material",
+      "dimension",
+      "topLevelCategory",
+      "secondLevelCategory",
+      "thirdLevelCategory",
+    ];
+
+    const numberRequiredFields: (keyof Product)[] = [
+      "price",
+      "discountedPrice",
+      "quantity",
+      "orders",
+    ];
+
+    numberRequiredFields.forEach((field: keyof Product) => {
+      const fieldValue = product[field];
     
-    status=product.discountedPrice === 0
-      ? (isError.discountedPrice.isError = true)
-      : false;
+      if (typeof fieldValue === 'number' && fieldValue === 0) {
+        setIsError((prevError: any) => ({
+          ...prevError,
+          [field]: { isError: true },
+        }));
+        status = true;
+      }
+    });
+
+    requiredFields.forEach((field: keyof Product) => {
+      const fieldValue = product[field];
     
+      if (typeof fieldValue === 'string' && fieldValue.trim().length === 0) {
+        setIsError((prevError: any) => ({
+          ...prevError,
+          [field]: { isError: true },
+        }));
+        status = true;
+      }
+    });
+
+    if (product.description.length < 20 || product.description.length >= 100) {
+      setIsError((prevError) => ({
+        ...prevError,
+        description: { isError: true }
+      }));
+      status=true;
+    }
+
+    if (product.description.length < 20 || product.description.length >= 100) {
+      setIsError((prevError) => ({
+        ...prevError,
+        description: { isError: true }
+      }));
+      status=true;
+    }
+
     return status;
-  }
+  };
+
   const addHighlight = () => {
     if (highlights.length > 0) {
       let temp: any = [...product.highlights];
@@ -164,10 +204,7 @@ export default function AddProduct() {
   };
 
   function handleUserInput(e: any) {
-    console.log(e.target.value);
     const { name, value } = e.target;
-    let temp = { ...isError };
-    // temp[name].isError = false
     setIsError({ ...isError, [name]: { ...name, isError: false } });
     setProduct({
       ...product,
@@ -176,9 +213,7 @@ export default function AddProduct() {
   }
 
   function chipDelete(index: any): void {
-    console.log(index);
     let temp: any = [...product.highlights];
-    console.log(temp);
     temp = temp.filter((item: any, i: any) => i !== index);
     setProduct({ ...product, highlights: temp });
   }
@@ -249,6 +284,7 @@ export default function AddProduct() {
                     label="Minimum Quantity"
                     name="quantity"
                     variant="outlined"
+                    value={product.quantity}
                     type="number"
                     onChange={handleUserInput}
                     error={isError.quantity.isError}
@@ -268,6 +304,7 @@ export default function AddProduct() {
                     variant="outlined"
                     type="number"
                     onChange={handleUserInput}
+                    value={product.orders}
                     error={isError.orders.isError}
                   />
                   {isError.orders.isError ? (
@@ -286,6 +323,7 @@ export default function AddProduct() {
                     type="number"
                     onChange={handleUserInput}
                     error={isError.price.isError}
+                    value={product.price}
                   />
                   {isError.price.isError ? (
                     <span className="cp-errors">* Required</span>
@@ -302,9 +340,44 @@ export default function AddProduct() {
                     variant="outlined"
                     type="number"
                     onChange={handleUserInput}
+                    value={product.discountedPrice}
                     error={isError.discountedPrice.isError}
                   />
                   {isError.discountedPrice.isError ? (
+                    <span className="cp-errors">* Required</span>
+                  ) : (
+                    ""
+                  )}
+                </Grid>
+                <Grid item xs={6}>
+                  <StyledTextField
+                    fullWidth
+                    id="outlined-basic"
+                    label="Material"
+                    name="material"
+                    variant="outlined"
+                    onChange={handleUserInput}
+                    value={product.material}
+                    error={isError.material.isError}
+                  />
+                  {isError.material.isError ? (
+                    <span className="cp-errors">* Required</span>
+                  ) : (
+                    ""
+                  )}
+                </Grid>
+                <Grid item xs={6}>
+                  <StyledTextField
+                    fullWidth
+                    id="outlined-basic"
+                    label="Dimension"
+                    name="dimension"
+                    variant="outlined"
+                    onChange={handleUserInput}
+                    value={product.dimension}
+                    error={isError.dimension.isError}
+                  />
+                  {isError.dimension.isError ? (
                     <span className="cp-errors">* Required</span>
                   ) : (
                     ""
@@ -314,12 +387,13 @@ export default function AddProduct() {
                   <textarea
                     rows={4}
                     cols={50}
-                    className="cp-textarea"
                     placeholder="HighLights"
                     value={highlights}
                     onChange={(e) => {
+                      setIsError({ ...isError, [highlights]: { ...highlights, isError: false } });
                       setHighlights(e.target.value);
                     }}
+                    className={isError.highlights.isError ? 'cp-textarea-error' : 'cp-textarea'}
                   ></textarea>
                   <Button
                     style={{ margin: "10px" }}
@@ -338,6 +412,11 @@ export default function AddProduct() {
                         />
                       ))}
                   </div>
+                  {isError.highlights.isError ? (
+                    <span className="cp-errors">* Required</span>
+                  ) : (
+                    ""
+                  )}
                 </Grid>
 
                 <Grid item xs={12}>
@@ -349,6 +428,7 @@ export default function AddProduct() {
                     variant="outlined"
                     error={isError.details.isError}
                     onChange={handleUserInput}
+                    value={product.details}
                   />
                   {isError.details.isError ? (
                     <span className="cp-errors">* Required</span>
@@ -365,6 +445,7 @@ export default function AddProduct() {
                     variant="outlined"
                     error={isError.topLevelCategory.isError}
                     onChange={handleUserInput}
+                    value={product.topLevelCategory}
                   />
                   {isError.topLevelCategory.isError ? (
                     <span className="cp-errors">* Required</span>
@@ -379,6 +460,7 @@ export default function AddProduct() {
                     name="secondLevelCategory"
                     label="Second Level Category"
                     variant="outlined"
+                    value={product.secondLevelCategory}
                     error={isError.secondLevelCategory.isError}
                     onChange={handleUserInput}
                   />
@@ -396,6 +478,7 @@ export default function AddProduct() {
                     label="Third Level Category"
                     variant="outlined"
                     error={isError.thirdLevelCategory.isError}
+                    value={product.thirdLevelCategory}
                     onChange={handleUserInput}
                   />
                   {isError.thirdLevelCategory.isError ? (
@@ -407,35 +490,26 @@ export default function AddProduct() {
 
                 <Grid item xs={12}>
                   <textarea
+                    required
                     rows={4}
                     cols={50}
-                    className="cp-textarea"
+                    onChange={handleUserInput}
+                    className={isError.description.isError ? 'cp-textarea-error' : 'cp-textarea'}
                     placeholder="Desciption"
+                    name="description"
+                    value={product.description.toString()} 
+                    minLength={20}
+                    maxLength={300}
                   ></textarea>
+                  {isError.description.isError? (
+                    <span className="cp-errors">* Description should be between 20 to 100 words</span>
+                  ) : (
+                    ""
+                  )}
                 </Grid>
               </Grid>
             </div>
-            {/* <div className='cp-img-upload'>
-                        <input
-                            type="file"
-                            id="myFile"
-                            name="profilepic"
-                            accept=".jpg,.jpeg"
-                            onChange={(e) => setimages([...images,e.target.files && URL.createObjectURL(e.target.files[0])])}
-                            multiple
-                        /> */}
-            {/* <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
-                            {images.map((item:any) => (
-                                <ImageListItem key={Math.random()*10}>
-                                <img
-                                    style={{margin:'10px'}}
-                                    src={item}
-                                    alt='image'
-                                    loading="lazy"
-                                />
-                                </ImageListItem>
-                            ))}
-                        </ImageList> */}
+            
             <div className="cp-img-upload">
               <input
                 type="file"

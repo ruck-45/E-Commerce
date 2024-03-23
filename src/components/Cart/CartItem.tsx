@@ -11,6 +11,10 @@ import { RootState } from "../../Redux/store";
 const CartItem = (props: productsType) => {
   const dispatch = useDispatch();
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
+  const cartData = useSelector((state: RootState) => state.allCart.cart);
+  const count = cartData.filter((item) => item.item_id === props.item_id)[0]
+    ? cartData.filter((item) => item.item_id === props.item_id)[0].count
+    : 0;
 
   return (
     <div className="p-5 shadow-lg border rounded-md">
@@ -46,15 +50,19 @@ const CartItem = (props: productsType) => {
         <div className="flex items-center space-x-2 ">
           <IconButton
             onClick={() => dispatch(decreaseItem(props.item_id))}
-            disabled={props.minimumOrder < 2}
             color="primary"
             aria-label="add an alarm"
+            disabled={count - 1 < props.minimumOrder}
           >
             <RemoveCircleOutlineIcon />
           </IconButton>
-
-          <span className="py-1 px-7 border rounded-sm">{props.minimumOrder}</span>
-          <IconButton onClick={() => dispatch(increaseItem(props.item_id))} color="primary" aria-label="add an alarm">
+          <span className="py-1 px-7 border rounded-sm">{count}</span>
+          <IconButton
+            onClick={() => dispatch(increaseItem(props.item_id))}
+            color="primary"
+            aria-label="add an alarm"
+            disabled={count + 1 > props.quantity}
+          >
             <AddCircleOutlineIcon />
           </IconButton>
         </div>

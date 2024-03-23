@@ -28,7 +28,7 @@ root.render(
     </PersistGate>
     </NextUIProvider>
     </BrowserRouter>
-  </Provider>,
+  </Provider>
   
   </React.StrictMode>
 );

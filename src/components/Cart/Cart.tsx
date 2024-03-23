@@ -1,21 +1,20 @@
 import CartItem from "./CartItem";
 import { Button } from "@mui/material";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getCartTotal } from "../../Redux/Slices/CartSlice";
 import { RootState } from "../../Redux/store";
 
 const Cart = () => {
   const navigate = useNavigate();
   const { cart, totalPrice, totalQuantity, totalDiscountPrice } = useSelector((state: RootState) => state.allCart);
-  const { allCart } = useSelector((state: RootState) => state);
 
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getCartTotal());
-  }, [cart]);
+  const getDiscountPercent = () => {
+    if (totalPrice > 0) {
+      return (((totalPrice - totalDiscountPrice) / totalPrice) * 100).toFixed(0);
+    } else {
+      return 0;
+    }
+  };
 
   return (
     <div className="p-[3rem]">
@@ -35,11 +34,11 @@ const Cart = () => {
             <div className="space-y-3 font-semibold">
               <div className="flex justify-between pt-3 text-black ">
                 <span>Total Price</span>
-                <span className="opacity-30 line-through">{totalDiscountPrice}</span>
+                <span className="opacity-30 line-through">{totalPrice}</span>
               </div>
               <div className="flex justify-between pt-3 text-black ">
                 <span>Discount Price</span>
-                <span>{totalPrice}</span>
+                <span>{totalDiscountPrice}</span>
               </div>
               <div className="flex justify-between pt-3 text-black ">
                 <span>Total Quantity</span>
@@ -47,9 +46,7 @@ const Cart = () => {
               </div>
               <div className="flex justify-between">
                 <span>Discount</span>
-                <span className="text-green-700">
-                  -{(((totalDiscountPrice - totalPrice) / totalDiscountPrice) * 100).toFixed(0)}%
-                </span>
+                <span className="text-green-700">- {getDiscountPercent()}%</span>
               </div>
               <div className="flex justify-between">
                 <span>Delivery Charges</span>
@@ -58,12 +55,12 @@ const Cart = () => {
               <hr />
               <div className="flex justify-between font-bold text-lg">
                 <span>Total Amount</span>
-                <span className="text-green-700">₹200</span>
+                <span className="text-green-700">{totalDiscountPrice}</span>
               </div>
             </div>
 
             <Button
-              onClick={() => navigate("/Checkout?step=2", { state: { ...allCart } })}
+              onClick={() => navigate("/Checkout?step=2")}
               variant="contained"
               type="submit"
               sx={{ padding: ".8rem 2rem", marginTop: "2rem", width: "100%" }}

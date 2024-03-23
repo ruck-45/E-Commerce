@@ -68,6 +68,9 @@
     border: thin solid grey;
     border-radius: 3px;
 } */
+.cp-img-upload{
+    min-width: 500px;
+}
 .cp-img-upload label{
   background-color: indigo;
   width: 100%;
@@ -91,4 +94,37 @@
     cursor: pointer;
     border-radius: 48px 47px;
     background-color: white;
+}
+@media(max-width: 1440px) {
+
+    .cp-img-upload{
+        min-width: 400px;
+    }
+
+}
+@media(max-width: 1220px) {
+
+    .cp-img-upload{
+        min-width: 300px;
+    }
+    .img-content-wrapper img{
+        height: 130px !important;
+    }
+}
+
+@media(max-width: 1024px) {
+    .cp-form-wrapper {
+        display: block;
+    }
+
+
+    .cp-img-upload label {
+        margin-top: 10px;
+    }
+
+}
+@media(max-width: 424px) {
+    .cp-img-upload{
+        min-width: 200px;
+    }
 }

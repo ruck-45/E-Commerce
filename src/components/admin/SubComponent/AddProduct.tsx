@@ -116,22 +116,27 @@ export default function AddProduct() {
     });
     console.log(product);
 
-    if (images.length === 0) {
-      toast.error("please insert atleast one image");
-      return;
-    }
-
     if (validateProduct()) {
       toast.error("please insert data in required field");
-    } else {
+    } 
+    else {
       if (product.price <= product.discountedPrice) {
         toast.error("Price must be greater than discount price");
+        return;
+      }
+      if (images.length === 0) {
+        toast.error("please insert atleast one image");
+        return;
+      }
+      if(product.orders <= product.quantity){
+        toast.error("Total stock order quantity must be greater than order quantity");
         return;
       }
       toast.success("Adding product ...");
       setImages([]);
       setProduct(initialProduct);
       setHighlights('');
+      const outputProduct={};
     }
   };
 
@@ -160,9 +165,10 @@ export default function AddProduct() {
     ];
 
     numberRequiredFields.forEach((field: keyof Product) => {
-      const fieldValue = product[field];
+      const fieldValue = +product[field];
       
       if (typeof fieldValue !== 'number' || fieldValue <= 0) {
+        console.log(typeof fieldValue);
         setIsError((prevError: typeof isError) => ({
           ...prevError,
           [field]: { isError: true },

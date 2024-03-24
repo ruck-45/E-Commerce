@@ -34,11 +34,11 @@ const CartItem = (props: productsType) => {
           <p className="opacity-70 mt-2">Seller: ShopNest</p>
           <div className="flex space-x-2 items-center pt-3">
             {props.discountedPrice === props.price || props.discountPercent === 0 ? (
-              <p className="font-semibold">Rs. {props.price}</p>
+              <p className="font-semibold">${props.price}</p>
             ) : (
               <>
-                <p className="font-semibold">Rs. {props.discountedPrice}</p>
-                <p className="opacity-50 line-through">Rs. {props.price}</p>
+                <p className="font-semibold">${props.discountedPrice}</p>
+                <p className="opacity-50 line-through">${props.price}</p>
                 <p className="text-green-600 font-semibold">{props.discountPercent}% Off</p>
               </>
             )}

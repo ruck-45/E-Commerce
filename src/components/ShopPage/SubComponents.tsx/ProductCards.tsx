@@ -60,11 +60,11 @@ const ProductCards = (props: individualProductType) => {
 
         <div className="flex space-x-2 items-center">
           {props.discountedPrice === props.price || props.discountPercent === 0 ? (
-            <p className="font-semibold">Rs. {props.price}</p>
+            <p className="font-semibold">${props.price}</p>
           ) : (
             <>
-              <p className="font-semibold">Rs. {props.discountedPrice}</p>
-              <p className="opacity-50 line-through">Rs. {props.price}</p>
+              <p className="font-semibold">${props.discountedPrice}</p>
+              <p className="opacity-50 line-through">${props.price}</p>
               <p
                 className={
                   content === "Out Of Stock" ? "text-default-500 font-semibold" : "text-green-600 font-semibold"

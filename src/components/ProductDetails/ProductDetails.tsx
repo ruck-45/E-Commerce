@@ -164,17 +164,18 @@ export default function ProductDetails() {
                 <h1 className="text-lg lg:text-xl tracking-tight text-gray-900 opacity-60 pt-1">
                   {productsData.title}
                 </h1>
+                <h3 className="text-md tracking-tight text-gray-500 opacity-60 pt-1">{productsData.color}</h3>
               </div>
 
               {/* Options */}
               <div className="mt-4 lg:row-span-3 lg:mt-0">
                 <div className="flex space-x-5 items-center text-lg lg:text-xl tracking-tight text-gray-900 mt-6">
                   {productsData.discountedPrice === productsData.price || productsData.discountPercent === 0 ? (
-                    <p className="font-semibold">Rs. {productsData.price}</p>
+                    <p className="font-semibold">${productsData.price}</p>
                   ) : (
                     <>
-                      <p className="font-semibold">Rs. {productsData.discountedPrice}</p>
-                      <p className="opacity-50 line-through">Rs. {productsData.price}</p>
+                      <p className="font-semibold">${productsData.discountedPrice}</p>
+                      <p className="opacity-50 line-through">$ {productsData.price}</p>
                       <p className="text-green-600 font-semibold">{productsData.discountPercent}% Off</p>
                     </>
                   )}
@@ -242,15 +243,13 @@ export default function ProductDetails() {
                 {/* Description and details */}
                 <div>
                   <h3 className="sr-only">Description</h3>
-
                   <div className="space-y-6">
                     <p className="text-base text-gray-900">{productsData.description}</p>
                   </div>
                 </div>
 
-                <div className="mt-10">
+                <div className="mt-7">
                   <h3 className="text-lg lg:text-xl font-medium text-gray-900">Highlights</h3>
-
                   <div className="mt-4">
                     <ul className="list-disc space-y-2 pl-4 text-sm">
                       {productsData.highlights.map((highlight) => (
@@ -262,11 +261,24 @@ export default function ProductDetails() {
                   </div>
                 </div>
 
-                <div className="mt-10">
+                <div className="mt-7">
                   <h2 className="text-lg lg:text-xl font-medium text-gray-900">Details</h2>
-
                   <div className="mt-4 space-y-6">
                     <p className="text-sm text-gray-600">{productsData.details}</p>
+                  </div>
+                </div>
+
+                <div className="mt-7">
+                  <h2 className="text-lg lg:text-xl font-medium text-gray-900">Material</h2>
+                  <div className="mt-1 space-y-6">
+                    <p className="text-sm text-gray-600">{productsData.material}</p>
+                  </div>
+                </div>
+
+                <div className="mt-7">
+                  <h2 className="text-lg lg:text-xl font-medium text-gray-900">Dimension</h2>
+                  <div className="mt-1 space-y-6">
+                    <p className="text-sm text-gray-600">{productsData.dimension}</p>
                   </div>
                 </div>
               </div>

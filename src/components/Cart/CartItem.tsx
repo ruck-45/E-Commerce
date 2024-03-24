@@ -25,13 +25,13 @@ const CartItem = (props: productsType) => {
             src={`${apiUrl}/items/itemImages/${props.item_id}_img1.jpg`}
             loading="lazy"
             radius="sm"
-            alt=""
           />
         </div>
         <div className="ml-5 space-y-1">
-          <p className="font-semibold">{props.title}</p>
-          <p className="opacity-70">Size:{props.dimension}</p>
-          <p className="opacity-70 mt-2">Seller: ShopNest</p>
+          <p className="font-bold">{props.title}</p>
+          <p className="opacity-70 font-semibold">{props.brand}</p>
+          <p className="opacity-70 text-sm">{props.color}</p>
+          <p className="opacity-70 text-sm">Size:{props.dimension}</p>
           <div className="flex space-x-2 items-center pt-3">
             {props.discountedPrice === props.price || props.discountPercent === 0 ? (
               <p className="font-semibold">${props.price}</p>

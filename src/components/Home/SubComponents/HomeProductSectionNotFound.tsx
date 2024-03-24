@@ -19,7 +19,7 @@ const HomeProductSectionNotFound = (props: HomeProductSectionNotFoundProps) => {
           <FaArrowRight className="" />
         </Link>
       </div>
-      <div className="relative border p-5 h-[17rem] flex justify-center items-center">
+      <div className="relative border p-5 h-[20rem] flex justify-center items-center">
         <p className="font-bold text-default-500 text-xl">No Items Found</p>
       </div>
     </div>

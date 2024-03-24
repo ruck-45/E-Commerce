@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Button } from "@mui/material";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
-import HomeProductCard from "../../Home/SubComponents/HomeProductCard";
 
 type Data = {
   imageUrl: string;

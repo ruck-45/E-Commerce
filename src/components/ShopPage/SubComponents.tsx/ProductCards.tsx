@@ -3,31 +3,9 @@ import "./Product.css";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../../Redux/store";
 import { Badge, Image } from "@nextui-org/react";
+import { individualProductType } from "../../../utils/types";
 
-type ProductProps = {
-  item_id: String;
-  imageCount: String;
-  brand: String;
-  title: String;
-  color: String;
-  discountedPrice: number;
-  price: number;
-  discountPercent: number;
-  quantity: number;
-  material: String;
-  dimension: String;
-  description: String;
-  topLevelCategory: String;
-  secondLevelCategory: String;
-  thirdLevelCategory: String;
-  highlights: String[];
-  minimumOrder: number;
-  details: String;
-  orders: number;
-  created_at: Date;
-};
-
-const ProductCards = (props: ProductProps) => {
+const ProductCards = (props: individualProductType) => {
   const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
   const createdDate = new Date(props.created_at);
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
@@ -35,10 +13,6 @@ const ProductCards = (props: ProductProps) => {
   let content = "";
   let className = "rounded-none ";
   let color: "primary" | "danger" | "warning" | "default" | "secondary" | "success" | undefined = "primary";
-
-  console.log(sevenDaysAgo);
-  console.log(createdDate);
-  console.log(createdDate >= sevenDaysAgo);
 
   if (props.quantity < props.minimumOrder) {
     content = "Out Of Stock";
@@ -69,7 +43,7 @@ const ProductCards = (props: ProductProps) => {
       >
         <div className="h-[16.5rem]">
           <Image
-            className="h-full w-full object-cover object-left-top"
+            className={content === "Out Of Stock" ? "grayscale" : ""}
             src={`${apiUrl}/items/itemImages/${props.item_id}_img1.jpg`}
             radius="none"
             loading="lazy"
@@ -91,7 +65,13 @@ const ProductCards = (props: ProductProps) => {
             <>
               <p className="font-semibold">Rs. {props.discountedPrice}</p>
               <p className="opacity-50 line-through">Rs. {props.price}</p>
-              <p className="text-green-600 font-semibold">{props.discountPercent}% Off</p>
+              <p
+                className={
+                  content === "Out Of Stock" ? "text-default-500 font-semibold" : "text-green-600 font-semibold"
+                }
+              >
+                {props.discountPercent}% Off
+              </p>
             </>
           )}
         </div>

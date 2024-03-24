@@ -13,6 +13,7 @@ import { FaHome } from "react-icons/fa";
 import axios from "axios";
 import { RootState } from "../../Redux/store";
 import { createArray } from "../../utils/controllers";
+import { individualProductType } from "../../utils/types";
 
 const filters = [
   {
@@ -311,7 +312,7 @@ export default function ShopPage() {
                   {receivedShopData === 1 ? (
                     <>
                       <div className="flex flex-wrap justify-center py-5 bg-white">
-                        {shopData.map((detail: any) => (
+                        {shopData.map((detail: individualProductType) => (
                           <ProductCards {...detail} />
                         ))}
                       </div>

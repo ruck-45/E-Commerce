@@ -1,4 +1,3 @@
-import HomeProductCard from "./HomeProductCard";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useState } from "react";
 import { Button } from "@mui/material";
@@ -6,16 +5,12 @@ import AliceCarousel from "react-alice-carousel";
 import { FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "react-alice-carousel/lib/alice-carousel.css";
-
-type Data = {
-  brand: string;
-  title: string;
-  item_id: string;
-};
+import ProductCards from "../../ShopPage/SubComponents.tsx/ProductCards";
+import { individualProductType } from "../../../utils/types";
 
 type HomeProductSectionProps = {
   section: string;
-  data: Data[];
+  data: individualProductType[];
 };
 
 const HomeProductSection = (props: HomeProductSectionProps) => {
@@ -63,11 +58,7 @@ const HomeProductSection = (props: HomeProductSectionProps) => {
     },
   };
   const items = props.data.map((item) => {
-    return (
-      <div className="">
-        {<HomeProductCard title={item.title} brand={item.brand} itemId={item.item_id} />}
-      </div>
-    );
+    return <div className="">{<ProductCards {...item} />}</div>;
   });
 
   return (

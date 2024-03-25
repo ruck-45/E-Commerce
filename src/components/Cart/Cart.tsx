@@ -66,7 +66,7 @@ const Cart = () => {
                 variant="contained"
                 sx={{ padding: ".8rem 2rem", marginTop: "2rem", width: "100%" }}
               >
-                Check Out
+                Place Order
               </Button>
             </div>
           </div>

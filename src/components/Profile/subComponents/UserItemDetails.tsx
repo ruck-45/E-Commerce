@@ -1,8 +1,7 @@
-import { divider, Divider, Skeleton } from "@nextui-org/react";
+import { Divider, Skeleton } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 import ProfileProductSection from "./ProfileProductSection";
-import { antiqueData } from "../../../Data/antiques";
 import { getCookie } from "../../../utils/cookies";
 import { useLayoutEffect, useState } from "react";
 import axios from "axios";
@@ -14,9 +13,6 @@ const toastSetting: {
   position: ToastPosition;
 } = { position: "top-center" };
 
-const successToast = (message: string): void => {
-  toast.success(message, toastSetting);
-};
 const errorToast = (message: string): void => {
   toast.error(message, toastSetting);
 };
@@ -125,7 +121,7 @@ const UserItemDetails = () => {
           </Link>
         </div>
         <Divider />
-        <ProfileProductSection data={antiqueData} />
+        {/* <ProfileProductSection data={antiqueData} /> */}
       </div>
       <div className="flex flex-col gap-1">
         <div className="flex justify-between">
@@ -139,7 +135,7 @@ const UserItemDetails = () => {
           </Link>
         </div>
         <Divider />
-        <ProfileProductSection data={antiqueData} />
+        {/* <ProfileProductSection data={antiqueData} /> */}
       </div>
       <div className="flex flex-col gap-1">
         <div className="flex justify-between">
@@ -153,7 +149,7 @@ const UserItemDetails = () => {
           </Link>
         </div>
         <Divider />
-        <ProfileProductSection data={antiqueData} />
+        {/* <ProfileProductSection data={antiqueData} /> */}
       </div>
       <Toaster />
     </div>

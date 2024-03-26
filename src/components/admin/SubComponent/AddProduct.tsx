@@ -137,6 +137,8 @@ export default function AddProduct() {
 
   const [highlights, setHighlights] = React.useState<any>("");
 
+  const [finalImageArray,setFinalImageArray] = React.useState<any>([]);
+
   const [images, setImages] = React.useState<any>([]);
 
   const token = getCookie("token");
@@ -167,27 +169,42 @@ export default function AddProduct() {
         return;
       } else {
         convertToOutputProduct(product);
-        const createItemDetailsResponse = await axios.post(`${apiUrl}/items/createItem`, outputProduct, 
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        // const createItemDetailsResponse = await axios.post(`${apiUrl}/items/createItem`, outputProduct, 
+        //   {
+        //     headers: {
+        //       Authorization: `Bearer ${token}`,
+        //     },
+        //   }
+        // );
 
-        if (!createItemDetailsResponse.data.success){
-          toast.error(`failed to create product.`)
-        }
-
-        const uploadImagesResponse = await axios.post(`${apiUrl}/items/itemImages`, images, {
-          headers: {
-            Authorization: `Bearer ${token}`,
+        await fetch(`${apiUrl}/items/createItem`,{
+          method:'POST',
+          headers:{
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
           },
+          body: JSON.stringify(outputProduct)
+        }).then(response => response.json()).then(data => console.log(data)).catch(err => console.log(err));
+        
+        const formData = new FormData();
+        finalImageArray.forEach((file:any) => {
+          formData.append('images', file);
         });
 
-        if (!uploadImagesResponse.data.success) {
-          toast.error(`failed to upload product images.`);
+        try {
+          const response = await fetch(`${apiUrl}/items/itemImages`, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${token}` // Add authorization header
+            },
+            body: formData,
+          });
+          const data = await response.json();
+          console.log('Images uploaded successfully:', data);
+        } catch (error) {
+          console.error('Error uploading images:', error);
         }
+        
 
         toast.success(`Product added successfully`)
 
@@ -216,7 +233,7 @@ export default function AddProduct() {
       secondLevelCategory: product.secondLevelCategory.trim(),
       thirdLevelCategory: product.thirdLevelCategory.trim(),
       orders: product.orders,
-      imageCount: product.imageCount,
+      imageCount: images.length,
     });
   }
 
@@ -308,6 +325,9 @@ export default function AddProduct() {
     ];
 
     if (numberRequiredFields.includes(name)) {
+      if(+value<0)
+        setProduct({ ...product, [name]: 0 });
+      else
       setProduct({ ...product, [name]: +value });
     } else {
       setProduct({ ...product, [name]: value });
@@ -590,6 +610,7 @@ export default function AddProduct() {
                 accept=".jpg,.jpeg"
                 onChange={(e) => {
                   let tempArr = [];
+                  let finalTemp=[];
                   if (e.target.files) {
                     for (let i = 0; i < e.target.files.length; i++) {
                       if (e.target.files[i].size > 1000000) {
@@ -599,8 +620,10 @@ export default function AddProduct() {
                         }, 2000);
                       } else {
                         tempArr.push(URL.createObjectURL(e.target.files[i]));
+                        finalTemp.push(e.target.files[i]);
                       }
                     }
+                    setFinalImageArray([...finalImageArray,...finalTemp]);
                     setImages([...images, ...tempArr]);
                   }
                 }}

@@ -107,6 +107,9 @@ let outputProduct: OutputProduct = {
 export default function AddProduct() {
   const theme = useTheme();
   let apiUrl = process.env.REACT_APP_API_URL;
+  if (process.env.NODE_ENV === "development") {
+    apiUrl = process.env.REACT_APP_DEV_API_URL;
+  }
   const [showImageError, setShowImageError] = React.useState(false);
 
   if (process.env.NODE_ENV === "development") {
@@ -168,49 +171,36 @@ export default function AddProduct() {
         toast.error("Total stock order quantity must be greater than order quantity");
         return;
       } else {
+        console.log("starteed product");
         convertToOutputProduct(product);
-        // const createItemDetailsResponse = await axios.post(`${apiUrl}/items/createItem`, outputProduct, 
-        //   {
-        //     headers: {
-        //       Authorization: `Bearer ${token}`,
-        //     },
-        //   }
-        // );
+        const createItemDetailsResponse = await axios.post(`${apiUrl}/items/createItem`, outputProduct, 
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
-        await fetch(`${apiUrl}/items/createItem`,{
-          method:'POST',
-          headers:{
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+        if (!createItemDetailsResponse.data.success){
+          toast.error(`failed to create product.`)
+        }
+
+        const uploadImagesResponse = await axios.post(`${apiUrl}/items/itemImages`, images, {
+          headers: {
+            Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(outputProduct)
-        }).then(response => response.json()).then(data => console.log(data)).catch(err => console.log(err));
-        
-        const formData = new FormData();
-        finalImageArray.forEach((file:any) => {
-          formData.append('images', file);
         });
 
-        try {
-          const response = await fetch(`${apiUrl}/items/itemImages`, {
-            method: 'POST',
-            headers: {
-              'Authorization': `Bearer ${token}` // Add authorization header
-            },
-            body: formData,
-          });
-          const data = await response.json();
-          console.log('Images uploaded successfully:', data);
-        } catch (error) {
-          console.error('Error uploading images:', error);
+        if (!uploadImagesResponse.data.success) {
+          toast.error(`failed to upload product images.`);
         }
         
 
-        toast.success(`Product added successfully`)
+        toast.success(`Product added successfully`);
 
-        setImages([]);
-        setProduct(initialProduct);
-        setHighlights("");
+        // setImages([]);
+        // setProduct(initialProduct);
+        // setHighlights("");
       }
     }
   };

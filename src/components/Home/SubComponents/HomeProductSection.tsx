@@ -92,7 +92,7 @@ const HomeProductSection = (props: HomeProductSectionProps) => {
             color="inherit"
             sx={{
               position: "absolute",
-              top: "8rem",
+              top: "11rem",
               right: "0rem",
               transform: "translateX(50%) rotate(90deg)",
               bgcolor: "white",
@@ -111,7 +111,7 @@ const HomeProductSection = (props: HomeProductSectionProps) => {
             className="z-50 bg-[]"
             sx={{
               position: "absolute",
-              top: "8rem",
+              top: "11rem",
               left: "0rem",
               transform: "translateX(-50%)  rotate(90deg)",
               bgcolor: "white",

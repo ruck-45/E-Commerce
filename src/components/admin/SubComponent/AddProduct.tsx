@@ -8,10 +8,11 @@ import ImageListItem from "@mui/material/ImageListItem";
 import { Button, Chip, IconButton, Input, Stack } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { styled } from "@mui/system";
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from "@mui/material/styles";
 
 import "./product.css";
 import { validationErrors } from "../../../helpers/constant";
+import axios from "axios";
 
 const StyledTextField = styled(TextField)(({ theme, error }) => ({
   "& .MuiOutlinedInput-root": {
@@ -27,8 +28,8 @@ const initialProduct: Product = {
   price: 0,
   discountPercent: 0,
   highlights: [],
-  dimensionHeight:0,
-  dimensionWidth:0,
+  dimensionHeight: 0,
+  dimensionWidth: 0,
   details: "",
   quantity: 0,
   material: "",
@@ -48,7 +49,7 @@ type Product = {
   discountedPrice: number;
   price: number;
   discountPercent: number;
-  highlights: string[]; 
+  highlights: string[];
   details: string;
   quantity: number;
   material: string;
@@ -60,7 +61,7 @@ type Product = {
   thirdLevelCategory: string;
   orders: number;
   imageCount: number;
-  imageArray: string[]; 
+  imageArray: string[];
 };
 
 type OutputProduct = {
@@ -81,34 +82,32 @@ type OutputProduct = {
   thirdLevelCategory: string;
   orders: number;
   imageCount: number;
-  registerCounter: number;
 };
 
 let outputProduct: OutputProduct = {
-  brand:'',
-  title:'',
-  color:'',
-  discountedPrice:0,
-  price:0,
-  discountPercent:0,
-  highlights:[],
-  details:'',
-  quantity:0,
-  material:'',
-  dimension:'',
-  description:'',
-  topLevelCategory:'',
-  secondLevelCategory:'',
-  thirdLevelCategory:'',
-  orders:0,
-  imageCount:0,
-  registerCounter:0
-}
+  brand: "",
+  title: "",
+  color: "",
+  discountedPrice: 0,
+  price: 0,
+  discountPercent: 0,
+  highlights: [],
+  details: "",
+  quantity: 0,
+  material: "",
+  dimension: "",
+  description: "",
+  topLevelCategory: "",
+  secondLevelCategory: "",
+  thirdLevelCategory: "",
+  orders: 0,
+  imageCount: 0,
+};
 
 export default function AddProduct() {
-  const theme =useTheme();
+  const theme = useTheme();
   let apiUrl = process.env.REACT_APP_API_URL;
-  const [showImageError,setShowImageError]=React.useState(false);
+  const [showImageError, setShowImageError] = React.useState(false);
 
   if (process.env.NODE_ENV === "development") {
     apiUrl = process.env.REACT_APP_DEV_API_URL;
@@ -132,7 +131,6 @@ export default function AddProduct() {
     secondLevelCategory: { isError: false },
     thirdLevelCategory: { isError: false },
     orders: { isError: false },
-    registerCounter: { isError: false },
     imageCount: { isError: false },
     imageArray: { isError: false },
   });
@@ -146,9 +144,7 @@ export default function AddProduct() {
   const [product, setProduct] = React.useState<Product>(initialProduct);
 
   const addProduct = async () => {
-    const percentage: Number =
-      100 -
-      ((+product.price - +product.discountedPrice) / +product.price) * 100;
+    const percentage: Number = 100 - ((+product.price - +product.discountedPrice) / +product.price) * 100;
     setProduct({
       ...product,
       imageArray: images,
@@ -159,35 +155,51 @@ export default function AddProduct() {
 
     if (validateProduct()) {
       toast.error("please insert data in required field");
-    } 
-    else {
+    } else {
       if (product.price <= product.discountedPrice) {
         toast.error("Price must be greater than discount price");
         return;
-      }
-      else if (images.length === 0) {
+      } else if (images.length === 0) {
         toast.error("please insert atleast one image");
         return;
-      }
-      else if(product.orders <= product.quantity){
+      } else if (product.orders <= product.quantity) {
         toast.error("Total stock order quantity must be greater than order quantity");
         return;
-      }
-      else{
+      } else {
         convertToOutputProduct(product);
-        //from here call the api outputProduct is the final object we have to save in our database
+        const createItemDetailsResponse = await axios.post(`${apiUrl}/items/createItem`, outputProduct, 
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
+        if (!createItemDetailsResponse.data.success){
+          toast.error(`failed to create product.`)
+        }
 
-        
+        const uploadImagesResponse = await axios.post(`${apiUrl}/items/itemImages`, images, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!uploadImagesResponse.data.success) {
+          toast.error(`failed to upload product images.`);
+        }
+
+        toast.success(`Product added successfully`)
+
         setImages([]);
         setProduct(initialProduct);
-        setHighlights('');
+        setHighlights("");
       }
     }
   };
 
   function convertToOutputProduct(product: Product) {
-    outputProduct= {
+    return (outputProduct = {
       brand: product.brand.trim(),
       title: product.title.trim(),
       color: product.color.trim(),
@@ -205,8 +217,7 @@ export default function AddProduct() {
       thirdLevelCategory: product.thirdLevelCategory.trim(),
       orders: product.orders,
       imageCount: product.imageCount,
-      registerCounter: 0, 
-    };
+    });
   }
 
   const validateProduct = () => {
@@ -235,7 +246,7 @@ export default function AddProduct() {
 
     numberRequiredFields.forEach((field: keyof Product) => {
       const fieldValue = +product[field];
-      if (typeof fieldValue !== 'number' || fieldValue <= 0) {
+      if (typeof fieldValue !== "number" || fieldValue <= 0) {
         setIsError((prevError: typeof isError) => ({
           ...prevError,
           [field]: { isError: true },
@@ -243,12 +254,11 @@ export default function AddProduct() {
         status = true;
       }
     });
-    
 
     requiredFields.forEach((field: keyof Product) => {
       const fieldValue = product[field];
-    
-      if (typeof fieldValue === 'string' && fieldValue.trim().length === 0) {
+
+      if (typeof fieldValue === "string" && fieldValue.trim().length === 0) {
         setIsError((prevError: any) => ({
           ...prevError,
           [field]: { isError: true },
@@ -257,20 +267,20 @@ export default function AddProduct() {
       }
     });
 
-    if (product.highlights.length===0) {
+    if (product.highlights.length === 0) {
       setIsError((prevError) => ({
         ...prevError,
-        highlights: { isError: true }
+        highlights: { isError: true },
       }));
-      status=true;
+      status = true;
     }
 
     if (product.description.length < 20 || product.description.length >= 100) {
       setIsError((prevError) => ({
         ...prevError,
-        description: { isError: true }
+        description: { isError: true },
       }));
-      status=true;
+      status = true;
     }
 
     return status;
@@ -298,10 +308,10 @@ export default function AddProduct() {
     ];
 
     if (numberRequiredFields.includes(name)) {
-      setProduct({...product, [name]: +value });
+      setProduct({ ...product, [name]: +value });
     } else {
-      setProduct({...product, [name]: value });
-    }    
+      setProduct({ ...product, [name]: value });
+    }
   }
 
   function chipDelete(index: number): void {
@@ -309,7 +319,6 @@ export default function AddProduct() {
     temp = temp.filter((_item: string, i: number) => i !== index);
     setProduct({ ...product, highlights: temp });
   }
-  
 
   return (
     <>
@@ -330,11 +339,7 @@ export default function AddProduct() {
                     variant="outlined"
                     error={isError.title.isError}
                   />
-                  {isError.title.isError ? (
-                    <span className="cp-errors">{validationErrors.TITLE}</span>
-                  ) : (
-                    ""
-                  )}
+                  {isError.title.isError ? <span className="cp-errors">{validationErrors.TITLE}</span> : ""}
                 </Grid>
                 <Grid item xs={12}>
                   <StyledTextField
@@ -347,11 +352,7 @@ export default function AddProduct() {
                     variant="outlined"
                     error={isError.brand.isError}
                   />
-                  {isError.brand.isError ? (
-                    <span className="cp-errors">{validationErrors.BRAND}</span>
-                  ) : (
-                    ""
-                  )}
+                  {isError.brand.isError ? <span className="cp-errors">{validationErrors.BRAND}</span> : ""}
                 </Grid>
                 <Grid item xs={12}>
                   <StyledTextField
@@ -364,11 +365,7 @@ export default function AddProduct() {
                     variant="outlined"
                     error={isError.color.isError}
                   />
-                  {isError.color.isError ? (
-                    <span className="cp-errors">{validationErrors.COLOR}</span>
-                  ) : (
-                    ""
-                  )}
+                  {isError.color.isError ? <span className="cp-errors">{validationErrors.COLOR}</span> : ""}
                 </Grid>
                 <Grid item xs={6}>
                   <StyledTextField
@@ -382,11 +379,7 @@ export default function AddProduct() {
                     onChange={handleUserInput}
                     error={isError.quantity.isError}
                   />
-                  {isError.quantity.isError ? (
-                    <span className="cp-errors">{validationErrors.REQUIRED}</span>
-                  ) : (
-                    ""
-                  )}
+                  {isError.quantity.isError ? <span className="cp-errors">{validationErrors.REQUIRED}</span> : ""}
                 </Grid>
                 <Grid item xs={6}>
                   <StyledTextField
@@ -400,11 +393,7 @@ export default function AddProduct() {
                     value={product.orders}
                     error={isError.orders.isError}
                   />
-                  {isError.orders.isError ? (
-                    <span className="cp-errors">{validationErrors.REQUIRED}</span>
-                  ) : (
-                    ""
-                  )}
+                  {isError.orders.isError ? <span className="cp-errors">{validationErrors.REQUIRED}</span> : ""}
                 </Grid>
                 <Grid item xs={6}>
                   <StyledTextField
@@ -418,11 +407,7 @@ export default function AddProduct() {
                     error={isError.price.isError}
                     value={product.price}
                   />
-                  {isError.price.isError ? (
-                    <span className="cp-errors">{validationErrors.REQUIRED}</span>
-                  ) : (
-                    ""
-                  )}
+                  {isError.price.isError ? <span className="cp-errors">{validationErrors.REQUIRED}</span> : ""}
                 </Grid>
                 <Grid item xs={6}>
                   <StyledTextField
@@ -453,11 +438,7 @@ export default function AddProduct() {
                     value={product.material}
                     error={isError.material.isError}
                   />
-                  {isError.material.isError ? (
-                    <span className="cp-errors">{validationErrors.REQUIRED}</span>
-                  ) : (
-                    ""
-                  )}
+                  {isError.material.isError ? <span className="cp-errors">{validationErrors.REQUIRED}</span> : ""}
                 </Grid>
                 <Grid item xs={3}>
                   <StyledTextField
@@ -499,33 +480,22 @@ export default function AddProduct() {
                     onChange={(e) => {
                       setIsError((prevError) => ({
                         ...prevError,
-                        highlights: { isError: false }
+                        highlights: { isError: false },
                       }));
                       setHighlights(e.target.value);
                     }}
-                    className={isError.highlights.isError ? 'cp-textarea-error' : 'cp-textarea'}
+                    className={isError.highlights.isError ? "cp-textarea-error" : "cp-textarea"}
                   ></textarea>
-                  <Button
-                    onClick={addHighlight}
-                    variant="contained"
-                  >
+                  <Button onClick={addHighlight} variant="contained">
                     Add Hightlight
                   </Button>
                   <div>
                     {product.highlights.length > 0 &&
                       product.highlights.map((item: any, index: number) => (
-                        <Chip
-                          key={index}
-                          onDelete={() => chipDelete(index)}
-                          label={item}
-                        />
+                        <Chip key={index} onDelete={() => chipDelete(index)} label={item} />
                       ))}
                   </div>
-                  {isError.highlights.isError ? (
-                    <span className="cp-errors">{validationErrors.HIGHLIGHT}</span>
-                  ) : (
-                    ""
-                  )}
+                  {isError.highlights.isError ? <span className="cp-errors">{validationErrors.HIGHLIGHT}</span> : ""}
                 </Grid>
 
                 <Grid item xs={12}>
@@ -539,11 +509,7 @@ export default function AddProduct() {
                     onChange={handleUserInput}
                     value={product.details}
                   />
-                  {isError.details.isError ? (
-                    <span className="cp-errors">{validationErrors.DETAILS}</span>
-                  ) : (
-                    ""
-                  )}
+                  {isError.details.isError ? <span className="cp-errors">{validationErrors.DETAILS}</span> : ""}
                 </Grid>
                 <Grid item xs={12}>
                   <StyledTextField
@@ -603,22 +569,18 @@ export default function AddProduct() {
                     rows={4}
                     cols={50}
                     onChange={handleUserInput}
-                    className={isError.description.isError ? 'cp-textarea-error' : 'cp-textarea'}
+                    className={isError.description.isError ? "cp-textarea-error" : "cp-textarea"}
                     placeholder="Desciption"
                     name="description"
-                    value={product.description.toString()} 
+                    value={product.description.toString()}
                     minLength={20}
                     maxLength={300}
                   ></textarea>
-                  {isError.description.isError? (
-                    <span className="cp-errors">{validationErrors.DESCRIPTION}</span>
-                  ) : (
-                    ""
-                  )}
+                  {isError.description.isError ? <span className="cp-errors">{validationErrors.DESCRIPTION}</span> : ""}
                 </Grid>
               </Grid>
             </div>
-            
+
             <div className="cp-img-upload">
               <input
                 type="file"
@@ -630,13 +592,12 @@ export default function AddProduct() {
                   let tempArr = [];
                   if (e.target.files) {
                     for (let i = 0; i < e.target.files.length; i++) {
-                      if(e.target.files[i].size> 1000000){
+                      if (e.target.files[i].size > 1000000) {
                         setShowImageError(true);
-                        setTimeout(()=>{
+                        setTimeout(() => {
                           setShowImageError(false);
-                        },2000);
-                      }
-                      else{
+                        }, 2000);
+                      } else {
                         tempArr.push(URL.createObjectURL(e.target.files[i]));
                       }
                     }
@@ -649,13 +610,13 @@ export default function AddProduct() {
               <ImageList
                 sx={{
                   width: "100%",
-                  maxWidth: "500px", 
-                  margin: "0 auto", 
-                  [theme.breakpoints.down('lg')]: {
-                    maxWidth: "400px", 
+                  maxWidth: "500px",
+                  margin: "0 auto",
+                  [theme.breakpoints.down("lg")]: {
+                    maxWidth: "400px",
                   },
-                  [theme.breakpoints.down('md')]: {
-                    maxWidth: "300px", 
+                  [theme.breakpoints.down("md")]: {
+                    maxWidth: "300px",
                   },
                 }}
                 cols={3}
@@ -669,8 +630,8 @@ export default function AddProduct() {
                         <img
                           style={{
                             margin: "10px",
-                            width:'164px',
-                            height: '164px',
+                            width: "164px",
+                            height: "164px",
                           }}
                           src={item}
                           alt="image"
@@ -680,9 +641,7 @@ export default function AddProduct() {
                           <IconButton
                             aria-label="delete"
                             onClick={() => {
-                              setImages(
-                                images.filter((img: any) => img !== item)
-                              );
+                              setImages(images.filter((img: any) => img !== item));
                             }}
                           >
                             <DeleteIcon />
@@ -692,17 +651,18 @@ export default function AddProduct() {
                     </ImageListItem>
                   ))
                 ) : (
-                  <div style={{textAlign:'center',margin:'10px',color:'red'}}>*{validationErrors.NO_IMAGE}</div>
+                  <div style={{ textAlign: "center", margin: "10px", color: "red" }}>*{validationErrors.NO_IMAGE}</div>
                 )}
               </ImageList>
-              { showImageError && <div style={{textAlign:'center'}} className="cp-errors"> {validationErrors.IMAGE_SIZE_EXCEED} </div>}
+              {showImageError && (
+                <div style={{ textAlign: "center" }} className="cp-errors">
+                  {" "}
+                  {validationErrors.IMAGE_SIZE_EXCEED}{" "}
+                </div>
+              )}
             </div>
           </div>
-          <Button
-            style={{ marginTop: "30px" }}
-            onClick={addProduct}
-            variant="contained"
-          >
+          <Button style={{ marginTop: "30px" }} onClick={addProduct} variant="contained">
             Add Product
           </Button>
         </div>

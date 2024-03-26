@@ -37,7 +37,6 @@ const initialProduct: Product = {
   secondLevelCategory: "",
   thirdLevelCategory: "",
   orders: 0,
-  registerCounter: 0,
   imageCount: 0,
   imageArray: [],
 };
@@ -60,7 +59,6 @@ type Product = {
   secondLevelCategory: string;
   thirdLevelCategory: string;
   orders: number;
-  registerCounter: number;
   imageCount: number;
   imageArray: string[]; 
 };
@@ -69,6 +67,8 @@ type Product = {
 export default function AddProduct() {
   const theme =useTheme();
   let apiUrl = process.env.REACT_APP_API_URL;
+  const [showImageError,setShowImageError]=React.useState(false);
+
   if (process.env.NODE_ENV === "development") {
     apiUrl = process.env.REACT_APP_DEV_API_URL;
   }
@@ -306,7 +306,7 @@ export default function AddProduct() {
                     error={isError.quantity.isError}
                   />
                   {isError.quantity.isError ? (
-                    <span className="cp-errors">{validationErrors.MINIMUM_ORDERS}</span>
+                    <span className="cp-errors">{validationErrors.REQUIRED}</span>
                   ) : (
                     ""
                   )}
@@ -324,7 +324,7 @@ export default function AddProduct() {
                     error={isError.orders.isError}
                   />
                   {isError.orders.isError ? (
-                    <span className="cp-errors">{validationErrors.ORDER}</span>
+                    <span className="cp-errors">{validationErrors.REQUIRED}</span>
                   ) : (
                     ""
                   )}
@@ -342,7 +342,7 @@ export default function AddProduct() {
                     value={product.price}
                   />
                   {isError.price.isError ? (
-                    <span className="cp-errors">{validationErrors.PRICE}</span>
+                    <span className="cp-errors">{validationErrors.REQUIRED}</span>
                   ) : (
                     ""
                   )}
@@ -360,7 +360,7 @@ export default function AddProduct() {
                     error={isError.discountedPrice.isError}
                   />
                   {isError.discountedPrice.isError ? (
-                    <span className="cp-errors">{validationErrors.DISCOUNTED_PRICE}</span>
+                    <span className="cp-errors">{validationErrors.REQUIRED}</span>
                   ) : (
                     ""
                   )}
@@ -377,7 +377,7 @@ export default function AddProduct() {
                     error={isError.material.isError}
                   />
                   {isError.material.isError ? (
-                    <span className="cp-errors">{validationErrors.MATERIAL}</span>
+                    <span className="cp-errors">{validationErrors.REQUIRED}</span>
                   ) : (
                     ""
                   )}
@@ -395,7 +395,7 @@ export default function AddProduct() {
                     error={isError.dimensionHeight.isError}
                   />
                   {isError.dimensionHeight.isError ? (
-                    <span className="cp-errors">{validationErrors.DIMENSTIONS}</span>
+                    <span className="cp-errors">{validationErrors.REQUIRED}</span>
                   ) : (
                     ""
                   )}
@@ -553,7 +553,15 @@ export default function AddProduct() {
                   let tempArr = [];
                   if (e.target.files) {
                     for (let i = 0; i < e.target.files.length; i++) {
-                      tempArr.push(URL.createObjectURL(e.target.files[i]));
+                      if(e.target.files[i].size> 1000000){
+                        setShowImageError(true);
+                        setTimeout(()=>{
+                          setShowImageError(false);
+                        },2000);
+                      }
+                      else{
+                        tempArr.push(URL.createObjectURL(e.target.files[i]));
+                      }
                     }
                     setImages([...images, ...tempArr]);
                   }
@@ -610,6 +618,7 @@ export default function AddProduct() {
                   <div style={{textAlign:'center',margin:'10px',color:'red'}}>*{validationErrors.NO_IMAGE}</div>
                 )}
               </ImageList>
+              { showImageError && <div style={{textAlign:'center'}} className="cp-errors"> {validationErrors.IMAGE_SIZE_EXCEED} </div>}
             </div>
           </div>
           <Button

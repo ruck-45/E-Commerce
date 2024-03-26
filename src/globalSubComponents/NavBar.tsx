@@ -24,7 +24,6 @@ import "./NavBar.css";
 import icon from "../globalAssets/logo.svg";
 import ButtonElement from "./ButtonElement";
 import UserAvatar from "./UserAvatar";
-import { getCookie } from "../utils/cookies";
 import { updateToLoginStatus } from "../Redux/Slices/toLoginSlice";
 import { updateNavStatus } from "../Redux/Slices/navOpenStatusSlice";
 import { RootState } from "../Redux/store";
@@ -34,7 +33,7 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 const menuItems = ["Home", "Shop", "About", "Contact", "Cart"];
 
 const NavBar = () => {
-  const isLoggedIn = getCookie("token") ? true : false;
+  const isLoggedIn = useSelector((state: RootState) => state.loginStatus.value);
   const curTab = useSelector((state: RootState) => state.curTab.value);
   const navOpenStatus = useSelector((state: RootState) => state.navOpenStatus.value);
   const dispatch = useDispatch();

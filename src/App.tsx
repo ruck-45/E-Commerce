@@ -24,26 +24,19 @@ import EditProducts from "./components/admin/SubComponent/EditProducts";
 import AddProduct from "./components/admin/SubComponent/AddProduct";
 import ProductDetails from "./components/ProductDetails/ProductDetails";
 
-
 function App() {
   const curTab = useSelector((state: RootState) => state.curTab.value);
+  const isLoggedIn = useSelector((state: RootState) => state.loginStatus.value);
 
   return (
     <>
       <div>
-        {curTab === "Auth" ||
-        curTab === "Password Reset" ||
-        curTab === "admin" ? null : (
-          <NavBar />
-        )}
+        {curTab === "Auth" || curTab === "Password Reset" || curTab === "admin" ? null : <NavBar />}
         <Routes>
           <Route path="/" element={<Navigate to="/Home" />} />
           <Route path="/Home" element={<Home />} />
           <Route path="/Shop" element={<ShopPage />} />
-          <Route
-            path="/ProductDetails/:name/:id"
-            element={<ProductDetails />}
-          />
+          <Route path="/ProductDetails/:name/:id" element={<ProductDetails />} />
           <Route path="/Refund" element={<Refund />} />
           <Route path="/Cart" element={<Cart />} />
           <Route path="/Checkout" element={<Checkout />} />
@@ -51,7 +44,7 @@ function App() {
           <Route path="/Contact" element={<Contact />} />
           <Route path="/Admin" element={<Admin />} />
           <Route path="/Auth" element={<Auth />} />
-          <Route path="/Profile" element={<Profile />} />
+          <Route path="/Profile" element={isLoggedIn ? <Profile /> : <Navigate to="/Home" />} />
           <Route path="/Privacy" element={<Privacy />} />
           <Route path="/Terms" element={<Term />} />
           <Route path="/ResetPassword" element={<PasswordReset />} />
@@ -61,9 +54,7 @@ function App() {
         </Routes>
       </div>
       {curTab === "Auth" || curTab === "Password Reset" ? null : <Footer />}
-      {curTab === "Auth" || curTab === "Password Reset" ? null : (
-        <ScrollToTop />
-      )}
+      {curTab === "Auth" || curTab === "Password Reset" ? null : <ScrollToTop />}
     </>
   );
 }

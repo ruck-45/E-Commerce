@@ -10,6 +10,10 @@ import { useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { addToCart, decreaseItem, increaseItem, removeItem } from "../../Redux/Slices/CartSlice";
+import { getCookie } from "../../utils/cookies";
+import toast, { Toaster, ToastPosition } from "react-hot-toast";
+import { updateTab } from "../../Redux/Slices/curTabSlice";
+import { updateRedirect } from "../../Redux/Slices/loginRedirectSlice";
 
 const defaultProductsData = {
   item_id: "",
@@ -34,11 +38,25 @@ const defaultProductsData = {
   created_at: "",
 };
 
+const toastSetting: {
+  position: ToastPosition;
+} = { position: "top-center" };
+
+const successToast = (message: string): void => {
+  toast.success(message, toastSetting);
+};
+
+const errorToast = (message: string): void => {
+  toast.error(message, toastSetting);
+};
+
 export default function ProductDetails() {
   const dispatch = useDispatch();
+  dispatch(updateTab("Shop"));
 
-  const { id } = useParams();
+  const { name, id } = useParams();
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
+  const isLoggedIn = useSelector((state: RootState) => state.loginStatus.value);
 
   const [productsData, setProductsData] = useState(defaultProductsData);
   const [receivedProductData, setReceivedProductData] = useState(-1);
@@ -87,6 +105,17 @@ export default function ProductDetails() {
     } catch (error) {
       console.log(error);
       setReceivedProductData(0);
+    }
+  };
+
+  const handleAddToCart = () => {
+    if (isLoggedIn) {
+      dispatch(addToCart(productsData));
+      setInCart(true);
+      successToast("Added To Cart !!");
+    } else {
+      errorToast("Please Login To Add Items to Cart !!");
+      dispatch(updateRedirect(`/ProductDetails/${name}/${id}`));
     }
   };
 
@@ -226,10 +255,7 @@ export default function ProductDetails() {
                   </>
                 ) : (
                   <Button
-                    onClick={() => {
-                      dispatch(addToCart(productsData));
-                      setInCart(true);
-                    }}
+                    onClick={handleAddToCart}
                     variant="contained"
                     sx={{ padding: ".8rem 2rem", marginTop: "2rem" }}
                     disabled={productsData.quantity < productsData.minimumOrder}
@@ -312,6 +338,7 @@ export default function ProductDetails() {
           <p className="text-default-400 font-bold text-3xl">Item Not Found</p>
         </div>
       )}
+      <Toaster />
     </div>
   );
 }

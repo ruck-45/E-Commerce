@@ -63,6 +63,47 @@ type Product = {
   imageArray: string[]; 
 };
 
+type OutputProduct = {
+  brand: string;
+  title: string;
+  color: string;
+  discountedPrice: number;
+  price: number;
+  discountPercent: number;
+  highlights: string[];
+  details: string;
+  quantity: number;
+  material: string;
+  dimension: string;
+  description: string;
+  topLevelCategory: string;
+  secondLevelCategory: string;
+  thirdLevelCategory: string;
+  orders: number;
+  imageCount: number;
+  registerCounter: number;
+};
+
+let outputProduct: OutputProduct = {
+  brand:'',
+  title:'',
+  color:'',
+  discountedPrice:0,
+  price:0,
+  discountPercent:0,
+  highlights:[],
+  details:'',
+  quantity:0,
+  material:'',
+  dimension:'',
+  description:'',
+  topLevelCategory:'',
+  secondLevelCategory:'',
+  thirdLevelCategory:'',
+  orders:0,
+  imageCount:0,
+  registerCounter:0
+}
 
 export default function AddProduct() {
   const theme =useTheme();
@@ -124,21 +165,49 @@ export default function AddProduct() {
         toast.error("Price must be greater than discount price");
         return;
       }
-      if (images.length === 0) {
+      else if (images.length === 0) {
         toast.error("please insert atleast one image");
         return;
       }
-      if(product.orders <= product.quantity){
+      else if(product.orders <= product.quantity){
         toast.error("Total stock order quantity must be greater than order quantity");
         return;
       }
-      toast.success("Adding product ...");
-      setImages([]);
-      setProduct(initialProduct);
-      setHighlights('');
-      const outputProduct={};
+      else{
+        convertToOutputProduct(product);
+        //from here call the api outputProduct is the final object we have to save in our database
+
+
+        
+        setImages([]);
+        setProduct(initialProduct);
+        setHighlights('');
+      }
     }
   };
+
+  function convertToOutputProduct(product: Product) {
+    outputProduct= {
+      brand: product.brand.trim(),
+      title: product.title.trim(),
+      color: product.color.trim(),
+      discountedPrice: product.discountedPrice,
+      price: product.price,
+      discountPercent: product.discountPercent,
+      highlights: product.highlights.map((highlight) => highlight.trim()),
+      details: product.details.trim(),
+      quantity: product.quantity,
+      material: product.material.trim(),
+      dimension: `${product.dimensionWidth}x${product.dimensionHeight}`,
+      description: product.description.trim(),
+      topLevelCategory: product.topLevelCategory.trim(),
+      secondLevelCategory: product.secondLevelCategory.trim(),
+      thirdLevelCategory: product.thirdLevelCategory.trim(),
+      orders: product.orders,
+      imageCount: product.imageCount,
+      registerCounter: 0, 
+    };
+  }
 
   const validateProduct = () => {
     let status: boolean = false;
@@ -166,9 +235,7 @@ export default function AddProduct() {
 
     numberRequiredFields.forEach((field: keyof Product) => {
       const fieldValue = +product[field];
-      
       if (typeof fieldValue !== 'number' || fieldValue <= 0) {
-        console.log(typeof fieldValue);
         setIsError((prevError: typeof isError) => ({
           ...prevError,
           [field]: { isError: true },
@@ -221,10 +288,20 @@ export default function AddProduct() {
   function handleUserInput(e: any) {
     const { name, value } = e.target;
     setIsError({ ...isError, [name]: { ...name, isError: false } });
-    setProduct({
-      ...product,
-      [name]: value,
-    });
+    const numberRequiredFields: (keyof Product)[] = [
+      "price",
+      "discountedPrice",
+      "dimensionHeight",
+      "dimensionWidth",
+      "quantity",
+      "orders",
+    ];
+
+    if (numberRequiredFields.includes(name)) {
+      setProduct({...product, [name]: +value });
+    } else {
+      setProduct({...product, [name]: value });
+    }    
   }
 
   function chipDelete(index: number): void {
@@ -351,7 +428,7 @@ export default function AddProduct() {
                   <StyledTextField
                     fullWidth
                     id="outlined-basic"
-                    label="Discounted Price"
+                    label="Discount Price"
                     name="discountedPrice"
                     variant="outlined"
                     type="number"

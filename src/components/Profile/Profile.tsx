@@ -98,7 +98,6 @@ const Profile = () => {
     const userProfilePicData = new FormData();
     userProfilePicData.append("image", userProfilePic);
     setIsuploadButtonDisabled(true);
-
     try {
       const response = await axios.put(`${apiUrl}/users/profile/images`, userProfilePicData, {
         headers: {

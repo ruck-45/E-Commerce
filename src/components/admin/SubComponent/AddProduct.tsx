@@ -107,6 +107,9 @@ let outputProduct: OutputProduct = {
 export default function AddProduct() {
   const theme = useTheme();
   let apiUrl = process.env.REACT_APP_API_URL;
+  if (process.env.NODE_ENV === "development") {
+    apiUrl = process.env.REACT_APP_DEV_API_URL;
+  }
   const [showImageError, setShowImageError] = React.useState(false);
 
   if (process.env.NODE_ENV === "development") {
@@ -166,34 +169,39 @@ export default function AddProduct() {
         toast.error("Total stock order quantity must be greater than order quantity");
         return;
       } else {
+        console.log("starteed product");
         convertToOutputProduct(product);
-        const createItemDetailsResponse = await axios.post(`${apiUrl}/items/createItem`, outputProduct, 
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        if (!createItemDetailsResponse.data.success){
-          toast.error(`failed to create product.`)
-        }
-
-        const uploadImagesResponse = await axios.post(`${apiUrl}/items/itemImages`, images, {
+        const itemImagesData = new FormData();
+        itemImagesData.append("images", images);
+        const createItemDetailsResponse = await axios.post(`${apiUrl}/items/createItem`, outputProduct, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
 
+        console.log(createItemDetailsResponse);
+        if (!createItemDetailsResponse.data.success) {
+          toast.error(`failed to create product.`);
+        }
+        console.log(itemImagesData);
+        const uploadImagesResponse = await axios.post(`${apiUrl}/items/itemImages`, {itemImagesData}, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            itemId: createItemDetailsResponse.data.payload.itemId,
+          },
+        });
+
+        console.log("upload images response", uploadImagesResponse);
+
         if (!uploadImagesResponse.data.success) {
           toast.error(`failed to upload product images.`);
         }
 
-        toast.success(`Product added successfully`)
+        toast.success(`Product added successfully`);
 
-        setImages([]);
-        setProduct(initialProduct);
-        setHighlights("");
+        // setImages([]);
+        // setProduct(initialProduct);
+        // setHighlights("");
       }
     }
   };

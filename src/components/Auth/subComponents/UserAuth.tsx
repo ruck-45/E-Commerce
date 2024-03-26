@@ -194,6 +194,7 @@ const UserAuth = () => {
           successToast("Registration successful");
           dispatch(updateToLoginStatus(true));
           navigate("/Auth");
+          
         } else {
           console.log(response);
           errorToast("Sign Up Failed");

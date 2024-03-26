@@ -35,51 +35,41 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action) => {
       state.cart.push({ ...action.payload, count: action.payload.minimumOrder });
+      state.totalQuantity += action.payload.minimumOrder;
+      state.totalPrice += action.payload.price * action.payload.minimumOrder;
+      state.totalDiscountPrice += action.payload.discountedPrice * action.payload.minimumOrder;
     },
     removeItem: (state, action) => {
+      const cartItem = state.cart.filter((item) => item.item_id === action.payload)[0];
+      state.totalQuantity -= cartItem.count;
+      state.totalPrice -= cartItem.price * cartItem.count;
+      state.totalDiscountPrice -= cartItem.discountedPrice * cartItem.count;
+
       state.cart = state.cart.filter((item) => item.item_id !== action.payload);
     },
     increaseItem: (state, action) => {
       state.cart = state.cart.map((item) => {
         if (item.item_id === action.payload) {
+          state.totalQuantity += 1;
+          state.totalPrice += item.price;
+          state.totalDiscountPrice += item.discountedPrice;
           return { ...item, count: item.count + 1 };
         }
-
         return item;
       });
     },
     decreaseItem: (state, action) => {
       state.cart = state.cart.map((item) => {
         if (item.item_id === action.payload) {
+          state.totalQuantity -= 1;
+          state.totalPrice -= item.price;
+          state.totalDiscountPrice -= item.discountedPrice;
           return { ...item, count: item.count - 1 };
         }
-
         return item;
       });
     },
 
-    getCartTotal: (state) => {
-      let { totalPrice, totalQuantity, totalDiscountPrice } = state.cart.reduce(
-        (cartTotal, cartItem) => {
-          const { price, minimumOrder, discountedPrice } = cartItem;
-          const itemTotal1 = discountedPrice * minimumOrder;
-          const itemTotal = price * minimumOrder;
-          cartTotal.totalPrice += itemTotal;
-          cartTotal.totalQuantity += minimumOrder;
-          cartTotal.totalDiscountPrice += itemTotal1;
-          return cartTotal;
-        },
-        {
-          totalPrice: 0,
-          totalQuantity: 0,
-          totalDiscountPrice: 0,
-        }
-      );
-      state.totalPrice = parseInt(totalDiscountPrice.toFixed(2));
-      state.totalDiscountPrice = parseInt(totalPrice.toFixed(2));
-      state.totalQuantity = totalQuantity;
-    },
-    
     deleteShippingInfo: (state) => {
       state.shippingInfo = initialShippingInfo;
     },
@@ -91,14 +81,7 @@ const cartSlice = createSlice({
   },
 });
 
-export const {
-  addToCart,
-  getCartTotal,
-  removeItem,
-  increaseItem,
-  decreaseItem,
-  saveShippingInfo,
-  deleteShippingInfo,
-} = cartSlice.actions;
+export const { addToCart, removeItem, increaseItem, decreaseItem, saveShippingInfo, deleteShippingInfo } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;

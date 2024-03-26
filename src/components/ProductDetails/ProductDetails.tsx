@@ -4,7 +4,7 @@ import { RootState } from "../../Redux/store";
 import axios from "axios";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import { Image, Skeleton } from "@nextui-org/react";
+import { Chip, Image, Skeleton } from "@nextui-org/react";
 import { createArray } from "../../utils/controllers";
 import { useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,6 +31,7 @@ const defaultProductsData = {
   minimumOrder: 0,
   details: "",
   orders: 0,
+  created_at: "",
 };
 
 export default function ProductDetails() {
@@ -48,6 +49,22 @@ export default function ProductDetails() {
   const count = cartData.filter((item) => item.item_id === productsData.item_id)[0]
     ? cartData.filter((item) => item.item_id === productsData.item_id)[0].count
     : 0;
+
+  const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+  const createdDate = new Date(productsData.created_at);
+  let content = "";
+  let color: "primary" | "danger" | "warning" | "default" | "secondary" | "success" | undefined = "primary";
+
+  if (productsData.quantity < productsData.minimumOrder) {
+    content = "Out Of Stock";
+    color = "danger";
+  } else if (productsData.discountPercent >= 50) {
+    content = "Sale";
+    color = "warning";
+  } else if (createdDate >= sevenDaysAgo) {
+    content = "New Arrival";
+    color = "primary";
+  }
 
   const getProductData = async () => {
     try {
@@ -117,8 +134,8 @@ export default function ProductDetails() {
               <div className=" overflow-hidden rounded-lg max-w-[30rem] max-h-[35rem]">
                 <Image
                   src={`${apiUrl}/items/itemImages/${productsData.item_id}_img${activeImage}.jpg`}
-                  className="h-full w-full object-cover object-center"
                   loading="lazy"
+                  className={content === "Out Of Stock" ? "grayscale" : ""}
                 />
               </div>
               <div className="flex flex-wrap space-x-5 justify-center">
@@ -130,8 +147,8 @@ export default function ProductDetails() {
                     <Image
                       src={`${apiUrl}/items/itemImages/${productsData.item_id}_img${image}.jpg`}
                       alt={`Product ${index}`}
-                      className="h-full w-full object-cover object-center rounded-lg"
                       loading="lazy"
+                      className={content === "Out Of Stock" ? "grayscale" : ""}
                     />
                   </div>
                 ))}
@@ -147,22 +164,30 @@ export default function ProductDetails() {
                 <h1 className="text-lg lg:text-xl tracking-tight text-gray-900 opacity-60 pt-1">
                   {productsData.title}
                 </h1>
+                <h3 className="text-md tracking-tight text-gray-500 opacity-60 pt-1">{productsData.color}</h3>
               </div>
 
               {/* Options */}
               <div className="mt-4 lg:row-span-3 lg:mt-0">
-                <h2 className="sr-only">Product information</h2>
                 <div className="flex space-x-5 items-center text-lg lg:text-xl tracking-tight text-gray-900 mt-6">
                   {productsData.discountedPrice === productsData.price || productsData.discountPercent === 0 ? (
-                    <p className="font-semibold">Rs. {productsData.price}</p>
+                    <p className="font-semibold">${productsData.price}</p>
                   ) : (
                     <>
-                      <p className="font-semibold">Rs. {productsData.discountedPrice}</p>
-                      <p className="opacity-50 line-through">Rs. {productsData.price}</p>
+                      <p className="font-semibold">${productsData.discountedPrice}</p>
+                      <p className="opacity-50 line-through">$ {productsData.price}</p>
                       <p className="text-green-600 font-semibold">{productsData.discountPercent}% Off</p>
                     </>
                   )}
                 </div>
+
+                {content === "" ? null : (
+                  <div className="mt-[1rem]">
+                    <Chip color={color} variant="shadow">
+                      {content}
+                    </Chip>
+                  </div>
+                )}
 
                 {inCart ? (
                   <>
@@ -218,15 +243,13 @@ export default function ProductDetails() {
                 {/* Description and details */}
                 <div>
                   <h3 className="sr-only">Description</h3>
-
                   <div className="space-y-6">
                     <p className="text-base text-gray-900">{productsData.description}</p>
                   </div>
                 </div>
 
-                <div className="mt-10">
+                <div className="mt-7">
                   <h3 className="text-lg lg:text-xl font-medium text-gray-900">Highlights</h3>
-
                   <div className="mt-4">
                     <ul className="list-disc space-y-2 pl-4 text-sm">
                       {productsData.highlights.map((highlight) => (
@@ -238,11 +261,24 @@ export default function ProductDetails() {
                   </div>
                 </div>
 
-                <div className="mt-10">
+                <div className="mt-7">
                   <h2 className="text-lg lg:text-xl font-medium text-gray-900">Details</h2>
-
                   <div className="mt-4 space-y-6">
                     <p className="text-sm text-gray-600">{productsData.details}</p>
+                  </div>
+                </div>
+
+                <div className="mt-7">
+                  <h2 className="text-lg lg:text-xl font-medium text-gray-900">Material</h2>
+                  <div className="mt-1 space-y-6">
+                    <p className="text-sm text-gray-600">{productsData.material}</p>
+                  </div>
+                </div>
+
+                <div className="mt-7">
+                  <h2 className="text-lg lg:text-xl font-medium text-gray-900">Dimension</h2>
+                  <div className="mt-1 space-y-6">
+                    <p className="text-sm text-gray-600">{productsData.dimension}</p>
                   </div>
                 </div>
               </div>

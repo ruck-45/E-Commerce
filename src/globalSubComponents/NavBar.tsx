@@ -30,8 +30,6 @@ import { updateNavStatus } from "../Redux/Slices/navOpenStatusSlice";
 import { RootState } from "../Redux/store";
 import TopBar from "./TopBar";
 import { RiArrowDropDownLine } from "react-icons/ri";
-import { useEffect } from "react";
-import { getCartTotal } from "../Redux/Slices/CartSlice";
 
 const menuItems = ["Home", "Shop", "About", "Contact", "Cart"];
 
@@ -41,12 +39,7 @@ const NavBar = () => {
   const navOpenStatus = useSelector((state: RootState) => state.navOpenStatus.value);
   const dispatch = useDispatch();
 
-  const { cart, totalQuantity } = useSelector((state: RootState) => state?.allCart);
-  const { allCart} = useSelector((state: RootState) => state);
-
-  useEffect(() => {
-    dispatch(getCartTotal());
-  }, [cart]);
+  const { totalQuantity } = useSelector((state: RootState) => state?.allCart);
 
   return (
     <>
@@ -145,20 +138,14 @@ const NavBar = () => {
 
         <NavbarContent justify="end">
           <NavbarItem className="hidden lg:flex">
-            {totalQuantity ? (
-              <Badge content={totalQuantity} shape="circle" color="danger">
-                <ButtonElement to="/Checkout?step=1" state={cart} startContent={<LuShoppingCart />} label="Cart" variant="light" />
-              </Badge>
-            ) : (
+            <Badge content={totalQuantity} shape="circle" color="danger" isInvisible={totalQuantity === 0}>
               <ButtonElement to="/Checkout?step=1" startContent={<LuShoppingCart />} label="Cart" variant="light" />
-            )}
+            </Badge>
           </NavbarItem>
-          {isLoggedIn ? (
-            <NavbarItem>
+          <NavbarItem>
+            {isLoggedIn ? (
               <UserAvatar />
-            </NavbarItem>
-          ) : (
-            <NavbarItem className="flex">
+            ) : (
               <ButtonElement
                 to="../Auth"
                 variant="shadow"
@@ -168,8 +155,8 @@ const NavBar = () => {
                 size="md"
                 onClickFunction={() => dispatch(updateToLoginStatus(true))}
               />
-            </NavbarItem>
-          )}
+            )}
+          </NavbarItem>
         </NavbarContent>
 
         <NavbarMenu className="mt-[3rem] bg-white z-[200]">

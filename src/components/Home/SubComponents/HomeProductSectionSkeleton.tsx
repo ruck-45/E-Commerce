@@ -49,7 +49,7 @@ const HomeProductSectionSkeleton = (props: HomeProductSectionSkeletonProps) => {
     },
   };
   const items = props.data.map((item) => {
-    return <div className="">{<Skeleton className="rounded-lg w-[15rem] h-[17rem]" />}</div>;
+    return <div className="">{<Skeleton className="w-[15rem] h-[20rem]" />}</div>;
   });
 
   return (

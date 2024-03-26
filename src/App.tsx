@@ -1,6 +1,6 @@
 // Dependencies
 import { Routes, Route, Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // Local Files
 import NavBar from "./globalSubComponents/NavBar";
@@ -23,10 +23,46 @@ import ScrollToTop from "./globalSubComponents/ScrollToTop";
 import EditProducts from "./components/admin/SubComponent/EditProducts";
 import AddProduct from "./components/admin/SubComponent/AddProduct";
 import ProductDetails from "./components/ProductDetails/ProductDetails";
+import { getCookie } from "./utils/cookies";
+import axios from "axios";
+import { useLayoutEffect } from "react";
+import { addToCart, updateDataFetched } from "./Redux/Slices/CartSlice";
 
 function App() {
+  const dispatch = useDispatch();
   const curTab = useSelector((state: RootState) => state.curTab.value);
   const isLoggedIn = useSelector((state: RootState) => state.loginStatus.value);
+  const cartDataFetched = useSelector((state: RootState) => state.allCart.dataFetched);
+  const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
+  const token = getCookie("token");
+
+  const fetchCartData = async () => {
+    console.log("Fetching Cart Data ....");
+    try {
+      const response = await axios.get(`${apiUrl}/users/cart`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.data.success) {
+        const data = response.data.payload.cart;
+        for (let i = 0; i < data.length; i++) {
+          dispatch(addToCart(data[i]));
+        }
+        dispatch(updateDataFetched(true));
+      } else {
+        console.error("Error fetching cart data:", response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching cart data:", error);
+    }
+  };
+
+  useLayoutEffect(() => {
+    if (isLoggedIn && !cartDataFetched) {
+      fetchCartData();
+    }
+  });
 
   return (
     <>

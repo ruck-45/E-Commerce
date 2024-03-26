@@ -71,7 +71,6 @@ const Profile = () => {
       });
       if (!response.data.success) {
         console.log(response.data);
-
         errorToast("Couldn't update profile");
       }
       successToast("Profile Update Successful !!");

@@ -54,6 +54,8 @@ export default function ProductDetails() {
   const dispatch = useDispatch();
   dispatch(updateTab("Shop"));
 
+  const token = getCookie("token");
+
   const { name, id } = useParams();
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
   const isLoggedIn = useSelector((state: RootState) => state.loginStatus.value);
@@ -108,8 +110,33 @@ export default function ProductDetails() {
     }
   };
 
+  const addToCartDatabase = async () => {
+    try {
+      const response = await axios.put(
+        `${apiUrl}/users/cart/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.data.success) {
+        console.log("Cart add Successful ...");
+      } else {
+        console.log("Cart add Failed ...");
+        console.log(response.data);
+      }
+    } catch (error) {
+      console.log("Cart add Failed ...");
+      console.error(error);
+    }
+  };
+
   const handleAddToCart = () => {
     if (isLoggedIn) {
+      addToCartDatabase();
       dispatch(addToCart(productsData));
       setInCart(true);
       successToast("Added To Cart !!");
@@ -117,6 +144,32 @@ export default function ProductDetails() {
       errorToast("Please Login To Add Items to Cart !!");
       dispatch(updateRedirect(`/ProductDetails/${name}/${id}`));
     }
+  };
+
+  const removeFromCartDatabase = async () => {
+    try {
+      const response = await axios.delete(`${apiUrl}/users/cart/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.data.success) {
+        console.log("Cart remove Successful ...");
+      } else {
+        console.log("Cart remove Failed ...");
+        console.log(response.data);
+      }
+    } catch (error) {
+      console.log("Cart remove Failed ...");
+      console.error(error);
+    }
+  };
+
+  const handleRemoveFromCart = () => {
+    removeFromCartDatabase();
+    dispatch(removeItem(productsData.item_id));
+    setInCart(false);
   };
 
   // API call
@@ -242,10 +295,7 @@ export default function ProductDetails() {
                       </div>
                     </div>
                     <Button
-                      onClick={() => {
-                        dispatch(removeItem(productsData.item_id));
-                        setInCart(false);
-                      }}
+                      onClick={handleRemoveFromCart}
                       variant="contained"
                       color="error"
                       sx={{ padding: ".8rem 2rem", marginTop: "1rem" }}

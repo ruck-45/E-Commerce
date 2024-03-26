@@ -7,14 +7,42 @@ import { decreaseItem, increaseItem, removeItem } from "../../Redux/Slices/CartS
 import { productsType } from "../../utils/types";
 import { Image } from "@nextui-org/react";
 import { RootState } from "../../Redux/store";
+import axios from "axios";
+import { getCookie } from "../../utils/cookies";
 
 const CartItem = (props: productsType) => {
   const dispatch = useDispatch();
+  const token = getCookie("token");
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
   const cartData = useSelector((state: RootState) => state.allCart.cart);
   const count = cartData.filter((item) => item.item_id === props.item_id)[0]
     ? cartData.filter((item) => item.item_id === props.item_id)[0].count
     : 0;
+
+  const removeFromCartDatabase = async () => {
+    try {
+      const response = await axios.delete(`${apiUrl}/users/cart/${props.item_id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.data.success) {
+        console.log("Cart remove Successful ...");
+      } else {
+        console.log("Cart remove Failed ...");
+        console.log(response.data);
+      }
+    } catch (error) {
+      console.log("Cart remove Failed ...");
+      console.error(error);
+    }
+  };
+
+  const handleRemoveFromCart = () => {
+    removeFromCartDatabase();
+    dispatch(removeItem(props.item_id));
+  };
 
   return (
     <div className="p-5 shadow-lg border rounded-md">
@@ -67,7 +95,7 @@ const CartItem = (props: productsType) => {
           </IconButton>
         </div>
         <div className="flex text-sm lg:text-base mt-5 lg:mt-0">
-          <Button onClick={() => dispatch(removeItem(props.item_id))} variant="text">
+          <Button onClick={handleRemoveFromCart} variant="text">
             Remove
           </Button>
         </div>

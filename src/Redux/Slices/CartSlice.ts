@@ -8,6 +8,7 @@ type CartState = {
   totalPrice: number;
   shippingInfo: shippingType;
   totalDiscountPrice: number;
+  dataFetched: boolean;
 };
 
 const initialShippingInfo = {
@@ -27,6 +28,7 @@ const initialState: CartState = {
   totalPrice: 0,
   shippingInfo: initialShippingInfo,
   totalDiscountPrice: 0,
+  dataFetched: false,
 };
 
 const cartSlice = createSlice({
@@ -34,10 +36,13 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      state.cart.push({ ...action.payload, count: action.payload.minimumOrder });
-      state.totalQuantity += action.payload.minimumOrder;
-      state.totalPrice += action.payload.price * action.payload.minimumOrder;
-      state.totalDiscountPrice += action.payload.discountedPrice * action.payload.minimumOrder;
+      const existingItemIndex = state.cart.findIndex((item) => item.item_id === action.payload.item_id);
+      if (existingItemIndex === -1) {
+        state.cart.push({ ...action.payload, count: action.payload.minimumOrder });
+        state.totalQuantity += action.payload.minimumOrder;
+        state.totalPrice += action.payload.price * action.payload.minimumOrder;
+        state.totalDiscountPrice += action.payload.discountedPrice * action.payload.minimumOrder;
+      }
     },
     removeItem: (state, action) => {
       const cartItem = state.cart.filter((item) => item.item_id === action.payload)[0];
@@ -69,6 +74,9 @@ const cartSlice = createSlice({
         return item;
       });
     },
+    updateDataFetched: (state, action) => {
+      state.dataFetched = action.payload;
+    },
 
     deleteShippingInfo: (state) => {
       state.shippingInfo = initialShippingInfo;
@@ -81,7 +89,14 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, removeItem, increaseItem, decreaseItem, saveShippingInfo, deleteShippingInfo } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  removeItem,
+  increaseItem,
+  decreaseItem,
+  saveShippingInfo,
+  deleteShippingInfo,
+  updateDataFetched,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

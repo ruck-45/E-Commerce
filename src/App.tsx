@@ -19,6 +19,12 @@ import Refund from "./components/Policy/Refund";
 import Cart from "./components/Cart/Cart";
 import PasswordReset from "./components/ForgetPassword/PasswordReset";
 import Admin from "./components/admin/Admin";
+import Layout from "./Dashboard/Layout";
+import Dashboard from "./Dashboard/Dashboard";
+import Products from "./Dashboard/Products";
+
+import Customers from "./Dashboard/Customers";
+import Orders from "./Dashboard/Orders";
 import ScrollToTop from "./globalSubComponents/ScrollToTop";
 import EditProducts from "./components/admin/SubComponent/EditProducts";
 import AddProduct from "./components/admin/SubComponent/AddProduct";
@@ -71,6 +77,13 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/Home" />} />
           <Route path="/Home" element={<Home />} />
+          <Route path="/Layout" element={<Layout />}>
+            <Route index element={<Dashboard />} />
+            {/* Define nested routes without the `/Layout` prefix */}
+            <Route path="products" element={<Products />} />
+            <Route path="orders" element={<Orders />} />
+            <Route path="customers" element={<Customers />} />
+          </Route>
           <Route path="/Shop" element={<ShopPage />} />
           <Route path="/ProductDetails/:name/:id" element={<ProductDetails />} />
           <Route path="/Refund" element={<Refund />} />
@@ -89,8 +102,8 @@ function App() {
           <Route path="*" element={<Navigate to="/Home" />} />
         </Routes>
       </div>
-      {curTab === "Auth" || curTab === "Password Reset" ? null : <Footer />}
-      {curTab === "Auth" || curTab === "Password Reset" ? null : <ScrollToTop />}
+      {curTab === "Auth" || curTab === "Password Reset" || curTab === "Layout" ? null : <Footer />}
+      {curTab === "Auth" || curTab === "Password Reset" || curTab === "Layout" ? null : <ScrollToTop />}
     </>
   );
 }

@@ -1,5 +1,4 @@
 import React from "react";
-import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { getOrderStatus } from "./lib/constants/Helper"; // Assuming getOrderStatus returns a string
 import Pagination from "./Pagination";
@@ -100,7 +99,7 @@ const Orders: React.FC = () => {
           {OrderData.map((order) => (
             <div key={order.sr_no} className="bg-gray-100 rounded-lg p-4 border border-gray-200">
               <div className="font-bold text-lg mb-2">{order.customer_name}</div>
-              <div className="text-sm mb-2">{format(new Date(order.order_date), "dd MMM yyyy")}</div>
+              {/* <div className="text-sm mb-2">{format(new Date(order.order_date), "dd MMM yyyy")}</div> */}
               <div className="mb-2">Order Total: {order.order_total}</div>
               <div className="mb-2">Shipping Address: {order.shipment_address}</div>
               <div className="mb-2">

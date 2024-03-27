@@ -1,5 +1,5 @@
 import React from "react";
-import { format } from "date-fns";
+// import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { getOrderStatus } from "./lib/constants/Helper";
 
@@ -27,7 +27,7 @@ const OrdersCard: React.FC<OrdersCardProps> = ({ order }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
           <div className="bg-white p-4 rounded-lg shadow-md">
             <div className="text-lg font-semibold mb-2">Order Date:</div>
-            <div>{format(new Date(order.order_date), "dd MMM yyyy")}</div>
+            {/* <div>{format(new Date(order.order_date), "dd MMM yyyy")}</div> */}
           </div>
           <div className="bg-white p-4 rounded-lg shadow-md">
             <div className="text-lg font-semibold mb-2">Order Total:</div>

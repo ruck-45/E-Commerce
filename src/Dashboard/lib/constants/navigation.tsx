@@ -1,3 +1,4 @@
+import React from "react";
 import {
   HiOutlineViewGrid,
   HiOutlineCube,
@@ -7,7 +8,14 @@ import {
   HiOutlineCog,
 } from "react-icons/hi";
 
-export const DASHBOARD_SIDEBAR_LINKS = [
+interface SidebarLink {
+  key: string;
+  label: string;
+  path: string;
+  icon: JSX.Element;
+}
+
+export const DASHBOARD_SIDEBAR_LINKS: SidebarLink[] = [
   {
     key: "dashboard",
     label: "Dashboard",
@@ -34,17 +42,3 @@ export const DASHBOARD_SIDEBAR_LINKS = [
   },
 ];
 
-export const DASHBOARD_SIDEBAR_BOTTOM_LINKS = [
-  {
-    key: "settings",
-    label: "Settings",
-    path: "/settings",
-    icon: <HiOutlineCog />,
-  },
-  {
-    key: "support",
-    label: "Help & Support",
-    path: "/support",
-    icon: <HiOutlineQuestionMarkCircle />,
-  },
-];

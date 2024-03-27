@@ -1,7 +1,21 @@
 import Pagination from "./Pagination";
 import React from "react";
-const CustomerList = () => {
-  const customerData = [
+import CustomerCard from "./CustomersCard";
+interface Customer {
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+  city: string;
+  state: string;
+  country: string;
+  totalOrders: number;
+  totalAmountSpent: string;
+  lastOrderDate: string;
+}
+
+const CustomerList: React.FC = () => {
+  const customerData: Customer[] = [
     {
       id: 1,
       name: "Ramesh Kumar",
@@ -125,48 +139,13 @@ const CustomerList = () => {
   ];
   return (
     <div className="sticky top-0 bg-white">
-      <h1 className="font-bold pb-10 p-5 text-2xl">Customers List</h1>
-      <div className="bg-white px-4 pt-3 pb-4 h-full rounded-sm border border-gray-200 flex-1">
-        <strong className="text-gray-700 pl-3 text-lg font-medium">Customers</strong>
-        <div className="border-x border-gray-200 rounded-sm mt-3 overflow-x-auto">
-          <table className="w-full text-gray-700">
-            <thead>
-              <tr className="bg-gray-100">
-                <th className="px-4 py-2">ID</th>
-                <th className="px-4 py-2">Name</th>
-                <th className="px-4 py-2">Email</th>
-                <th className="px-4 py-2">Phone</th>
-                <th className="px-4 py-2" style={{ minWidth: "100px" }}>
-                  City
-                </th>{" "}
-                {/* Adjusted width */}
-                <th className="px-4 py-2">State</th>
-                <th className="px-4 py-2">Country</th>
-                <th className="px-4 py-2">Total Orders</th>
-                <th className="px-4 py-2">Total Amount Spent</th>
-                <th className="px-4 py-2">Last Order Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {customerData.map((customer) => (
-                <tr key={customer.id} className="border-b border-gray-200">
-                  <td className="px-4 py-2">{customer.id}</td>
-                  <td className="px-4 py-2">{customer.name}</td>
-                  <td className="px-4 py-2">{customer.email}</td>
-                  <td className="px-4 py-2" style={{ minWidth: "120px" }}>
-                    {customer.phone}
-                  </td>{" "}
-                  {/* Adjusted width */}
-                  <td className="px-4 py-2">{customer.city}</td>
-                  <td className="px-4 py-2">{customer.state}</td>
-                  <td className="px-4 py-2">{customer.country}</td>
-                  <td className="px-4 py-2">{customer.totalOrders}</td>
-                  <td className="px-4 py-2">{customer.totalAmountSpent}</td>
-                  <td className="px-4 py-2">{customer.lastOrderDate}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      <h1 className="font-bold pb-10 p-5 text-2xl text-left xl:text-center">Customers List</h1>
+      <div className="bg-white px-4 pt-3 pb-4 h-full rounded-sm border border-gray-200 flex-1 overflow-auto">
+        <div className="font-bold pb-10 p-5 text-2xl text-left xl:text-center ">Customers</div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-3">
+          {customerData.map((customer) => (
+            <CustomerCard key={customer.id} customer={customer} />
+          ))}
         </div>
       </div>
       <Pagination />

@@ -24,11 +24,8 @@ import Admin from "./components/admin/Admin";
 import Layout from "./Dashboard/Layout";
 import Dashboard from "./Dashboard/Dashboard";
 import Products from "./Dashboard/Products";
-import Transactions from "./Dashboard/Transactions";
-import Messages from "./Dashboard/Messages";
-import Settings from "./Dashboard/Settings";
-import Support from "./Dashboard/Support";
-import Customers from "./Dashboard/Customers"
+
+import Customers from "./Dashboard/Customers";
 import Orders from "./Dashboard/Orders";
 function App() {
   const curTab = useSelector((state: RootState) => state.curTab.value);
@@ -46,10 +43,6 @@ function App() {
             <Route path="products" element={<Products />} />
             <Route path="orders" element={<Orders />} />
             <Route path="customers" element={<Customers />} />
-            <Route path="transactions" element={<Transactions />} />
-            <Route path="messages" element={<Messages />} />
-            <Route path="settings" element={<Settings />} />
-            <Route path="support" element={<Support />} />
           </Route>
           <Route path="/Shop" element={<ShopPage />} />
           <Route path="/ProductDetails/:name/:id" element={<ProductDetails />} />

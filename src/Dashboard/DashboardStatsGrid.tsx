@@ -1,10 +1,17 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { IoBagHandle, IoPieChart, IoPeople, IoCart } from "react-icons/io5";
-import { ReactNode } from "react";
 
-export default function DashboardStatsGrid() {
+interface BoxWrapperProps {
+  children: ReactNode;
+}
+
+const BoxWrapper: React.FC<BoxWrapperProps> = ({ children }) => {
+  return <div className="flex items-center p-4 bg-white rounded-lg shadow-md">{children}</div>;
+};
+
+const Dashboard: React.FC = () => {
   return (
-    <div className="flex gap-4">
+    <div className="flex flex-wrap justify-center gap-3 md:gap-20 md:flex-nowrap lg:flex-nowrap xl:flex-nowrap">
       <BoxWrapper>
         <div className="rounded-full h-12 w-12 flex items-center justify-center bg-sky-500">
           <IoBagHandle className="text-2xl text-white" />
@@ -55,12 +62,6 @@ export default function DashboardStatsGrid() {
       </BoxWrapper>
     </div>
   );
-}
+};
 
-interface BoxWrapperProps {
-  children: ReactNode;
-}
-
-function BoxWrapper({ children }: BoxWrapperProps) {
-  return <div className="bg-white rounded-sm p-4 flex-1 border border-gray-200 flex items-center">{children}</div>;
-}
+export default Dashboard;

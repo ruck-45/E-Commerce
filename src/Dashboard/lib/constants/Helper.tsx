@@ -1,4 +1,6 @@
-export function getOrderStatus(status) {
+import React from "react";
+
+export function getOrderStatus(status: string): JSX.Element {
   switch (status) {
     case "PLACED":
       return (

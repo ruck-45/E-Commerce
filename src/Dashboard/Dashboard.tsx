@@ -6,7 +6,8 @@ import RecentOrders from "./RecentOrders";
 // import PopularProducts from "./PopularProducts";
 // import BuyerProfilePieChart from "./BuyerProfilePieChart";
 import Pagination from "./Pagination";
-const Dashboard = () => {
+
+const Dashboard: React.FC = () => {
   return (
     <div className="flex flex-col gap-4">
       <DashboardStatsGrid />

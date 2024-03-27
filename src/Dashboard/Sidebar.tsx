@@ -14,7 +14,7 @@ const Sidebar: React.FC = () => {
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
-      
+
       if (window.innerWidth >= 768 && isOpen) {
         setIsOpen(false);
       }
@@ -24,15 +24,14 @@ const Sidebar: React.FC = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [isOpen]); 
+  }, [isOpen]);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
 
   return (
-    <div className="bg-neutral-900 text-white flex flex-col h-full">
-      
+    <div className="bg-neutral-900 text-white  flex flex-col h-full">
       <div className="block md:hidden" onClick={toggleSidebar}>
         <img
           src="https://tse3.mm.bing.net/th?id=OIP.zxAZWXiT6IJsqtReLhELWwHaHa&pid=Api&P=0&h=180"
@@ -55,7 +54,6 @@ const Sidebar: React.FC = () => {
           </span>
         </div>
         <div className="py-8 flex flex-col gap-0.5">
-        
           {DASHBOARD_SIDEBAR_LINKS.map((link) => (
             <Link
               key={link.key}

@@ -19,14 +19,12 @@ export default function Checkout() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const stepParam = queryParams.get("step");
-  const step = stepParam ? parseInt(stepParam) : 1;
+  const step = location.state ? location.state.step : 1;
 
   return (
     <div className="py-[3rem]">
       <Box className="px-5 lg:px-32 " sx={{ width: "100%" }}>
-        <Stepper activeStep={step - 1}>
+        <Stepper activeStep={step - 1} className="flex flex-wrap gap-y-3">
           {steps.map((label, index) => (
             <Step key={label} completed={index < step - 1}>
               <StepButton color="inherit">{label}</StepButton>
@@ -37,9 +35,8 @@ export default function Checkout() {
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Button
               color="error"
-              variant="contained"
               disabled={step <= 1}
-              onClick={() => navigate(`/Checkout?step=${step - 1}`)}
+              onClick={() => navigate("/Checkout", { state: { step: step - 1 } })}
               sx={{ mr: 1 }}
             >
               Back
@@ -51,7 +48,7 @@ export default function Checkout() {
             {step === 1 ? (
               <Cart />
             ) : step === 2 ? (
-              <AddDeliveryAddressForm handleNext={() => console.log("")} />
+              <AddDeliveryAddressForm />
             ) : step === 3 ? (
               <OrderSummary />
             ) : null}

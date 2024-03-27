@@ -33,12 +33,14 @@ import { getCookie } from "./utils/cookies";
 import axios from "axios";
 import { useLayoutEffect } from "react";
 import { addToCart, updateDataFetched } from "./Redux/Slices/CartSlice";
+import { editShippingAddress, updateInfoFetched } from "./Redux/Slices/shippingInfoSlice";
 
 function App() {
   const dispatch = useDispatch();
   const curTab = useSelector((state: RootState) => state.curTab.value);
   const isLoggedIn = useSelector((state: RootState) => state.loginStatus.value);
   const cartDataFetched = useSelector((state: RootState) => state.allCart.dataFetched);
+  const shippingInfoFetched = useSelector((state: RootState) => state.shippingInfo.dataFetched);
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
   const token = getCookie("token");
 
@@ -64,22 +66,49 @@ function App() {
     }
   };
 
+  const fetchShippingInfo = async () => {
+    console.log("Fetching Shipping Info ....");
+    try {
+      const response = await axios.get(`${apiUrl}/users/profile`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.data.success) {
+        dispatch(editShippingAddress(response.data.payload));
+        dispatch(updateInfoFetched(true));
+      } else {
+        console.error("Error fetching cart data:", response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching cart data:", error);
+    }
+  };
+
   useLayoutEffect(() => {
-    if (isLoggedIn && !cartDataFetched) {
-      fetchCartData();
+    if (isLoggedIn) {
+      if (!cartDataFetched) {
+        fetchCartData();
+      }
+
+      if (!shippingInfoFetched) {
+        fetchShippingInfo();
+      }
     }
   });
 
   return (
     <>
       <div>
-        {curTab === "Auth" || curTab === "Password Reset" || curTab === "admin" ? null : <NavBar />}
+        {curTab === "Auth" || curTab === "Password Reset" || curTab === "admin" || curTab === "Layout" ? null : (
+          <NavBar />
+        )}
         <Routes>
           <Route path="/" element={<Navigate to="/Home" />} />
           <Route path="/Home" element={<Home />} />
           <Route path="/Layout" element={<Layout />}>
             <Route index element={<Dashboard />} />
-            {/* Define nested routes without the `/Layout` prefix */}
             <Route path="products" element={<Products />} />
             <Route path="orders" element={<Orders />} />
             <Route path="customers" element={<Customers />} />

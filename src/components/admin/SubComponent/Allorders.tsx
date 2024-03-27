@@ -1,4 +1,3 @@
-import React from "react";
 const title = ["Image", "Title", "Price", "id", "Status"];
 
 const Allorders = () => {

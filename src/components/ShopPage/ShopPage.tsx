@@ -1,84 +1,123 @@
-import { Fragment, useState } from "react";
+import { Fragment, useLayoutEffect, useRef, useState } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from "@heroicons/react/20/solid";
+import { FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from "@heroicons/react/20/solid";
 import ProductCards from "./SubComponents.tsx/ProductCards";
 import { useDispatch, useSelector } from "react-redux";
 import { scrollTop } from "../../utils/controllers";
 import { updateTab } from "../../Redux/Slices/curTabSlice";
-import { Button, Input, Pagination } from "@nextui-org/react";
+import { Button, Input, Pagination, Radio, RadioGroup, Skeleton } from "@nextui-org/react";
 import { IoSearch } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
+import axios from "axios";
+import { RootState } from "../../Redux/store";
+import { createArray } from "../../utils/controllers";
+import { individualProductType } from "../../utils/types";
 
-const sortOptions = [
-  { name: "Most Popular", href: "#", current: true },
-  { name: "Best Rating", href: "#", current: false },
-  { name: "Newest", href: "#", current: false },
-  { name: "Price: Low to High", href: "#", current: false },
-  { name: "Price: High to Low", href: "#", current: false },
-];
-const subCategories = [
-  { name: "Carpets", href: "#" },
-  { name: "Rugs", href: "#" },
-  { name: "Antiques", href: "#" },
-  { name: "Kalins", href: "#" },
-  { name: "Decoratives", href: "#" },
-];
 const filters = [
+  {
+    id: "categories",
+    name: "Categories",
+    options: [
+      { value: "all", label: "All" },
+      { value: "carpet", label: "Carpet" },
+      { value: "rug", label: "Rug" },
+      { value: "antique", label: "Antique" },
+      { value: "decorative", label: "Decorative" },
+    ],
+  },
   {
     id: "color",
     name: "Color",
     options: [
-      { value: "all", label: "All", checked: false },
-      { value: "white", label: "White", checked: false },
-      { value: "beige", label: "Beige", checked: false },
-      { value: "blue", label: "Blue", checked: true },
-      { value: "brown", label: "Brown", checked: false },
-      { value: "green", label: "Green", checked: false },
-      { value: "purple", label: "Purple", checked: false },
+      { value: "all", label: "All" },
+      { value: "white", label: "White" },
+      { value: "black", label: "Black" },
+      { value: "beige", label: "Beige" },
+      { value: "blue", label: "Blue" },
+      { value: "red", label: "Red" },
+      { value: "brown", label: "Brown" },
+      { value: "green", label: "Green" },
+      { value: "purple", label: "Purple" },
+      { value: "teal", label: "Teal" },
+      { value: "gold", label: "Gold" },
+      { value: "silver", label: "Silver" },
+      { value: "ivory", label: "Ivory" },
     ],
   },
   {
-    id: "category",
-    name: "Category",
+    id: "filters",
+    name: "Filters",
     options: [
-      { value: "new-arrivals", label: "New Arrivals", checked: false },
-      { value: "sale", label: "Sale", checked: false },
-      { value: "popular", label: "Popular", checked: true },
-      { value: "trendy", label: "Trendy", checked: false },
-      { value: "accessories", label: "Accessories", checked: false },
-    ],
-  },
-  {
-    id: "size",
-    name: "Size",
-    options: [
-      { value: "2l", label: "2L", checked: false },
-      { value: "6l", label: "6L", checked: false },
-      { value: "12l", label: "12L", checked: false },
-      { value: "18l", label: "18L", checked: false },
-      { value: "20l", label: "20L", checked: false },
-      { value: "40l", label: "40L", checked: true },
+      { value: "none", label: "None" },
+      { value: "new-arrivals", label: "New Arrivals" },
+      { value: "sale", label: "Sale" },
+      { value: "popular", label: "Popular" },
+      { value: "low-to-high", label: "Price: Low to High" },
+      { value: "high-to-low", label: "Price: High to Low" },
     ],
   },
 ];
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
 
 const pageSize = 16;
 
 export default function ShopPage() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [itemCount, setItemCount] = useState(0);
-   const {items} = useSelector((state: any) => state.allCart);
-   console.log(items);
+  const [pageNumber, setPageNumber] = useState(1);
+
+  const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
+  const [shopData, setShopData] = useState([]);
+  const [receivedShopData, setReceivedShopData] = useState(-1);
+  const [categoryFilter, setCategoryFilter] = useState("all");
+  const [colorFilter, setColorFilter] = useState("all");
+  const [otherFilter, setOtherFilter] = useState("none");
+  const [search, setSearch] = useState("");
+  const searchRef = useRef(document.createElement("input"));
+
+  const handleRadioChange = (e: React.ChangeEvent<HTMLInputElement>, id: string) => {
+    if (id === "categories") {
+      setCategoryFilter(e.target.value);
+    } else if (id === "color") {
+      setColorFilter(e.target.value);
+    } else {
+      setOtherFilter(e.target.value);
+    }
+  };
 
   const dispatch = useDispatch();
   dispatch(updateTab("Shop"));
-  scrollTop();
+
+  const getShopData = async () => {
+    try {
+      const response = await axios.get(
+        `${apiUrl}/items/getItems?start=${
+          (pageNumber - 1) * pageSize
+        }&end=16&category=${categoryFilter}&color=${colorFilter}&filter=${otherFilter}&search=${search}`
+      );
+
+      if (!response.data.success) {
+        setReceivedShopData(0);
+      } else {
+        setShopData(response.data.payload.result);
+        setItemCount(response.data.payload.total);
+        if (response.data.payload.result.length > 0) {
+          setReceivedShopData(1);
+        } else {
+          setReceivedShopData(0);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      setReceivedShopData(0);
+    }
+  };
+
+  useLayoutEffect(() => {
+    scrollTop();
+    getShopData();
+  }, [apiUrl, pageNumber, categoryFilter, colorFilter, otherFilter, search]);
 
   return (
     <div className="bg-white">
@@ -131,15 +170,6 @@ export default function ShopPage() {
                   {/* Filters */}
                   <form className="mt-4 border-t border-gray-200">
                     <h3 className="sr-only">Categories</h3>
-                    <ul role="list" className="px-2 py-3 font-medium text-gray-900">
-                      {subCategories.map((category, index) => (
-                        <li key={index}>
-                          <a href={category.href} className="block px-2 py-3">
-                            {category.name}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
 
                     {filters.map((section, index) => (
                       <Disclosure as="div" key={index} className="border-t border-gray-200 px-4 py-6">
@@ -158,26 +188,22 @@ export default function ShopPage() {
                               </Disclosure.Button>
                             </h3>
                             <Disclosure.Panel className="pt-6">
-                              <div className="space-y-6">
-                                {section.options.map((option, optionIdx) => (
-                                  <div key={option.value} className="flex items-center">
-                                    <input
-                                      id={`filter-mobile-${section.id}-${optionIdx}`}
-                                      name={`${section.id}[]`}
-                                      defaultValue={option.value}
-                                      type="checkbox"
-                                      defaultChecked={option.checked}
-                                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                    />
-                                    <label
-                                      htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
-                                      className="ml-3 min-w-0 flex-1 text-gray-500"
-                                    >
-                                      {option.label}
-                                    </label>
-                                  </div>
+                              <RadioGroup
+                                defaultValue={
+                                  section.id === "categories"
+                                    ? categoryFilter
+                                    : section.id === "color"
+                                    ? colorFilter
+                                    : otherFilter
+                                }
+                                onChange={(e) => handleRadioChange(e, section.id)}
+                              >
+                                {section.options.map((option, index) => (
+                                  <Radio key={`filter-${section.id}-${index}`} value={option.value}>
+                                    {option.label}
+                                  </Radio>
                                 ))}
-                              </div>
+                              </RadioGroup>
                             </Disclosure.Panel>
                           </>
                         )}
@@ -192,69 +218,30 @@ export default function ShopPage() {
 
         <main className="mx-auto  px-4 sm:px-6 lg:px-20">
           <div className="flex items-baseline md:justify-between border-b border-gray-200 pb-6 pt-24">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 hidden md:block">Categories</h1>
+            <h1 className="text-4xl font-bold tracking-tight text-gray-900 hidden md:block">Shop</h1>
 
             <div className="flex items-center grow md:grow-0 justify-end">
               <Menu as="div" className="relative inline-block text-left">
-                <div className="flex justify-center items-center gap-[1rem]">
-                  <div className="flex gap-[0.5rem] mr-[1rem]">
-                    <Input
-                      classNames={{
-                        base: "w-full h-10",
-                        mainWrapper: "h-full",
-                        input: "text-small",
-                        inputWrapper: "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
-                      }}
-                      placeholder="Search"
-                      size="sm"
-                      type="search"
-                    />
-                    <Button color="primary" isIconOnly>
-                      <IoSearch className="text-xl" />
-                    </Button>
-                  </div>
-                  <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
-                    Sort
-                    <ChevronDownIcon
-                      className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                      aria-hidden="true"
-                    />
-                  </Menu.Button>
+                <div className="flex gap-[0.5rem] mr-[1rem]">
+                  <Input
+                    classNames={{
+                      base: "w-full h-10",
+                      mainWrapper: "h-full",
+                      input: "text-small",
+                      inputWrapper: "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
+                    }}
+                    placeholder="Search"
+                    size="sm"
+                    type="search"
+                    ref={searchRef}
+                  />
+                  <Button color="primary" isIconOnly onClick={() => setSearch(searchRef.current.value)}>
+                    <IoSearch className="text-xl" />
+                  </Button>
                 </div>
-
-                <Transition
-                  as={Fragment}
-                  enter="transition ease-out duration-100"
-                  enterFrom="transform opacity-0 scale-95"
-                  enterTo="transform opacity-100 scale-100"
-                  leave="transition ease-in duration-75"
-                  leaveFrom="transform opacity-100 scale-100"
-                  leaveTo="transform opacity-0 scale-95"
-                >
-                  <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    <div className="py-1">
-                      {sortOptions.map((option) => (
-                        <Menu.Item key={option.name}>
-                          {({ active }) => (
-                            <a
-                              href={option.href}
-                              className={classNames(
-                                option.current ? "font-medium text-gray-900" : "text-gray-500",
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm"
-                              )}
-                            >
-                              {option.name}
-                            </a>
-                          )}
-                        </Menu.Item>
-                      ))}
-                    </div>
-                  </Menu.Items>
-                </Transition>
               </Menu>
 
-              <button type="button" className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7">
+              <button type="button" className="-m-2 p-2 text-gray-400 hover:text-gray-500">
                 <span className="sr-only">View grid</span>
                 <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
               </button>
@@ -278,13 +265,6 @@ export default function ShopPage() {
               {/* Filters */}
               <form className="hidden lg:block">
                 <h3 className="sr-only">Categories</h3>
-                <ul role="list" className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
-                  {subCategories.map((category) => (
-                    <li key={category.name}>
-                      <a href={category.href}>{category.name}</a>
-                    </li>
-                  ))}
-                </ul>
 
                 {filters.map((section) => (
                   <Disclosure as="div" key={section.id} className="border-b border-gray-200 py-6">
@@ -303,26 +283,22 @@ export default function ShopPage() {
                           </Disclosure.Button>
                         </h3>
                         <Disclosure.Panel className="pt-6">
-                          <div className="space-y-4">
-                            {section.options.map((option, optionIdx) => (
-                              <div key={option.value} className="flex items-center">
-                                <input
-                                  id={`filter-${section.id}-${optionIdx}`}
-                                  name={`${section.id}[]`}
-                                  defaultValue={option.value}
-                                  type="checkbox"
-                                  defaultChecked={option.checked}
-                                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                />
-                                <label
-                                  htmlFor={`filter-${section.id}-${optionIdx}`}
-                                  className="ml-3 text-sm text-gray-600"
-                                >
-                                  {option.label}
-                                </label>
-                              </div>
+                          <RadioGroup
+                            defaultValue={
+                              section.id === "categories"
+                                ? categoryFilter
+                                : section.id === "color"
+                                ? colorFilter
+                                : otherFilter
+                            }
+                            onChange={(e) => handleRadioChange(e, section.id)}
+                          >
+                            {section.options.map((option, index) => (
+                              <Radio key={`filter-${section.id}-${index}`} value={option.value}>
+                                {option.label}
+                              </Radio>
                             ))}
-                          </div>
+                          </RadioGroup>
                         </Disclosure.Panel>
                       </>
                     )}
@@ -331,25 +307,38 @@ export default function ShopPage() {
               </form>
 
               {/* Product grid */}
-              <div className="lg:col-span-4 w-full">
+              <div className="lg:col-span-4 w-full z-0">
                 <div className="flex flex-col items-center justify-center">
-                  <div className="flex flex-wrap justify-center py-5 bg-white">
-                    {items.map((detail:any) => (
-                      <ProductCards {...detail} />
-                    ))}
-                  </div>
-                  <div className="py-[2rem]">
-                    <Pagination
-                      loop
-                      showControls
-                      color="primary"
-                      variant="light"
-                      onChange={(pageNumber) => setItemCount(pageNumber)}
-                      // total={itemCount ? Math.ceil(itemCount / pageSize) : 1}
-                      total={8}
-                      initialPage={1}
-                    />
-                  </div>
+                  {receivedShopData === 1 ? (
+                    <>
+                      <div className="flex flex-wrap justify-center py-5 bg-white">
+                        {shopData.map((detail: individualProductType) => (
+                          <ProductCards {...detail} />
+                        ))}
+                      </div>
+                      <div className="py-[2rem] grow">
+                        <Pagination
+                          loop
+                          showControls
+                          color="primary"
+                          variant="light"
+                          onChange={(pageNumber) => setPageNumber(pageNumber)}
+                          total={itemCount ? Math.ceil(itemCount / pageSize) : 1}
+                          initialPage={1}
+                        />
+                      </div>
+                    </>
+                  ) : receivedShopData === -1 ? (
+                    <div className="flex flex-wrap justify-center py-5 bg-white">
+                      {createArray(16).map((data) => (
+                        <Skeleton key={data} className="w-[15rem] h-[20rem] m-3" />
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="w-full h-[100vh] flex justify-center items-center">
+                      <p className="font-bold text-2xl text-default-300">No Items Found</p>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

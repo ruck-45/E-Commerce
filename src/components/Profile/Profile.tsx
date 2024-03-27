@@ -71,7 +71,6 @@ const Profile = () => {
       });
       if (!response.data.success) {
         console.log(response.data);
-
         errorToast("Couldn't update profile");
       }
       successToast("Profile Update Successful !!");
@@ -98,7 +97,6 @@ const Profile = () => {
     const userProfilePicData = new FormData();
     userProfilePicData.append("image", userProfilePic);
     setIsuploadButtonDisabled(true);
-
     try {
       const response = await axios.put(`${apiUrl}/users/profile/images`, userProfilePicData, {
         headers: {

@@ -32,14 +32,17 @@ const Home = () => {
 
   const getAntiqueData = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/items/getItems?start=0&end=10&category=antique&popular=true`);
+      const response = await axios.get(`${apiUrl}/items/getItems?start=0&end=10&category=antique&filter=popular`);
 
       if (!response.data.success) {
-        console.log(response.data);
         setReceivedAntiqueData(0);
       } else {
         setAntiquesData(response.data.payload.result);
-        setReceivedAntiqueData(1);
+        if (response.data.payload.result.length > 0) {
+          setReceivedAntiqueData(1);
+        } else {
+          setReceivedAntiqueData(0);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -49,14 +52,18 @@ const Home = () => {
 
   const getCarpetData = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/items/getItems?start=0&end=10&category=carpet&popular=true`);
+      const response = await axios.get(`${apiUrl}/items/getItems?start=0&end=10&category=carpet&filter=popular`);
 
       if (!response.data.success) {
         console.log(response.data);
         setReceivedCarpetsData(0);
       } else {
         setCarpetsData(response.data.payload.result);
-        setReceivedCarpetsData(1);
+        if (response.data.payload.result.length > 0) {
+          setReceivedCarpetsData(1);
+        } else {
+          setReceivedCarpetsData(0);
+        }
       }
     } catch (error) {
       console.log(error);

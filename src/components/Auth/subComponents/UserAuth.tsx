@@ -23,6 +23,7 @@ import {
 import { RootState } from "../../../Redux/store";
 import { updateToLoginStatus } from "../../../Redux/Slices/toLoginSlice";
 import axios from "axios";
+import { updateLoginStatus } from "../../../Redux/Slices/loginStatusSlice";
 
 const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
   if (event.key === "Enter") {
@@ -45,6 +46,7 @@ const UserAuth = () => {
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
+  const loginRedirect = useSelector((state: RootState) => state.loginRedirect.value);
 
   const toLogin = useSelector((state: RootState) => state.toLogin.value);
   const toggleVisibility = () => setIsVisible(!isVisible);
@@ -161,8 +163,10 @@ const UserAuth = () => {
           setCookie("isEmployee", response.data.payload.isEmployee, cookieOptions);
           setCookie("userId", response.data.payload.userId, cookieOptions);
 
+          dispatch(updateLoginStatus(true));
+
           successToast("Login Successfully");
-          navigate("/Shop");
+          navigate(loginRedirect);
         } else {
           errorToast(response.data.payload.message);
           setHandleLoginButton(false);
@@ -194,6 +198,7 @@ const UserAuth = () => {
           successToast("Registration successful");
           dispatch(updateToLoginStatus(true));
           navigate("/Auth");
+          
         } else {
           console.log(response);
           errorToast("Sign Up Failed");

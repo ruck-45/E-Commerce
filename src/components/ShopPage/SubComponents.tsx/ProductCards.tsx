@@ -1,42 +1,55 @@
 import { useSelector } from "react-redux";
 import "./Product.css";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { RootState } from "../../../Redux/store";
+import { Badge, Image } from "@nextui-org/react";
+import { individualProductType } from "../../../utils/types";
 
-type ProductProps = {
-  id:number,
-  imageUrl: string;
-  brand: string;
-  title: string;
-  color: string;
-  discountedPrice: number;
-  price: number;
-  discountPersent: number;
-  size: {
-    name: string;
-    quantity: number;
-  }[];
-  quantity: number;
-  topLavelCategory: string;
-  secondLavelCategory: string;
-  thirdLavelCategory: string;
-  description: string;
-  orderQuantity:number;
-};
-
-const ProductCards = (props: ProductProps) => {
-
-  const { state } = useLocation();
-  const { items } = useSelector((state: any) => state.allCart);
-  console.log(items);
+const ProductCards = (props: individualProductType) => {
+  const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+  const createdDate = new Date(props.created_at);
+  const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
   const navigate = useNavigate();
+  let content = "";
+  let className = "rounded-none ";
+  let color: "primary" | "danger" | "warning" | "default" | "secondary" | "success" | undefined = "primary";
+
+  if (props.quantity < props.minimumOrder) {
+    content = "Out Of Stock";
+    className += "right-[3rem] top-[1rem]";
+    color = "danger";
+  } else if (props.discountPercent >= 50) {
+    content = "Sale";
+    className += "right-[1.45rem] top-[1rem]";
+    color = "warning";
+  } else if (createdDate >= sevenDaysAgo) {
+    content = "New Arrival";
+    className += "right-[2.8rem] top-[1rem]";
+    color = "primary";
+  }
+
   return (
     <div
-      className="productCard w-[15rem] border m-3 transition-all cursor-pointer "
-      onClick={(() => navigate(`/ProductDetails`, { state: { ...props } }))}
+      className="productCard w-[15rem] border m-3 transition-all cursor-pointer"
+      onClick={() => navigate(`/ProductDetails/${props.title}/${props.item_id}`)}
     >
-      <div className="h-[16.5rem]">
-        <img className="h-full w-full object-cover object-left-top" src={props.imageUrl} alt="" />
-      </div>
+      <Badge
+        content={content}
+        color={color}
+        showOutline={false}
+        className={className}
+        isInvisible={content === ""}
+        variant="shadow"
+      >
+        <div className="h-[16.5rem]">
+          <Image
+            className={content === "Out Of Stock" ? "grayscale" : ""}
+            src={`${apiUrl}/items/itemImages/${props.item_id}_img1.jpg`}
+            radius="none"
+            loading="lazy"
+          />
+        </div>
+      </Badge>
       <div className="textPart bg-white p-3 ">
         <div>
           <p className="font-bold opacity-60">{props.brand}</p>
@@ -46,9 +59,21 @@ const ProductCards = (props: ProductProps) => {
         </div>
 
         <div className="flex space-x-2 items-center">
-          <p className="font-semibold">₹{props.discountedPrice}</p>
-          <p className="opacity-50 line-through">₹{props.price}</p>
-          <p className="text-green-600 font-semibold">{props.discountPersent}% off</p>
+          {props.discountedPrice === props.price || props.discountPercent === 0 ? (
+            <p className="font-semibold">${props.price}</p>
+          ) : (
+            <>
+              <p className="font-semibold">${props.discountedPrice}</p>
+              <p className="opacity-50 line-through">${props.price}</p>
+              <p
+                className={
+                  content === "Out Of Stock" ? "text-default-500 font-semibold" : "text-green-600 font-semibold"
+                }
+              >
+                {props.discountPercent}% Off
+              </p>
+            </>
+          )}
         </div>
       </div>
     </div>

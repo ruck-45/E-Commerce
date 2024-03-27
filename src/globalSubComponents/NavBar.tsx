@@ -24,28 +24,21 @@ import "./NavBar.css";
 import icon from "../globalAssets/logo.svg";
 import ButtonElement from "./ButtonElement";
 import UserAvatar from "./UserAvatar";
-import { getCookie } from "../utils/cookies";
 import { updateToLoginStatus } from "../Redux/Slices/toLoginSlice";
 import { updateNavStatus } from "../Redux/Slices/navOpenStatusSlice";
 import { RootState } from "../Redux/store";
 import TopBar from "./TopBar";
 import { RiArrowDropDownLine } from "react-icons/ri";
-import { useEffect } from "react";
-import { getCartTotal } from "../Redux/Slices/CartSlice";
 
 const menuItems = ["Home", "Shop", "About", "Contact", "Cart"];
 
 const NavBar = () => {
-  const isLoggedIn = getCookie("token") ? true : false;
+  const isLoggedIn = useSelector((state: RootState) => state.loginStatus.value);
   const curTab = useSelector((state: RootState) => state.curTab.value);
   const navOpenStatus = useSelector((state: RootState) => state.navOpenStatus.value);
   const dispatch = useDispatch();
 
-  const { cart, totalQuantity } = useSelector((state: RootState) => state?.allCart);
-
-  useEffect(() => {
-    dispatch(getCartTotal());
-  }, [cart]);
+  const { totalQuantity } = useSelector((state: RootState) => state?.allCart);
 
   return (
     <>
@@ -141,23 +134,17 @@ const NavBar = () => {
             </DropdownMenu>
           </Dropdown>
         </NavbarContent>
-        {isLoggedIn ? (
-          <NavbarContent justify="end">
-            <NavbarItem className="hidden lg:flex">
+
+        <NavbarContent justify="end">
+          <NavbarItem className="hidden lg:flex">
+            <Badge content={totalQuantity} shape="circle" color="danger" isInvisible={totalQuantity === 0}>
               <ButtonElement to="/Checkout?step=1" startContent={<LuShoppingCart />} label="Cart" variant="light" />
-            </NavbarItem>
-            <NavbarItem>
+            </Badge>
+          </NavbarItem>
+          <NavbarItem>
+            {isLoggedIn ? (
               <UserAvatar />
-            </NavbarItem>
-          </NavbarContent>
-        ) : (
-          <NavbarContent justify="end">
-            <NavbarItem className="hidden lg:flex">
-              <Badge content={totalQuantity} shape="circle" color="danger">
-                <ButtonElement to="/Checkout?step=1" startContent={<LuShoppingCart />} label="Cart" variant="light" />
-              </Badge>
-            </NavbarItem>
-            <NavbarItem className="flex">
+            ) : (
               <ButtonElement
                 to="../Auth"
                 variant="shadow"
@@ -167,9 +154,9 @@ const NavBar = () => {
                 size="md"
                 onClickFunction={() => dispatch(updateToLoginStatus(true))}
               />
-            </NavbarItem>
-          </NavbarContent>
-        )}
+            )}
+          </NavbarItem>
+        </NavbarContent>
 
         <NavbarMenu className="mt-[3rem] bg-white z-[200]">
           {menuItems.map((item, index) => {

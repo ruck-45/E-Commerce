@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCookie, removeCookie } from "../utils/cookies";
 import { updateToLoginStatus } from "../Redux/Slices/toLoginSlice";
 import { RootState } from "../Redux/store";
+import { updateLoginStatus } from "../Redux/Slices/loginStatusSlice";
 
 const UserAvatar = () => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const UserAvatar = () => {
     removeCookie("expiration");
     removeCookie("isEmployee");
     removeCookie("userId");
-
+    dispatch(updateLoginStatus(false));
     dispatch(updateToLoginStatus(true));
     navigate("/Auth");
   };

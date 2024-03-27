@@ -173,48 +173,41 @@ export default function AddProduct() {
       } else {
         console.log("starteed product");
         convertToOutputProduct(product);
-        // const createItemDetailsResponse = await axios.post(`${apiUrl}/items/createItem`, outputProduct, 
-        //   {
-        //     headers: {
-        //       Authorization: `Bearer ${token}`,
-        //     },
-        //   }
-        // );
+        const createItemDetailsResponse = await axios.post(`${apiUrl}/items/createItem`, outputProduct, 
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
-        await fetch(`${apiUrl}/items/createItem`,{
-          method:'POST',
-          headers:{
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify(outputProduct)
-        }).then(response => response.json()).then(data => console.log(data)).catch(err => console.log(err));
+        if (!createItemDetailsResponse.data.success) {
+          toast.error(`Error While Creating Product`);
+          return;
+        }
         
         const formData = new FormData();
         finalImageArray.forEach((file:any) => {
           formData.append('images', file);
         });
 
-        try {
-          const response = await fetch(`${apiUrl}/items/itemImages`, {
-            method: 'POST',
-            headers: {
-              'Authorization': `Bearer ${token}` // Add authorization header
-            },
-            body: formData,
-          });
-          const data = await response.json();
-          console.log('Images uploaded successfully:', data);
-        } catch (error) {
-          console.error('Error uploading images:', error);
+        const imageResponse = await axios.post(`${apiUrl}/items/itemImages`, formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            itemId: createItemDetailsResponse.data.payload.itemId,
+          },
+        });
+
+        if (!imageResponse.data.success) {
+          toast.error(`Error While Uploading Images`);
+          return;
         }
         
-
         toast.success(`Product added successfully`);
 
-        // setImages([]);
-        // setProduct(initialProduct);
-        // setHighlights("");
+        setImages([]);
+        setProduct(initialProduct);
+        setHighlights("");
       }
     }
   };

@@ -69,7 +69,7 @@ export default function AddDeliveryAddressForm(props: Cardsprops) {
 
   return (
     <div>
-      {isObjectEmpty(shippingInfo) === true ? (
+      
         <Grid container spacing={4} className="p-[3rem]">
           <Grid item xs={12} lg={5} className="lg:inline-block hidden">
             <Box className="border rounded-md shadow-md h-[30.5rem] overflow-y-scroll ">
@@ -193,9 +193,7 @@ export default function AddDeliveryAddressForm(props: Cardsprops) {
             </Box>
           </Grid>
         </Grid>
-      ) : (
-        <EditAddressCard {...shippingInfo}   />
-      )}
+      
     </div>
   );
 }

@@ -23,6 +23,7 @@ import { useState } from "react";
 import axios from "axios";
 import toast, { ToastPosition, Toaster } from "react-hot-toast";
 import { TiTick } from "react-icons/ti";
+import { editShippingAddress } from "../../Redux/Slices/shippingInfoSlice";
 
 const toastSetting: {
   position: ToastPosition;
@@ -42,14 +43,20 @@ const Profile = () => {
   const image = getCookie("userId");
   const token = getCookie("token");
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
+  const shippingInfo = useSelector((state: RootState) => state.shippingInfo);
   const imageUrl = `${apiUrl}/users/profileImages/${image}.jpg`;
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [formData, setFormData] = useState({ phone: "", address: "", state: "", addressCode: "" });
+  const [formData, setFormData] = useState({
+    phone: shippingInfo.phoneNumber,
+    address: shippingInfo.address,
+    state: shippingInfo.state,
+    city: shippingInfo.city,
+    addressCode: shippingInfo.zip,
+  });
 
   const [userProfilePic, setUserProfilePic] = useState<File | null>(null);
   const [uploadButtonDisabled, setIsuploadButtonDisabled] = useState(false);
-  const [isEditLoading, setIsEditLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -59,31 +66,48 @@ const Profile = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    setIsEditLoading(true);
+  const shippingInfoChange = () => {
+    return (
+      formData.address === shippingInfo.address &&
+      formData.addressCode === shippingInfo.zip &&
+      formData.phone === shippingInfo.phoneNumber &&
+      formData.city === shippingInfo.city &&
+      formData.state === shippingInfo.state
+    );
+  };
 
+  const updateShippingInfo = async () => {
     try {
       const response = await axios.put(`${apiUrl}/users/profile`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      if (!response.data.success) {
-        console.log(response.data);
-        errorToast("Couldn't update profile");
+
+      if (response.data.success) {
+        console.log("Shipping Info Updation Successful");
+      } else {
+        console.log("Shipping Info Updation Failed", response.data);
       }
-      successToast("Profile Update Successful !!");
-
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
     } catch (error) {
-      console.log(error);
-      errorToast("Couldn't update profile");
+      console.log("Shipping Info Updation Failed", error);
     }
+  };
 
-    setIsEditLoading(false);
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+
+    if (!shippingInfoChange()) {
+      const data = {
+        address: formData.address,
+        zip: formData.addressCode,
+        phoneNumber: formData.phone,
+        city: formData.city,
+        state: formData.state,
+      };
+      dispatch(editShippingAddress(data));
+      updateShippingInfo();
+    }
   };
 
   const handleFileUpload = async () => {
@@ -205,6 +229,14 @@ const Profile = () => {
                     />
                     <Input
                       type="text"
+                      label="City"
+                      name="city"
+                      value={formData.city}
+                      onChange={handleChange}
+                      className="mt-2"
+                    />
+                    <Input
+                      type="text"
                       label="State"
                       name="state"
                       value={formData.state}
@@ -222,14 +254,7 @@ const Profile = () => {
                   </form>
                 </ModalBody>
                 <ModalFooter>
-                  <Button
-                    color="danger"
-                    variant="ghost"
-                    onPress={onClose}
-                    onClick={handleSubmit}
-                    radius="full"
-                    isLoading={isEditLoading}
-                  >
+                  <Button color="danger" variant="ghost" onPress={onClose} onClick={handleSubmit} radius="full">
                     Update
                   </Button>
                 </ModalFooter>

@@ -29,6 +29,7 @@ const shippingInfoSlice = createSlice({
       state.phoneNumber = "";
       state.city = "";
       state.state = "";
+      state.dataFetched = false;
     },
   },
 });

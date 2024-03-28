@@ -9,9 +9,11 @@ import { Image } from "@nextui-org/react";
 import { RootState } from "../../Redux/store";
 import axios from "axios";
 import { getCookie } from "../../utils/cookies";
+import { useNavigate } from "react-router-dom";
 
 const CartItem = (props: productsType) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const token = getCookie("token");
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
   const cartData = useSelector((state: RootState) => state.allCart.cart);
@@ -49,10 +51,11 @@ const CartItem = (props: productsType) => {
       <div className="flex items-center">
         <div className="w-[5rem] h-[5rem] lg:w-[9rem] lg:h-[9rem] ">
           <Image
-            className="w-full h-full object-cover object-top"
+            className="w-full h-full object-cover object-top cursor-pointer"
             src={`${apiUrl}/items/itemImages/${props.item_id}_img1.jpg`}
             loading="lazy"
             radius="sm"
+            onClick={() => navigate(`/ProductDetails/${props.title}/${props.item_id}`)}
           />
         </div>
         <div className="ml-5 space-y-1">

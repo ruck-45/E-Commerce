@@ -9,6 +9,8 @@ import { getCookie, removeCookie } from "../utils/cookies";
 import { updateToLoginStatus } from "../Redux/Slices/toLoginSlice";
 import { RootState } from "../Redux/store";
 import { updateLoginStatus } from "../Redux/Slices/loginStatusSlice";
+import { resetCart } from "../Redux/Slices/CartSlice";
+import { resetShippingInfo } from "../Redux/Slices/shippingInfoSlice";
 
 const UserAvatar = () => {
   const navigate = useNavigate();
@@ -27,6 +29,8 @@ const UserAvatar = () => {
     removeCookie("userId");
     dispatch(updateLoginStatus(false));
     dispatch(updateToLoginStatus(true));
+    dispatch(resetCart());
+    dispatch(resetShippingInfo());
     navigate("/Auth");
   };
 

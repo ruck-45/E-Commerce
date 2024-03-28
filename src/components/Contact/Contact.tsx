@@ -1,6 +1,6 @@
 // Dependencies
 import { useDispatch } from "react-redux";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 // Local Files
 import EmailForm from "./suComponents/EmailForm";
@@ -13,7 +13,6 @@ import { FaHome } from "react-icons/fa";
 import EmailContact from "../Home/SubComponents/EmailContact";
 
 const Contact = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   dispatch(updateTab("Contact"));
 

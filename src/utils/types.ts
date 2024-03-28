@@ -54,14 +54,3 @@ export type individualProductType = {
   orders: number;
   created_at: Date;
 };
-
-export type shippingType = {
-  firstName: String;
-  lastName: String;
-  address: String;
-  country: String;
-  zip: String;
-  phoneNumber: String;
-  city: String;
-  state: String;
-};

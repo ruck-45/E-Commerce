@@ -9,6 +9,7 @@ import cartReducer from "./Slices/CartSlice";
 import apiConfigReducer from "./Slices/apiConfigSlice";
 import loginRedirectReducer from "./Slices/loginRedirectSlice";
 import loginStatusReducer from "./Slices/loginStatusSlice";
+import shippingInfoReducer from "./Slices/shippingInfoSlice";
 
 const store = configureStore({
   reducer: {
@@ -19,6 +20,7 @@ const store = configureStore({
     apiConfig: apiConfigReducer,
     loginRedirect: loginRedirectReducer,
     loginStatus: loginStatusReducer,
+    shippingInfo: shippingInfoReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

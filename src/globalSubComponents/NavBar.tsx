@@ -138,7 +138,7 @@ const NavBar = () => {
         <NavbarContent justify="end">
           <NavbarItem className="hidden lg:flex">
             <Badge content={totalQuantity} shape="circle" color="danger" isInvisible={totalQuantity === 0}>
-              <ButtonElement to="/Checkout?step=1" startContent={<LuShoppingCart />} label="Cart" variant="light" />
+              <ButtonElement to="/Checkout" startContent={<LuShoppingCart />} label="Cart" variant="light" />
             </Badge>
           </NavbarItem>
           <NavbarItem>
@@ -164,7 +164,7 @@ const NavBar = () => {
               <NavbarMenuItem key={`${item}-${index}`}>
                 <Link
                   className={curTab === item ? "nav-active" : "notActive"}
-                  to={index === 4 ? "/Checkout?step=1" : `../${item}`}
+                  to={index === 4 ? "/Checkout" : `../${item}`}
                   onClick={() => {
                     dispatch(updateNavStatus(!navOpenStatus));
                     dispatch(updateToLoginStatus(item === "Log In" ? true : false));

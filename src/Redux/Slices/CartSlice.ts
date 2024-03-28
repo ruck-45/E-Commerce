@@ -1,32 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { productsType } from "../../utils/types";
-import { shippingType } from "../../utils/types";
 
 type CartState = {
   cart: productsType[];
   totalQuantity: number;
   totalPrice: number;
-  shippingInfo: shippingType;
   totalDiscountPrice: number;
   dataFetched: boolean;
-};
-
-const initialShippingInfo = {
-  firstName: "",
-  lastName: "",
-  address: "",
-  country: "",
-  zip: "",
-  phoneNumber: "",
-  city: "",
-  state: "",
 };
 
 const initialState: CartState = {
   cart: [],
   totalQuantity: 0,
   totalPrice: 0,
-  shippingInfo: initialShippingInfo,
   totalDiscountPrice: 0,
   dataFetched: false,
 };
@@ -77,26 +63,16 @@ const cartSlice = createSlice({
     updateDataFetched: (state, action) => {
       state.dataFetched = action.payload;
     },
-
-    deleteShippingInfo: (state) => {
-      state.shippingInfo = initialShippingInfo;
-    },
-    saveShippingInfo: (state, action) => {
-      console.log(action.payload);
-      localStorage.setItem("shippingInfo", JSON.stringify(action?.payload));
-      state.shippingInfo = action?.payload;
+    resetCart: (state) => {
+      state.cart = [];
+      state.dataFetched = false;
+      state.totalPrice = 0;
+      state.totalQuantity = 0;
+      state.totalDiscountPrice = 0;
     },
   },
 });
 
-export const {
-  addToCart,
-  removeItem,
-  increaseItem,
-  decreaseItem,
-  saveShippingInfo,
-  deleteShippingInfo,
-  updateDataFetched,
-} = cartSlice.actions;
+export const { addToCart, removeItem, increaseItem, decreaseItem, updateDataFetched, resetCart } = cartSlice.actions;
 
 export default cartSlice.reducer;

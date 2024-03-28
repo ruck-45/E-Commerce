@@ -1,6 +1,4 @@
 import React from "react";
-// import { format } from "date-fns";
-import { Link } from "react-router-dom";
 import { getOrderStatus } from "./lib/constants/Helper";
 
 interface Order {
@@ -10,6 +8,10 @@ interface Order {
   order_total: string;
   current_order_status: string;
   shipment_address: string;
+  phone_number: string;
+  product_name: string;
+  product_image_url: string;
+  quantity: number;
 }
 
 interface OrdersCardProps {
@@ -18,38 +20,40 @@ interface OrdersCardProps {
 
 const OrdersCard: React.FC<OrdersCardProps> = ({ order }) => {
   return (
-    <div className="bg-gray-100 rounded-lg border border-gray-200 shadow-md my-4 w-full md:w-full">
-      <div className="p-4 md:p-6 lg:p-8">
-        <div className="text-lg md:text-xl lg:text-2xl text-left font-semibold mb-4">Sr-no: {order.sr_no}</div>
-        <div className="text-lg md:text-xl lg:text-2xl text-left font-semibold mb-6">
-          Customer Name: {order.customer_name}
+    <div className="bg-gray-100 rounded-lg border flex-wrap shrink-0 border-gray-200 shadow-md my-4 w-full md:w-full relative">
+      <div className="bg-gray-100 rounded-t-lg p-4 border-b border-gray-200 shadow-md">
+        <div className="font-bold text-lg mb-2">{order.customer_name}</div>
+        <div className="text-gray-600 text-lg mb-2">
+          <strong>Order ID:</strong> {order.sr_no}
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
-          <div className="bg-white p-4 rounded-lg shadow-md">
-            <div className="text-lg font-semibold mb-2">Order Date:</div>
-            {/* <div>{format(new Date(order.order_date), "dd MMM yyyy")}</div> */}
-          </div>
-          <div className="bg-white p-4 rounded-lg shadow-md">
-            <div className="text-lg font-semibold mb-2">Order Total:</div>
-            <div>{order.order_total}</div>
-          </div>
-          <div className="bg-white p-4 rounded-lg shadow-md">
-            <div className="text-lg font-semibold mb-2">Shipping Address:</div>
-            <div>{order.shipment_address}</div>
-          </div>
-          <div className="bg-white p-4 rounded-lg shadow-md">
-            <div className="text-lg font-semibold mb-2">Order Status:</div>
-            <div>
-              <span className="inline-block text-white px-2 py-1 rounded-md">
-                {getOrderStatus(order.current_order_status)}
-              </span>
-            </div>
-          </div>
-          <div className="bg-white p-4 rounded-lg shadow-md col-span-2">
-            <Link to={`/customer/${order.customer_name}`} className=" hover:underline">
-              View Customer
-            </Link>
-          </div>
+        <div className="text-gray-600 text-lg  mb-2">
+          <strong>Order Date:</strong> {order.order_date}
+        </div>
+        <div className="text-gray-600 text-lg  mb-2">
+          <strong>Address:</strong> {order.shipment_address}
+        </div>
+        <div className="text-gray-600 text-lg  mb-2">
+          <strong>Phone Number:</strong> {order.phone_number}
+        </div>
+        <div className="text-gray-600 text-lg  mb-2">
+          <strong>Total Price:</strong> {order.order_total}
+        </div>
+      </div>
+      <span className="absolute top-0 right-0 text-white  rounded-tr-lg rounded-bl-lg">
+        {getOrderStatus(order.current_order_status)}
+      </span>
+      <div className="flex items-center mb-2">
+        <img className="w-20 h-20 m-4 " src={order.product_image_url} alt="Product" />
+        <div>
+          <h1 className="text-xl font-bold mb-1">Product Name: {order.product_name}</h1>
+          <h1 className="text-lg">Quantity: {order.quantity}</h1>
+        </div>
+      </div>
+      <div className="flex items-center mb-2">
+        <img className="w-20 h-20 m-4 " src={order.product_image_url} alt="Product" />
+        <div>
+          <h1 className="text-xl font-bold mb-1">Product Name: {order.product_name}</h1>
+          <h1 className="text-lg">Quantity: {order.quantity}</h1>
         </div>
       </div>
     </div>

@@ -15,8 +15,8 @@ const shippingInfoSlice = createSlice({
   reducers: {
     editShippingAddress: (state, action) => {
       state.address = action.payload.address;
-      state.zip = action.payload.address_code;
-      state.phoneNumber = action.payload.phone;
+      state.zip = action.payload.zip;
+      state.phoneNumber = action.payload.phoneNumber;
       state.city = action.payload.city;
       state.state = action.payload.state;
     },

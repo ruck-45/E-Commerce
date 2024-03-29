@@ -3,16 +3,11 @@ import { useState } from "react";
 import { Button } from "@mui/material";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
-
-type Data = {
-  imageUrl: string;
-  brand: string;
-  title: string;
-  // item_id: string;
-};
+import ProductCards from "../../ShopPage/SubComponents.tsx/ProductCards";
+import { individualProductType } from "../../../utils/types";
 
 type ProfileProductSectionProps = {
-  data: Data[];
+  data: individualProductType[];
 };
 
 const ProfileProductSection = (props: ProfileProductSectionProps) => {
@@ -59,11 +54,7 @@ const ProfileProductSection = (props: ProfileProductSectionProps) => {
       itemsFit: "contain",
     },
   };
-  const items = props.data.slice(0, 10).map((item) => (
-    <div className="">
-      {/* <HomeProductCard {...item} /> */}
-    </div>
-  ));
+  const items = props.data.map((item) => <ProductCards {...item} />);
 
   return (
     <div className="relative border p-1">
@@ -85,7 +76,7 @@ const ProfileProductSection = (props: ProfileProductSectionProps) => {
           color="inherit"
           sx={{
             position: "absolute",
-            top: "8rem",
+            top: "11rem",
             right: "0rem",
             transform: "translateX(50%) rotate(90deg)",
             bgcolor: "white",
@@ -104,7 +95,7 @@ const ProfileProductSection = (props: ProfileProductSectionProps) => {
           className="z-50 bg-[]"
           sx={{
             position: "absolute",
-            top: "8rem",
+            top: "11rem",
             left: "0rem",
             transform: "translateX(-50%)  rotate(90deg)",
             bgcolor: "white",

@@ -76,7 +76,14 @@ function App() {
       });
 
       if (response.data.success) {
-        dispatch(editShippingAddress(response.data.payload));
+        const data = {
+          address: response.data.payload.address,
+          zip: response.data.payload.address_code,
+          phoneNumber: response.data.payload.phone,
+          city: response.data.payload.city,
+          state: response.data.payload.state,
+        };
+        dispatch(editShippingAddress(data));
         dispatch(updateInfoFetched(true));
       } else {
         console.error("Error fetching cart data:", response.data);

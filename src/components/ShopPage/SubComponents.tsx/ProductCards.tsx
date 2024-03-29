@@ -16,7 +16,7 @@ const ProductCards = (props: individualProductType) => {
 
   if (props.quantity < props.minimumOrder) {
     content = "Out Of Stock";
-    className += "right-[3rem] top-[1rem]";
+    className += "right-[3.1rem] top-[1rem]";
     color = "danger";
   } else if (props.discountPercent >= 50) {
     content = "Sale";
@@ -41,7 +41,7 @@ const ProductCards = (props: individualProductType) => {
         isInvisible={content === ""}
         variant="shadow"
       >
-        <div className="h-[16.5rem]">
+        <div className="h-[16.5rem] w-[15rem]">
           <Image
             className={content === "Out Of Stock" ? "grayscale" : ""}
             src={`${apiUrl}/items/itemImages/${props.item_id}_img1.jpg`}

@@ -7,5 +7,5 @@ module.exports = {
     extend: {},
   },
   darkMode: "class",
-  plugins: [nextui(), require("daisyui"), require("@tailwindcss/line-clamp")],
+  plugins: [nextui(), require("@tailwindcss/line-clamp")],
 };

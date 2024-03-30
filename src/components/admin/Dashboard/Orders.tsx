@@ -195,7 +195,7 @@ export const OrderData: Order[] = [
 const Orders: React.FC = () => {
   return (
     <div className="sticky top-0 bg-white">
-      <div className="bg-white px-4 pt-3 pb-4 h-full rounded-sm border border-gray-200 flex-1  overflow-auto">
+      <div className="bg-white px-4 pt-3 pb-4 h-full rounded-sm flex-1  overflow-auto">
         <div className="flex items-center justify-center pt-10">
           <input
             type="text"

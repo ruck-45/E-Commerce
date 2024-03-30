@@ -1,91 +1,21 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { getOrderStatus } from "./lib/constants/Helper";
 import RecentOrdersCard from "./RecentOrdersCard";
-
-// interface Order {
-//   id: string;
-//   product_id: string;
-//   customer_id: string;
-//   customer_name: string;
-//   order_date: string;
-//   order_total: string;
-//   current_order_status: string;
-//   shipment_address: string;
-// }
+import { OrderData } from "./Orders";
 
 const RecentOrders = () => {
-  // const order = [
-  //   {
-  //     id: "1",
-  //     product_id: "4324",
-  //     customer_id: "23143",
-  //     customer_name: "Shirley A. Lape",
-  //     order_date: "2022-05-17T03:24:00",
-  //     order_total: "$435.50",
-  //     current_order_status: "PLACED",
-  //     shipment_address: "Cottage Grove, OR 97424",
-  //   },
-  //   {
-  //     id: "2",
-  //     product_id: "7453",
-  //     customer_id: "96453",
-  //     customer_name: "Ryan Carroll",
-  //     order_date: "2022-05-14T05:24:00",
-  //     order_total: "$96.35",
-  //     current_order_status: "SHIPPED",
-  //     shipment_address: "Los Angeles, CA 90017",
-  //   },
-  //   {
-  //     id: "3",
-  //     product_id: "5434",
-  //     customer_id: "65345",
-  //     customer_name: "Mason Nash",
-  //     order_date: "2022-05-17T07:14:00",
-  //     order_total: "$836.44",
-  //     current_order_status: "SHIPPED",
-  //     shipment_address: "Westminster, CA 92683",
-  //   },
-  //   {
-  //     id: "4",
-  //     product_id: "9854",
-  //     customer_id: "87832",
-  //     customer_name: "Luke Parkin",
-  //     order_date: "2022-05-16T12:40:00",
-  //     order_total: "$334.50",
-  //     current_order_status: "SHIPPED",
-  //     shipment_address: "San Mateo, CA 94403",
-  //   },
-  //   {
-  //     id: "5",
-  //     product_id: "8763",
-  //     customer_id: "09832",
-  //     customer_name: "Anthony Fry",
-  //     order_date: "2022-05-14T03:24:00",
-  //     order_total: "$876.00",
-  //     current_order_status: "OUT_FOR_DELIVERY",
-  //     shipment_address: "San Mateo, CA 94403",
-  //   },
-  //   {
-  //     id: "6",
-  //     product_id: "5627",
-  //     customer_id: "97632",
-  //     customer_name: "Ryan Carroll",
-  //     order_date: "2022-05-14T05:24:00",
-  //     order_total: "$96.35",
-  //     current_order_status: "DELIVERED",
-  //     shipment_address: "Los Angeles, CA 90017",
-  //   },
-  // ];
+  const orders = OrderData;
 
   return (
-    <div className="bg-white  rounded-lg border border-gray-200 shadow-md lg:my-5 w-full md:w-full">
-      <div className="p-4 md:p-6 lg:p-8">
-        <div className="text-gray-700 text-2xl font-medium md:text-center">Recent Orders</div>
-        
-          <RecentOrdersCard   />
-      
+    <div className="sticky top-0 bg-white">
+      <div className="bg-white px-4 pt-3 pb-4 h-full rounded-sm border border-gray-200 flex-1 overflow-auto">
+        <h1 className="font-bold pb-2 p-4 text-2xl text-left xl:text-center">Recent Orders</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-3 md:flex-shrink-0 md:flex-wrap lg:flex-shrink-0 lg:flex-wrap xl:flex-shrink-0 xl:flex-wrap mx-2">
+          {orders.map((order) => (
+            <RecentOrdersCard key={order.sr_no} order={order} />
+          ))}
+        </div>
       </div>
+      <div></div>
     </div>
   );
 };

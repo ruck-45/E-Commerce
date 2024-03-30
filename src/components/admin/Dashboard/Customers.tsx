@@ -139,9 +139,8 @@ const CustomerList: React.FC = () => {
   ];
   return (
     <div className="sticky top-0 bg-white">
-      <h1 className="font-bold pb-10 p-5 text-2xl text-left xl:text-center">Customers List</h1>
       <div className="bg-white px-4 pt-3 pb-4 h-full rounded-sm border border-gray-200 flex-1 overflow-auto">
-        <div className="font-bold pb-10 p-5 text-2xl text-left xl:text-center ">Customers</div>
+        <h1 className="font-bold pt-7  text-2xl text-left xl:text-center">Customers List</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-3">
           {customerData.map((customer) => (
             <CustomerCard key={customer.id} customer={customer} />

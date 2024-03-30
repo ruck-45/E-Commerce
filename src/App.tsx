@@ -18,13 +18,6 @@ import Term from "./components/Policy/Term";
 import Refund from "./components/Policy/Refund";
 import Cart from "./components/Cart/Cart";
 import PasswordReset from "./components/ForgetPassword/PasswordReset";
-import Admin from "./components/admin/Admin";
-import Layout from "./Dashboard/Layout";
-import Dashboard from "./Dashboard/Dashboard";
-import Products from "./Dashboard/Products";
-
-import Customers from "./Dashboard/Customers";
-import Orders from "./Dashboard/Orders";
 import ScrollToTop from "./globalSubComponents/ScrollToTop";
 import EditProducts from "./components/admin/SubComponent/EditProducts";
 import AddProduct from "./components/admin/SubComponent/AddProduct";
@@ -34,6 +27,11 @@ import axios from "axios";
 import { useLayoutEffect } from "react";
 import { addToCart, updateDataFetched } from "./Redux/Slices/CartSlice";
 import { editShippingAddress, updateInfoFetched } from "./Redux/Slices/shippingInfoSlice";
+import Layout from "./components/admin/Dashboard/Layout";
+import Dashboard from "./components/admin/Dashboard/Dashboard";
+import Products from "./components/admin/Dashboard/Products";
+import Orders from "./components/admin/Dashboard/Orders";
+import Customers from "./components/admin/Dashboard/Customers";
 
 function App() {
   const dispatch = useDispatch();
@@ -127,7 +125,6 @@ function App() {
           <Route path="/Checkout" element={<Checkout />} />
           <Route path="/About" element={<About />} />
           <Route path="/Contact" element={<Contact />} />
-          <Route path="/Admin" element={<Admin />} />
           <Route path="/Auth" element={<Auth />} />
           <Route path="/Profile" element={isLoggedIn ? <Profile /> : <Navigate to="/Home" />} />
           <Route path="/Privacy" element={<Privacy />} />

@@ -3,9 +3,10 @@ import Pagination from "./Pagination";
 import React, { useLayoutEffect, useState } from "react";
 import { HiOutlineChevronDown } from "react-icons/hi";
 import { useSelector } from "react-redux";
-import { RootState } from "../Redux/store";
 import { Navigate, useNavigate } from "react-router";
-import { getCookie } from "../utils/cookies";
+import { getCookie } from "../../../utils/cookies";
+import { RootState } from "../../../Redux/store";
+
 
 const Products = () => {
   const navigate = useNavigate()

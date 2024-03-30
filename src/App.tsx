@@ -131,7 +131,7 @@ function App() {
           <Route path="/Terms" element={<Term />} />
           <Route path="/ResetPassword" element={<PasswordReset />} />
           <Route path="/admin/addProduct" element={<AddProduct />} />
-          <Route path="/admin/editProduct" element={<EditProducts />} />
+          <Route path="/admin/editProduct/:id" element={<EditProducts />} />
           <Route path="*" element={<Navigate to="/Home" />} />
         </Routes>
       </div>

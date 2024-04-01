@@ -1,6 +1,6 @@
 import * as React from "react";
 import { getCookie } from "../../../utils/cookies";
-import toast from "react-hot-toast";
+import toast ,{Toaster} from "react-hot-toast";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import ImageList from "@mui/material/ImageList";
@@ -73,15 +73,16 @@ type OutputProduct = {
   discountPercent: number;
   highlights: string[];
   details: string;
-  quantity: number;
+  minimumOrder: number;
   material: string;
   dimension: string;
   description: string;
   topLevelCategory: string;
   secondLevelCategory: string;
   thirdLevelCategory: string;
-  orders: number;
+  quantity: number;
   imageCount: number;
+  orders:number;
 };
 
 let outputProduct: OutputProduct = {
@@ -93,15 +94,16 @@ let outputProduct: OutputProduct = {
   discountPercent: 0,
   highlights: [],
   details: "",
-  quantity: 0,
+  minimumOrder: 0,
   material: "",
   dimension: "",
   description: "",
   topLevelCategory: "",
   secondLevelCategory: "",
   thirdLevelCategory: "",
-  orders: 0,
+  quantity: 0,
   imageCount: 0,
+  orders:0
 };
 
 export default function AddProduct() {
@@ -149,7 +151,7 @@ export default function AddProduct() {
   const [product, setProduct] = React.useState<Product>(initialProduct);
 
   const addProduct = async () => {
-    const percentage: Number = 100 - ((+product.price - +product.discountedPrice) / +product.price) * 100;
+    const percentage: Number = ((+product.price - +product.discountedPrice) / +product.price) * 100;
     setProduct({
       ...product,
       imageArray: images,
@@ -165,13 +167,12 @@ export default function AddProduct() {
         toast.error("Price must be greater than discount price");
         return;
       } else if (images.length === 0) {
-        toast.error("please insert atleast one image");
+        toast.error("please insert at least one image");
         return;
       } else if (product.orders <= product.quantity) {
         toast.error("Total stock order quantity must be greater than order quantity");
         return;
       } else {
-        console.log("starteed product");
         convertToOutputProduct(product);
         const createItemDetailsResponse = await axios.post(`${apiUrl}/items/createItem`, outputProduct, 
           {
@@ -222,15 +223,16 @@ export default function AddProduct() {
       discountPercent: product.discountPercent,
       highlights: product.highlights.map((highlight) => highlight.trim()),
       details: product.details.trim(),
-      quantity: product.quantity,
+      minimumOrder: product.quantity,
       material: product.material.trim(),
       dimension: `${product.dimensionWidth}x${product.dimensionHeight}`,
       description: product.description.trim(),
       topLevelCategory: product.topLevelCategory.trim(),
       secondLevelCategory: product.secondLevelCategory.trim(),
       thirdLevelCategory: product.thirdLevelCategory.trim(),
-      orders: product.orders,
+      quantity: product.orders,
       imageCount: images.length,
+      orders:0
     });
   }
 
@@ -687,6 +689,7 @@ export default function AddProduct() {
           </Button>
         </div>
       </div>
+      <Toaster/>
     </>
   );
 }

@@ -32,6 +32,8 @@ import Dashboard from "./components/admin/Dashboard/Dashboard";
 import Products from "./components/admin/Dashboard/Products";
 import Orders from "./components/admin/Dashboard/Orders";
 import Customers from "./components/admin/Dashboard/Customers";
+import Successful from "./components/paymentPage/Successful";
+import Fail from "./components/paymentPage/Fail";
 
 function App() {
   const dispatch = useDispatch();
@@ -126,6 +128,8 @@ function App() {
           <Route path="/Checkout" element={<Checkout />} />
           <Route path="/About" element={<About />} />
           <Route path="/Contact" element={<Contact />} />
+          <Route path="/Success" element={<Successful />} />
+          <Route path="/Fail" element={<Fail />} />
           <Route path="/Auth" element={<Auth />} />
           <Route path="/Profile" element={isLoggedIn ? <Profile /> : <Navigate to="/Home" />} />
           <Route path="/Privacy" element={<Privacy />} />

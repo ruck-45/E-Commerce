@@ -18,6 +18,7 @@ const UserAvatar = () => {
 
   const userEmail = getCookie("email");
   const image = getCookie("userId");
+  const admin = getCookie("isAdmin");
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
 
   const handleLogout = () => {
@@ -25,7 +26,7 @@ const UserAvatar = () => {
     removeCookie("username");
     removeCookie("email");
     removeCookie("expiration");
-    removeCookie("isEmployee");
+    removeCookie("isAdmin");
     removeCookie("userId");
     dispatch(updateLoginStatus(false));
     dispatch(updateToLoginStatus(true));
@@ -50,6 +51,11 @@ const UserAvatar = () => {
           <DropdownItem key="profile" className="p-0" textValue="profile">
             <Link to="/Profile" style={{ display: "block", padding: "6px 8px" }}>
               Profile
+            </Link>
+          </DropdownItem>
+          <DropdownItem key="admin" className={admin === "true" ? "p-0" : "hidden"} textValue="admin">
+            <Link to="/Admin" style={{ display: "block", padding: "6px 8px" }}>
+              Dashboard
             </Link>
           </DropdownItem>
           <DropdownItem key="logout" color="danger" onClick={handleLogout} textValue="logout">

@@ -1,8 +1,5 @@
-import React from "react";
 import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
-
-import Header from "./Header";
 
 import HomeLayout from "./Layout/HomeLayout";
 import { updateTab } from "../../../Redux/Slices/curTabSlice";

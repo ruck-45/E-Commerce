@@ -160,7 +160,7 @@ const UserAuth = () => {
           setCookie("email", email.current, cookieOptions);
           setCookie("username", response.data.payload.userName, cookieOptions);
           setCookie("expiration", response.data.payload.expires, cookieOptions);
-          setCookie("isEmployee", response.data.payload.isEmployee, cookieOptions);
+          setCookie("isAdmin", response.data.payload.isEmployee, cookieOptions);
           setCookie("userId", response.data.payload.userId, cookieOptions);
 
           dispatch(updateLoginStatus(true));
@@ -198,7 +198,6 @@ const UserAuth = () => {
           successToast("Registration successful");
           dispatch(updateToLoginStatus(true));
           navigate("/Auth");
-          
         } else {
           console.log(response);
           errorToast("Sign Up Failed");

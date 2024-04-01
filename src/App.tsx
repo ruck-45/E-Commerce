@@ -41,6 +41,7 @@ function App() {
   const shippingInfoFetched = useSelector((state: RootState) => state.shippingInfo.dataFetched);
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
   const token = getCookie("token");
+  const admin = getCookie("isAdmin");
 
   const fetchCartData = async () => {
     console.log("Fetching Cart Data ....");
@@ -112,7 +113,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/Home" />} />
           <Route path="/Home" element={<Home />} />
-          <Route path="/Layout" element={<Layout />}>
+          <Route path="/Admin" element={isLoggedIn && admin === "true" ? <Layout /> : <Navigate to="/Home" />}>
             <Route index element={<Dashboard />} />
             <Route path="products" element={<Products />} />
             <Route path="orders" element={<Orders />} />

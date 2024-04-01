@@ -39,7 +39,7 @@ const Model = (props: CardProps) => {
       });
       console.log("delete by id", response);
       if (response?.data?.success === true) {
-        navigate("/Layout");
+        navigate("/Admin");
       }
     } catch (error) {
       console.log(error);

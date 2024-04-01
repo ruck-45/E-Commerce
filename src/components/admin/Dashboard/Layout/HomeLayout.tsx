@@ -13,6 +13,7 @@ import { resetCart } from "../../../../Redux/Slices/CartSlice";
 import { resetShippingInfo } from "../../../../Redux/Slices/shippingInfoSlice";
 import { IoHomeOutline } from "react-icons/io5";
 import { SlPeople } from "react-icons/sl";
+import { IoIosCreate } from "react-icons/io";
 
 type MyComponentProps = {
   children: any;
@@ -84,6 +85,15 @@ const HomeLayout = (props: MyComponentProps) => {
             </li>
 
             <li className="text-white">
+              <Link to="/admin/addProduct">
+                <span>
+                  <IoIosCreate size={20} />
+                </span>
+                Create
+              </Link>
+            </li>
+
+            <li className="text-white">
               <Link to="/Admin/orders">
                 <span>
                   <FaBorderStyle size={20} />
@@ -91,8 +101,6 @@ const HomeLayout = (props: MyComponentProps) => {
                 All Orders
               </Link>
             </li>
-
-            
 
             <li className="text-white">
               <Link to="/Admin/customers">

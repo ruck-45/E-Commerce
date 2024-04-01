@@ -2,13 +2,19 @@ import { useSelector } from "react-redux";
 import "./Product.css";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../../Redux/store";
-import { Badge, Image } from "@nextui-org/react";
+import { Badge, Button, Image } from "@nextui-org/react";
 import { individualProductType } from "../../../utils/types";
+import { FaEdit } from "react-icons/fa";
+import { RiDeleteBinFill } from "react-icons/ri";
+import { getCookie } from "../../../utils/cookies";
 
 const ProductCards = (props: individualProductType) => {
   const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
   const createdDate = new Date(props.created_at);
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
+  const isLoggedIn = useSelector((state: RootState) => state.loginStatus.value);
+  const curTab = useSelector((state: RootState) => state.curTab.value);
+  const admin = getCookie("isAdmin");
   const navigate = useNavigate();
   let content = "";
   let className = "rounded-none ";
@@ -75,6 +81,16 @@ const ProductCards = (props: individualProductType) => {
             </>
           )}
         </div>
+        {isLoggedIn && admin === "true" && curTab === "Admin" ? (
+          <div className="w-full flex justify-between mt-[1rem]">
+            <Button startContent={<FaEdit />} radius="none" color="primary" variant="flat">
+              Edit
+            </Button>
+            <Button startContent={<RiDeleteBinFill />} radius="none" color="danger" variant="flat">
+              Delete
+            </Button>
+          </div>
+        ) : null}
       </div>
     </div>
   );

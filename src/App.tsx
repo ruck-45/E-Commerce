@@ -109,9 +109,7 @@ function App() {
   return (
     <>
       <div>
-        {curTab === "Auth" || curTab === "Password Reset" || curTab === "admin" || curTab === "Layout" ? null : (
-          <NavBar />
-        )}
+        {curTab === "Auth" || curTab === "Password Reset" || curTab === "admin" ? null : <NavBar />}
         <Routes>
           <Route path="/" element={<Navigate to="/Home" />} />
           <Route path="/Home" element={<Home />} />
@@ -140,8 +138,8 @@ function App() {
           <Route path="*" element={<Navigate to="/Home" />} />
         </Routes>
       </div>
-      {curTab === "Auth" || curTab === "Password Reset" || curTab === "Layout" ? null : <Footer />}
-      {curTab === "Auth" || curTab === "Password Reset" || curTab === "Layout" ? null : <ScrollToTop />}
+      {curTab === "Auth" || curTab === "Password Reset" ? null : <Footer />}
+      {curTab === "Auth" || curTab === "Password Reset" ? null : <ScrollToTop />}
     </>
   );
 }

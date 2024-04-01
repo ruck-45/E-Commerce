@@ -6,7 +6,7 @@ import { updateTab } from "../../../Redux/Slices/curTabSlice";
 
 const Layout = () => {
   const dispatch = useDispatch();
-  dispatch(updateTab("Layout"));
+  dispatch(updateTab("Admin"));
 
   return (
     <div>

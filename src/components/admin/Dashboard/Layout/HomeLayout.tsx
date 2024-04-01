@@ -11,6 +11,8 @@ import { updateLoginStatus } from "../../../../Redux/Slices/loginStatusSlice";
 import { updateToLoginStatus } from "../../../../Redux/Slices/toLoginSlice";
 import { resetCart } from "../../../../Redux/Slices/CartSlice";
 import { resetShippingInfo } from "../../../../Redux/Slices/shippingInfoSlice";
+import { IoHomeOutline } from "react-icons/io5";
+import { SlPeople } from "react-icons/sl";
 
 type MyComponentProps = {
   children: any;
@@ -87,6 +89,17 @@ const HomeLayout = (props: MyComponentProps) => {
                   <FaBorderStyle size={20} />
                 </span>
                 All Orders
+              </Link>
+            </li>
+
+            
+
+            <li className="text-white">
+              <Link to="/Admin/customers">
+                <span>
+                  <SlPeople size={20} />
+                </span>
+                All Customers
               </Link>
             </li>
 

@@ -3,7 +3,6 @@ import { useLayoutEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { RootState } from "../../../Redux/store";
-import Model from "./Model";
 import { individualProductType } from "../../../utils/types";
 import ProductCards from "../../ShopPage/SubComponents.tsx/ProductCards";
 import { Button, Input, Pagination, Skeleton } from "@nextui-org/react";
@@ -16,7 +15,6 @@ const Products = () => {
   const navigate = useNavigate();
 
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
-  const [showModel, setShowModel] = useState(false);
   const [itemCount, setItemCount] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
   const [shopData, setShopData] = useState([]);
@@ -26,11 +24,6 @@ const Products = () => {
 
   const EditProduct = (id: string) => {
     navigate(`/admin/editProduct/${id}`);
-  };
-
-  const handleDeleteButtonClick = () => {
-    setShowModel(true);
-    // Additional logic for handling the delete action, if needed
   };
 
   const getShopData = async () => {

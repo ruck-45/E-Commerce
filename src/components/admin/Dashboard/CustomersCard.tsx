@@ -2,13 +2,9 @@ import React from "react";
 
 interface Customer {
   address: string;
-  address_code:string;
   email: string;
-  password_hash: string;
-  password_salt:string;
-  phone: string;
-  registration_date: string;
-  state: string;
+  phone:string;
+  state:string;
   user_id: string;
   username: string;
 }
@@ -33,7 +29,7 @@ const CustomerCard = (props:Customer) => {
             <strong>State:</strong> {props.state}
           </div>
           <div className="text-sm mb-2">
-            <strong>Address:</strong> {props.address_code}
+            <strong>Address:</strong> {props.address}
           </div>
         </div>
         <div className=" md:ml-2">

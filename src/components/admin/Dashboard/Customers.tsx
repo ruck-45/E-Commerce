@@ -165,8 +165,8 @@ const CustomerList: React.FC = () => {
       <div className="bg-white px-4 pt-3 pb-4 h-full rounded-sm flex-1 overflow-auto">
         <h1 className="font-bold pt-7  text-2xl text-left xl:text-center">Customers List</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-3">
-          {customerList.map((customer) => (
-            <CustomerCard key={c} customer={customer} />
+          {customerList.map((customer:any) => (
+            <CustomerCard  {...customer} />
           ))}
         </div>
       </div>

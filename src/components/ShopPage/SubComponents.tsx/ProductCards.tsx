@@ -87,6 +87,10 @@ const ProductCards = (props: individualProductType) => {
     }, 2000);
   };
 
+  const handleEdit = () => {
+    navigate(`/Admin/editProduct/${props.item_id}`);
+  };
+
   return (
     <div
       className="productCard w-[15rem] border m-3 transition-all cursor-pointer"
@@ -136,7 +140,7 @@ const ProductCards = (props: individualProductType) => {
         </div>
         {isLoggedIn && admin === "true" && curTab === "Admin" ? (
           <div className="w-full flex justify-between mt-[1rem]">
-            <Button startContent={<FaEdit />} radius="none" color="primary" variant="flat">
+            <Button startContent={<FaEdit />} radius="none" color="primary" variant="flat" onClick={handleEdit}>
               Edit
             </Button>
             <Button startContent={<RiDeleteBinFill />} radius="none" color="danger" variant="flat" onClick={onOpen}>

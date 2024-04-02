@@ -11,9 +11,8 @@ import { updateLoginStatus } from "../../../../Redux/Slices/loginStatusSlice";
 import { updateToLoginStatus } from "../../../../Redux/Slices/toLoginSlice";
 import { resetCart } from "../../../../Redux/Slices/CartSlice";
 import { resetShippingInfo } from "../../../../Redux/Slices/shippingInfoSlice";
-import { IoHomeOutline } from "react-icons/io5";
 import { SlPeople } from "react-icons/sl";
-import { IoIosCreate } from "react-icons/io";
+import { IoCreateOutline } from "react-icons/io5";
 
 type MyComponentProps = {
   children: any;
@@ -87,9 +86,9 @@ const HomeLayout = (props: MyComponentProps) => {
             <li className="text-white">
               <Link to="/admin/addProduct">
                 <span>
-                  <IoIosCreate size={20} />
+                  <IoCreateOutline size={20} />
                 </span>
-                Create
+                Create Item
               </Link>
             </li>
 

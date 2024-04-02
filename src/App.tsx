@@ -118,6 +118,8 @@ function App() {
             <Route path="products" element={<Products />} />
             <Route path="orders" element={<Orders />} />
             <Route path="customers" element={<Customers />} />
+            <Route path="addProduct" element={<AddProduct />} />
+            <Route path="editProduct/:id" element={<EditProducts />} />
           </Route>
           <Route path="/Shop" element={<ShopPage />} />
           <Route path="/ProductDetails/:name/:id" element={<ProductDetails />} />
@@ -133,8 +135,6 @@ function App() {
           <Route path="/Privacy" element={<Privacy />} />
           <Route path="/Terms" element={<Term />} />
           <Route path="/ResetPassword" element={<PasswordReset />} />
-          <Route path="/admin/addProduct" element={<AddProduct />} />
-          <Route path="/admin/editProduct/:id" element={<EditProducts />} />
           <Route path="*" element={<Navigate to="/Home" />} />
         </Routes>
       </div>

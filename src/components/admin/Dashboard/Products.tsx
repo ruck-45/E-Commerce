@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useLayoutEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router";
 import { RootState } from "../../../Redux/store";
 import { individualProductType } from "../../../utils/types";
 import ProductCards from "../../ShopPage/SubComponents.tsx/ProductCards";
@@ -12,8 +11,6 @@ import { IoSearch } from "react-icons/io5";
 const pageSize = 16;
 
 const Products = () => {
-  const navigate = useNavigate();
-
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
   const [itemCount, setItemCount] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
@@ -21,10 +18,6 @@ const Products = () => {
   const [receivedShopData, setReceivedShopData] = useState(-1);
   const [search, setSearch] = useState("");
   const searchRef = useRef(document.createElement("input"));
-
-  const EditProduct = (id: string) => {
-    navigate(`/admin/editProduct/${id}`);
-  };
 
   const getShopData = async () => {
     try {

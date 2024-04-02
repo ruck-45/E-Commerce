@@ -1,11 +1,10 @@
-import * as React from "react";
 import { getCookie } from "../../../utils/cookies";
 import toast from "react-hot-toast";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import { Button, Chip, IconButton, Input, Stack } from "@mui/material";
+import { Chip, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { styled } from "@mui/system";
 import { useTheme } from "@mui/material/styles";
@@ -14,6 +13,10 @@ import "./product.css";
 import { validationErrors } from "../../../helpers/constant";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { RootState } from "../../../Redux/store";
+import { useSelector } from "react-redux";
+import { useLayoutEffect, useState } from "react";
+import { Button } from "@nextui-org/react";
 
 const StyledTextField = styled(TextField)(({ theme, error }) => ({
   "& .MuiOutlinedInput-root": {
@@ -108,45 +111,54 @@ let outputProduct: OutputProduct = {
 export default function EditProduct() {
   const { id } = useParams();
   const theme = useTheme();
-  let apiUrl = process.env.REACT_APP_API_URL;
-  if (process.env.NODE_ENV === "development") {
-    apiUrl = process.env.REACT_APP_DEV_API_URL;
-  }
+  const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
   const token = getCookie("token");
 
-  React.useLayoutEffect(() => {
-    const fetchProductForEdit = async () => {
-      try {
-        const getProductResponse = await axios.get(`${apiUrl}/items/${id}`);
-        console.log("getProductResponse", getProductResponse);
+  const extractNumbersFromString = (inputString: string): number[] => {
+    const numberRegex = /\d+(\.\d+)?/g;
+    const matches = inputString.match(numberRegex);
+    if (matches) {
+      return matches.map((match) => parseFloat(match));
+    } else {
+      return [];
+    }
+  };
 
-        if (!getProductResponse.data.success) {
-          toast.error("Product Not Found. Please try again");
-          return;
-        }
-        const { imageCount } = getProductResponse.data.payload.result;
+  const fetchProductForEdit = async () => {
+    try {
+      const getProductResponse = await axios.get(`${apiUrl}/items/${id}`);
 
-        const fetchedImages = [];
-
-        for (let i = 1; i <= imageCount; i++) {
-          const imageURL = `${apiUrl}/public/itemImages/${id}_img${i}`;
-          fetchedImages.push(imageURL);
-        }
-
-        setProduct(getProductResponse.data.payload.result);
-        setImages(fetchedImages);
-      } catch (error) {
-        toast.error("Failed to fetch product. Please try again later.");
+      if (!getProductResponse.data.success) {
+        toast.error("Product Not Found. Please try again");
         return;
       }
-    };
+      const { imageCount } = getProductResponse.data.payload.result;
+      const fetchedImages = [];
+      for (let i = 1; i <= imageCount; i++) {
+        fetchedImages.push(`${apiUrl}/items/itemImages/${id}_img${i}.jpg`);
+      }
 
+      const [dimensionHeight, dimensionWidth] = extractNumbersFromString(
+        getProductResponse.data.payload.result.dimension
+      );
+
+      console.log(dimensionHeight, dimensionWidth);
+
+      setProduct({ ...getProductResponse.data.payload.result, dimensionHeight, dimensionWidth });
+      setImages(fetchedImages);
+    } catch (error) {
+      toast.error("Failed to fetch product. Please try again later.");
+      return;
+    }
+  };
+
+  useLayoutEffect(() => {
     fetchProductForEdit();
   }, [apiUrl, id]);
 
-  const [showImageError, setShowImageError] = React.useState(false);
+  const [showImageError, setShowImageError] = useState(false);
 
-  const [isError, setIsError] = React.useState({
+  const [isError, setIsError] = useState({
     brand: { isError: false },
     title: { isError: false },
     color: { isError: false },
@@ -168,16 +180,17 @@ export default function EditProduct() {
     imageArray: { isError: false },
   });
 
-  const [highlights, setHighlights] = React.useState<any>("");
+  const [highlights, setHighlights] = useState<any>("");
 
-  const [finalImageArray, setFinalImageArray] = React.useState<any>([]);
+  const [finalImageArray, setFinalImageArray] = useState<any>([]);
 
-  const [images, setImages] = React.useState<any>([]);
+  const [images, setImages] = useState<any>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const [product, setProduct] = React.useState<Product>(initialProduct);
+  const [product, setProduct] = useState<Product>(initialProduct);
 
   const updateProduct = async () => {
-    console.log("start update")
+    console.log("start update");
     const percentage: Number = 100 - ((+product.price - +product.discountedPrice) / +product.price) * 100;
     setProduct({
       ...product,
@@ -245,7 +258,7 @@ export default function EditProduct() {
       details: product.details.trim(),
       quantity: product.quantity,
       material: product.material.trim(),
-      dimension: `${product.dimensionWidth}x${product.dimensionHeight}`,
+      dimension: `${product.dimensionWidth} cm x ${product.dimensionHeight} cm`,
       description: product.description.trim(),
       topLevelCategory: product.topLevelCategory.trim(),
       secondLevelCategory: product.secondLevelCategory.trim(),
@@ -397,7 +410,7 @@ export default function EditProduct() {
                     value={product.color}
                     id="outlined-basic"
                     name="color"
-                    label="color"
+                    label="Color"
                     variant="outlined"
                     error={isError.color.isError}
                   />
@@ -435,7 +448,7 @@ export default function EditProduct() {
                   <StyledTextField
                     fullWidth
                     id="outlined-basic"
-                    label="Price"
+                    label="Original Price ($)"
                     name="price"
                     variant="outlined"
                     type="number"
@@ -449,7 +462,7 @@ export default function EditProduct() {
                   <StyledTextField
                     fullWidth
                     id="outlined-basic"
-                    label="Discount Price"
+                    label="Discount Price ($)"
                     name="discountedPrice"
                     variant="outlined"
                     type="number"
@@ -480,7 +493,7 @@ export default function EditProduct() {
                   <StyledTextField
                     fullWidth
                     id="outlined-basic"
-                    label="Dimension height"
+                    label="Height (cm)"
                     name="dimensionHeight"
                     variant="outlined"
                     type="number"
@@ -498,7 +511,7 @@ export default function EditProduct() {
                   <StyledTextField
                     fullWidth
                     id="outlined-basic"
-                    label="Dimension Width"
+                    label="Width (cm)"
                     name="dimensionWidth"
                     variant="outlined"
                     type="number"
@@ -522,10 +535,10 @@ export default function EditProduct() {
                     }}
                     className={isError.highlights.isError ? "cp-textarea-error" : "cp-textarea"}
                   ></textarea>
-                  <Button onClick={addHighlight} variant="contained">
+                  <Button onClick={addHighlight} className="rounded-md" color="secondary">
                     Add Hightlight
                   </Button>
-                  <div>
+                  <div className="flex flex-wrap gap-[1rem] my-3">
                     {product.highlights.length > 0 &&
                       product.highlights.map((item: any, index: number) => (
                         <Chip key={index} onDelete={() => chipDelete(index)} label={item} />
@@ -645,7 +658,7 @@ export default function EditProduct() {
                 }}
                 multiple
               />
-              <label htmlFor="actual-btn">Select Images</label>
+              <label htmlFor="actual-btn">Add Images</label>
               <ImageList
                 sx={{
                   width: "100%",
@@ -701,8 +714,14 @@ export default function EditProduct() {
               )}
             </div>
           </div>
-          <Button style={{ marginTop: "30px" }} onClick={updateProduct} variant="contained">
-            Update Product
+          <Button
+            className="w-full lg:w-[35rem] h-[3rem] mt-[30px] rounded-md"
+            onClick={updateProduct}
+            color="success"
+            isLoading={isLoading}
+            variant="shadow"
+          >
+            Submit
           </Button>
         </div>
       </div>

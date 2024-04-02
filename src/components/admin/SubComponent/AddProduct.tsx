@@ -1,11 +1,10 @@
-import * as React from "react";
 import { getCookie } from "../../../utils/cookies";
-import toast ,{Toaster} from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import { Button, Chip, IconButton, Input, Stack } from "@mui/material";
+import { Chip, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { styled } from "@mui/system";
 import { useTheme } from "@mui/material/styles";
@@ -13,6 +12,10 @@ import { useTheme } from "@mui/material/styles";
 import "./product.css";
 import { validationErrors } from "../../../helpers/constant";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../Redux/store";
+import { useState } from "react";
+import { Button } from "@nextui-org/react";
 
 const StyledTextField = styled(TextField)(({ theme, error }) => ({
   "& .MuiOutlinedInput-root": {
@@ -82,7 +85,7 @@ type OutputProduct = {
   thirdLevelCategory: string;
   quantity: number;
   imageCount: number;
-  orders:number;
+  orders: number;
 };
 
 let outputProduct: OutputProduct = {
@@ -103,22 +106,16 @@ let outputProduct: OutputProduct = {
   thirdLevelCategory: "",
   quantity: 0,
   imageCount: 0,
-  orders:0
+  orders: 0,
 };
 
 export default function AddProduct() {
   const theme = useTheme();
-  let apiUrl = process.env.REACT_APP_API_URL;
-  if (process.env.NODE_ENV === "development") {
-    apiUrl = process.env.REACT_APP_DEV_API_URL;
-  }
-  const [showImageError, setShowImageError] = React.useState(false);
+  const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
+  const [showImageError, setShowImageError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  if (process.env.NODE_ENV === "development") {
-    apiUrl = process.env.REACT_APP_DEV_API_URL;
-  }
-
-  const [isError, setIsError] = React.useState({
+  const [isError, setIsError] = useState({
     brand: { isError: false },
     title: { isError: false },
     color: { isError: false },
@@ -140,15 +137,15 @@ export default function AddProduct() {
     imageArray: { isError: false },
   });
 
-  const [highlights, setHighlights] = React.useState<any>("");
+  const [highlights, setHighlights] = useState<any>("");
 
-  const [finalImageArray,setFinalImageArray] = React.useState<any>([]);
+  const [finalImageArray, setFinalImageArray] = useState<any>([]);
 
-  const [images, setImages] = React.useState<any>([]);
+  const [images, setImages] = useState<any>([]);
 
   const token = getCookie("token");
 
-  const [product, setProduct] = React.useState<Product>(initialProduct);
+  const [product, setProduct] = useState<Product>(initialProduct);
 
   const addProduct = async () => {
     const percentage: Number = ((+product.price - +product.discountedPrice) / +product.price) * 100;
@@ -174,41 +171,48 @@ export default function AddProduct() {
         return;
       } else {
         convertToOutputProduct(product);
-        const createItemDetailsResponse = await axios.post(`${apiUrl}/items/createItem`, outputProduct, 
-          {
+        setIsLoading(true);
+        try {
+          const createItemDetailsResponse = await axios.post(`${apiUrl}/items/createItem`, outputProduct, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
+          });
+
+          if (!createItemDetailsResponse.data.success) {
+            toast.error(`Error While Creating Product`);
+          } else {
+            const formData = new FormData();
+            finalImageArray.forEach((file: any) => {
+              formData.append("images", file);
+            });
+
+            try {
+              const imageResponse = await axios.post(`${apiUrl}/items/itemImages`, formData, {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                  itemId: createItemDetailsResponse.data.payload.itemId,
+                },
+              });
+
+              if (!imageResponse.data.success) {
+                toast.error(`Error While Uploading Images`);
+              } else {
+                toast.success(`Product Created Successfully`);
+                setImages([]);
+                setProduct(initialProduct);
+                setHighlights("");
+              }
+            } catch (error) {
+              console.log(error);
+              toast.error(`Image Upload Failed`);
+            }
           }
-        );
-
-        if (!createItemDetailsResponse.data.success) {
-          toast.error(`Error While Creating Product`);
-          return;
+        } catch (error) {
+          console.log(error);
+          toast.error(`Product Creation Failed`);
         }
-        
-        const formData = new FormData();
-        finalImageArray.forEach((file:any) => {
-          formData.append('images', file);
-        });
-
-        const imageResponse = await axios.post(`${apiUrl}/items/itemImages`, formData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            itemId: createItemDetailsResponse.data.payload.itemId,
-          },
-        });
-
-        if (!imageResponse.data.success) {
-          toast.error(`Error While Uploading Images`);
-          return;
-        }
-        
-        toast.success(`Product added successfully`);
-
-        setImages([]);
-        setProduct(initialProduct);
-        setHighlights("");
+        setIsLoading(false);
       }
     }
   };
@@ -225,14 +229,14 @@ export default function AddProduct() {
       details: product.details.trim(),
       minimumOrder: product.quantity,
       material: product.material.trim(),
-      dimension: `${product.dimensionWidth}x${product.dimensionHeight}`,
+      dimension: `${product.dimensionWidth} cm x ${product.dimensionHeight} cm`,
       description: product.description.trim(),
       topLevelCategory: product.topLevelCategory.trim(),
       secondLevelCategory: product.secondLevelCategory.trim(),
       thirdLevelCategory: product.thirdLevelCategory.trim(),
       quantity: product.orders,
       imageCount: images.length,
-      orders:0
+      orders: 0,
     });
   }
 
@@ -324,10 +328,8 @@ export default function AddProduct() {
     ];
 
     if (numberRequiredFields.includes(name)) {
-      if(+value<0)
-        setProduct({ ...product, [name]: 0 });
-      else
-      setProduct({ ...product, [name]: +value });
+      if (+value < 0) setProduct({ ...product, [name]: 0 });
+      else setProduct({ ...product, [name]: +value });
     } else {
       setProduct({ ...product, [name]: value });
     }
@@ -380,7 +382,7 @@ export default function AddProduct() {
                     value={product.color}
                     id="outlined-basic"
                     name="color"
-                    label="color"
+                    label="Color"
                     variant="outlined"
                     error={isError.color.isError}
                   />
@@ -418,7 +420,7 @@ export default function AddProduct() {
                   <StyledTextField
                     fullWidth
                     id="outlined-basic"
-                    label="Price"
+                    label="Original Price ($)"
                     name="price"
                     variant="outlined"
                     type="number"
@@ -432,7 +434,7 @@ export default function AddProduct() {
                   <StyledTextField
                     fullWidth
                     id="outlined-basic"
-                    label="Discount Price"
+                    label="Discount Price ($)"
                     name="discountedPrice"
                     variant="outlined"
                     type="number"
@@ -463,7 +465,7 @@ export default function AddProduct() {
                   <StyledTextField
                     fullWidth
                     id="outlined-basic"
-                    label="Dimension height"
+                    label="Height (cm)"
                     name="dimensionHeight"
                     variant="outlined"
                     type="number"
@@ -481,7 +483,7 @@ export default function AddProduct() {
                   <StyledTextField
                     fullWidth
                     id="outlined-basic"
-                    label="Dimension Width"
+                    label="Width (cm)"
                     name="dimensionWidth"
                     variant="outlined"
                     type="number"
@@ -505,10 +507,10 @@ export default function AddProduct() {
                     }}
                     className={isError.highlights.isError ? "cp-textarea-error" : "cp-textarea"}
                   ></textarea>
-                  <Button onClick={addHighlight} variant="contained">
+                  <Button onClick={addHighlight} color="secondary" className="rounded-md">
                     Add Hightlight
                   </Button>
-                  <div>
+                  <div className="flex flex-wrap gap-[1rem] my-3">
                     {product.highlights.length > 0 &&
                       product.highlights.map((item: any, index: number) => (
                         <Chip key={index} onDelete={() => chipDelete(index)} label={item} />
@@ -609,7 +611,7 @@ export default function AddProduct() {
                 accept=".jpg,.jpeg"
                 onChange={(e) => {
                   let tempArr = [];
-                  let finalTemp=[];
+                  let finalTemp = [];
                   if (e.target.files) {
                     for (let i = 0; i < e.target.files.length; i++) {
                       if (e.target.files[i].size > 1000000) {
@@ -622,13 +624,13 @@ export default function AddProduct() {
                         finalTemp.push(e.target.files[i]);
                       }
                     }
-                    setFinalImageArray([...finalImageArray,...finalTemp]);
+                    setFinalImageArray([...finalImageArray, ...finalTemp]);
                     setImages([...images, ...tempArr]);
                   }
                 }}
                 multiple
               />
-              <label htmlFor="actual-btn">Select Images</label>
+              <label htmlFor="actual-btn">Add Images</label>
               <ImageList
                 sx={{
                   width: "100%",
@@ -684,12 +686,18 @@ export default function AddProduct() {
               )}
             </div>
           </div>
-          <Button style={{ marginTop: "30px" }} onClick={addProduct} variant="contained">
-            Add Product
+          <Button
+            className="w-full lg:w-[35rem] h-[3rem] mt-[30px] rounded-md"
+            onClick={addProduct}
+            color="success"
+            isLoading={isLoading}
+            variant="shadow"
+          >
+            Submit
           </Button>
         </div>
       </div>
-      <Toaster/>
+      <Toaster />
     </>
   );
 }

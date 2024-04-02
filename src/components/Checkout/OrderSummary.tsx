@@ -104,7 +104,7 @@ const OrderSummary = () => {
             </div>
 
             <Button onClick={makePayment} variant="contained" sx={{ padding: ".8rem 2rem", marginTop: "2rem", width: "100%" }}>
-              Make Payment
+                Make Payment
             </Button>
           </div>
         </div>

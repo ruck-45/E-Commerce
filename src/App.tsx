@@ -53,6 +53,7 @@ function App() {
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log("response: " , response)
       if (response.data.success) {
         const data = response.data.payload.cart;
         for (let i = 0; i < data.length; i++) {
@@ -60,7 +61,7 @@ function App() {
         }
         dispatch(updateDataFetched(true));
       } else {
-        console.error("Error fetching cart data:", response.data);
+        console.error("Error fetching cart data again:", response.data);
       }
     } catch (error) {
       console.error("Error fetching cart data:", error);

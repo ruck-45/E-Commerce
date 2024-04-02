@@ -95,7 +95,7 @@ export default function ProductDetails() {
         setReceivedProductData(0);
       } else {
         if (response.data.payload.result) {
-          setProductsData(response.data.payload.result);
+          setProductsData({...response.data.payload.result, highlights:  JSON.parse(response.data.payload.result.highlights)});
           cartData.findIndex((item) => item.item_id === response.data.payload.result.item_id) === -1
             ? setInCart(false)
             : setInCart(true);
@@ -126,7 +126,7 @@ export default function ProductDetails() {
         console.log("Cart add Successful ...");
       } else {
         console.log("Cart add Failed ...");
-        console.log(response.data);
+        console.log(response);
       }
     } catch (error) {
       console.log("Cart add Failed ...");

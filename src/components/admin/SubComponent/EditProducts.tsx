@@ -77,15 +77,16 @@ type OutputProduct = {
   discountPercent: number;
   highlights: string[];
   details: string;
-  quantity: number;
+  minimumOrder: number;
   material: string;
   dimension: string;
   description: string;
   topLevelCategory: string;
   secondLevelCategory: string;
   thirdLevelCategory: string;
-  orders: number;
+  quantity: number;
   imageCount: number;
+  orders: number;
 };
 
 let outputProduct: OutputProduct = {
@@ -97,15 +98,16 @@ let outputProduct: OutputProduct = {
   discountPercent: 0,
   highlights: [],
   details: "",
-  quantity: 0,
+  minimumOrder: 0,
   material: "",
   dimension: "",
   description: "",
   topLevelCategory: "",
   secondLevelCategory: "",
   thirdLevelCategory: "",
-  orders: 0,
+  quantity: 0,
   imageCount: 0,
+  orders: 0,
 };
 
 export default function EditProduct() {
@@ -144,7 +146,7 @@ export default function EditProduct() {
 
       console.log(dimensionHeight, dimensionWidth);
 
-      setProduct({ ...getProductResponse.data.payload.result, dimensionHeight, dimensionWidth });
+      setProduct({ ...getProductResponse.data.payload.result,highlights: JSON.parse(getProductResponse.data.payload.result.highlights),  dimensionHeight, dimensionWidth });
       setImages(fetchedImages);
     } catch (error) {
       toast.error("Failed to fetch product. Please try again later.");
@@ -246,6 +248,7 @@ export default function EditProduct() {
     }
   };
 
+
   function convertToOutputProduct(product: Product) {
     return (outputProduct = {
       brand: product.brand.trim(),
@@ -256,15 +259,16 @@ export default function EditProduct() {
       discountPercent: product.discountPercent,
       highlights: product.highlights.map((highlight) => highlight.trim()),
       details: product.details.trim(),
-      quantity: product.quantity,
+      minimumOrder: product.quantity,
       material: product.material.trim(),
       dimension: `${product.dimensionWidth} cm x ${product.dimensionHeight} cm`,
       description: product.description.trim(),
       topLevelCategory: product.topLevelCategory.trim(),
       secondLevelCategory: product.secondLevelCategory.trim(),
       thirdLevelCategory: product.thirdLevelCategory.trim(),
-      orders: product.orders,
+      quantity: product.orders,
       imageCount: images.length,
+      orders: 0,
     });
   }
 

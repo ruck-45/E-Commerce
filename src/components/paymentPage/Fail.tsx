@@ -15,14 +15,14 @@ const Fail = () => {
             <p className=" ml-12 text-left ">Please Try again</p>
           </div>
           <RxCrossCircled className="text-red-500 text-5xl " />
-          <div>Sorry Your OrderId Is not Genrate!</div>
+          <div>There was some issue with the payment!</div>
         </div>
         
         <Link
-          to="/checkout"
+          to="/Cart"
           className="bg-red-500 hover:bg-red-600 transition-all ease-in-out duration-150 absolute bottom-0 w-full py-2 text-xl font-bold text-center rounded-bl-lg rounded-br-lg"
         >
-          <button>Try again</button>
+          <button>Go to cart</button>
         </Link>
       </div>
     </div>

@@ -36,7 +36,6 @@ jobs:
       - name: Sync files to hosting
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: ftp.infinityfree.com
+          server: 162.213.251.176
           username: ${{ secrets.ftp_username }}
           password: ${{ secrets.ftp_password }}
-          server-dir: ${{ secrets.ftp_dir }}

@@ -14,6 +14,7 @@ import {
   Dropdown,
   Button,
   Badge,
+  Input,
 } from "@nextui-org/react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
@@ -29,6 +30,9 @@ import { updateNavStatus } from "../Redux/Slices/navOpenStatusSlice";
 import { RootState } from "../Redux/store";
 import TopBar from "./TopBar";
 import { RiArrowDropDownLine } from "react-icons/ri";
+import Bottombar from "./Bottombar";
+import { IoSearch } from "react-icons/io5";
+import { FaHeart, FaShoppingCart, FaUserCircle } from "react-icons/fa";
 
 const menuItems = ["Home", "Shop", "About", "Contact", "Cart"];
 
@@ -135,11 +139,43 @@ const NavBar = () => {
           </Dropdown>
         </NavbarContent>
 
-        <NavbarContent justify="end">
+        <NavbarContent justify="end" className="gap-[0.5rem]">
+          <NavbarItem className="flex gap-[0.5rem]">
+            <Input
+              classNames={{
+                base: "w-full h-10",
+                mainWrapper: "h-full",
+                input: "text-small ",
+                inputWrapper: "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20 bg-white",
+              }}
+              placeholder="Search"
+              size="sm"
+              type="search"
+              variant="underlined"
+              endContent={<IoSearch className="text-xl" />}
+            />
+          </NavbarItem>
           <NavbarItem className="hidden lg:flex">
             <Badge content={totalQuantity} shape="circle" color="danger" isInvisible={totalQuantity === 0}>
-              <ButtonElement to="/Checkout" startContent={<LuShoppingCart />} label="Cart" variant="light" />
+              <ButtonElement
+                to="/Checkout"
+                label="Cart"
+                variant="light"
+                radius="full"
+                isIconOnly
+                icon={<FaShoppingCart className="text-[1.2rem] text-default-700" />}
+              />
             </Badge>
+          </NavbarItem>
+          <NavbarItem className="hidden lg:flex">
+            <ButtonElement
+              to="/Home"
+              label="Cart"
+              variant="light"
+              radius="full"
+              isIconOnly
+              icon={<FaHeart className="text-[1.2rem] text-default-700" />}
+            />
           </NavbarItem>
           <NavbarItem>
             {isLoggedIn ? (
@@ -147,11 +183,11 @@ const NavBar = () => {
             ) : (
               <ButtonElement
                 to="../Auth"
-                variant="shadow"
-                label="Login"
-                color="primary"
+                variant="light"
                 radius="full"
                 size="md"
+                isIconOnly
+                icon={<FaUserCircle className="text-2xl text-default-700" />}
                 onClickFunction={() => dispatch(updateToLoginStatus(true))}
               />
             )}
@@ -177,6 +213,7 @@ const NavBar = () => {
           })}
         </NavbarMenu>
       </Navbar>
+      <Bottombar />
     </>
   );
 };

@@ -1,5 +1,5 @@
 .nav-active {
-  color: #005bc4;
+  color: #f31260;
   font-weight: 700;
   font-size: medium;
 }
@@ -10,13 +10,13 @@
 }
 
 .notActive:hover {
-  color: #005bc4;
+  color: #f31260;
 }
 .navActive::after {
   content: "";
   height: 0.15rem;
   border-radius: 1rem;
-  background-color: #005bc4;
+  background-color: #f31260;
   transform: translateY(0.2rem);
   animation: drawLine 0.5s forwards;
 }

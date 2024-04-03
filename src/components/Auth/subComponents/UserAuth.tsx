@@ -1,7 +1,6 @@
 // Dependencies
 import { useState, useRef } from "react";
 import { Button, Input, Checkbox } from "@nextui-org/react";
-import { FaArrowRightLong } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -24,6 +23,7 @@ import { RootState } from "../../../Redux/store";
 import { updateToLoginStatus } from "../../../Redux/Slices/toLoginSlice";
 import axios from "axios";
 import { updateLoginStatus } from "../../../Redux/Slices/loginStatusSlice";
+import { FaHome } from "react-icons/fa";
 
 const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
   if (event.key === "Enter") {
@@ -218,12 +218,18 @@ const UserAuth = () => {
 
   return (
     <form
-      className="flex flex-col justify-center sm:min-w-[27rem] p-12 gap-3 Auth rounded-3xl "
+      className="flex flex-col justify-center sm:min-w-[27rem] p-12 gap-3 Auth lg:mx-[5rem] h-full bg-white"
       onSubmit={handleSubmit}
     >
-      <Link to="../" className="mb-[2rem] flex items-center gap-[0.5rem] hover:gap-[1rem] duration-100 text-[#006FEE]">
-        <FaArrowRightLong />
-        <p>Home</p>
+      <Link
+        to="../"
+        className="mb-[2rem] flex items-center gap-[0.5rem] hover:gap-[1rem] duration-100 hover:text-[#7828C8]"
+      >
+        <div className="flex justify-center items-center gap-[0.4rem]">
+          <FaHome />
+          <p>Home</p>
+        </div>
+        <p> {"»"} </p>
       </Link>
       <div className="flex gap-2 font-semibold welcomeText">
         <h1>Welcome to Shop Nest </h1>
@@ -234,29 +240,27 @@ const UserAuth = () => {
         type="text"
         label="Username"
         maxLength={50}
-        labelPlacement="outside"
-        placeholder="Enter your username"
         className={toLogin ? "hidden" : ""}
         onKeyDown={handleKeyPress}
         isInvalid={usernameState}
         errorMessage={usernameState ? invalidUsernameMessage : ""}
         onChange={checkUsername}
+        radius="none"
+        variant="underlined"
       />
       <Input
         type="email"
         label="Email"
         maxLength={100}
-        labelPlacement="outside"
-        placeholder="Enter your email"
         onKeyDown={handleKeyPress}
         isInvalid={emailState}
         errorMessage={emailState ? "Please enter a valid Email" : ""}
         onChange={checkEmail}
+        radius="none"
+        variant="underlined"
       />
       <Input
         label="Password"
-        labelPlacement="outside"
-        placeholder="Enter your password"
         endContent={
           <button className="focus:outline-none" type="button" onClick={toggleVisibility}>
             {isVisible ? (
@@ -273,11 +277,11 @@ const UserAuth = () => {
         onChange={checkPassword}
         onPaste={(e) => e.preventDefault()}
         onCopy={(e) => e.preventDefault()}
+        radius="none"
+        variant="underlined"
       />
       <Input
         label="Confirm Password"
-        labelPlacement="outside"
-        placeholder="Confirm your password"
         className={toLogin ? "hidden" : ""}
         endContent={<button className="focus:outline-none" type="button" onClick={toggleVisibility}></button>}
         type={isVisible ? "text" : "password"}
@@ -287,27 +291,43 @@ const UserAuth = () => {
         onChange={checkConfirmPassword}
         onPaste={(e) => e.preventDefault()}
         onCopy={(e) => e.preventDefault()}
+        radius="none"
+        variant="underlined"
       />
       {toLogin ? (
         <p
           className="text-xs text-right cursor-pointer"
-          style={{ color: "#006FEE" }}
+          style={{ color: "#7828C8" }}
           onClick={() => navigate("../ResetPassword")}
         >
           Forgot Password?
         </p>
       ) : null}
-      <Checkbox defaultSelected size="sm" className={toLogin ? "" : "hidden"} onChange={handleCheckboxChange}>
+      <Checkbox
+        defaultSelected
+        size="sm"
+        className={toLogin ? "" : "hidden"}
+        onChange={handleCheckboxChange}
+        color="secondary"
+        radius="none"
+      >
         Remember Me
       </Checkbox>
-      <Button className="mt-2 mb-2" color="primary" variant="shadow" type="submit" isLoading={handleLoginButton}>
+      <Button
+        className="mt-2 mb-2"
+        color="secondary"
+        variant="ghost"
+        type="submit"
+        isLoading={handleLoginButton}
+        radius="none"
+      >
         Submit
       </Button>
       <p className="text-xs text-center">
         {toLogin ? "New to our platform?" : "Already have an account?"}
         &nbsp;
         <button
-          style={{ color: "#006FEE" }}
+          style={{ color: "#7828C8" }}
           onClick={(e) => {
             changeAuthStatus(e);
           }}

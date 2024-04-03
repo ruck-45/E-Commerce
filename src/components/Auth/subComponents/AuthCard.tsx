@@ -1,29 +1,16 @@
-// Dependencies
 import { Image } from "@nextui-org/react";
-import { Link } from "react-router-dom";
-
-// Local Files
-import logo from "../../../globalAssets/logo.svg";
+import loginbg from "../assets/loginBg.png";
 
 type AuthCardProps = {
   className?: string;
 };
 
 const AuthCard = (props: AuthCardProps) => {
-  const className = "flex flex-col gap-[2rem] " + props.className;
+  const className = "flex justify-center items-center gap-[2rem] bg-contain bg-no-repeat bg-center " + props.className;
 
   return (
     <div className={className}>
-      <Link to="../">
-        <Image width={150} src={logo} alt="logo" className="bg-white p-[1rem]" />
-      </Link>
-      <h1 className="text-white">Shop Nest Pvt Ltd.</h1>
-      <p className="text-white max-w-[25rem]">
-        Welcome to Your Secure Login! <br />
-        Enter your details with confidence. Our robust security ensures your information is protected. Whether you are a
-        valued client or a team member, this is your gateway to a streamlined and secure experience. Access your account
-        with ease and explore your personalized space.
-      </p>
+      <Image src={loginbg} width={700} radius="none" className="contrast-200" isBlurred />
     </div>
   );
 };

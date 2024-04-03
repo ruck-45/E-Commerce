@@ -3,7 +3,7 @@ export const validationErrors={
     "COLOR":"Please enter product's color",
     "BRAND":"Brand should not be empty",
     "PRICE":"Price should not be empty",
-    "DESCRIPTION":"Please provide a description between 20 and 100 characters",
+    "DESCRIPTION":"Please provide a description between 20 and 400 characters",
     "REQUIRED":"*Required",
     "HIGHLIGHT":"Please enter at-least one hightlight",
     "NO_IMAGE":"No image selected",

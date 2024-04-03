@@ -2,7 +2,6 @@
 import { useState, useRef } from "react";
 import axios from "axios";
 import { Button, Input } from "@nextui-org/react";
-import { FaArrowRightLong } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,6 +17,7 @@ import {
 } from "../../../utils/authRegex";
 import { updateToLoginStatus } from "../../../Redux/Slices/toLoginSlice";
 import { RootState } from "../../../Redux/store";
+import { FaHome } from "react-icons/fa";
 // Local Files
 
 const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -163,12 +163,18 @@ const ForgetPassword = () => {
 
   return (
     <form
-      className="flex flex-col justify-center w-[22rem] sm:min-w-[27rem] p-12 m-2 gap-3 Auth rounded-3xl"
+      className="flex flex-col justify-center w-[22rem] sm:min-w-[27rem] p-12 m-2 gap-3 Auth rounded-3xl lg:mx-[5rem] h-full bg-white"
       onSubmit={handleSubmit}
     >
-      <Link to="../" className="mb-[2rem] flex items-center gap-[0.5rem] hover:gap-[1rem] duration-100 text-[#006FEE]">
-        <FaArrowRightLong />
-        <p>Home</p>
+      <Link
+        to="../"
+        className="mb-[2rem] flex items-center gap-[0.5rem] hover:gap-[1rem] duration-100 hover:text-[#7828C8]"
+      >
+        <div className="flex justify-center items-center gap-[0.4rem]">
+          <FaHome />
+          <p>Home</p>
+        </div>
+        <p> {"»"} </p>
       </Link>
       <div className="flex flex-col gap-8 font-semibold welcomeText mb-4">
         <p>Reset Password</p>
@@ -184,23 +190,23 @@ const ForgetPassword = () => {
             type="password"
             label="New Password"
             maxLength={100}
-            labelPlacement="outside"
-            placeholder="Enter new password"
             onKeyDown={handleKeyPress}
             isInvalid={passwordState}
             errorMessage={passwordState ? invalidPasswordMessage : ""}
             onChange={checkPassword}
+            radius="none"
+            variant="underlined"
           />
           <Input
             type="password"
             label="Confirm Password"
             maxLength={100}
-            labelPlacement="outside"
-            placeholder="Confirm your password"
             onKeyDown={handleKeyPress}
             isInvalid={confirmPasswordState}
             errorMessage={confirmPasswordState ? "Passwords do not match" : ""}
             onChange={checkConfirmPassword}
+            radius="none"
+            variant="underlined"
           />
         </>
       ) : (
@@ -208,16 +214,16 @@ const ForgetPassword = () => {
           type="email"
           label="Email"
           maxLength={100}
-          labelPlacement="outside"
-          placeholder="Enter your email"
           onKeyDown={handleKeyPress}
           isInvalid={emailState}
           errorMessage={emailState ? "Please enter a valid Email" : ""}
           onChange={checkEmail}
+          radius="none"
+          variant="underlined"
         />
       )}
 
-      <Button className="mt-5 mb-2" color="primary" variant="shadow" type="submit" isLoading={isLoading}>
+      <Button className="mt-5 mb-2" color="secondary" variant="ghost" type="submit" isLoading={isLoading} radius="none">
         Submit
       </Button>
       <Toaster />

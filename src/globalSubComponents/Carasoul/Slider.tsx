@@ -30,7 +30,7 @@ const Carousel = (props:Card) => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center relative">
       {/* <div className="p-[2rem]">
         <h1 className="lg:text-3xl text-1xl font-bold font-serif border-b-2 border-black">
           <span className="text-blue-600">SHOPNEST </span>SALES LIVE

@@ -29,18 +29,21 @@ const SaleCarasouel = () => {
     };
 
   return (
-    <div className="">
-      <div className="lg:h-[20rem] h-auto w-full">
+    <div className="relative ">
+      <div className="lg:h-[20rem] h-auto w-full ">
         {slides.map((url: any, i: any) => (
-          <img src={url} className={"object-contain lg:h-[300px]  w-full " + (currentIndex === i ? "block" : "hidden")} />
+          <img
+            src={url}
+            className={"object-contain lg:h-[300px]  w-full " + (currentIndex === i ? "block" : "hidden")}
+          />
         ))}
       </div>
 
-      <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-        <a className="btn btn-circle" onClick={handlePrevSlide}>
+      <div className=" flex justify-between w-full transform -translate-y-1/2  absolute top-1/2 ">
+        <a className="btn btn-circle lg:ml-[-3rem] bg-black text-white" onClick={handlePrevSlide}>
           ❮
         </a>
-        <a className="btn btn-circle" onClick={handleNextSlide}>
+        <a className="btn btn-circle lg:mr-[-3rem] bg-black text-white" onClick={handleNextSlide}>
           ❯
         </a>
       </div>

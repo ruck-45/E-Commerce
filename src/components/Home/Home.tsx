@@ -85,7 +85,12 @@ const Home = () => {
     <div>
       <Slider homeImage={homeImage} />
       <div className="mt-[2rem] flex flex-col justify-center items-center">
-        <div className="p-[2rem]"><h1 className="lg:text-3xl text-1xl font-bold font-serif border-b-2 border-black"><span className="text-yellow-600">SHOPNEST{" "}</span>PRESENT</h1></div>
+        <div className="p-[2rem]">
+          <h1 className="lg:text-3xl text-1xl  font-['Rowdies'] ">
+            <span className="text-yellow-600">SHOPNEST </span>
+            PRESENT
+          </h1>
+        </div>
         <SaleCarasouel />
       </div>
 

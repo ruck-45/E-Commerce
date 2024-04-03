@@ -1,6 +1,5 @@
 .Auth {
   z-index: 2;
-  background-color: white;
 }
 
 .LogoName {
@@ -20,4 +19,12 @@
   height: 0.1rem;
   background-color: #d4d4d8;
   border-radius: 100px;
+}
+
+.authcardbg {
+  overflow-y: hidden;
+  background-color: #ffffff;
+  opacity: 0.8;
+  background-image: repeating-radial-gradient(circle at 0 0, transparent 0, #ffffff 10px),
+    repeating-linear-gradient(#d1d0d555, #d1d0d5);
 }

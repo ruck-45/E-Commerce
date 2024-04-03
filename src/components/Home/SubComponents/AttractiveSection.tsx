@@ -4,7 +4,7 @@ import "./Attractive.css";
 
 const AttractiveSection = () => {
   return (
-    <div className="bg-white h-auto text-white">
+    <div className="bg-white h-auto text-white mt-[0rem]">
       <div className="flex flex-col lg:flex-row items-center justify-center gap-[1rem] p-[3rem]">
         <div className=" firstSection  firstSection flex flex-col items-end justify-center rounded-2xl lg:h-[33rem] w-full lg:w-[50rem]">
           <div className="mr-[1rem] md:mr-[5rem] p-[2rem] bg-[rgba(0,0,0,0.5)] rounded-xl">

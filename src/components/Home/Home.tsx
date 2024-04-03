@@ -18,6 +18,11 @@ import { RootState } from "../../Redux/store";
 import axios from "axios";
 import HomeProductSectionSkeleton from "./SubComponents/HomeProductSectionSkeleton";
 import HomeProductSectionNotFound from "./SubComponents/HomeProductSectionNotFound";
+import {homeImage,discountImage} from "./data/data"
+import SaleCarasouel from "../../globalSubComponents/Carasoul/SaleCarasouel";
+
+
+
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -78,7 +83,12 @@ const Home = () => {
 
   return (
     <div>
-      <Slider />
+      <Slider homeImage={homeImage} />
+      <div className="mt-[2rem] flex flex-col justify-center items-center">
+        <div className="p-[2rem]"><h1 className="lg:text-3xl text-1xl font-bold font-serif border-b-2 border-black"><span className="text-yellow-600">SHOPNEST{" "}</span>PRESENT</h1></div>
+        <SaleCarasouel />
+      </div>
+
       {receivedAntiqueData === 1 ? (
         <HomeProductSection data={antiquesData} section={"Popular Antiques"} />
       ) : receivedAntiqueData === -1 ? (
@@ -86,6 +96,7 @@ const Home = () => {
       ) : (
         <HomeProductSectionNotFound section={"Popular Antiques"} />
       )}
+      <Slider homeImage={discountImage} />
       <AttractiveSection />
       <Services />
       {receivedCarpetsData === 1 ? (
@@ -95,6 +106,8 @@ const Home = () => {
       ) : (
         <HomeProductSectionNotFound section={"Carpets On Demand"} />
       )}
+      <SaleCarasouel />
+
       <Achievement />
       <Explore />
       <HomeCard />

@@ -1,37 +1,60 @@
-import { useEffect, useState } from "react";
-import SliderContent from "./SliderContent";
-import Dots from "./Dots";
-import Arrows from "./Arrow";
+import React, { useEffect, useState } from "react";
 
-import "./slider.css";
-import { sliderData } from "./SliderImage";
+type Card ={
+  homeImage:any
+}
 
-const len = sliderData.length - 1;
-
-function Slider() {
-  const [activeIndex, setActiveIndex] = useState<number>(0);
+const Carousel = (props:Card) => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const slides =props.homeImage
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveIndex(activeIndex === len ? 0 : activeIndex + 1);
-    }, 20000);
+      setCurrentSlide((currentSlide) => (currentSlide + 1) % slides.length);
+    }, 3000); // Change slide every 5 seconds
+
     return () => clearInterval(interval);
-  }, [activeIndex]);
+  }, []);
+
+  const nextSlide = () => {
+    console.log("hello");
+    setCurrentSlide((currentSlide + 1) % slides.length);
+  };
+
+  const prevSlide = () => {
+    if (currentSlide === 0) {
+      setCurrentSlide(slides.length - 1);
+    } else {
+      setCurrentSlide(currentSlide - 1);
+    }
+  };
 
   return (
-    <div className="slider-container ">
-      <SliderContent activeIndex={activeIndex} sliderData={sliderData} />
-      <Arrows
-        prevSlide={() => setActiveIndex(activeIndex < 1 ? len : activeIndex - 1)}
-        nextSlide={() => setActiveIndex(activeIndex === len ? 0 : activeIndex + 1)}
-      />
-      <Dots
-        activeIndex={activeIndex}
-        sliderData={sliderData}
-        onclick={(activeIndex: any) => setActiveIndex(activeIndex)}
-      />
+    <div className="flex flex-col justify-center items-center">
+      {/* <div className="p-[2rem]">
+        <h1 className="lg:text-3xl text-1xl font-bold font-serif border-b-2 border-black">
+          <span className="text-blue-600">SHOPNEST </span>SALES LIVE
+        </h1>
+      </div> */}
+      <div className="lg:h-[25rem] h-auto w-full">
+        {slides.map((url: any, i: any) => (
+          <img
+            src={url}
+            className={"object-contain lg:h-[400px] w-full " + (currentSlide === i ? "block" : "hidden")}
+          />
+        ))}
+      </div>
+
+      <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 lg:top-1/2 ">
+        <a className="btn btn-circle" onClick={prevSlide}>
+          ❮
+        </a>
+        <a className="btn btn-circle" onClick={nextSlide}>
+          ❯
+        </a>
+      </div>
     </div>
   );
-}
+};
 
-export default Slider;
+export default Carousel;

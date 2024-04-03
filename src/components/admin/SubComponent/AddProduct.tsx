@@ -27,21 +27,21 @@ const initialProduct: Product = {
   brand: "",
   title: "",
   color: "",
-  discountedPrice: 0,
-  price: 0,
+  discountedPrice: "",
+  price: "",
   discountPercent: 0,
   highlights: [],
-  dimensionHeight: 0,
-  dimensionWidth: 0,
+  dimensionHeight: "",
+  dimensionWidth: "",
   details: "",
-  quantity: 0,
+  quantity: "",
   material: "",
   description: "",
   topLevelCategory: "",
   secondLevelCategory: "",
   thirdLevelCategory: "",
-  orders: 0,
-  imageCount: 0,
+  orders: "",
+  imageCount:"",
   imageArray: [],
 };
 
@@ -49,21 +49,21 @@ type Product = {
   brand: string;
   title: string;
   color: string;
-  discountedPrice: number;
-  price: number;
+  discountedPrice: number | string;
+  price: number | string;
   discountPercent: number;
   highlights: string[];
   details: string;
-  quantity: number;
+  quantity: number | string;
   material: string;
-  dimensionHeight: number;
-  dimensionWidth: number;
+  dimensionHeight: number | string;
+  dimensionWidth: number | string;
   description: string;
   topLevelCategory: string;
   secondLevelCategory: string;
   thirdLevelCategory: string;
-  orders: number;
-  imageCount: number;
+  orders: number | string;
+  imageCount: number | string;
   imageArray: string[];
 };
 
@@ -71,42 +71,42 @@ type OutputProduct = {
   brand: string;
   title: string;
   color: string;
-  discountedPrice: number;
-  price: number;
+  discountedPrice: number | string;
+  price: number | string;
   discountPercent: number;
   highlights: string[];
   details: string;
-  minimumOrder: number;
+  minimumOrder: number | string;
   material: string;
   dimension: string;
   description: string;
   topLevelCategory: string;
   secondLevelCategory: string;
   thirdLevelCategory: string;
-  quantity: number;
-  imageCount: number;
-  orders: number;
+  quantity: number | string;
+  imageCount: number | string;
+  orders: number | string;
 };
 
 let outputProduct: OutputProduct = {
   brand: "",
   title: "",
   color: "",
-  discountedPrice: 0,
-  price: 0,
+  discountedPrice:"",
+  price: "",
   discountPercent: 0,
   highlights: [],
   details: "",
-  minimumOrder: 0,
+  minimumOrder: "",
   material: "",
   dimension: "",
   description: "",
   topLevelCategory: "",
   secondLevelCategory: "",
   thirdLevelCategory: "",
-  quantity: 0,
-  imageCount: 0,
-  orders: 0,
+  quantity: "",
+  imageCount: "",
+  orders: "",
 };
 
 export default function AddProduct() {
@@ -295,7 +295,7 @@ export default function AddProduct() {
       status = true;
     }
 
-    if (product.description.length < 20 || product.description.length >= 100) {
+    if (product.description.length < 20 || product.description.length >= 400) {
       setIsError((prevError) => ({
         ...prevError,
         description: { isError: true },
@@ -328,7 +328,7 @@ export default function AddProduct() {
     ];
 
     if (numberRequiredFields.includes(name)) {
-      if (+value < 0) setProduct({ ...product, [name]: 0 });
+      if (+value < 0 || value==='') setProduct({ ...product, [name]: "" });
       else setProduct({ ...product, [name]: +value });
     } else {
       setProduct({ ...product, [name]: value });

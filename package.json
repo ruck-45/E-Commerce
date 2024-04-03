@@ -11,6 +11,8 @@
     "@mui/material": "^5.15.12",
     "@mui/styled-engine": "^5.15.11",
     "@nextui-org/react": "^2.2.9",
+    "@nextui-org/use-infinite-scroll": "^2.1.2",
+    "@react-stately/data": "^3.11.2",
     "@reduxjs/toolkit": "^2.0.1",
     "@stripe/react-stripe-js": "^2.6.2",
     "@stripe/stripe-js": "^3.1.0",

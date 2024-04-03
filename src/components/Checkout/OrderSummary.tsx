@@ -4,9 +4,10 @@ import AddressCard from "./subComponents/AdreessCard";
 import { Button } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/store";
-import {loadStripe} from '@stripe/stripe-js';
-import {useState} from 'react';
+import { loadStripe } from "@stripe/stripe-js";
+import { useState } from "react";
 import { getCookie } from "../../utils/cookies";
+import axios from "axios";
 
 const OrderSummary = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const OrderSummary = () => {
 
   const { cart, totalPrice, totalQuantity, totalDiscountPrice } = useSelector((state: RootState) => state.allCart);
   const product = useSelector((state: RootState) => state.allCart);
+  const shippingInfoFetched = useSelector((state: RootState) => state.shippingInfo);
   let apiUrl = process.env.REACT_APP_API_URL;
   if (process.env.NODE_ENV === "development") {
     apiUrl = process.env.REACT_APP_DEV_API_URL;
@@ -35,27 +37,25 @@ const OrderSummary = () => {
   //Stripe payment integration
 
   async function makePayment(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    const stripe=await loadStripe(`${process.env.REACT_APP_STRIPE_KEY}`);
-    
-    const res = await fetch(`${apiUrl}/checkout/payment`, {
-      method: 'POST',
+    const stripe = await loadStripe(`${process.env.REACT_APP_STRIPE_KEY}`);
+    const customerInfo = {
+      product: product,
+      shippingInfo: shippingInfoFetched,
+    };
+
+    const response = await axios.post(`${apiUrl}/checkout/payment`, customerInfo, {
       headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(product)
-  });
+    });
+    const result = stripe?.redirectToCheckout({
+      sessionId: response.data.id,
+    });
 
-  const session=await res.json();
-  const result=stripe?.redirectToCheckout({
-    sessionId:session.id,
-  });
-  console.log(result);
-
-  if((await result)?.error){
-    console.log((await result)?.error);
+    if ((await result)?.error) {
+      console.log((await result)?.error);
+    }
   }
-}
 
   return (
     <div className="space-y-5">
@@ -103,8 +103,12 @@ const OrderSummary = () => {
               </div>
             </div>
 
-            <Button onClick={makePayment} variant="contained" sx={{ padding: ".8rem 2rem", marginTop: "2rem", width: "100%" }}>
-                Make Payment
+            <Button
+              onClick={makePayment}
+              variant="contained"
+              sx={{ padding: ".8rem 2rem", marginTop: "2rem", width: "100%" }}
+            >
+              Make Payment
             </Button>
           </div>
         </div>

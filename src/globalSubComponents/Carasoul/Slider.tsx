@@ -46,10 +46,10 @@ const Carousel = (props:Card) => {
       </div>
 
       <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 lg:top-1/2 ">
-        <a className="btn btn-circle" onClick={prevSlide}>
+        <a className="btn btn-circle  bg-black text-white" onClick={prevSlide}>
           ❮
         </a>
-        <a className="btn btn-circle" onClick={nextSlide}>
+        <a className="btn btn-circle  bg-black text-white" onClick={nextSlide}>
           ❯
         </a>
       </div>

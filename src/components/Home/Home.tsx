@@ -111,7 +111,7 @@ const Home = () => {
       ) : (
         <HomeProductSectionNotFound section={"Carpets On Demand"} />
       )}
-      <SaleCarasouel />
+      
 
       <Achievement />
       <Explore />

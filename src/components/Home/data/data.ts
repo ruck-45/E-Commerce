@@ -11,7 +11,11 @@ import p9 from "../../../globalSubComponents/Carasoul/photos/carpets/banner2.png
 import p10 from "../../../globalSubComponents/Carasoul/photos/sale/1.png";
 import p11 from "../../../globalSubComponents/Carasoul/photos/sale/2.png";
 import p12 from "../../../globalSubComponents/Carasoul/photos/sale/3.png";
+import p13 from "../../../globalSubComponents/Carasoul/photos/offer/Grey Beige Minimalist Aesthetic Home Decor Business Etsy Shop Cover.png";
+import p14 from "../../../globalSubComponents/Carasoul/photos/offer/Orange Pink Retro Creative Corner Etsy Cover Photo.png";
+import p15 from "../../../globalSubComponents/Carasoul/photos/offer/White Pink Minimal Romantic Etsy Shop Cover.png";
 
 export const discountImage = [p1, p2, p3];
 export const homeImage = [p4, p5, p6, p7, p8, p9];
 export const saleImage = [p10, p11, p12];
+export const offerImage = [p13,p14,p15]

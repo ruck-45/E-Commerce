@@ -173,30 +173,32 @@ export default function AddProduct() {
         convertToOutputProduct(product);
         setIsLoading(true);
         try {
-          const createItemDetailsResponse = await axios.post(`${apiUrl}/items/createItem`, outputProduct, {
+          const formData = new FormData();
+          finalImageArray.forEach((file: any) => {
+            formData.append("images", file);
+          });
+          const imageResponse = await axios.post(`${apiUrl}/items/itemImages`, formData, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           });
 
-          if (!createItemDetailsResponse.data.success) {
-            toast.error(`Error While Creating Product`);
+          if (!imageResponse.data.success) {
+            toast.error(`Error while uploading images. Please try again.`);
           } else {
-            const formData = new FormData();
-            finalImageArray.forEach((file: any) => {
-              formData.append("images", file);
-            });
-
+            console.log(imageResponse.data.payload);
             try {
-              const imageResponse = await axios.post(`${apiUrl}/items/itemImages`, formData, {
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                  itemId: createItemDetailsResponse.data.payload.itemId,
-                },
-              });
-
-              if (!imageResponse.data.success) {
-                toast.error(`Error While Uploading Images`);
+              const createItemDetailsResponse = await axios.post(
+                `${apiUrl}/items/createItem`,
+                { ...outputProduct, itemId: imageResponse.data.payload.itemId },
+                {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+                }
+              );
+              if (!createItemDetailsResponse.data.success) {
+                toast.error(`Error while creating product. Please try again.`);
               } else {
                 toast.success(`Product Created Successfully`);
                 setImages([]);
@@ -205,11 +207,11 @@ export default function AddProduct() {
               }
             } catch (error) {
               console.log(error);
-              toast.error(`Image Upload Failed`);
+              toast.error(`Item creation failed, please try again.`);
             }
           }
         } catch (error) {
-          console.log(error);
+          console.log(error.message);
           toast.error(`Product Creation Failed`);
         }
         setIsLoading(false);

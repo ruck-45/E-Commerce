@@ -18,7 +18,7 @@ import { RootState } from "../../Redux/store";
 import axios from "axios";
 import HomeProductSectionSkeleton from "./SubComponents/HomeProductSectionSkeleton";
 import HomeProductSectionNotFound from "./SubComponents/HomeProductSectionNotFound";
-import { homeImage, discountImage, saleImage ,offerImage} from "./data/data";
+import { homeImage, discountImage, saleImage, offerImage } from "./data/data";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -129,7 +129,6 @@ const Home = () => {
       </div>
       <Slider homeImage={offerImage} className="mt-[1rem] mx-[3rem]" height="300px" />
 
-      <Achievement />
       <Explore />
 
       <div className="p-[2rem] flex justify-center mt-[2rem] mb-[-2rem]">

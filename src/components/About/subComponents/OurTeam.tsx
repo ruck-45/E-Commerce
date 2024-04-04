@@ -1,47 +1,63 @@
-import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
+import { Avatar, Divider } from "@nextui-org/react";
+import { AiFillInstagram } from "react-icons/ai";
+import { FaTwitterSquare } from "react-icons/fa";
+import { SiFacebook } from "react-icons/si";
+import { TbBrandYoutubeFilled } from "react-icons/tb";
+
+const leaders = [
+  {
+    name: "MAX MONTI",
+    desc: "OPERATIONS MANAGER",
+    image:
+      "https://images.pexels.com/photos/762020/pexels-photo-762020.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+  },
+  {
+    name: "SARAI CIANCIO",
+    desc: "CEO",
+    image:
+      "https://images.pexels.com/photos/3778876/pexels-photo-3778876.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+  },
+  {
+    name: "SONNY SELDON",
+    desc: "DEVELOPER",
+    image: "https://images.pexels.com/photos/5486199/pexels-photo-5486199.jpeg?auto=compress&cs=tinysrgb&w=600",
+  },
+  {
+    name: "KAY HIGLEY",
+    desc: "SALES EXECUTIVE",
+    image:
+      "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+  },
+];
 
 const OurTeam = () => {
   return (
-    <div className="flex flex-col justify-center items-center text-center p-[5rem] gap-[1rem] bg-[#e9ecef]">
-      <h1 className="font-bold text-5xl">Our Amazing Team</h1>
-      <p className="text-default-400 text-md">What makes ShopNest different from Others.</p>
-      <div className="flex flex-wrap mt-[1rem] gap-[2rem] justify-center items-center">
-        <Card isPressable isHoverable>
-          <CardBody>
-            <Image
-              width={400}
-              src="https://images.unsplash.com/photo-1562788869-4ed32648eb72?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            />
-          </CardBody>
-          <CardFooter className="flex flex-col items-center justify-center">
-            <h1 className="font-bold text-2xl">Ragnar Bennett</h1>
-            <p className="text-default-400">Chief Marketing Officer</p>
-          </CardFooter>
-        </Card>
-        <Card isPressable isHoverable>
-          <CardBody>
-            <Image
-              width={400}
-              src="https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            />
-          </CardBody>
-          <CardFooter className="flex flex-col items-center justify-center">
-            <h1 className="font-bold text-2xl">Alex Darwin</h1>
-            <p className="text-default-400">Head of Operations</p>
-          </CardFooter>
-        </Card>
-        <Card isPressable isHoverable>
-          <CardBody>
-            <Image
-              width={400}
-              src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            />
-          </CardBody>
-          <CardFooter className="flex flex-col items-center justify-center">
-            <h1 className="font-bold text-2xl">Rachel Faux</h1>
-            <p className="text-default-400">Director of Product Management</p>
-          </CardFooter>
-        </Card>
+    <div className="px-[3rem] md:px-[5rem] py-[5rem]">
+      <div className="flex justify-center items-center flex-col">
+        <h1 className="text-2xl font-bold">MEET OUR LEADERSHIP !!</h1>
+        <Divider className="max-w-[22rem] mt-[0.5rem]" />
+        <p className="text-center max-w-[40rem] text-xs mt-[0.5rem]">
+          Our Passion leads to design, design leads to performance, performance leads to success. We believe that apps
+          and websites should not only be eye catching but actually provide a great user experience that users will
+          remember.
+        </p>
+      </div>
+      <div className="flex flex-wrap mt-[3rem] gap-[2rem] justify-center">
+        {leaders.map((data) => (
+          <div className="flex flex-col justify-center items-center">
+            <Avatar className="w-[8rem] h-[8rem]" src={data.image} isBordered />
+            <div className="mt-[1rem] flex flex-col justify-center items-center border px-2 py-1">
+              <p className="font-bold">{data.name}</p>
+              <p className="font-semibold text-sm text-default-500">{data.desc}</p>
+              <div className="flex flex-row items-center justify-center gap-[1rem] text-default-800 px-[1rem] pt-[1rem] pb-[0.5rem] text-xl">
+                <SiFacebook className="cursor-pointer hover:scale-110" />
+                <TbBrandYoutubeFilled className="cursor-pointer hover:scale-110" />
+                <FaTwitterSquare className="cursor-pointer hover:scale-110" />
+                <AiFillInstagram className="cursor-pointer hover:scale-110" />
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

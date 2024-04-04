@@ -137,7 +137,7 @@ const EmailForm = () => {
           value="Sunny Isles Beach, FL 33160, United States"
         />
         <ContactCard heading="EMAIL US AT" icon={<MdEmail className="text-xl" />} value="support@shopnest.com" />
-        <ContactCard heading="CALL US DIRECTLY" icon={<MdPhone className="text-xl" />} value="+1-888-678-1234" />
+        <ContactCard heading="CALL US DIRECTLY" icon={<MdPhone className="text-xl" />} value="+1-888-891-7176" />
       </div>
 
       <Image

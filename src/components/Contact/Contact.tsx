@@ -22,6 +22,10 @@ const Contact = () => {
 
   return (
     <>
+      <div className="w-full flex flex-col justify-center items-center px-[5rem] py-[1.5rem] text-black bg-[#f4f4f4]">
+        <h1 className="text-lg font-bold">CONTACT US</h1>
+        <p className="text-sm">Home / Contact Us</p>
+      </div>
       <div className="flex flex-row gap-x-[0.7rem] px-[3rem] lg:px-[8rem] mt-[2rem]">
         <Link className="font-bold cursor-pointer flex gap-2" to="/Home">
           <FaHome className="mt-[0.3rem]" />
@@ -30,12 +34,8 @@ const Contact = () => {
         <p> {"»"} </p>
         <p>Contact</p>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 justify-start px-[3rem] lg:pl-0 lg:pr-[5rem]">
-        <EmailForm />
-        <Map />
-      </div>
-      <EmailContact />
-      <ImageRow />
+      <EmailForm />
+      <Map />
     </>
   );
 };

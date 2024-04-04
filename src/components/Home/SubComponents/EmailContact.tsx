@@ -18,7 +18,7 @@ const EmailContact = () => {
             </p>
             <div className="flex sm:flex-row flex-col items-center justify-between py-[1rem] gap-[1rem]">
               <Input
-                variant="bordered"
+                variant="underlined"
                 radius="none"
                 size="sm"
                 isRequired
@@ -27,7 +27,7 @@ const EmailContact = () => {
                 className="max-w-xs "
               />
               <Input
-                variant="bordered"
+                variant="underlined"
                 radius="none"
                 size="sm"
                 isRequired
@@ -35,7 +35,7 @@ const EmailContact = () => {
                 label="Email"
                 className="max-w-xs"
               />
-              <Button size="lg" color="secondary" isIconOnly>
+              <Button size="lg" color="secondary" isIconOnly radius="none" variant="flat">
                 <GrSend className="text-xl" />
               </Button>
             </div>

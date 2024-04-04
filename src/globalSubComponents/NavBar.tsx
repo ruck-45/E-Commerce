@@ -18,7 +18,6 @@ import {
 } from "@nextui-org/react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { LuShoppingCart } from "react-icons/lu";
 
 // Local Files
 import "./NavBar.css";

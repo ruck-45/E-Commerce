@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from "react";
+import { Image } from "@nextui-org/react";
+import { useEffect, useState } from "react";
 
-type Card ={
-  homeImage:any
-}
+type Card = {
+  homeImage: any;
+  className: string;
+  height: string;
+};
 
-const Carousel = (props:Card) => {
+const Carousel = (props: Card) => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const slides =props.homeImage
+  const slides = props.homeImage;
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((currentSlide) => (currentSlide + 1) % slides.length);
-    }, 3000); // Change slide every 5 seconds
+    }, 3000);
 
     return () => clearInterval(interval);
   }, []);
@@ -30,28 +33,22 @@ const Carousel = (props:Card) => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center relative">
-      {/* <div className="p-[2rem]">
-        <h1 className="lg:text-3xl text-1xl font-bold font-serif border-b-2 border-black">
-          <span className="text-blue-600">SHOPNEST </span>SALES LIVE
-        </h1>
-      </div> */}
-      <div className="lg:h-[25rem] h-auto w-full">
-        {slides.map((url: any, i: any) => (
-          <img
-            src={url}
-            className={"object-contain lg:h-[400px] w-full " + (currentSlide === i ? "block" : "hidden")}
-          />
-        ))}
-      </div>
+    <div className={"relative flex justify-center " + props.className}>
+      {slides.map((url: any, i: any) => (
+        <Image
+          src={url}
+          radius="none"
+          className={`object-contain z-[5] lg:h-[${props.height}] ` + (currentSlide === i ? "block" : "hidden")}
+        />
+      ))}
 
-      <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 lg:top-1/2 ">
-        <a className="btn btn-circle  bg-black text-white" onClick={prevSlide}>
+      <div className="absolute flex justify-between transform -translate-y-1/2 top-1/2 w-full z-[9]">
+        <p className="btn btn-circle text-white" onClick={prevSlide}>
           ❮
-        </a>
-        <a className="btn btn-circle  bg-black text-white" onClick={nextSlide}>
+        </p>
+        <p className="btn btn-circle text-white" onClick={nextSlide}>
           ❯
-        </a>
+        </p>
       </div>
     </div>
   );

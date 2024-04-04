@@ -18,11 +18,7 @@ import { RootState } from "../../Redux/store";
 import axios from "axios";
 import HomeProductSectionSkeleton from "./SubComponents/HomeProductSectionSkeleton";
 import HomeProductSectionNotFound from "./SubComponents/HomeProductSectionNotFound";
-import {homeImage,discountImage} from "./data/data"
-import SaleCarasouel from "../../globalSubComponents/Carasoul/SaleCarasouel";
-
-
-
+import { homeImage, discountImage, saleImage } from "./data/data";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -83,16 +79,15 @@ const Home = () => {
 
   return (
     <div>
-      <Slider homeImage={homeImage} />
-      <div className="mt-[2rem] flex flex-col justify-center items-center">
-        <div className="p-[2rem]">
-          <h1 className="lg:text-3xl text-1xl  font-['Rowdies'] ">
-            <span className="text-yellow-600">SHOPNEST </span>
-            PRESENT
-          </h1>
-        </div>
-        <SaleCarasouel />
+      <Slider homeImage={homeImage} className="mt-[1rem] mx-[3rem]" height="400px" />
+
+      <div className="p-[2rem] flex justify-center my-[2rem]">
+        <h1 className="lg:text-3xl text-1xl  font-['Rye'] text-[#F31260] font-bold">
+          <span className="text-default-800 ">FEATURED </span>
+          OFFERS
+        </h1>
       </div>
+      <Slider homeImage={saleImage} className="mt-[1rem] mx-[3rem]" height="300px" />
 
       {receivedAntiqueData === 1 ? (
         <HomeProductSection data={antiquesData} section={"Popular Antiques"} />
@@ -101,7 +96,21 @@ const Home = () => {
       ) : (
         <HomeProductSectionNotFound section={"Popular Antiques"} />
       )}
-      <Slider homeImage={discountImage} />
+
+      <div className="p-[2rem] flex justify-center my-[2rem]">
+        <h1 className="lg:text-3xl text-1xl  font-['Rye'] text-[#F31260] font-bold">
+          <span className="text-default-800 ">AMAZING </span>
+          DEALS
+        </h1>
+      </div>
+      <Slider homeImage={discountImage} className="mt-[1rem] mx-[3rem]" height="400px" />
+
+      <div className="p-[2rem] flex justify-center mt-[2rem] mb-[-1rem]">
+        <h1 className="lg:text-3xl text-1xl  font-['Rye'] text-[#F31260] font-bold">
+          <span className="text-default-800 ">EXCLUSIVE </span>
+          ITEMS
+        </h1>
+      </div>
       <AttractiveSection />
       <Services />
       {receivedCarpetsData === 1 ? (
@@ -111,10 +120,24 @@ const Home = () => {
       ) : (
         <HomeProductSectionNotFound section={"Carpets On Demand"} />
       )}
-      
+
+      <div className="p-[2rem] flex justify-center my-[2rem]">
+        <h1 className="lg:text-3xl text-1xl  font-['Rye'] text-[#F31260] font-bold">
+          <span className="text-default-800 ">FEATURED </span>
+          OFFERS
+        </h1>
+      </div>
+      <Slider homeImage={saleImage} className="mt-[1rem] mx-[3rem]" height="300px" />
 
       <Achievement />
       <Explore />
+
+      <div className="p-[2rem] flex justify-center mt-[2rem] mb-[-2rem]">
+        <h1 className="lg:text-3xl text-1xl  font-['Rye'] text-[#F31260] font-bold">
+          <span className="text-default-800 ">EXQUISITE </span>
+          SELECTION
+        </h1>
+      </div>
       <HomeCard />
       <EmailContact />
       <ImageRow />

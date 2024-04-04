@@ -8,5 +8,10 @@ import p7 from "../../../globalSubComponents/Carasoul/photos/carpets/ban4.png";
 import p8 from "../../../globalSubComponents/Carasoul/photos/carpets/banner1.png";
 import p9 from "../../../globalSubComponents/Carasoul/photos/carpets/banner2.png";
 
-export const discountImage = [p1,p2,p3]
-export const homeImage = [p4,p5,p6,p7,p8,p9]
+import p10 from "../../../globalSubComponents/Carasoul/photos/sale/1.png";
+import p11 from "../../../globalSubComponents/Carasoul/photos/sale/2.png";
+import p12 from "../../../globalSubComponents/Carasoul/photos/sale/3.png";
+
+export const discountImage = [p1, p2, p3];
+export const homeImage = [p4, p5, p6, p7, p8, p9];
+export const saleImage = [p10, p11, p12];

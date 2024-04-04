@@ -42,7 +42,7 @@ const Carousel = (props: Card) => {
         />
       ))}
 
-      <div className="absolute flex justify-between transform -translate-y-1/2 top-1/2 w-full z-[9]">
+      <div className="absolute justify-between transform -translate-y-1/2 top-1/2 w-full z-[9] md:flex hidden">
         <p className="btn btn-circle text-white" onClick={prevSlide}>
           ❮
         </p>

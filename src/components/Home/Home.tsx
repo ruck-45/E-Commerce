@@ -18,7 +18,8 @@ import { RootState } from "../../Redux/store";
 import axios from "axios";
 import HomeProductSectionSkeleton from "./SubComponents/HomeProductSectionSkeleton";
 import HomeProductSectionNotFound from "./SubComponents/HomeProductSectionNotFound";
-import { homeImage, discountImage, saleImage, offerImage } from "./data/data";
+import { homeImage, discountImage, saleImage ,offerImage} from "./data/data";
+import Exclusive from "../Exclusive/Exclusive";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -88,6 +89,7 @@ const Home = () => {
         </h1>
       </div>
       <Slider homeImage={saleImage} className="mt-[1rem] mx-[3rem]" height="300px" />
+      <Exclusive/>
 
       {receivedAntiqueData === 1 ? (
         <HomeProductSection data={antiquesData} section={"Popular Antiques"} />

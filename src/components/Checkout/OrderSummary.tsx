@@ -22,10 +22,6 @@ const OrderSummary = () => {
   }
   const [showImageError, setShowImageError] = useState(false);
 
-  if (process.env.NODE_ENV === "development") {
-    apiUrl = process.env.REACT_APP_DEV_API_URL;
-  }
-
   const getDiscountPercent = () => {
     if (totalPrice > 0) {
       return (((totalPrice - totalDiscountPrice) / totalPrice) * 100).toFixed(0);

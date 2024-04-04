@@ -206,12 +206,10 @@ export default function AddProduct() {
                 setHighlights("");
               }
             } catch (error) {
-              console.log(error);
               toast.error(`Item creation failed, please try again.`);
             }
           }
         } catch (error) {
-          console.log(error.message);
           toast.error(`Product Creation Failed`);
         }
         setIsLoading(false);

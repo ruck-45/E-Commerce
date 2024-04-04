@@ -3,10 +3,12 @@ import React, { useEffect } from "react";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { getCookie } from "../../utils/cookies";
+import { useSelector } from "react-redux";
+import { RootState } from "../../Redux/store";
 
 const Successful = () => {
 
-  const apiUrl=process.env.REACT_APP_API_URL;
+  const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
   
   const user_id=getCookie("userId");
   const token = getCookie("token");

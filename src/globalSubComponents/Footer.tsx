@@ -1,10 +1,9 @@
 // Dependencies
-import { SiAmazonluna, SiAmericanexpress, SiFacebook } from "react-icons/si";
+import { SiAmazonluna, SiFacebook } from "react-icons/si";
 import { TbBrandYoutubeFilled, TbTruckReturn } from "react-icons/tb";
 import { AiFillInstagram } from "react-icons/ai";
 import {
   FaTwitterSquare,
-  FaPhoneAlt,
   FaStore,
   FaCcVisa,
   FaCcMastercard,
@@ -13,10 +12,8 @@ import {
   FaFacebookSquare,
   FaInstagramSquare,
 } from "react-icons/fa";
-import { MdEmail, MdOutlinePayment } from "react-icons/md";
-import { Divider, Image, Select, SelectItem } from "@nextui-org/react";
-import logo from "../globalAssets/logo.svg";
-import { Link } from "react-router-dom";
+import { MdOutlinePayment } from "react-icons/md";
+import { Divider, Select, SelectItem } from "@nextui-org/react";
 import { IoMdAppstore } from "react-icons/io";
 
 // Local Files
@@ -55,8 +52,16 @@ const brandNames = [
   "Zenith Rugs & Antiques",
 ];
 
-const appDownload = [<FaAppStoreIos />, <IoMdAppstore />, <IoLogoGooglePlaystore />];
-const paymentCards = [<FaCcVisa />, <FaCcMastercard />, <SiAmericanexpress />, <FaCcPaypal />];
+const appDownload = [
+  <FaAppStoreIos className="text-[#A2AAAD]" />,
+  <IoMdAppstore className="text-[#A2AAAD]" />,
+  <IoLogoGooglePlaystore className="text-[#A2AAAD]" />,
+];
+const paymentCards = [
+  <FaCcVisa className="text-blue-500" />,
+  <FaCcMastercard className="text-[#F79E1B]" />,
+  <FaCcPaypal />,
+];
 const socialMedia = [<FaFacebookSquare />, <FaInstagramSquare />, <FaSquareXTwitter />, <IoLogoYoutube />];
 const sponsers = [<IoLogoAmazon />, <SiAmazonluna />, <IoLogoOctocat />, <IoLogoVimeo />];
 
@@ -296,17 +301,25 @@ const blackFooter = [
 const Footer = () => {
   return (
     <>
-      <div className="bg-[#F5F5F5] py-[2rem] px-[3rem] sm:px-[5rem] flex flex-col gap-[1rem]">
+      <div className="bg-default-900 py-[2rem] px-[3rem] sm:px-[5rem] flex flex-col gap-[1rem] text-white">
         <div className="flex flex-col justify-evenly items-center gap-x-[5rem] gap-y-[1rem] xl:flex-row">
           <div className="flex gap-[2rem] grow">
             {features.map((data) => (
-              <div className="text-default-700 flex flex-col justify-center items-center font-thin text-center gap-[0.4rem]">
+              <div className="flex flex-col justify-center items-center font-thin text-center gap-[0.4rem]">
                 {data.icon}
                 <p>{data.name}</p>
               </div>
             ))}
           </div>
-          <Select label="Brands" className="max-w-[30rem] bg-white p-1" variant="bordered" radius="none">
+          <Select
+            label="Brands"
+            className="max-w-[30rem] bg-white p-1 text-black"
+            variant="bordered"
+            radius="none"
+            classNames={{
+              popoverContent: "rounded-none",
+            }}
+          >
             {brandNames.map((brand) => (
               <SelectItem key={brand} value={brand}>
                 {brand}
@@ -314,45 +327,45 @@ const Footer = () => {
             ))}
           </Select>
         </div>
-        <Divider />
+        <Divider className="bg-white" />
         <div className="flex justify-between items-center flex-wrap gap-y-[1rem] gap-x-[0.5rem]">
           <div>
             <p>PAY SECURELY BY</p>
-            <Divider className="bg-black max-w-[25%] max-h-[0.1px]" />
-            <div className="flex gap-[0.5rem] text-4xl mt-[0.7rem] text-default-800 justify-center items-center">
+            <Divider className="bg-white max-w-[25%] max-h-[0.1px]" />
+            <div className="flex gap-[0.5rem] text-4xl mt-[0.7rem] justify-center items-center">
               {paymentCards.map((data) => data)}
             </div>
           </div>
-          <Divider orientation="vertical" className="min-h-[5rem] h-full " />
+          <Divider orientation="vertical" className="min-h-[5rem] h-full bg-white " />
           <div>
             <p>REACH US</p>
-            <Divider className="bg-black max-w-[25%] max-h-[0.1px]" />
-            <div className=" mt-[0.7rem] text-default-800 ">
+            <Divider className="bg-white max-w-[25%] max-h-[0.1px]" />
+            <div className=" mt-[0.7rem] ">
               <p>For Any Query Please Email Us questions?</p>
               <p className="text-[red]">customercare@shopnest.com</p>
             </div>
           </div>
-          <Divider orientation="vertical" className="min-h-[5rem] h-full " />
+          <Divider orientation="vertical" className="min-h-[5rem] h-full bg-white" />
           <div>
             <p>DOWNLOAD APP ON</p>
-            <Divider className="bg-black max-w-[25%] max-h-[0.1px]" />
-            <div className="flex gap-[1rem] text-4xl mt-[0.7rem] text-default-800 justify-center items-center">
+            <Divider className="bg-white max-w-[25%] max-h-[0.1px]" />
+            <div className="flex gap-[1rem] text-4xl mt-[0.7rem] justify-center items-center">
               {appDownload.map((data) => data)}
             </div>
           </div>
-          <Divider orientation="vertical" className="min-h-[5rem] h-full " />
+          <Divider orientation="vertical" className="min-h-[5rem] h-full bg-white " />
           <div>
             <p>SPONSERED BY</p>
-            <Divider className="bg-black max-w-[25%] max-h-[0.1px]" />
-            <div className="flex gap-[0.5rem] text-4xl mt-[0.7rem] text-default-800 justify-center items-center">
+            <Divider className="bg-white max-w-[25%] max-h-[0.1px]" />
+            <div className="flex gap-[0.5rem] text-4xl mt-[0.7rem] justify-center items-center">
               {sponsers.map((data) => data)}
             </div>
           </div>
-          <Divider orientation="vertical" className="min-h-[5rem] h-full " />
+          <Divider orientation="vertical" className="min-h-[5rem] h-full bg-white" />
           <div>
             <p>FOLLOW US ON</p>
-            <Divider className="bg-black max-w-[25%] max-h-[0.1px]" />
-            <div className="flex gap-[0.5rem] text-4xl mt-[0.7rem] text-default-800 justify-center items-center">
+            <Divider className="bg-white max-w-[25%] max-h-[0.1px]" />
+            <div className="flex gap-[0.5rem] text-4xl mt-[0.7rem] justify-center items-center">
               {socialMedia.map((data) => data)}
             </div>
           </div>

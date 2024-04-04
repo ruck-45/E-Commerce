@@ -7,7 +7,6 @@ import { scrollTop } from "../../utils/controllers";
 import { updateTab } from "../../Redux/Slices/curTabSlice";
 import AboutUs from "./subComponents/AboutUs";
 import AboutWork from "./subComponents/AboutWork";
-import ImageRow from "../Home/SubComponents/ImageRow";
 import Achievement from "../Home/SubComponents/Achievement";
 import OurTeam from "./subComponents/OurTeam";
 import OurServices from "./subComponents/OurServices";
@@ -28,7 +27,6 @@ const About = () => {
       <OurServices />
       <Achievement />
       <OurTeam />
-      <ImageRow />
     </>
   );
 };

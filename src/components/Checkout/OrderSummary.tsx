@@ -28,7 +28,7 @@ const OrderSummary = () => {
 
   const getDiscountPercent = () => {
     if (totalPrice > 0) {
-      return (((totalPrice - totalDiscountPrice) / totalPrice) * 100).toFixed(0);
+      return (((totalPrice - totalDiscountPrice) / totalPrice) * 100).toFixed(2);
     } else {
       return 0;
     }

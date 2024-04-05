@@ -1,0 +1,11 @@
+.global-container {
+    
+}
+
+@media (max-width:1440px) {
+    .global-container {
+        display: block;
+        max-width: 100%;
+        height: auto;
+    }
+}

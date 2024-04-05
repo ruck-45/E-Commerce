@@ -11,5 +11,6 @@ export const validationErrors={
     "SECOND_LEVEL_CATEGORY":"Please enter second level category",
     "THIRD_LEVEL_CATEGORY":"Please enter third level category",
     "DETAILS":"Please enter details of the product",
-    "IMAGE_SIZE_EXCEED": "Image size is more than 1mb"
+    "IMAGE_SIZE_EXCEED": "Image size is more than 1mb",
+    "IMAGE_LENGTH_EXCEED": "You can select upto 4 images"
 }

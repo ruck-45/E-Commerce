@@ -42,7 +42,7 @@ const initialProduct: Product = {
   secondLevelCategory: "",
   thirdLevelCategory: "",
   orders: "",
-  imageCount:"",
+  imageCount: "",
   imageArray: [],
 };
 
@@ -93,7 +93,7 @@ let outputProduct: OutputProduct = {
   brand: "",
   title: "",
   color: "",
-  discountedPrice:"",
+  discountedPrice: "",
   price: "",
   discountPercent: 0,
   highlights: [],
@@ -147,8 +147,19 @@ export default function EditProduct() {
       // console.log(dimensionHeight, dimensionWidth);
       console.log(getProductResponse);
 
-      setProduct({ ...getProductResponse.data.payload.result,quantity:getProductResponse.data.payload.result.minimumOrder,orders: getProductResponse.data.payload.result.quantity ,highlights: JSON.parse(getProductResponse.data.payload.result.highlights),  dimensionHeight, dimensionWidth });
+      setProduct({
+        ...getProductResponse.data.payload.result,
+        quantity: getProductResponse.data.payload.result.minimumOrder,
+        orders: getProductResponse.data.payload.result.quantity,
+        highlights: JSON.parse(
+          getProductResponse.data.payload.result.highlights
+        ),
+        dimensionHeight,
+        dimensionWidth,
+      });
       setImages(fetchedImages);
+      console.log(fetchedImages);
+      setFinalImageArray(fetchedImages);
     } catch (error) {
       toast.error("Failed to fetch product. Please try again later.");
       return;
@@ -189,12 +200,15 @@ export default function EditProduct() {
 
   const [images, setImages] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [imageError, setImageError] = useState(
+    validationErrors.IMAGE_SIZE_EXCEED
+  );
   const [product, setProduct] = useState<Product>(initialProduct);
 
   const updateProduct = async () => {
     console.log("start update");
-    const percentage: Number = ((+product.price - +product.discountedPrice) / +product.price) * 100;
+    const percentage: Number =
+      ((+product.price - +product.discountedPrice) / +product.price) * 100;
     console.log(percentage);
     setProduct({
       ...product,
@@ -203,25 +217,35 @@ export default function EditProduct() {
       discountPercent: +percentage.toFixed(2),
     });
 
+    console.log('product: ',product);
+
     if (validateProduct()) {
       toast.error("please insert data in required field");
     } else {
-      if (product.price <= product.discountedPrice) {
+      if (product.price < product.discountedPrice) {
         toast.error("Price must be greater than discount price");
         return;
       } else if (images.length === 0) {
         toast.error("please insert atleast one image");
         return;
-      } else if (product.orders <= product.quantity) {
-        toast.error("Total stock order quantity must be greater than order quantity");
+      } else if (product.orders < product.quantity) {
+        toast.error(
+          "Total stock order quantity must be greater than order quantity"
+        );
         return;
       } else {
         convertToOutputProduct(product);
-        const createItemDetailsResponse = await axios.put(`${apiUrl}/items/updateItem/${id}`, outputProduct, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        setIsLoading(true);
+        console.log("image data", finalImageArray, "image array local", images);
+        const createItemDetailsResponse = await axios.put(
+          `${apiUrl}/items/updateItem/${id}`,
+          outputProduct,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (!createItemDetailsResponse.data.success) {
           toast.error(`Error While Updating Product`);
@@ -229,16 +253,21 @@ export default function EditProduct() {
         }
 
         const formData = new FormData();
-        finalImageArray.forEach((file: any) => {
-          formData.append("images", file);
+        finalImageArray.forEach((item: any) => {
+            formData.append("images", item);
         });
+        
 
-        const imageResponse = await axios.post(`${apiUrl}/items/itemImages`, formData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            itemId: createItemDetailsResponse.data.payload.itemId,
-          },
-        });
+        const imageResponse = await axios.post(
+          `${apiUrl}/items/itemImages`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              itemId: id
+            },
+          }
+        );
 
         if (!imageResponse.data.success) {
           toast.error(`Error While Uploading Images`);
@@ -248,8 +277,8 @@ export default function EditProduct() {
         toast.success(`Product Updated successfully`);
       }
     }
+    setIsLoading(false);
   };
-
 
   function convertToOutputProduct(product: Product) {
     return (outputProduct = {
@@ -362,7 +391,7 @@ export default function EditProduct() {
     ];
 
     if (numberRequiredFields.includes(name)) {
-      if (+value < 0 || value==='') setProduct({ ...product, [name]: "" });
+      if (+value < 0 || value === "") setProduct({ ...product, [name]: "" });
       else setProduct({ ...product, [name]: +value });
     } else {
       setProduct({ ...product, [name]: value });
@@ -394,7 +423,11 @@ export default function EditProduct() {
                     variant="outlined"
                     error={isError.title.isError}
                   />
-                  {isError.title.isError ? <span className="cp-errors">{validationErrors.TITLE}</span> : ""}
+                  {isError.title.isError ? (
+                    <span className="cp-errors">{validationErrors.TITLE}</span>
+                  ) : (
+                    ""
+                  )}
                 </Grid>
                 <Grid item xs={12}>
                   <StyledTextField
@@ -407,7 +440,11 @@ export default function EditProduct() {
                     variant="outlined"
                     error={isError.brand.isError}
                   />
-                  {isError.brand.isError ? <span className="cp-errors">{validationErrors.BRAND}</span> : ""}
+                  {isError.brand.isError ? (
+                    <span className="cp-errors">{validationErrors.BRAND}</span>
+                  ) : (
+                    ""
+                  )}
                 </Grid>
                 <Grid item xs={12}>
                   <StyledTextField
@@ -420,7 +457,11 @@ export default function EditProduct() {
                     variant="outlined"
                     error={isError.color.isError}
                   />
-                  {isError.color.isError ? <span className="cp-errors">{validationErrors.COLOR}</span> : ""}
+                  {isError.color.isError ? (
+                    <span className="cp-errors">{validationErrors.COLOR}</span>
+                  ) : (
+                    ""
+                  )}
                 </Grid>
                 <Grid item xs={6}>
                   <StyledTextField
@@ -434,7 +475,13 @@ export default function EditProduct() {
                     onChange={handleUserInput}
                     error={isError.quantity.isError}
                   />
-                  {isError.quantity.isError ? <span className="cp-errors">{validationErrors.REQUIRED}</span> : ""}
+                  {isError.quantity.isError ? (
+                    <span className="cp-errors">
+                      {validationErrors.REQUIRED}
+                    </span>
+                  ) : (
+                    ""
+                  )}
                 </Grid>
                 <Grid item xs={6}>
                   <StyledTextField
@@ -448,7 +495,13 @@ export default function EditProduct() {
                     value={product.orders}
                     error={isError.orders.isError}
                   />
-                  {isError.orders.isError ? <span className="cp-errors">{validationErrors.REQUIRED}</span> : ""}
+                  {isError.orders.isError ? (
+                    <span className="cp-errors">
+                      {validationErrors.REQUIRED}
+                    </span>
+                  ) : (
+                    ""
+                  )}
                 </Grid>
                 <Grid item xs={6}>
                   <StyledTextField
@@ -462,7 +515,13 @@ export default function EditProduct() {
                     error={isError.price.isError}
                     value={product.price}
                   />
-                  {isError.price.isError ? <span className="cp-errors">{validationErrors.REQUIRED}</span> : ""}
+                  {isError.price.isError ? (
+                    <span className="cp-errors">
+                      {validationErrors.REQUIRED}
+                    </span>
+                  ) : (
+                    ""
+                  )}
                 </Grid>
                 <Grid item xs={6}>
                   <StyledTextField
@@ -477,7 +536,9 @@ export default function EditProduct() {
                     error={isError.discountedPrice.isError}
                   />
                   {isError.discountedPrice.isError ? (
-                    <span className="cp-errors">{validationErrors.REQUIRED}</span>
+                    <span className="cp-errors">
+                      {validationErrors.REQUIRED}
+                    </span>
                   ) : (
                     ""
                   )}
@@ -493,7 +554,13 @@ export default function EditProduct() {
                     value={product.material}
                     error={isError.material.isError}
                   />
-                  {isError.material.isError ? <span className="cp-errors">{validationErrors.REQUIRED}</span> : ""}
+                  {isError.material.isError ? (
+                    <span className="cp-errors">
+                      {validationErrors.REQUIRED}
+                    </span>
+                  ) : (
+                    ""
+                  )}
                 </Grid>
                 <Grid item xs={3}>
                   <StyledTextField
@@ -508,7 +575,9 @@ export default function EditProduct() {
                     error={isError.dimensionHeight.isError}
                   />
                   {isError.dimensionHeight.isError ? (
-                    <span className="cp-errors">{validationErrors.REQUIRED}</span>
+                    <span className="cp-errors">
+                      {validationErrors.REQUIRED}
+                    </span>
                   ) : (
                     ""
                   )}
@@ -539,18 +608,36 @@ export default function EditProduct() {
                       }));
                       setHighlights(e.target.value);
                     }}
-                    className={isError.highlights.isError ? "cp-textarea-error" : "cp-textarea"}
+                    className={
+                      isError.highlights.isError
+                        ? "cp-textarea-error"
+                        : "cp-textarea"
+                    }
                   ></textarea>
-                  <Button onClick={addHighlight} className="rounded-md" color="secondary">
+                  <Button
+                    onClick={addHighlight}
+                    className="rounded-md"
+                    color="secondary"
+                  >
                     Add Hightlight
                   </Button>
                   <div className="flex flex-wrap gap-[1rem] my-3">
                     {product.highlights.length > 0 &&
                       product.highlights.map((item: any, index: number) => (
-                        <Chip key={index} onDelete={() => chipDelete(index)} label={item} />
+                        <Chip
+                          key={index}
+                          onDelete={() => chipDelete(index)}
+                          label={item}
+                        />
                       ))}
                   </div>
-                  {isError.highlights.isError ? <span className="cp-errors">{validationErrors.HIGHLIGHT}</span> : ""}
+                  {isError.highlights.isError ? (
+                    <span className="cp-errors">
+                      {validationErrors.HIGHLIGHT}
+                    </span>
+                  ) : (
+                    ""
+                  )}
                 </Grid>
 
                 <Grid item xs={12}>
@@ -564,7 +651,13 @@ export default function EditProduct() {
                     onChange={handleUserInput}
                     value={product.details}
                   />
-                  {isError.details.isError ? <span className="cp-errors">{validationErrors.DETAILS}</span> : ""}
+                  {isError.details.isError ? (
+                    <span className="cp-errors">
+                      {validationErrors.DETAILS}
+                    </span>
+                  ) : (
+                    ""
+                  )}
                 </Grid>
                 <Grid item xs={12}>
                   <StyledTextField
@@ -578,7 +671,9 @@ export default function EditProduct() {
                     value={product.topLevelCategory}
                   />
                   {isError.topLevelCategory.isError ? (
-                    <span className="cp-errors">{validationErrors.FIRST_LEVEL_CATEGORY}</span>
+                    <span className="cp-errors">
+                      {validationErrors.FIRST_LEVEL_CATEGORY}
+                    </span>
                   ) : (
                     ""
                   )}
@@ -595,7 +690,9 @@ export default function EditProduct() {
                     onChange={handleUserInput}
                   />
                   {isError.secondLevelCategory.isError ? (
-                    <span className="cp-errors">{validationErrors.SECOND_LEVEL_CATEGORY}</span>
+                    <span className="cp-errors">
+                      {validationErrors.SECOND_LEVEL_CATEGORY}
+                    </span>
                   ) : (
                     ""
                   )}
@@ -612,7 +709,9 @@ export default function EditProduct() {
                     onChange={handleUserInput}
                   />
                   {isError.thirdLevelCategory.isError ? (
-                    <span className="cp-errors">{validationErrors.THIRD_LEVEL_CATEGORY}</span>
+                    <span className="cp-errors">
+                      {validationErrors.THIRD_LEVEL_CATEGORY}
+                    </span>
                   ) : (
                     ""
                   )}
@@ -624,14 +723,24 @@ export default function EditProduct() {
                     rows={4}
                     cols={50}
                     onChange={handleUserInput}
-                    className={isError.description.isError ? "cp-textarea-error" : "cp-textarea"}
+                    className={
+                      isError.description.isError
+                        ? "cp-textarea-error"
+                        : "cp-textarea"
+                    }
                     placeholder="Desciption"
                     name="description"
                     value={product.description.toString()}
                     minLength={20}
                     maxLength={300}
                   ></textarea>
-                  {isError.description.isError ? <span className="cp-errors">{validationErrors.DESCRIPTION}</span> : ""}
+                  {isError.description.isError ? (
+                    <span className="cp-errors">
+                      {validationErrors.DESCRIPTION}
+                    </span>
+                  ) : (
+                    ""
+                  )}
                 </Grid>
               </Grid>
             </div>
@@ -650,6 +759,13 @@ export default function EditProduct() {
                     for (let i = 0; i < e.target.files.length; i++) {
                       if (e.target.files[i].size > 1000000) {
                         setShowImageError(true);
+                        setImageError(validationErrors.IMAGE_SIZE_EXCEED);
+                        setTimeout(() => {
+                          setShowImageError(false);
+                        }, 2000);
+                      } else if (finalTemp.length >= 4) {
+                        setShowImageError(true);
+                        setImageError(validationErrors.IMAGE_LENGTH_EXCEED);
                         setTimeout(() => {
                           setShowImageError(false);
                         }, 2000);
@@ -699,7 +815,17 @@ export default function EditProduct() {
                           <IconButton
                             aria-label="delete"
                             onClick={() => {
-                              setImages(images.filter((img: any) => img !== item));
+                              // Remove the image URL from images array
+                              setImages(
+                                images.filter((img: any) => img !== item)
+                              );
+                              // Remove the corresponding file from finalImageArray using the index
+                              setFinalImageArray((prevState: any) => {
+                                const updatedArray = [...prevState];
+                                updatedArray.splice(i, 1); // Remove the item at index i
+                                return updatedArray;
+                              });
+                              console.log('final image array after deletion',finalImageArray);
                             }}
                           >
                             <DeleteIcon />
@@ -709,13 +835,21 @@ export default function EditProduct() {
                     </ImageListItem>
                   ))
                 ) : (
-                  <div style={{ textAlign: "center", margin: "10px", color: "red" }}>*{validationErrors.NO_IMAGE}</div>
+                  <div
+                    style={{
+                      textAlign: "center",
+                      margin: "10px",
+                      color: "red",
+                    }}
+                  >
+                    *{validationErrors.NO_IMAGE}
+                  </div>
                 )}
               </ImageList>
               {showImageError && (
                 <div style={{ textAlign: "center" }} className="cp-errors">
                   {" "}
-                  {validationErrors.IMAGE_SIZE_EXCEED}{" "}
+                  {imageError}{" "}
                 </div>
               )}
             </div>

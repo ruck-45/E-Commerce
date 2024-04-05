@@ -10,6 +10,8 @@ interface Customer {
 }
 
 const CustomerCard = (props:Customer) => {
+
+  console.log(props);
   return (
     <div className="bg-gray-100 rounded-lg p-4 border border-gray-200 shadow-md">
       <div className="font-bold text-lg mb-2">{props.username}</div>
@@ -40,7 +42,7 @@ const CustomerCard = (props:Customer) => {
             <strong>Total Amount Spent:</strong> 2587
           </div>
           <div className="text-sm mb-2">
-            <strong>Last Order Date:</strong> 22/07/2023
+            <strong>Last Order Date:</strong> props
           </div>
         </div>
       </div>

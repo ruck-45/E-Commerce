@@ -8,6 +8,7 @@ import { RootState } from "../../../Redux/store";
 import { useLayoutEffect, useState } from "react";
 import axios from "axios";
 import ProfileProductSkeleton from "./ProfileProductSkeleton";
+import { MyOrders } from "./Orders";
 
 const UserItemDetails = () => {
   const username = getCookie("username");
@@ -91,9 +92,9 @@ const UserItemDetails = () => {
         <div className="flex justify-between">
           <h1 className="font-bold  text-2xl">YOUR ORDERS</h1>
           <Link
-            to="/"
+            to="/MyOrders"
             className="flex flex-row justify-start items-center text-[1rem] font-medium gap-[0.5rem] hover:gap-[1rem] transition-all"
-          >
+            >
             <p>View All</p>
             <FaArrowRight />
           </Link>
@@ -101,7 +102,7 @@ const UserItemDetails = () => {
         <Divider />
         {/* <ProfileProductSection data={antiqueData} /> */}
         <div className="relative border p-5 h-[17rem] flex justify-center items-center">
-          <p className="font-bold text-default-500 text-xl">No Items Found</p>
+            <MyOrders/>
         </div>
       </div>
       <div className="flex flex-col gap-1">

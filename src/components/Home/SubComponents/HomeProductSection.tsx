@@ -64,7 +64,9 @@ const HomeProductSection = (props: HomeProductSectionProps) => {
   return (
     <div className="relative px-4 sm:px-6 lg:px-8 bg-white my-[3rem]">
       <div className="flex justify-between">
-        <h2 className="text-2xl font-extrabold text-gray-900 py-5">{props.section}</h2>
+        <div className="flex items-center justify-center">
+          <h2 className="text-2xl font-extrabold text-gray-900 py-5 text-center">{props.section}</h2>
+        </div>
         <Link
           to="/Shop"
           className="flex flex-row justify-start items-center text-[1rem] font-medium py-[1rem] gap-[0.5rem] hover:gap-[1rem] transition-all"

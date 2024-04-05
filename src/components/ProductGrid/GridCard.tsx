@@ -1,5 +1,4 @@
-import React from "react";
-import p1 from "./assets/ant1.jpg"
+import { Image } from "@nextui-org/react";
 
 type Card = {
   img: any;
@@ -7,17 +6,23 @@ type Card = {
   head: string;
 };
 
-const GridCard = (props:Card) => {
+const GridCard = (props: Card) => {
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className=" flex items-center justify-center h-[24rem] w-[17rem] bg-gradient-to-r from-red-500 from-10% via-yellow-200 via-30% to-pink-500 to-90% ">
-        <div className="h-[22rem] w-[16rem] p-[1rem] bg-center object-cover bg-white">
-          <img src={props.img} className="h-full w-full object-cover" alt="" />
+      <div
+        className=" flex items-center justify-center p-[0.6rem] bg-no-repeat bg-cover bg-center shadow-xl"
+        style={{
+          backgroundImage:
+            "url(https://assets-global.website-files.com/5a9423a3f702750001758d4f/64ddbec01951138700617251_%20-%202.png)",
+        }}
+      >
+        <div className="w-[16rem] p-[0.8rem] bg-center object-cover bg-white">
+          <Image src={props.img} className="object-cover cursor-pointer" isBlurred radius="none" isZoomed />
         </div>
       </div>
       <div className="p-[1rem] flex flex-col justify-center items-center">
-        <h1 className="text-black font-bold text-1xl text-center">{props.title}</h1>
-        <h1 className="text-black font-bold text-2xl">{props.head}</h1>
+        <h1 className="text-default-600 font-bold text-md text-center">{props.title}</h1>
+        <h1 className="text-default-800 font-bold text-xl">{props.head}</h1>
       </div>
     </div>
   );

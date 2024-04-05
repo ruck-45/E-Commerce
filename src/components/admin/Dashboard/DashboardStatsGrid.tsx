@@ -1,5 +1,9 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { IoBagHandle, IoPieChart, IoPeople, IoCart } from "react-icons/io5";
+import { getCookie } from "../../../utils/cookies";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../Redux/store";
+import axios from "axios";
 
 interface BoxWrapperProps {
   children: ReactNode;
@@ -9,14 +13,40 @@ const BoxWrapper: React.FC<BoxWrapperProps> = ({ children }) => {
   return <div className="flex items-center p-4 bg-white rounded-lg shadow-md">{children}</div>;
 };
 
-const Dashboard: React.FC = () => {
+interface DashboardProps {
+  orders: any[]; 
+  customer: any[];
+}
+
+const Dashboard: React.FC<DashboardProps> = ({ orders,customer })=> {
+
+  const deliveredOrders = orders.filter(order => order.status === "delivered");
+  const totalDeliveredAmount = deliveredOrders.reduce((acc, order) => acc + order.amount, 0);
+  const [items,setItems]=useState([]);
+  const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
+
+  async function getProducts(){
+    try {
+      const response = await axios.get(`${apiUrl}/items/getItems`);
+      const items = response.data.payload.result;
+      setItems(items);
+    } catch (error) {
+      console.log(error);
+      setItems([]);
+    }
+  }
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
   return (
     <>
       <div className="text-center mt-6 font-normal text-xl sm:text-2xl lg:text-3xl md:text-3xl xl:text-3xl">
         <h6>Dashboard</h6>
       </div>
 
-      <div className="flex flex-wrap py-6 justify-center gap-3 md:gap-6  lg:gap-10  xl:gap-14  ">
+      <div className="flex flex-wrap py-6 justify-center  gap-md:gap-6 lg:gap-8 xl:gap-12 ">
         <BoxWrapper>
           <div className="rounded-full h-12 w-12 flex items-center justify-center bg-sky-500">
             <IoBagHandle className="text-2xl text-white" />
@@ -24,8 +54,7 @@ const Dashboard: React.FC = () => {
           <div className="pl-4">
             <span className="text-sm text-gray-500 font-light">Total Sales</span>
             <div className="flex items-center">
-              <strong className="text-xl text-gray-700 font-semibold">$54232</strong>
-              <span className="text-sm text-green-500 pl-2">+343</span>
+              <strong className="text-xl text-gray-700 font-semibold">${totalDeliveredAmount}</strong>
             </div>
           </div>
         </BoxWrapper>
@@ -36,8 +65,7 @@ const Dashboard: React.FC = () => {
           <div className="pl-4">
             <span className="text-sm text-gray-500 font-light">Total Products</span>
             <div className="flex items-center">
-              <strong className="text-xl text-gray-700 font-semibold">$3423</strong>
-              <span className="text-sm text-green-500 pl-2">-343</span>
+              <strong className="text-xl text-gray-700 font-semibold">{items.length}</strong>
             </div>
           </div>
         </BoxWrapper>
@@ -48,8 +76,7 @@ const Dashboard: React.FC = () => {
           <div className="pl-4">
             <span className="text-sm text-gray-500 font-light">Total Customers</span>
             <div className="flex items-center">
-              <strong className="text-xl text-gray-700 font-semibold">12313</strong>
-              <span className="text-sm text-red-500 pl-2">-30</span>
+              <strong className="text-xl text-gray-700 font-semibold">{customer.length}</strong>
             </div>
           </div>
         </BoxWrapper>
@@ -60,8 +87,7 @@ const Dashboard: React.FC = () => {
           <div className="pl-4">
             <span className="text-sm text-gray-500 font-light">Total Orders</span>
             <div className="flex items-center">
-              <strong className="text-xl text-gray-700 font-semibold">16432</strong>
-              <span className="text-sm text-red-500 pl-2">-43</span>
+              <strong className="text-xl text-gray-700 font-semibold">{orders.length}</strong>
             </div>
           </div>
         </BoxWrapper>

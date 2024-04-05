@@ -13,6 +13,7 @@ import { resetCart } from "../../../../Redux/Slices/CartSlice";
 import { resetShippingInfo } from "../../../../Redux/Slices/shippingInfoSlice";
 import { SlPeople } from "react-icons/sl";
 import { IoCreateOutline } from "react-icons/io5";
+import { RiCoupon5Line } from "react-icons/ri";
 
 type MyComponentProps = {
   children: any;
@@ -66,7 +67,7 @@ const HomeLayout = (props: MyComponentProps) => {
               </button>
             </li>
             <li className="text-white">
-              <Link to="/Admin">
+              <Link to="/Admin" onClick={hideDrawer}>
                 <span>
                   <LuLayoutDashboard size={20} />
                 </span>
@@ -75,7 +76,7 @@ const HomeLayout = (props: MyComponentProps) => {
             </li>
 
             <li className="text-white">
-              <Link to="/Admin/products">
+              <Link to="/Admin/products" onClick={hideDrawer}>
                 <span>
                   <LiaProductHunt size={20} />
                 </span>
@@ -84,7 +85,7 @@ const HomeLayout = (props: MyComponentProps) => {
             </li>
 
             <li className="text-white">
-              <Link to="/admin/addProduct">
+              <Link to="/admin/addProduct" onClick={hideDrawer}>
                 <span>
                   <IoCreateOutline size={20} />
                 </span>
@@ -93,7 +94,7 @@ const HomeLayout = (props: MyComponentProps) => {
             </li>
 
             <li className="text-white">
-              <Link to="/Admin/orders">
+              <Link to="/Admin/orders" onClick={hideDrawer}>
                 <span>
                   <FaBorderStyle size={20} />
                 </span>
@@ -102,11 +103,20 @@ const HomeLayout = (props: MyComponentProps) => {
             </li>
 
             <li className="text-white">
-              <Link to="/Admin/customers">
+              <Link to="/Admin/customers" onClick={hideDrawer}>
                 <span>
                   <SlPeople size={20} />
                 </span>
                 All Customers
+              </Link>
+            </li>
+
+            <li className="text-white">
+              <Link to="/Admin/coupon" onClick={hideDrawer}>
+                <span>
+                  <RiCoupon5Line size={20} />
+                </span>
+                Coupons
               </Link>
             </li>
 

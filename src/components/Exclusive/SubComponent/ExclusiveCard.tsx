@@ -1,23 +1,21 @@
-import React from "react";
-import p1 from "../assets/carpet.jpg"
+import { Image } from "@nextui-org/react";
 
-type card ={
-  pic:any;
-  title:string;
-}
+type card = {
+  pic: any;
+  title: string;
+};
 
-const ExclusiveCard = (props:card) => {
+const ExclusiveCard = (props: card) => {
   return (
     <div
-      className="w-[17rem] h-[28rem] bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-800 
-  rounded-xl"
+      className="w-[17rem] bg-no-repeat bg-cover bg-center flex flex-col justify-center items-center gap-[1rem] p-[1rem] shadow-xl"
+      style={{
+        backgroundImage:
+          "url(https://assets-global.website-files.com/5a9423a3f702750001758d4f/64ddbec01951138700617251_%20-%202.png)",
+      }}
     >
-      <div className="flex justify-center items-center p-[1rem]">
-        <img src={props.pic} className="w-[16rem]" alt="" />
-      </div>
-      <div className=" flex items-center justify-center text-2xl font-['Rubik] text-white">
-        <h1>{props.title}</h1>
-      </div>
+      <Image radius="none" src={props.pic} className="w-[16rem] object-cover cursor-pointer" isBlurred isZoomed />
+      <h1 className="text-white text-xl font-bold uppercase">{props.title}</h1>
     </div>
   );
 };

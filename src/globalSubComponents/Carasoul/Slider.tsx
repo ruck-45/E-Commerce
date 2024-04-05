@@ -38,7 +38,10 @@ const Carousel = (props: Card) => {
         <Image
           src={url}
           radius="none"
-          className={`object-contain z-[5] lg:h-[${props.height}] ` + (currentSlide === i ? "block" : "hidden")}
+          isBlurred
+          className={
+            `object-contain z-[5] shadow-xl lg:h-[${props.height}] ` + (currentSlide === i ? "block" : "hidden")
+          }
         />
       ))}
 

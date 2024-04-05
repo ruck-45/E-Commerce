@@ -7,6 +7,7 @@ import NavBar from "./globalSubComponents/NavBar";
 import Home from "./components/Home/Home";
 import About from "./components/About/About";
 import Contact from "./components/Contact/Contact";
+import {MyOrders} from '../src/components/Profile/subComponents/Orders'
 import Auth from "./components/Auth/Auth";
 import Profile from "./components/Profile/Profile";
 import Privacy from "./components/Policy/Privacy";
@@ -32,10 +33,9 @@ import Dashboard from "./components/admin/Dashboard/Dashboard";
 import Products from "./components/admin/Dashboard/Products";
 import Orders from "./components/admin/Dashboard/Orders";
 import Customers from "./components/admin/Dashboard/Customers";
-import Successful from "./components/paymentPage/Successful";
-import Fail from "./components/paymentPage/Fail";
-
-
+import Successful from "./components/Checkout/subComponents/Successful";
+import Fail from "./components/Checkout/subComponents/Fail";
+import Coupons from "./components/admin/Dashboard/Coupons";
 
 function App() {
   const dispatch = useDispatch();
@@ -55,7 +55,7 @@ function App() {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("response: " , response)
+      console.log("response: ", response);
       if (response.data.success) {
         const data = response.data.payload.cart;
         for (let i = 0; i < data.length; i++) {
@@ -112,7 +112,7 @@ function App() {
   return (
     <>
       <div>
-        {curTab === "Auth" || curTab === "Password Reset" || curTab === "admin" ? null : <NavBar />}
+        {curTab === "Auth" || curTab === "Password Reset" || curTab === "Admin" ? null : <NavBar />}
         <Routes>
           <Route path="/" element={<Navigate to="/Home" />} />
           <Route path="/Home" element={<Home />} />
@@ -123,6 +123,7 @@ function App() {
             <Route path="customers" element={<Customers />} />
             <Route path="addProduct" element={<AddProduct />} />
             <Route path="editProduct/:id" element={<EditProducts />} />
+            <Route path="coupon" element={<Coupons />} />
           </Route>
           <Route path="/Shop" element={<ShopPage />} />
           <Route path="/ProductDetails/:name/:id" element={<ProductDetails />} />
@@ -138,6 +139,7 @@ function App() {
           <Route path="/Privacy" element={<Privacy />} />
           <Route path="/Terms" element={<Term />} />
           <Route path="/ResetPassword" element={<PasswordReset />} />
+          <Route path="/MyOrders" element={<MyOrders/>} />
           <Route path="*" element={<Navigate to="/Home" />} />
         </Routes>
       </div>

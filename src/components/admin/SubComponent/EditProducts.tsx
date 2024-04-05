@@ -43,6 +43,7 @@ const initialProduct: Product = {
   thirdLevelCategory: "",
   orders: "",
   imageCount: "",
+  imageCount: "",
   imageArray: [],
 };
 
@@ -93,6 +94,7 @@ let outputProduct: OutputProduct = {
   brand: "",
   title: "",
   color: "",
+  discountedPrice: "",
   discountedPrice: "",
   price: "",
   discountPercent: 0,
@@ -303,6 +305,7 @@ export default function EditProduct() {
         toast.success(`Product Updated successfully`);
       }
     }
+    setIsLoading(false);
   };
 
   function convertToOutputProduct(product: Product) {
@@ -416,6 +419,7 @@ export default function EditProduct() {
     ];
 
     if (numberRequiredFields.includes(name)) {
+      if (+value < 0 || value === "") setProduct({ ...product, [name]: "" });
       if (+value < 0 || value === "") setProduct({ ...product, [name]: "" });
       else setProduct({ ...product, [name]: +value });
     } else {

@@ -7,6 +7,7 @@ import {
   HiOutlineQuestionMarkCircle,
   HiOutlineCog,
 } from "react-icons/hi";
+import { RiCoupon5Line } from "react-icons/ri";
 
 interface SidebarLink {
   key: string;
@@ -39,6 +40,12 @@ export const DASHBOARD_SIDEBAR_LINKS: SidebarLink[] = [
     label: "Customers",
     path: "/customers",
     icon: <HiOutlineUsers />,
+  },
+  {
+    key: "coupon",
+    label: "Coupons",
+    path: "/coupon",
+    icon: <RiCoupon5Line />,
   },
 ];
 

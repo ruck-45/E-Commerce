@@ -1,10 +1,10 @@
 import React from "react";
 const columns = [
-  { name: "ORDER-ID", uid: "orderId" },
-  { name: "CUSTOMER INFO", uid: "name" },
+  { name: "ORDER-ID", uid: "order_id" },
+  { name: "CUSTOMER INFO", uid: "user_id" },
   { name: "DATE", uid: "date" },
-  { name: "CONTACT", uid: "role" },
-  { name: "AMOUNT", uid: "amount" },
+  { name: "CONTACT", uid: "shipping_info" },
+  { name: "AMOUNT", uid: "order_price" },
   { name: "STATUS", uid: "status" },
   { name: "ACTIONS", uid: "actions" },
 ];

@@ -57,7 +57,7 @@ const ProductGrid = () => {
     <>
       <div className="p-[4rem] flex justify-center items-center mt-[2rem] mb-[0rem]">
         <h1 className="lg:text-3xl text-1xl  font-['Rye'] text-[#F31260] font-bold text-center">
-          <span className="text-default-800 ">TOP RATED</span>
+          <span className="text-default-800 ">TOP RATED {" "}</span>
           CATEGORIES
         </h1>
       </div>

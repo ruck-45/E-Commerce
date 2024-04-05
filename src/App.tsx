@@ -33,8 +33,8 @@ import Dashboard from "./components/admin/Dashboard/Dashboard";
 import Products from "./components/admin/Dashboard/Products";
 import Orders from "./components/admin/Dashboard/Orders";
 import Customers from "./components/admin/Dashboard/Customers";
-import Successful from "./components/paymentPage/Successful";
-import Fail from "./components/paymentPage/Fail";
+import Successful from "./components/Checkout/subComponents/Successful";
+import Fail from "./components/Checkout/subComponents/Fail";
 import Coupons from "./components/admin/Dashboard/Coupons";
 
 function App() {
@@ -55,7 +55,7 @@ function App() {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("response: " , response)
+      console.log("response: ", response);
       if (response.data.success) {
         const data = response.data.payload.cart;
         for (let i = 0; i < data.length; i++) {

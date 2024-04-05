@@ -12,24 +12,19 @@ const Refund = () => {
   scrollTop();
   return (
     <>
-      <div
-        className="h-[12rem] w-full flex justify-center items-center p-[5rem] text-black bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage:
-            "url(https://images.unsplash.com/photo-1512998844734-cd2cca565822?q=80&w=1921&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
-        }}
-      >
-        <h1 className="text-4xl font-bold ">Refund & Cancellation</h1>
+      <div className="w-full flex flex-col justify-center items-center px-[5rem] py-[1.5rem] text-black bg-[#f4f4f4]">
+        <h1 className="text-lg font-bold">REFUND & CANCELLATION</h1>
+        <p className="text-sm">Home / Refund & Cancellation</p>
       </div>
-      <div className="h-auto md:p-[5rem] p-[2rem] flex flex-col items-start justify-between text-justify">
-        <h3 className="font-bold text-2xl py-[0.5rem]">Refund and Cancellation Policy for ShopNest Ecommerce App</h3>
+      <div className="h-auto md:p-[5rem] p-[2rem] flex flex-col items-start justify-between text-justify text-sm">
+        <h3 className="font-bold text-xl py-[0.5rem]">Refund and Cancellation Policy for ShopNest Ecommerce App</h3>
         <p className="text-gray-600 py-[0.5rem]">
           At ShopNest, we strive to provide a seamless shopping experience for our customers. However, we understand
           that there may be occasions when you need to cancel an order or request a refund. Please review our Refund and
           Cancellation Policy below:
         </p>
-        <div className="py-[1rem]">
-          <h3 className="font-bold text-2xl">1. Cancellation Policy:</h3>
+        <div className="py-[0.5rem]">
+          <h3 className="font-bold text-lg">1. Cancellation Policy:</h3>
           <div className="py-[0rem]">
             <ul className="text-gray-600 list-disc px-[2rem]">
               <li className="py-[0.1rem]">
@@ -47,8 +42,8 @@ const Refund = () => {
           </div>
         </div>
         <div className="py-[0rem]">
-          <h3 className="font-bold text-2xl">2. Refund Policy:</h3>
-          <div className="py-[1rem]">
+          <h3 className="font-bold text-lg">2. Refund Policy:</h3>
+          <div className="py-[0.5rem]">
             <ul className="text-gray-600 list-disc px-[2rem]">
               <li className="py-[0.1rem]">
                 Eligibility for Refund: Refunds may be issued for eligible orders in accordance with the terms and
@@ -70,8 +65,8 @@ const Refund = () => {
           </div>
         </div>
         <div className="py-[0rem]">
-          <h3 className="font-bold text-2xl">3. Return Shipping:</h3>
-          <div className="py-[1rem]">
+          <h3 className="font-bold text-lg">3. Return Shipping:</h3>
+          <div className="py-[0.5rem]">
             <ul className="text-gray-600 list-disc px-[2rem]">
               <li className="py-[0.1rem]">
                 Return Shipping Costs: Customers are responsible for the cost of return shipping unless otherwise
@@ -88,8 +83,8 @@ const Refund = () => {
           </div>
         </div>
         <div className="py-[0rem]">
-          <h3 className="font-bold text-2xl">4. Contact Us:</h3>
-          <div className="py-[1rem]">
+          <h3 className="font-bold text-lg">4. Contact Us:</h3>
+          <div className="py-[0.5rem]">
             <ul className="text-gray-600 list-disc px-[2rem]">
               <li className="py-[0.1rem]">
                 If you have any questions or concerns about our Refund and Cancellation Policy, or if you need
@@ -100,8 +95,8 @@ const Refund = () => {
           </div>
         </div>
         <div className="py-[0rem]">
-          <h3 className="font-bold text-2xl">5. Changes to This Policy:</h3>
-          <div className="py-[1rem]">
+          <h3 className="font-bold text-lg">5. Changes to This Policy:</h3>
+          <div className="py-[0.5rem]">
             <ul className="text-gray-600 list-disc px-[2rem]">
               <li className="py-[0.1rem]">
                 We reserve the right to modify or revise this Refund and Cancellation Policy at any time, in our sole
@@ -109,7 +104,7 @@ const Refund = () => {
                 to review this policy periodically for updates.
               </li>
             </ul>
-            <p className="p-[2rem] text-xl font-semibold italic">
+            <p className="p-[2rem] text-sm font-semibold italic">
               ** By using the ShopNest Ecommerce App and making purchases through our platform, you agree to comply with
               the terms and conditions of this Refund and Cancellation Policy.
             </p>

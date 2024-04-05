@@ -1,45 +1,54 @@
-import { Card, CardBody, CardFooter, CardHeader, Image } from "@nextui-org/react";
+import { Divider } from "@nextui-org/react";
+import { FaShippingFast } from "react-icons/fa";
+import { FaMoneyBills } from "react-icons/fa6";
+import { SiFsecure } from "react-icons/si";
+import { GrSupport } from "react-icons/gr";
 
 const serviceData = [
   {
-    name: "REFUND POLICY",
+    name: "Free Shipping",
     description:
-      "Clear guidelines for product returns and reimbursements, ensuring customer satisfaction and transparency.",
-    image:
-      "https://images.unsplash.com/photo-1594392175511-30eca83d51c8?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "Enjoy free shipping on all orders above $99, because getting quality products to your doorstep shouldn't cost extra.",
+    icon: FaShippingFast,
   },
   {
-    name: "PREMIUM PACKAGING",
+    name: "Money Back Guarantee",
     description:
-      "Exquisite, carefully curated packaging elevating the presentation and perceived value of our products.",
-    image:
-      "https://images.unsplash.com/photo-1595246135406-803418233494?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "Rest easy knowing that if there are any problems with your product, we offer a money-back guarantee. Your satisfaction is our priority.",
+    icon: FaMoneyBills,
   },
   {
-    name: "SUPERIOR QUALITY",
+    name: "Online Support 24/7",
     description:
-      "Uncompromising commitment to excellence, offering products crafted with the finest materials and highest standards.",
-    image:
-      "https://images.unsplash.com/photo-1639311330925-9934c9931032?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "Need assistance? Our dedicated support team is here for you around the clock, ready to help with any questions or concerns you may have.",
+    icon: GrSupport,
+  },
+  {
+    name: "Secure Payment",
+    description:
+      "Shop with confidence knowing that your payments are 100% secure. Your privacy and security are of utmost importance to us.",
+    icon: SiFsecure,
   },
 ];
 
 const OurServices = () => {
   return (
-    <div className="flex flex-col justify-center items-center text-center px-[3rem] md:px-[5rem] py-[5rem] gap-[1rem] bg-[#e9ecef]">
-      <h1 className="font-bold text-5xl">Our Services</h1>
-      <p className="text-default-400 text-md">
-        Details to details is what makes ShopNest different from the other themes.
-      </p>
-      <div className="flex flex-wrap mt-[1rem] gap-[2rem] justify-center items-center">
-        {serviceData.map((data, index) => (
-          <Card className="flex flex-col max-w-[25rem] h-[26rem]" key={index} isPressable isHoverable>
-            <CardHeader className=" justify-center text-center font-bold text-2xl">{data.name}</CardHeader>
-            <CardBody className="flex text-center">{data.description}</CardBody>
-            <CardFooter className="">
-              <Image src={data.image} />
-            </CardFooter>
-          </Card>
+    <div className="px-[3rem] md:px-[5rem] py-[5rem]">
+      <div className="flex justify-center items-center flex-col">
+        <h1 className="text-2xl font-bold">WE BELIEVE IN OUR SERVICE ...</h1>
+        <Divider className="max-w-[22rem] mt-[0.5rem]" />
+        <p className="text-center max-w-[40rem] text-xs mt-[0.5rem]">
+          Whether you're searching for the perfect statement piece to elevate your home decor or a cherished antique to
+          add character to your space, Shopnest is your destination for quality, authenticity, and timeless elegance.
+        </p>
+      </div>
+      <div className="flex flex-wrap mt-[3rem] gap-[2rem] justify-center">
+        {serviceData.map((data) => (
+          <div className="max-w-[19rem] flex flex-col items-center">
+            <data.icon className="text-4xl text-default-700" />
+            <h1 className="text-center font-semibold">{data.name}</h1>
+            <p className="text-xs text-center">{data.description}</p>
+          </div>
         ))}
       </div>
     </div>

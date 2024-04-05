@@ -1,26 +1,38 @@
 // Dependencies
-import { Image } from "@nextui-org/react";
+import { Button, Image } from "@nextui-org/react";
 
 const AboutWork = () => {
   return (
-    <div className="flex flex-col  items-center lg:flex-row justify-evenly px-[3rem] md:px-[5rem] lg:px-[8rem] py-[5rem] gap-[5rem] pt-0">
-      <Image
-        width={300}
-        src="https://images.unsplash.com/photo-1617251137884-f135eccf6942?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        className="m-5 order-last"
-        isBlurred
-      />
-      <div className="flex flex-col gap-[1rem] order-first lg:order-last">
-        <h1 className="font-['DM_Serif_Display'] text-[2.5rem] font-semibold">Our Misson</h1>
-        <p className="italic text-md text-default-800">“Discover Heritage and Define Home”</p>
-        <p className="text-justify text-default-500 text-[0.95rem] sm:text-md lg:max-w-[30rem]">
-          At ShopNest, our mission is to curate timeless treasures for your home, blending culture and craftsmanship. We
-          aspire to be the go-to destination for discerning individuals seeking exquisite carpets and antiques that
-          enrich spaces and stories. With a commitment to authenticity and excellence, we aim to foster a community
-          where every purchase contributes to preserving heritage and inspiring a legacy of appreciation for fine
-          craftsmanship.
-        </p>
+    <div className="bg-[#333333] flex flex-col xl:flex-row justify-center xl:justify- items-center">
+      <div className="px-[3rem] md:px-[5rem] py-[5rem] text-white max-w-[45rem]">
+        <h1 className="text-2xl font-bold">WE BELIEVE IN QUALITY PRODUCT</h1>
+        <div className="flex flex-col gap-[1rem] mt-[1rem] text-justify text-xs">
+          <p>
+            At Shopnest, we understand that a home is more than just a place; it's a reflection of your style,
+            personality, and most importantly, your values. That's why we curate a meticulously selected collection of
+            carpets and antiques, each chosen for its exceptional craftsmanship, unique character, and enduring beauty.
+            Our commitment to quality is unwavering. Every item you find on our platform is carefully sourced from
+            artisans and suppliers who share our passion for excellence. From intricately woven rugs to exquisite
+            antique pieces, each product undergoes rigorous inspection to ensure it meets our stringent standards.
+          </p>
+          <p>
+            But our dedication to quality doesn't stop at the products we offer. We strive to provide you with an
+            exceptional shopping experience from start to finish. Our user-friendly website is designed to make browsing
+            and purchasing a breeze, and our dedicated customer support team is here to assist you every step of the
+            way.
+          </p>
+        </div>
+        <Button radius="none" color="danger" className="mt-[2rem]">
+          READ MORE
+        </Button>
       </div>
+      <Image
+        width={700}
+        src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        className="z-[5] cursor-pointer"
+        isZoomed
+        radius="none"
+      />
     </div>
   );
 };

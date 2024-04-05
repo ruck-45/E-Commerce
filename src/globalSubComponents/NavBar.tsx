@@ -110,7 +110,7 @@ const NavBar = () => {
                   disableRipple
                   className={curTab === "Policy" ? "nav-active p-1" : "notActive p-1"}
                   endContent={<RiArrowDropDownLine className="HomeDropdownIcon" />}
-                  radius="sm"
+                  radius="none"
                   variant="light"
                   size="sm"
                 >

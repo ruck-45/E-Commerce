@@ -1,5 +1,5 @@
 // Dependencies
-import { Input, Textarea, Button } from "@nextui-org/react";
+import { Input, Textarea, Button, Image } from "@nextui-org/react";
 import { IoSend } from "react-icons/io5";
 import { useState, useRef, FormEvent } from "react";
 import emailjs from "@emailjs/browser";
@@ -25,18 +25,18 @@ if (process.env.NODE_ENV === "development") {
 }
 
 const EmailForm = () => {
- const form = useRef<HTMLFormElement>(null);
+  const form = useRef<HTMLFormElement>(null);
 
- const [emailValidity, setEmailValidity] = useState<boolean>(false);
- const [nameValidity, setNameValidity] = useState<boolean>(false);
- const [subjectValidity, setSubjectValidity] = useState<boolean>(false);
- const [messageValidity, setMessageValidity] = useState<boolean>(false);
+  const [emailValidity, setEmailValidity] = useState<boolean>(false);
+  const [nameValidity, setNameValidity] = useState<boolean>(false);
+  const [subjectValidity, setSubjectValidity] = useState<boolean>(false);
+  const [messageValidity, setMessageValidity] = useState<boolean>(false);
 
- const [emailState, setEmailState] = useState<number>(-1);
- const [userNameState, setUserNameState] = useState<number>(-1);
- const [subjectState, setSubjectState] = useState<number>(-1);
- const [messageState, setMessageState] = useState<number>(-1);
- const [state, setState] = useState(false);
+  const [emailState, setEmailState] = useState<number>(-1);
+  const [userNameState, setUserNameState] = useState<number>(-1);
+  const [subjectState, setSubjectState] = useState<number>(-1);
+  const [messageState, setMessageState] = useState<number>(-1);
+  const [state, setState] = useState(false);
 
   const [input, setInput] = useState({
     name: "",
@@ -128,47 +128,58 @@ const EmailForm = () => {
   };
 
   return (
-    <div className="bg-white flex flex-col lg:px-[8rem] py-[5rem] gap-[2rem] lg:gap-[5rem]">
+    <div className="bg-white flex px-[3rem] lg:px-[5rem] py-[5rem] gap-[3rem] flex-wrap justify-evenly">
       <div className="flex flex-col gap-y-[1rem]">
-        <h1 className="font-bold text-[2rem]">Contact Info</h1>
-        <ContactCard heading="Address" icon={<FaAddressBook />} value="Sunny Isles Beach, FL 33160, United States" />
-        <ContactCard heading="Email" icon={<MdEmail />} value="support@shopnest.com" />
-        <ContactCard heading="Phone" icon={<MdPhone />} value="+1-888-678-1234" />
+        <h1 className="font-bold text-2xl">GET IN TOUCH WITH US ...</h1>
+        <ContactCard
+          heading="OFFICE LOCATION"
+          icon={<FaAddressBook className="text-xl" />}
+          value="Sunny Isles Beach, FL 33160, United States"
+        />
+        <ContactCard heading="EMAIL US AT" icon={<MdEmail className="text-xl" />} value="support@shopnest.com" />
+        <ContactCard heading="CALL US DIRECTLY" icon={<MdPhone className="text-xl" />} value="+1-888-891-7176" />
       </div>
 
-      <form className="flex flex-col gap-[1rem] lg:w-[100%] grow" ref={form} onSubmit={sendEmail}>
-        <h1 className="text-[2rem] font-bold text-black ">Email Us</h1>
-        <div className="flex gap-[1rem] w-full">
-          <Input
-            type="text"
-            classNames={{ input: "text-black" }}
-            label="Your Name"
-            variant="bordered"
-            name="name"
-            id="name"
-            radius="none"
-            onChange={checkUserName}
-            errorMessage={nameValidity ? "Please enter a valid Name" : ""}
-            isInvalid={nameValidity}
-          />
-          <Input
-            type="email"
-            classNames={{ input: "text-black" }}
-            label="Email"
-            variant="bordered"
-            name="email"
-            id="email"
-            radius="none"
-            onChange={checkEmail}
-            isInvalid={emailValidity}
-            errorMessage={emailValidity ? "Please enter a valid Email" : ""}
-          />
-        </div>
+      <Image
+        src="https://images.pexels.com/photos/4049876/pexels-photo-4049876.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        className="z-[5] cursor-pointer"
+        isBlurred
+        isZoomed
+        radius="none"
+        width={300}
+      />
+
+      <form className="flex flex-col gap-[1rem] grow max-w-[30rem]" ref={form} onSubmit={sendEmail}>
+        <h1 className="text-2xl font-bold text-black ">SEND US A MESSAGE ...</h1>
+        <Input
+          type="text"
+          classNames={{ input: "text-black" }}
+          label="Your Name"
+          variant="underlined"
+          name="name"
+          id="name"
+          radius="none"
+          onChange={checkUserName}
+          errorMessage={nameValidity ? "Please enter a valid Name" : ""}
+          isInvalid={nameValidity}
+        />
+        <Input
+          type="email"
+          classNames={{ input: "text-black" }}
+          label="Email"
+          variant="underlined"
+          name="email"
+          id="email"
+          radius="none"
+          onChange={checkEmail}
+          isInvalid={emailValidity}
+          errorMessage={emailValidity ? "Please enter a valid Email" : ""}
+        />
         <Input
           type="text"
           classNames={{ input: "text-black" }}
           label="Subject"
-          variant="bordered"
+          variant="underlined"
           name="subject"
           onChange={checkSubject}
           isInvalid={subjectValidity}
@@ -178,7 +189,7 @@ const EmailForm = () => {
         <Textarea
           label="Message"
           name="message"
-          variant="bordered"
+          variant="underlined"
           classNames={{ input: "text-black" }}
           radius="none"
           onChange={checkMessage}
@@ -186,15 +197,15 @@ const EmailForm = () => {
           errorMessage={messageValidity ? "Please enter a minimum 10 charater" : ""}
         />
         <Button
-          variant="shadow"
+          variant="ghost"
           radius="none"
-          color="primary"
+          color="danger"
           className="w-[12rem] h-[3rem]"
           endContent={<IoSend className="mt-[0.2rem]" />}
           type="submit"
           isLoading={state}
         >
-          Send
+          SEND MESSAGE
         </Button>
         <Toaster />
       </form>

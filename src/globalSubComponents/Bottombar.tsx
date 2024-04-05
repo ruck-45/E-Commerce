@@ -291,7 +291,7 @@ const Bottombar = () => {
   const [open, setOpen] = useState(-1);
 
   return (
-    <div className="justify-evenly hidden sm:flex relative">
+    <div className="justify-evenly hidden sm:flex relative shadow-md">
       {bottomBarData.map((data, index) => (
         <>
           <p

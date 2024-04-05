@@ -1,19 +1,25 @@
-import React from "react";
+import { Image } from "@nextui-org/react";
 
 type card = {
-  img: any
+  img: any;
   off: string;
-  product:string;
+  product: string;
 };
 
-const EverydayCard = (props:card) => {
+const EverydayCard = (props: card) => {
   return (
-    <div className=" flex items-center justify-center h-[20rem] w-[15rem] bg-gradient-to-r from-pink-600 to-blue-300">
+    <div
+      className=" flex items-center justify-center h-[20rem] w-[15rem] bg-no-repeat bg-cover bg-center shadow-xl"
+      style={{
+        backgroundImage:
+          "url(https://assets-global.website-files.com/5a9423a3f702750001758d4f/64ddbec01951138700617251_%20-%202.png)",
+      }}
+    >
       <div className=" h-[24rem] w-[15rem] px-[1rem] mb-[4rem]">
-        <img src={props.img} className="object-cover" alt="" />
-        <h1 className="text-center text-[1.2rem] py-[0.5rem] text-white">
-          <span className="text-[1.4rem] font-bold">{props.off}{" "}</span> <br />
-          {props.product}
+        <Image src={props.img} className="object-cover cursor-pointer" isBlurred isZoomed radius="none" />
+        <h1 className="text-center py-[0.5rem] text-white">
+          <p className="text-2xl font-bold">{props.off} </p>
+          <p className="font-semibold text-lg">{props.product}</p>
         </h1>
       </div>
     </div>

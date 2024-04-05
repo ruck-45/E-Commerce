@@ -21,6 +21,7 @@ import HomeProductSectionNotFound from "./SubComponents/HomeProductSectionNotFou
 import { homeImage, discountImage, saleImage, offerImage } from "./data/data";
 import Exclusive from "../Exclusive/Exclusive";
 import Everyday from "../Everyday/Everyday";
+import ProductGrid from "../ProductGrid/ProductGrid";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -99,6 +100,7 @@ const Home = () => {
       ) : (
         <HomeProductSectionNotFound section={"Popular Antiques"} />
       )}
+      <ProductGrid />
 
       <div className="p-[2rem] flex justify-center my-[2rem]">
         <h1 className="lg:text-3xl text-1xl  font-['Rye'] text-[#F31260] font-bold">
@@ -123,7 +125,7 @@ const Home = () => {
       ) : (
         <HomeProductSectionNotFound section={"Carpets On Demand"} />
       )}
-
+      
       <div className="p-[2rem] flex justify-center my-[2rem]">
         <h1 className="lg:text-3xl text-1xl  font-['Rye'] text-[#F31260] font-bold">
           <span className="text-default-800 ">FEATURED </span>

@@ -34,7 +34,7 @@ import Orders from "./components/admin/Dashboard/Orders";
 import Customers from "./components/admin/Dashboard/Customers";
 import Successful from "./components/paymentPage/Successful";
 import Fail from "./components/paymentPage/Fail";
-import Everyday from "./components/Everyday/Everyday";
+
 
 
 function App() {
@@ -124,7 +124,6 @@ function App() {
             <Route path="addProduct" element={<AddProduct />} />
             <Route path="editProduct/:id" element={<EditProducts />} />
           </Route>
-          <Route path="/S" element={<Everyday />} />
           <Route path="/Shop" element={<ShopPage />} />
           <Route path="/ProductDetails/:name/:id" element={<ProductDetails />} />
           <Route path="/Refund" element={<Refund />} />

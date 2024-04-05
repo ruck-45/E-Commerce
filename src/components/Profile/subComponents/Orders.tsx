@@ -24,8 +24,8 @@ export const MyOrders = () => {
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log("response.data.payload.orders", response.data.payload.orders);
       setOrders(response.data.payload.orders);
-      console.log(response.data.payload.orders);
     } catch (error) {
       console.error("Error fetching orders:", error);
     }
@@ -46,10 +46,10 @@ export const MyOrders = () => {
     setCurrentPage(pageNumber);
   };
 
-  const handleViewOrderClick = (order:any) => {
+  const handleViewOrderClick = (order: any) => {
     setSelectedOrder(order);
-    setShowModal(true); 
-    console.log('selected order',selectedOrder);
+    setShowModal(true);
+    console.log("selected order", selectedOrder);
   };
 
   const handleCloseModal = () => {
@@ -66,9 +66,7 @@ export const MyOrders = () => {
                 <div>
                   <div className="text-gray-600 text-lg mb-2">
                     <strong>Order ID:</strong> {order.order_id.slice(0, 9)}...
-                    {order.order_id.slice(
-                      order.order_id.length - 3 - order.order_id.length
-                    )}
+                    {order.order_id.slice(order.order_id.length - 3 - order.order_id.length)}
                   </div>
                   <div className="text-gray-600 text-lg mb-2">
                     <strong>Order Date:</strong> {order.date.slice(0, 10)}
@@ -77,8 +75,7 @@ export const MyOrders = () => {
                     <strong>Total Price:</strong> {order.order_price}
                   </div>
                   <div className="text-gray-600 text-lg mb-2">
-                    <strong>Order Status:</strong>{" "}
-                    <span className="text-green-600">{order.status}</span>
+                    <strong>Order Status:</strong> <span className="text-green-600">{order.status}</span>
                   </div>
                   <Button onClick={() => handleViewOrderClick(order)} className="custom-button" color="success">
                     View Order
@@ -107,9 +104,7 @@ export const MyOrders = () => {
           Next
         </Button>
       </div>
-      {showModal && (
-        <OrderModal order={selectedOrder} onClose={handleCloseModal} show={showModal} />
-      )}
+      {showModal && <OrderModal order={selectedOrder} onClose={handleCloseModal} show={showModal} />}
     </div>
   );
 };

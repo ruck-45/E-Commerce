@@ -100,7 +100,6 @@ const UserItemDetails = () => {
           </Link>
         </div>
         <Divider />
-        {/* <ProfileProductSection data={antiqueData} /> */}
         <div className="relative border p-5 h-[17rem] flex justify-center items-center">
             <MyOrders/>
         </div>
@@ -117,7 +116,6 @@ const UserItemDetails = () => {
           </Link>
         </div>
         <Divider />
-        {/* <ProfileProductSection data={antiqueData} /> */}
         <div className="relative border p-5 h-[17rem] flex justify-center items-center">
           <p className="font-bold text-default-500 text-xl">No Items Found</p>
         </div>

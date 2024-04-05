@@ -155,7 +155,6 @@ export default function AddProduct() {
       imageCount: images.length,
       discountPercent: +percentage.toFixed(2),
     });
-    console.log(product);
 
     if (validateProduct()) {
       toast.error("please insert data in required field");
@@ -186,7 +185,6 @@ export default function AddProduct() {
           if (!imageResponse.data.success) {
             toast.error(`Error while uploading images. Please try again.`);
           } else {
-            console.log(imageResponse.data.payload);
             try {
               const createItemDetailsResponse = await axios.post(
                 `${apiUrl}/items/createItem`,

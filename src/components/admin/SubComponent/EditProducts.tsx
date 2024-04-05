@@ -42,7 +42,7 @@ const initialProduct: Product = {
   secondLevelCategory: "",
   thirdLevelCategory: "",
   orders: "",
-  imageCount:"",
+  imageCount: "",
   imageArray: [],
 };
 
@@ -93,7 +93,7 @@ let outputProduct: OutputProduct = {
   brand: "",
   title: "",
   color: "",
-  discountedPrice:"",
+  discountedPrice: "",
   price: "",
   discountPercent: 0,
   highlights: [],
@@ -112,9 +112,19 @@ let outputProduct: OutputProduct = {
 
 export default function EditProduct() {
   const { id } = useParams();
+  console.log(id);
   const theme = useTheme();
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
   const token = getCookie("token");
+
+  const [highlights, setHighlights] = useState<any>("");
+
+  const [finalImageArray, setFinalImageArray] = useState<any>([]);
+
+  const [images, setImages] = useState<any>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [product, setProduct] = useState<Product>(initialProduct);
 
   const extractNumbersFromString = (inputString: string): number[] => {
     const numberRegex = /\d+(\.\d+)?/g;
@@ -126,6 +136,37 @@ export default function EditProduct() {
     }
   };
 
+  function extractFileNameFromUrl(url: string) {
+    const parts = url.split("/");
+    const fileNameWithExtension = parts[parts.length - 1];
+    return fileNameWithExtension;
+  }
+
+  const blobUrlToFile = async (url: string) => {
+    try {
+      const res = await fetch(url);
+      const blob = await res.blob();
+      const file = new File([blob], extractFileNameFromUrl(url), { type: blob.type });
+      return file;
+    } catch (error) {
+      throw new Error(`Error converting blob URL to file: ${error}`);
+    }
+  };
+
+  async function convertUrlsToFilenames(urls: Array<string>) {
+    const files = [];
+    try {
+      for (const url of urls) {
+        const file = await blobUrlToFile(url);
+        files.push(file);
+      }
+      return files;
+    } catch (error) {
+      console.error("Error:", error);
+      return [];
+    }
+  }
+
   const fetchProductForEdit = async () => {
     try {
       const getProductResponse = await axios.get(`${apiUrl}/items/${id}`);
@@ -135,20 +176,40 @@ export default function EditProduct() {
         return;
       }
       const { imageCount } = getProductResponse.data.payload.result;
+      console.log("imageCount: ", imageCount);
       const fetchedImages = [];
       for (let i = 1; i <= imageCount; i++) {
         fetchedImages.push(`${apiUrl}/items/itemImages/${id}_img${i}.jpg`);
       }
+
+      console.log("fetchedImages: ", fetchedImages);
+
+      (async () => {
+        try {
+          const files = await convertUrlsToFilenames(fetchedImages);
+          setFinalImageArray(files)
+          console.log("images: ", files);
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      })();
+
+      setImages(fetchedImages);
+
 
       const [dimensionHeight, dimensionWidth] = extractNumbersFromString(
         getProductResponse.data.payload.result.dimension
       );
 
       // console.log(dimensionHeight, dimensionWidth);
-      console.log(getProductResponse);
-
-      setProduct({ ...getProductResponse.data.payload.result,quantity:getProductResponse.data.payload.result.minimumOrder,orders: getProductResponse.data.payload.result.quantity ,highlights: JSON.parse(getProductResponse.data.payload.result.highlights),  dimensionHeight, dimensionWidth });
-      setImages(fetchedImages);
+      setProduct({
+        ...getProductResponse.data.payload.result,
+        quantity: getProductResponse.data.payload.result.minimumOrder,
+        orders: getProductResponse.data.payload.result.quantity,
+        highlights: JSON.parse(getProductResponse.data.payload.result.highlights),
+        dimensionHeight,
+        dimensionWidth,
+      });
     } catch (error) {
       toast.error("Failed to fetch product. Please try again later.");
       return;
@@ -183,15 +244,6 @@ export default function EditProduct() {
     imageArray: { isError: false },
   });
 
-  const [highlights, setHighlights] = useState<any>("");
-
-  const [finalImageArray, setFinalImageArray] = useState<any>([]);
-
-  const [images, setImages] = useState<any>([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const [product, setProduct] = useState<Product>(initialProduct);
-
   const updateProduct = async () => {
     console.log("start update");
     const percentage: Number = ((+product.price - +product.discountedPrice) / +product.price) * 100;
@@ -217,6 +269,27 @@ export default function EditProduct() {
         return;
       } else {
         convertToOutputProduct(product);
+
+        console.log("final image array: ", finalImageArray);
+
+        const formData = new FormData();
+        finalImageArray.forEach((file: any) => {
+          formData.append("images", file);
+        });
+
+        const imageResponse = await axios.put(`${apiUrl}/items/itemImages`, formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            itemId: id,
+          },
+        });
+
+        console.log("image response: ", imageResponse);
+
+        if (!imageResponse.data.success) {
+          toast.error(`Error While Uploading Images`);
+          return;
+        }
         const createItemDetailsResponse = await axios.put(`${apiUrl}/items/updateItem/${id}`, outputProduct, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -227,29 +300,10 @@ export default function EditProduct() {
           toast.error(`Error While Updating Product`);
           return;
         }
-
-        const formData = new FormData();
-        finalImageArray.forEach((file: any) => {
-          formData.append("images", file);
-        });
-
-        const imageResponse = await axios.post(`${apiUrl}/items/itemImages`, formData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            itemId: createItemDetailsResponse.data.payload.itemId,
-          },
-        });
-
-        if (!imageResponse.data.success) {
-          toast.error(`Error While Uploading Images`);
-          return;
-        }
-
         toast.success(`Product Updated successfully`);
       }
     }
   };
-
 
   function convertToOutputProduct(product: Product) {
     return (outputProduct = {
@@ -362,7 +416,7 @@ export default function EditProduct() {
     ];
 
     if (numberRequiredFields.includes(name)) {
-      if (+value < 0 || value==='') setProduct({ ...product, [name]: "" });
+      if (+value < 0 || value === "") setProduct({ ...product, [name]: "" });
       else setProduct({ ...product, [name]: +value });
     } else {
       setProduct({ ...product, [name]: value });
@@ -699,7 +753,15 @@ export default function EditProduct() {
                           <IconButton
                             aria-label="delete"
                             onClick={() => {
-                              setImages(images.filter((img: any) => img !== item));
+                              setImages(
+                                images.filter((img: any) => img !== item)
+                              );
+                              setFinalImageArray((prevState: any) => {
+                                const updatedArray = [...prevState];
+                                updatedArray.splice(i, 1); 
+                                return updatedArray;
+                              });
+                              console.log('final image array after deletion',finalImageArray);
                             }}
                           >
                             <DeleteIcon />

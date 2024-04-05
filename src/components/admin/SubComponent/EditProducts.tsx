@@ -43,7 +43,6 @@ const initialProduct: Product = {
   thirdLevelCategory: "",
   orders: "",
   imageCount: "",
-  imageCount: "",
   imageArray: [],
 };
 
@@ -94,7 +93,6 @@ let outputProduct: OutputProduct = {
   brand: "",
   title: "",
   color: "",
-  discountedPrice: "",
   discountedPrice: "",
   price: "",
   discountPercent: 0,

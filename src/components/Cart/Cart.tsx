@@ -18,7 +18,7 @@ const Cart = () => {
   };
 
   return (
-    <div className="px-[3rem] lg:px-0 py-[3rem]">
+    <div className="px-[1rem] sm:px-[3rem] lg:px-0 py-[3rem]">
       {cart.length > 0 ? (
         <div className="lg:grid grid-cols-3 relative">
           <div className="lg:col-span-2 lg:px-5 bg-white">

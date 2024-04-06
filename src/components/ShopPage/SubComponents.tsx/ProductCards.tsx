@@ -96,21 +96,15 @@ const ProductCards = (props: individualProductType) => {
       className="productCard w-[15rem] border m-3 transition-all cursor-pointer"
       onClick={() => navigate(`/ProductDetails/${props.title}/${props.item_id}`)}
     >
-      <Badge
-        content={content}
-        color={color}
-        showOutline={false}
-        className={className}
-        isInvisible={content === ""}
-      >
-        <div className="h-[16.5rem] w-[15rem]">
-          <Image
-            className={content === "Out Of Stock" ? "grayscale" : ""}
-            src={`${apiUrl}/items/itemImages/${props.item_id}_img1.jpg`}
-            radius="none"
-            loading="lazy"
-          />
-        </div>
+      <Badge content={content} color={color} showOutline={false} className={className} isInvisible={content === ""}>
+        <div
+          className={
+            content === "Out Of Stock"
+              ? "grayscale h-[16.5rem] w-[15rem] bg-cover bg-center bg-no-repeat"
+              : "h-[16.5rem] w-[15rem] bg-cover bg-center bg-no-repeat"
+          }
+          style={{ backgroundImage: `url(${apiUrl}/items/itemImages/${props.item_id}_img1.jpg)` }}
+        ></div>
       </Badge>
       <div className="textPart bg-white p-3 ">
         <div>

@@ -139,7 +139,7 @@ const NavBar = () => {
         </NavbarContent>
 
         <NavbarContent justify="end" className="gap-[0.5rem]">
-          <NavbarItem className="flex gap-[0.5rem]">
+          <NavbarItem className="gap-[0.5rem] hidden sm:flex">
             <Input
               classNames={{
                 base: "w-full h-10",

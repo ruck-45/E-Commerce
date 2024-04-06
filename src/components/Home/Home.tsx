@@ -84,7 +84,7 @@ const Home = () => {
       <Slider homeImage={homeImage} className="mt-[1rem] mx-[3rem]" height="400px" />
 
       <div className="p-[2rem] flex justify-center md:my-[2rem]">
-        <h1 className="text-2xl md:text-3xl font-['Rye'] text-[#F31260] font-bold">
+        <h1 className="text-2xl md:text-3xl font-['Rye'] text-[#F31260] font-bold text-center">
           <span className="text-default-800 ">FEATURED </span>
           OFFERS
         </h1>
@@ -92,7 +92,7 @@ const Home = () => {
       <Slider homeImage={saleImage} className="md:mt-[1rem] mx-[3rem]" height="300px" />
 
       <div className="p-[2rem] flex justify-center md:my-[2rem]">
-        <h1 className="text-2xl md:text-3xl font-['Rye'] text-[#F31260] font-bold">
+        <h1 className="text-2xl md:text-3xl font-['Rye'] text-[#F31260] font-bold text-center">
           <span className="text-default-800 ">ONLINE </span>
           EXCLUSIVES
         </h1>
@@ -110,7 +110,7 @@ const Home = () => {
       <HomeCard />
 
       <div className="p-[2rem] flex justify-center md:my-[2rem]">
-        <h1 className="text-2xl md:text-3xl font-['Rye'] text-[#F31260] font-bold">
+        <h1 className="text-2xl md:text-3xl font-['Rye'] text-[#F31260] font-bold text-center">
           <span className="text-default-800 ">TOP RATED </span>
           CATEGORIES
         </h1>
@@ -118,7 +118,7 @@ const Home = () => {
       <ProductGrid />
 
       <div className="p-[2rem] flex justify-center mt-[2rem] mb-[-1rem]">
-        <h1 className="text-3xl  font-['Rye'] text-[#F31260] font-bold">
+        <h1 className="text-3xl  font-['Rye'] text-[#F31260] font-bold text-center">
           <span className="text-default-800 ">EXCLUSIVE </span>
           ITEMS
         </h1>
@@ -135,15 +135,15 @@ const Home = () => {
       )}
 
       <div className="p-[2rem] flex justify-center my-[2rem]">
-        <h1 className="text-3xl  font-['Rye'] text-[#F31260] font-bold">
+        <h1 className="text-3xl  font-['Rye'] text-[#F31260] font-bold text-center">
           <span className="text-default-800 ">AMAZING </span>
           DEALS
         </h1>
       </div>
       <Slider homeImage={discountImage} className="mt-[1rem] mx-[3rem]" height="400px" />
 
-      <div className="p-[2rem] flex justify-center md:my-[2rem]">
-        <h1 className="text-2xl md:text-3xl font-['Rye'] text-[#F31260] font-bold">
+      <div className="p-[2rem] flex justify-center mt-[2rem] mb-[4rem] lg:mb-[2rem]">
+        <h1 className="text-2xl md:text-3xl font-['Rye'] text-[#F31260] font-bold text-center">
           <span className="text-default-800 ">YOUR EVERYDAY </span>
           FAVOURITES
         </h1>
@@ -151,9 +151,9 @@ const Home = () => {
       <Everyday />
 
       <Explore />
-      
+
       <div className="p-[2rem] flex justify-center my-[2rem]">
-        <h1 className="text-3xl  font-['Rye'] text-[#F31260] font-bold">
+        <h1 className="text-3xl  font-['Rye'] text-[#F31260] font-bold text-center">
           <span className="text-default-800 ">FEATURED </span>
           OFFERS
         </h1>

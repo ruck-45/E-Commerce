@@ -48,17 +48,13 @@ const CartItem = (props: productsType) => {
 
   return (
     <div className="p-5 shadow-lg border rounded-md">
-      <div className="flex items-center">
-        <div className="w-[5rem] h-[5rem] lg:w-[9rem] lg:h-[9rem] ">
-          <Image
-            className="w-full h-full object-cover object-top cursor-pointer"
-            src={`${apiUrl}/items/itemImages/${props.item_id}_img1.jpg`}
-            loading="lazy"
-            radius="sm"
-            onClick={() => navigate(`/ProductDetails/${props.title}/${props.item_id}`)}
-          />
-        </div>
-        <div className="ml-5 space-y-1">
+      <div className="flex flex-col sm:flex-row sm:items-center">
+        <div
+          className="w-[9rem] h-[9rem] bg-cover bg-center bg-no-repeat rounded-md cursor-pointer"
+          style={{ backgroundImage: `url(${apiUrl}/items/itemImages/${props.item_id}_img1.jpg)` }}
+          onClick={() => navigate(`/ProductDetails/${props.title}/${props.item_id}`)}
+        ></div>
+        <div className="sm:ml-5 space-y-1 mt-[1rem] sm:mt-0">
           <p className="font-bold">{props.title}</p>
           <p className="opacity-70 font-semibold">{props.brand}</p>
           <p className="opacity-70 text-sm">{props.color}</p>

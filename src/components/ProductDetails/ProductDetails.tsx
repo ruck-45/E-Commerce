@@ -208,26 +208,26 @@ export default function ProductDetails() {
     }
   };
 
-   const getRecommendedData = async () => {
-     try {
-       const response = await axios.get(`${apiUrl}/items/getItems?start=0&end=10&filter=popular`);
+  const getRecommendedData = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/items/getItems?start=0&end=10&filter=popular`);
 
-       if (!response.data.success) {
-         console.log(response.data);
-         setReceivedRecommendedData(0);
-       } else {
-         setRecommendedData(response.data.payload.result);
-         if (response.data.payload.result.length > 0) {
-           setReceivedRecommendedData(1);
-         } else {
-           setReceivedRecommendedData(0);
-         }
-       }
-     } catch (error) {
-       console.log(error);
-       setReceivedRecommendedData(0);
-     }
-   };
+      if (!response.data.success) {
+        console.log(response.data);
+        setReceivedRecommendedData(0);
+      } else {
+        setRecommendedData(response.data.payload.result);
+        if (response.data.payload.result.length > 0) {
+          setReceivedRecommendedData(1);
+        } else {
+          setReceivedRecommendedData(0);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      setReceivedRecommendedData(0);
+    }
+  };
 
   // API call
   useLayoutEffect(() => {
@@ -266,60 +266,46 @@ export default function ProductDetails() {
                 <li className="text-sm">
                   <p className="font-medium text-gray-500 hover:text-gray-600">{productsData.brand}</p>
                 </li>
-                <svg
-                  width={16}
-                  height={20}
-                  viewBox="0 0 16 20"
-                  fill="currentColor"
-                  aria-hidden="true"
-                  className="h-5 w-4 text-gray-300"
-                >
-                  <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
-                </svg>
-                <li className="text-sm">
-                  <p className="font-medium text-gray-500 hover:text-gray-600">{productsData.title}</p>
-                </li>
               </ol>
             </nav>
 
             {/* product details */}
             <section className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-2 px-4 pt-10">
               {/* Image gallery */}
-              <div className="flex flex-col items-center ">
-                <div className=" overflow-hidden rounded-none max-w-[30rem] max-h-[35rem] z-[0]">
+              <div className="flex flex-col items-center">
+                <div className="overflow-hidden rounded-none w-[20rem] sm:w-[30rem] h-[20rem] sm:h-[30rem] z-[0] flex justify-center items-center">
                   <Image
                     src={`${apiUrl}/items/itemImages/${productsData.item_id}_img${activeImage}.jpg`}
                     loading="lazy"
-                    className={"rounded-none " + content === "Out Of Stock" ? "grayscale" : ""}
+                    className={content === "Out Of Stock" ? "rounded-none grayscale" : "rounded-none"}
                     radius="none"
                   />
                 </div>
-                <div className="flex flex-wrap space-x-5 justify-center">
+                <div className="flex flex-wrap space-x-5 justify-center items-center mt-[1.5rem] gap-y-[1rem]">
                   {createArray(parseInt(productsData.imageCount, 10)).map((image, index) => (
                     <div
                       onClick={() => setActiveImage(`${image}`)}
-                      className="max-w-[5rem] mt-4 cursor-pointer hover:scale-105 transition-all flex flex-wrap"
-                    >
-                      <Image
-                        src={`${apiUrl}/items/itemImages/${productsData.item_id}_img${image}.jpg`}
-                        alt={`Product ${index}`}
-                        loading="lazy"
-                        className={content === "Out Of Stock" ? "grayscale" : ""}
-                        radius="none"
-                      />
-                    </div>
+                      className={
+                        content === "Out Of Stock"
+                          ? "w-[5rem] h-[5rem] cursor-pointer hover:scale-105 transition-all bg-cover bg-center bg-no-repeat grayscale"
+                          : "w-[5rem] h-[5rem] cursor-pointer hover:scale-105 transition-all bg-cover bg-center bg-no-repeat"
+                      }
+                      style={{
+                        backgroundImage: `url(${apiUrl}/items/itemImages/${productsData.item_id}_img${image}.jpg)`,
+                      }}
+                    ></div>
                   ))}
                 </div>
-                <div className="h-auto bg-white border-1 border-gray-300 mt-[2rem]">
-                  <div className="flex flex-row items-center justify-center">
-                    <div className="flex flex-col items-center justify-between p-[1rem] min-w-[7.5rem] border-r-1">
+                <div className="h-auto bg-white mt-[2rem]">
+                  <div className="flex flex-row flex-wrap items-center justify-center">
+                    <div className="flex flex-col items-center justify-between p-[1rem] min-w-[7.5rem] border">
                       <TbBrandOauth className="text-4xl" />
                       <h1 className="text-center text-xs ">
                         Authentic <br />
                         Product
                       </h1>
                     </div>
-                    <div className="flex flex-col items-center justify-between p-[1rem] min-w-[7.5rem] border-r-1">
+                    <div className="flex flex-col items-center justify-between p-[1rem] min-w-[7.5rem] border">
                       <TbBuildingStore className="text-4xl" />
                       <h1 className="text-center text-xs ">
                         Express Store
@@ -327,7 +313,7 @@ export default function ProductDetails() {
                         Pickup
                       </h1>
                     </div>
-                    <div className="flex flex-col items-center justify-between p-[1rem] min-w-[7.5rem] border-r-1">
+                    <div className="flex flex-col items-center justify-between p-[1rem] min-w-[7.5rem] border">
                       <GrInsecure className="text-4xl" />
                       <h1 className="text-center text-xs ">
                         Secure
@@ -335,7 +321,7 @@ export default function ProductDetails() {
                         Payment
                       </h1>
                     </div>
-                    <div className="flex flex-col items-center justify-between p-[1rem] min-w-[7.5rem]">
+                    <div className="flex flex-col items-center justify-between p-[1rem] min-w-[7.5rem] border">
                       <TbWorldWww className="text-4xl" />
                       <h1 className="text-center text-xs ">
                         Online
@@ -386,7 +372,6 @@ export default function ProductDetails() {
                       <p className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">528 reviews</p>
                     </div>
                   </div>
-                  <div></div>
 
                   {inCart ? (
                     <>
@@ -411,14 +396,24 @@ export default function ProductDetails() {
                           </IconButton>
                         </div>
                       </div>
-                      <Button
-                        onClick={handleRemoveFromCart}
-                        variant="contained"
-                        color="error"
-                        sx={{ padding: ".8rem 2rem", marginTop: "1rem" }}
-                      >
-                        Remove
-                      </Button>
+                      <div className="flex items-center">
+                        <div className="flex flex-row items-center justify-center  gap-[1rem] mt-[2rem]">
+                          <div className="bg-gray-200 text-black p-[1rem] rounded-full cursor-pointer">
+                            <AiOutlineShareAlt className="text-2xl text-black" />
+                          </div>
+                          <div className="bg-gray-200 text-black p-[1rem] rounded-full cursor-pointer">
+                            <FaRegHeart className="text-2xl" />
+                          </div>
+                        </div>
+                        <Button
+                          onClick={handleRemoveFromCart}
+                          variant="contained"
+                          color="error"
+                          sx={{ padding: ".8rem 2rem", marginTop: "2rem", marginLeft: "0.8rem", borderRadius: "0px" }}
+                        >
+                          Remove
+                        </Button>
+                      </div>
                     </>
                   ) : (
                     <div className="flex flex-row items-center justify-start gap-3">

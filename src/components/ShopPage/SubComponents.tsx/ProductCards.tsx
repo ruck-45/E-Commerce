@@ -102,7 +102,6 @@ const ProductCards = (props: individualProductType) => {
         showOutline={false}
         className={className}
         isInvisible={content === ""}
-        variant="shadow"
       >
         <div className="h-[16.5rem] w-[15rem]">
           <Image

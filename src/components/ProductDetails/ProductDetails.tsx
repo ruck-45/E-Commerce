@@ -17,11 +17,13 @@ import { updateRedirect } from "../../Redux/Slices/loginRedirectSlice";
 import { AiOutlineShareAlt } from "react-icons/ai";
 import { FaRegHeart } from "react-icons/fa";
 import { GrInsecure } from "react-icons/gr";
-import { TbBuildingStore } from "react-icons/tb";
+import { TbBuildingStore, TbWorldWww } from "react-icons/tb";
 import { TbBrandOauth } from "react-icons/tb";
 import HomeProductSection from "../Home/SubComponents/HomeProductSection";
 import HomeProductSectionSkeleton from "../Home/SubComponents/HomeProductSectionSkeleton";
 import HomeProductSectionNotFound from "../Home/SubComponents/HomeProductSectionNotFound";
+import Slider from "../../globalSubComponents/Carasoul/Slider";
+import { offerImage } from "../Home/data/data";
 
 const defaultProductsData = {
   item_id: "",
@@ -67,8 +69,10 @@ export default function ProductDetails() {
   const { name, id } = useParams();
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
   const isLoggedIn = useSelector((state: RootState) => state.loginStatus.value);
-   const [receivedCarpetsData, setReceivedCarpetsData] = useState(-1);
-    const [carpetsData, setCarpetsData] = useState([]);
+  const [receivedSimilarProduct, setReceivedSimilarProduct] = useState(-1);
+  const [similarProduct, setSimilarProduct] = useState([]);
+  const [receivedRecommendedData, setReceivedRecommendedData] = useState(-1);
+  const [recommendedData, setRecommendedData] = useState([]);
 
   const [productsData, setProductsData] = useState(defaultProductsData);
   const [receivedProductData, setReceivedProductData] = useState(-1);
@@ -83,17 +87,13 @@ export default function ProductDetails() {
   const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
   const createdDate = new Date(productsData.created_at);
   let content = "";
-  let color: "primary" | "danger" | "warning" | "default" | "secondary" | "success" | undefined = "primary";
 
   if (productsData.quantity < productsData.minimumOrder) {
     content = "Out Of Stock";
-    color = "danger";
   } else if (productsData.discountPercent >= 50) {
     content = "Sale";
-    color = "warning";
   } else if (createdDate >= sevenDaysAgo) {
     content = "New Arrival";
-    color = "primary";
   }
 
   const getProductData = async () => {
@@ -184,34 +184,57 @@ export default function ProductDetails() {
     dispatch(removeItem(productsData.item_id));
     setInCart(false);
   };
-  const getCarpetData = async () => {
+
+  const getSimilarProductData = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/items/getItems?start=0&end=10&category=carpet&filter=popular`);
+      const response = await axios.get(
+        `${apiUrl}/items/getItems?start=0&end=10&category=${productsData.topLevelCategory}`
+      );
 
       if (!response.data.success) {
         console.log(response.data);
-        setReceivedCarpetsData(0);
+        setReceivedSimilarProduct(0);
       } else {
-        setCarpetsData(response.data.payload.result);
+        setSimilarProduct(response.data.payload.result);
         if (response.data.payload.result.length > 0) {
-          setReceivedCarpetsData(1);
+          setReceivedSimilarProduct(1);
         } else {
-          setReceivedCarpetsData(0);
+          setReceivedSimilarProduct(0);
         }
       }
     } catch (error) {
       console.log(error);
-      setReceivedCarpetsData(0);
+      setReceivedSimilarProduct(0);
     }
   };
 
-  
+   const getRecommendedData = async () => {
+     try {
+       const response = await axios.get(`${apiUrl}/items/getItems?start=0&end=10&filter=popular`);
+
+       if (!response.data.success) {
+         console.log(response.data);
+         setReceivedRecommendedData(0);
+       } else {
+         setRecommendedData(response.data.payload.result);
+         if (response.data.payload.result.length > 0) {
+           setReceivedRecommendedData(1);
+         } else {
+           setReceivedRecommendedData(0);
+         }
+       }
+     } catch (error) {
+       console.log(error);
+       setReceivedRecommendedData(0);
+     }
+   };
 
   // API call
   useLayoutEffect(() => {
     scrollTop();
     getProductData();
-      getCarpetData();
+    getSimilarProductData();
+    getRecommendedData();
   }, [apiUrl]);
 
   return (
@@ -242,6 +265,19 @@ export default function ProductDetails() {
                 ))}
                 <li className="text-sm">
                   <p className="font-medium text-gray-500 hover:text-gray-600">{productsData.brand}</p>
+                </li>
+                <svg
+                  width={16}
+                  height={20}
+                  viewBox="0 0 16 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                  className="h-5 w-4 text-gray-300"
+                >
+                  <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
+                </svg>
+                <li className="text-sm">
+                  <p className="font-medium text-gray-500 hover:text-gray-600">{productsData.title}</p>
                 </li>
               </ol>
             </nav>
@@ -274,29 +310,37 @@ export default function ProductDetails() {
                     </div>
                   ))}
                 </div>
-                <div className="h-auto md:w-[30rem] w-auto bg-white border-1 border-gray-300 py-[2rem] mt-[2rem]">
-                  <div className="flex flex-row items-center justify-center gap-3">
-                    <div className="flex flex-col items-center justify-between md:p-[2rem] p-[1rem] border-r-1">
+                <div className="h-auto bg-white border-1 border-gray-300 mt-[2rem]">
+                  <div className="flex flex-row items-center justify-center">
+                    <div className="flex flex-col items-center justify-between p-[1rem] min-w-[7.5rem] border-r-1">
                       <TbBrandOauth className="text-4xl" />
-                      <h1 className="text-center ">
+                      <h1 className="text-center text-xs ">
                         Authentic <br />
                         Product
                       </h1>
                     </div>
-                    <div className="flex flex-col items-center justify-between md:p-[2rem] p-[1rem] border-r-1">
+                    <div className="flex flex-col items-center justify-between p-[1rem] min-w-[7.5rem] border-r-1">
                       <TbBuildingStore className="text-4xl" />
-                      <h1 className="text-center ">
+                      <h1 className="text-center text-xs ">
                         Express Store
                         <br />
                         Pickup
                       </h1>
                     </div>
-                    <div className="flex flex-col items-center justify-between md:p-[2rem] p-[1rem]">
+                    <div className="flex flex-col items-center justify-between p-[1rem] min-w-[7.5rem] border-r-1">
                       <GrInsecure className="text-4xl" />
-                      <h1 className="text-center ">
+                      <h1 className="text-center text-xs ">
                         Secure
                         <br />
                         Payment
+                      </h1>
+                    </div>
+                    <div className="flex flex-col items-center justify-between p-[1rem] min-w-[7.5rem]">
+                      <TbWorldWww className="text-4xl" />
+                      <h1 className="text-center text-xs ">
+                        Online
+                        <br />
+                        Support
                       </h1>
                     </div>
                   </div>
@@ -313,6 +357,14 @@ export default function ProductDetails() {
 
                 {/* Options */}
                 <div className="mt-2 lg:row-span-3 lg:mt-0">
+                  {content === "" ? null : (
+                    <div className="mt-[1rem] ">
+                      <Chip className="text-white bg-black" variant="shadow" radius="none">
+                        {content}
+                      </Chip>
+                    </div>
+                  )}
+
                   <div className="flex space-x-5 items-center text-lg lg:text-xl  text-gray-900 mt-6">
                     {productsData.discountedPrice === productsData.price || productsData.discountPercent === 0 ? (
                       <p className="font-semibold">${productsData.price}</p>
@@ -326,26 +378,15 @@ export default function ProductDetails() {
                   </div>
                   {/* Reviews */}
                   <div className="mt-2">
-                    <h3 className="sr-only">Reviews</h3>
+                    <h1>Includes all taxes</h1>
 
+                    <Rating name="read-only" value={4.6} precision={0.5} readOnly className="mt-[0.5rem]" />
                     <div className="flex items-center space-x-3">
-                      <Rating name="read-only" value={4.6} precision={0.5} readOnly />
-
                       <p className="opacity-60 text-sm">42807 Ratings</p>
                       <p className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">528 reviews</p>
                     </div>
                   </div>
-                  <div>
-                    <h1>Includes all taxes</h1>
-                  </div>
-
-                  {content === "" ? null : (
-                    <div className="mt-[1rem] ">
-                      <Chip className="text-white bg-black" variant="shadow" radius="none">
-                        {content}
-                      </Chip>
-                    </div>
-                  )}
+                  <div></div>
 
                   {inCart ? (
                     <>
@@ -490,23 +531,24 @@ export default function ProductDetails() {
       </div>
       <div className="w-auto h-auto flex flex-col items-center justify-center">
         <div className="w-full">
-          {receivedCarpetsData === 1 ? (
-            <HomeProductSection data={carpetsData} section={"Similar Product"} />
-          ) : receivedCarpetsData === -1 ? (
-            <HomeProductSectionSkeleton data={[1, 2, 3, 4, 5]} section={"Similar Product"} />
+          {receivedSimilarProduct === 1 ? (
+            <HomeProductSection data={similarProduct} section={"Similar Products"} />
+          ) : receivedSimilarProduct === -1 ? (
+            <HomeProductSectionSkeleton data={[1, 2, 3, 4, 5]} section={"Similar Products"} />
           ) : (
-            <HomeProductSectionNotFound section={"Similar Product"} />
+            <HomeProductSectionNotFound section={"Similar Products"} />
           )}
         </div>
       </div>
+      <Slider homeImage={offerImage} className="mt-[1rem] mx-[3rem]" height="300px" />
       <div className="w-auto h-auto flex flex-col items-center justify-center">
         <div className="w-full">
-          {receivedCarpetsData === 1 ? (
-            <HomeProductSection data={carpetsData} section={"Similar Product"} />
-          ) : receivedCarpetsData === -1 ? (
-            <HomeProductSectionSkeleton data={[1, 2, 3, 4, 5]} section={"Similar Product"} />
+          {receivedRecommendedData === 1 ? (
+            <HomeProductSection data={recommendedData} section={"Frequently Purchased"} />
+          ) : receivedRecommendedData === -1 ? (
+            <HomeProductSectionSkeleton data={[1, 2, 3, 4, 5]} section={"Frequently Purchased"} />
           ) : (
-            <HomeProductSectionNotFound section={"Similar Product"} />
+            <HomeProductSectionNotFound section={"Frequently Purchased"} />
           )}
         </div>
       </div>

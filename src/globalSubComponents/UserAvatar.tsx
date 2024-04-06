@@ -41,7 +41,7 @@ const UserAvatar = () => {
     <>
       <Dropdown placement="bottom-end">
         <DropdownTrigger>
-          <Avatar isBordered as="button" className="transition-transform" src={imageUrl} color="danger" />
+          <Avatar isBordered as="button" className="transition-transform" src={imageUrl} color="danger" size="sm" />
         </DropdownTrigger>
         <DropdownMenu aria-label="Profile Actions" variant="flat">
           <DropdownItem key="email" className="h-14 gap-2" textValue="email">

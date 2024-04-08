@@ -16,6 +16,7 @@ const OrderModal: React.FC<any> = ({ order, onClose, show }) => {
   const navigate = useNavigate();
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
   const orderItem = JSON.parse(order.items);
+  console.log("orderItem: ", orderItem);
   return (
     <>
       <Modal className="next-modal-wrapper" isOpen={show} onOpenChange={onClose}>
@@ -71,9 +72,9 @@ const OrderModal: React.FC<any> = ({ order, onClose, show }) => {
                     
                       <div className="h-[8.5rem] w-[100%]">
                           <strong>Item {index+1}.</strong> &nbsp;&nbsp;
-                          <strong style={{marginLeft:'7%'}}>Order Quantity: {item.itemQuantity}</strong>
+                          <strong style={{marginLeft:'7%'}}>Order Quantity: {item.itemCount}</strong>
                           <Image
-                          src={`${apiUrl}/items/itemImages/${item.item_id}_img1.jpg`}
+                          src={`${apiUrl}/items/itemImages/${item.itemId}_img1.jpg`}
                           radius="none"
                           loading="lazy"
                           style={{ width: '20%', height: '20%',float: 'right',borderRadius:'40px',bottom:'50px' }}

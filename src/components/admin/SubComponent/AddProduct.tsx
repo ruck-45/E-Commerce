@@ -49,8 +49,8 @@ type Product = {
   brand: string;
   title: string;
   color: string;
-  discountedPrice: number | string;
-  price: number | string;
+  discountedPrice: string;
+  price: string;
   discountPercent: number;
   highlights: string[];
   details: string;
@@ -71,8 +71,8 @@ type OutputProduct = {
   brand: string;
   title: string;
   color: string;
-  discountedPrice: number | string;
-  price: number | string;
+  discountedPrice: string;
+  price: string;
   discountPercent: number;
   highlights: string[];
   details: string;
@@ -134,9 +134,7 @@ export default function AddProduct() {
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
   const [showImageError, setShowImageError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [imageError, setImageError] = useState(
-    validationErrors.IMAGE_SIZE_EXCEED
-  );
+  const [imageError, setImageError] = useState(validationErrors.IMAGE_SIZE_EXCEED);
 
   const [isError, setIsError] = useState({
     brand: { isError: false },
@@ -171,13 +169,14 @@ export default function AddProduct() {
   const [product, setProduct] = useState<Product>(initialProduct);
 
   const addProduct = async () => {
-    const percentage: Number =
-      ((+product.price - +product.discountedPrice) / +product.price) * 100;
+    const percentage: number =
+      ((parseInt(product.price) - parseInt(product.discountedPrice)) / parseInt(product.price)) * 100;
+    console.log(percentage);
     setProduct({
       ...product,
       imageArray: images,
       imageCount: images.length,
-      discountPercent: +percentage.toFixed(2),
+      discountPercent: percentage,
     });
 
     if (validateProduct()) {
@@ -190,9 +189,7 @@ export default function AddProduct() {
         toast.error("please insert at least one image");
         return;
       } else if (product.orders < product.quantity) {
-        toast.error(
-          "Total stock order quantity must be greater than order quantity"
-        );
+        toast.error("Total stock order quantity must be greater than order quantity");
         return;
       } else {
         convertToOutputProduct(product);
@@ -228,6 +225,7 @@ export default function AddProduct() {
               } else {
                 toast.success(`Product Created Successfully`);
                 setImages([]);
+                setFinalImageArray([]);
                 setProduct(initialProduct);
                 setHighlights("");
                 outputProduct = initialOutputProduct;
@@ -387,11 +385,7 @@ export default function AddProduct() {
                     variant="outlined"
                     error={isError.title.isError}
                   />
-                  {isError.title.isError ? (
-                    <span className="cp-errors">{validationErrors.TITLE}</span>
-                  ) : (
-                    ""
-                  )}
+                  {isError.title.isError ? <span className="cp-errors">{validationErrors.TITLE}</span> : ""}
                 </Grid>
                 <Grid item xs={12}>
                   <StyledTextField
@@ -404,11 +398,7 @@ export default function AddProduct() {
                     variant="outlined"
                     error={isError.brand.isError}
                   />
-                  {isError.brand.isError ? (
-                    <span className="cp-errors">{validationErrors.BRAND}</span>
-                  ) : (
-                    ""
-                  )}
+                  {isError.brand.isError ? <span className="cp-errors">{validationErrors.BRAND}</span> : ""}
                 </Grid>
                 <Grid item xs={12}>
                   <StyledTextField
@@ -421,11 +411,7 @@ export default function AddProduct() {
                     variant="outlined"
                     error={isError.color.isError}
                   />
-                  {isError.color.isError ? (
-                    <span className="cp-errors">{validationErrors.COLOR}</span>
-                  ) : (
-                    ""
-                  )}
+                  {isError.color.isError ? <span className="cp-errors">{validationErrors.COLOR}</span> : ""}
                 </Grid>
                 <Grid item xs={6}>
                   <StyledTextField
@@ -439,13 +425,7 @@ export default function AddProduct() {
                     onChange={handleUserInput}
                     error={isError.quantity.isError}
                   />
-                  {isError.quantity.isError ? (
-                    <span className="cp-errors">
-                      {validationErrors.REQUIRED}
-                    </span>
-                  ) : (
-                    ""
-                  )}
+                  {isError.quantity.isError ? <span className="cp-errors">{validationErrors.REQUIRED}</span> : ""}
                 </Grid>
                 <Grid item xs={6}>
                   <StyledTextField
@@ -459,13 +439,7 @@ export default function AddProduct() {
                     value={product.orders}
                     error={isError.orders.isError}
                   />
-                  {isError.orders.isError ? (
-                    <span className="cp-errors">
-                      {validationErrors.REQUIRED}
-                    </span>
-                  ) : (
-                    ""
-                  )}
+                  {isError.orders.isError ? <span className="cp-errors">{validationErrors.REQUIRED}</span> : ""}
                 </Grid>
                 <Grid item xs={6}>
                   <StyledTextField
@@ -479,13 +453,7 @@ export default function AddProduct() {
                     error={isError.price.isError}
                     value={product.price}
                   />
-                  {isError.price.isError ? (
-                    <span className="cp-errors">
-                      {validationErrors.REQUIRED}
-                    </span>
-                  ) : (
-                    ""
-                  )}
+                  {isError.price.isError ? <span className="cp-errors">{validationErrors.REQUIRED}</span> : ""}
                 </Grid>
                 <Grid item xs={6}>
                   <StyledTextField
@@ -500,9 +468,7 @@ export default function AddProduct() {
                     error={isError.discountedPrice.isError}
                   />
                   {isError.discountedPrice.isError ? (
-                    <span className="cp-errors">
-                      {validationErrors.REQUIRED}
-                    </span>
+                    <span className="cp-errors">{validationErrors.REQUIRED}</span>
                   ) : (
                     ""
                   )}
@@ -518,13 +484,7 @@ export default function AddProduct() {
                     value={product.material}
                     error={isError.material.isError}
                   />
-                  {isError.material.isError ? (
-                    <span className="cp-errors">
-                      {validationErrors.REQUIRED}
-                    </span>
-                  ) : (
-                    ""
-                  )}
+                  {isError.material.isError ? <span className="cp-errors">{validationErrors.REQUIRED}</span> : ""}
                 </Grid>
                 <Grid item xs={3}>
                   <StyledTextField
@@ -539,9 +499,7 @@ export default function AddProduct() {
                     error={isError.dimensionHeight.isError}
                   />
                   {isError.dimensionHeight.isError ? (
-                    <span className="cp-errors">
-                      {validationErrors.REQUIRED}
-                    </span>
+                    <span className="cp-errors">{validationErrors.REQUIRED}</span>
                   ) : (
                     ""
                   )}
@@ -572,36 +530,18 @@ export default function AddProduct() {
                       }));
                       setHighlights(e.target.value);
                     }}
-                    className={
-                      isError.highlights.isError
-                        ? "cp-textarea-error"
-                        : "cp-textarea"
-                    }
+                    className={isError.highlights.isError ? "cp-textarea-error" : "cp-textarea"}
                   ></textarea>
-                  <Button
-                    onClick={addHighlight}
-                    color="secondary"
-                    className="rounded-md"
-                  >
+                  <Button onClick={addHighlight} color="secondary" className="rounded-md">
                     Add Hightlight
                   </Button>
                   <div className="flex flex-wrap gap-[1rem] my-3">
                     {product.highlights.length > 0 &&
                       product.highlights.map((item: any, index: number) => (
-                        <Chip
-                          key={index}
-                          onDelete={() => chipDelete(index)}
-                          label={item}
-                        />
+                        <Chip key={index} onDelete={() => chipDelete(index)} label={item} />
                       ))}
                   </div>
-                  {isError.highlights.isError ? (
-                    <span className="cp-errors">
-                      {validationErrors.HIGHLIGHT}
-                    </span>
-                  ) : (
-                    ""
-                  )}
+                  {isError.highlights.isError ? <span className="cp-errors">{validationErrors.HIGHLIGHT}</span> : ""}
                 </Grid>
 
                 <Grid item xs={12}>
@@ -615,13 +555,7 @@ export default function AddProduct() {
                     onChange={handleUserInput}
                     value={product.details}
                   />
-                  {isError.details.isError ? (
-                    <span className="cp-errors">
-                      {validationErrors.DETAILS}
-                    </span>
-                  ) : (
-                    ""
-                  )}
+                  {isError.details.isError ? <span className="cp-errors">{validationErrors.DETAILS}</span> : ""}
                 </Grid>
                 <Grid item xs={12}>
                   <StyledTextField
@@ -635,9 +569,7 @@ export default function AddProduct() {
                     value={product.topLevelCategory}
                   />
                   {isError.topLevelCategory.isError ? (
-                    <span className="cp-errors">
-                      {validationErrors.FIRST_LEVEL_CATEGORY}
-                    </span>
+                    <span className="cp-errors">{validationErrors.FIRST_LEVEL_CATEGORY}</span>
                   ) : (
                     ""
                   )}
@@ -654,9 +586,7 @@ export default function AddProduct() {
                     onChange={handleUserInput}
                   />
                   {isError.secondLevelCategory.isError ? (
-                    <span className="cp-errors">
-                      {validationErrors.SECOND_LEVEL_CATEGORY}
-                    </span>
+                    <span className="cp-errors">{validationErrors.SECOND_LEVEL_CATEGORY}</span>
                   ) : (
                     ""
                   )}
@@ -673,9 +603,7 @@ export default function AddProduct() {
                     onChange={handleUserInput}
                   />
                   {isError.thirdLevelCategory.isError ? (
-                    <span className="cp-errors">
-                      {validationErrors.THIRD_LEVEL_CATEGORY}
-                    </span>
+                    <span className="cp-errors">{validationErrors.THIRD_LEVEL_CATEGORY}</span>
                   ) : (
                     ""
                   )}
@@ -687,24 +615,14 @@ export default function AddProduct() {
                     rows={4}
                     cols={50}
                     onChange={handleUserInput}
-                    className={
-                      isError.description.isError
-                        ? "cp-textarea-error"
-                        : "cp-textarea"
-                    }
+                    className={isError.description.isError ? "cp-textarea-error" : "cp-textarea"}
                     placeholder="Desciption"
                     name="description"
                     value={product.description.toString()}
                     minLength={20}
                     maxLength={300}
                   ></textarea>
-                  {isError.description.isError ? (
-                    <span className="cp-errors">
-                      {validationErrors.DESCRIPTION}
-                    </span>
-                  ) : (
-                    ""
-                  )}
+                  {isError.description.isError ? <span className="cp-errors">{validationErrors.DESCRIPTION}</span> : ""}
                 </Grid>
               </Grid>
             </div>
@@ -780,11 +698,9 @@ export default function AddProduct() {
                             aria-label="delete"
                             onClick={() => {
                               // Remove the image URL from images array
-                              setImages(
-                                images.filter((img: any) => img !== item)
-                              );
+                              setImages(images.filter((img: any) => img !== item));
                               // Remove the corresponding file from finalImageArray using the index
-                              setFinalImageArray((prevState:any) => {
+                              setFinalImageArray((prevState: any) => {
                                 const updatedArray = [...prevState];
                                 updatedArray.splice(i, 1); // Remove the item at index i
                                 return updatedArray;

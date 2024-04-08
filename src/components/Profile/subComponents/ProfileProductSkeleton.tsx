@@ -50,7 +50,7 @@ const ProfileProductSkeleton = (props: ProfileProductSkeletonProps) => {
     },
   };
   const items = props.data.map((item) => <Skeleton className="w-[15rem] h-[20rem]" />);
-
+  
   return (
     <div className="relative border p-1">
       <AliceCarousel

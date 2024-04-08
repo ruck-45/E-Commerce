@@ -5,18 +5,22 @@ import ProfileProductSection from "./ProfileProductSection";
 import { getCookie } from "../../../utils/cookies";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../Redux/store";
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import axios from "axios";
 import ProfileProductSkeleton from "./ProfileProductSkeleton";
 import { MyOrders } from "./Orders";
+import PendingOrdersSection from "./OrdersSection";
 
 const UserItemDetails = () => {
   const username = getCookie("username");
   const email = getCookie("email");
+  const token = getCookie("token");
   const shippingInfo = useSelector((state: RootState) => state.shippingInfo);
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
   const [receivedRecommendedData, setReceivedRecommendedData] = useState(-1);
   const [recommendedData, setRecommendedData] = useState([]);
+  const [pendingOrders, setPendingOrders] = useState([]);
+  const [deliveredOrders, setDeliveredOrders] = useState([]);
 
   const userData = [
     {
@@ -74,6 +78,24 @@ const UserItemDetails = () => {
     getRecommendedData();
   }, [apiUrl]);
 
+  const fetchOrders = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/users/orders`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setPendingOrders(response.data.payload.pendingOrders);
+      setDeliveredOrders(response.data.payload.deliveredOrders);
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
   return (
     <div className="flex flex-col gap-y-[2rem] grow lg:px-0 w-[95%] lg:w-[82%] ">
       <div className="flex flex-col gap-1">
@@ -90,35 +112,17 @@ const UserItemDetails = () => {
       </div>
       <div className="flex flex-col gap-1">
         <div className="flex justify-between">
-          <h1 className="font-bold  text-2xl">YOUR ORDERS</h1>
-          <Link
-            to="/MyOrders"
-            className="flex flex-row justify-start items-center text-[1rem] font-medium gap-[0.5rem] hover:gap-[1rem] transition-all"
-            >
-            <p>View All</p>
-            <FaArrowRight />
-          </Link>
+          <h1 className="font-bold  text-2xl">PENDING ORDERS</h1>
         </div>
         <Divider />
-        <div className="relative border p-5 h-[17rem] flex justify-center items-center">
-            <MyOrders/>
-        </div>
+        {pendingOrders.length > 0 ? <PendingOrdersSection data={pendingOrders} /> : <div>No items Found</div>}
       </div>
       <div className="flex flex-col gap-1">
         <div className="flex justify-between">
-          <h1 className="font-bold  text-2xl">YOUR SHOPPING LIST</h1>
-          <Link
-            to="/"
-            className="flex flex-row justify-start items-center text-[1rem] font-medium gap-[0.5rem] hover:gap-[1rem] transition-all"
-          >
-            <p>View All</p>
-            <FaArrowRight />
-          </Link>
+          <h1 className="font-bold  text-2xl">DELIVERED ORDERS</h1>
         </div>
         <Divider />
-        <div className="relative border p-5 h-[17rem] flex justify-center items-center">
-          <p className="font-bold text-default-500 text-xl">No Items Found</p>
-        </div>
+        {deliveredOrders.length > 0 ? <PendingOrdersSection data={deliveredOrders} /> : <div>No items Found</div>}
       </div>
       <div className="flex flex-col gap-1">
         <div className="flex justify-between">

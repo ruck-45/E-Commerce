@@ -3,14 +3,13 @@ import { useState } from "react";
 import { Button } from "@mui/material";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
-import ProductCards from "../../ShopPage/SubComponents.tsx/ProductCards";
-import { individualProductType } from "../../../utils/types";
-
-type ProfileProductSectionProps = {
-  data: individualProductType[];
+import { Item, orderType } from "../../../utils/types";
+import PendingOrdersCard from "./OrdersCard";
+type OrdersSectionProps = {
+  data: orderType[];
 };
 
-const ProfileProductSection = (props: ProfileProductSectionProps) => {
+const OrdersSection = (props: OrdersSectionProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const slidePrev = () => setActiveIndex(activeIndex - 1);
@@ -54,21 +53,26 @@ const ProfileProductSection = (props: ProfileProductSectionProps) => {
       itemsFit: "contain",
     },
   };
-  const items = props.data.map((item) => <ProductCards {...item} />);
-  console.log("items ====> ", items);
+
+  const items = props.data.map((item) => 
+    JSON.parse(item.items).map((itemData: Item) => <PendingOrdersCard item={itemData} order={item} />)
+  );
+
+  const flattenedItems = items.flat(Infinity);
+
   return (
     <div className="relative border p-1">
       <AliceCarousel
         disableButtonsControls
         disableDotsControls
-        items={items}
+        items={flattenedItems}
         responsive={responsive}
         activeIndex={activeIndex}
         onSlideChanged={syncActiveIndex}
         animationType="fadeout"
         animationDuration={2000}
       />
-      {activeIndex !== items.length - 5 && (
+      {activeIndex !== items.length - 4 && (
         <Button
           onClick={slideNext}
           variant="contained"
@@ -76,7 +80,7 @@ const ProfileProductSection = (props: ProfileProductSectionProps) => {
           color="inherit"
           sx={{
             position: "absolute",
-            top: "11rem",
+            top: "9rem",
             right: "0rem",
             transform: "translateX(50%) rotate(90deg)",
             bgcolor: "white",
@@ -95,7 +99,7 @@ const ProfileProductSection = (props: ProfileProductSectionProps) => {
           className="z-50 bg-[]"
           sx={{
             position: "absolute",
-            top: "11rem",
+            top: "9rem",
             left: "0rem",
             transform: "translateX(-50%)  rotate(90deg)",
             bgcolor: "white",
@@ -109,4 +113,4 @@ const ProfileProductSection = (props: ProfileProductSectionProps) => {
   );
 };
 
-export default ProfileProductSection;
+export default OrdersSection;

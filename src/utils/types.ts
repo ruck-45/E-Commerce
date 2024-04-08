@@ -32,6 +32,7 @@ export type productsType = {
   count: number;
 };
 
+
 export type individualProductType = {
   item_id: String;
   imageCount: String;
@@ -53,4 +54,25 @@ export type individualProductType = {
   details: String;
   orders: number;
   created_at: Date;
+};
+
+
+export type Item = {
+  discountedPrice: string;
+  itemCount: string;
+  itemId: string;
+  totalPrice: string;
+  unit_price: string;
+};
+
+
+export type orderType = {
+  order_id: string;
+  user_id: string;
+  items: string;
+  status: string;
+  order_price: number;
+  date: string;
+  shipping_info: string;
+  formatted_date?: string;
 };

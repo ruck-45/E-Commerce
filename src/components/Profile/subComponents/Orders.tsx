@@ -24,8 +24,7 @@ export const MyOrders = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("response.data.payload.orders", response.data.payload.orders);
-      setOrders(response.data.payload.orders);
+      setOrders(response.data.payload.pendingOrders);
     } catch (error) {
       console.error("Error fetching orders:", error);
     }

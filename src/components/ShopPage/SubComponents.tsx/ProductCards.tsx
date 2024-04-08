@@ -2,46 +2,13 @@ import { useSelector } from "react-redux";
 import "./Product.css";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../../Redux/store";
-import {
-  Badge,
-  Button,
-  Image,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  useDisclosure,
-} from "@nextui-org/react";
+import { Badge } from "@nextui-org/react";
 import { individualProductType } from "../../../utils/types";
-import { FaEdit } from "react-icons/fa";
-import { RiDeleteBinFill } from "react-icons/ri";
-import { getCookie } from "../../../utils/cookies";
-import { useState } from "react";
-import axios from "axios";
-import toast, { Toaster, ToastPosition } from "react-hot-toast";
-
-const toastSetting: {
-  position: ToastPosition;
-} = { position: "top-center" };
-
-const successToast = (message: string): void => {
-  toast.success(message, toastSetting);
-};
-
-const errorToast = (message: string): void => {
-  toast.error(message, toastSetting);
-};
 
 const ProductCards = (props: individualProductType) => {
   const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
   const createdDate = new Date(props.created_at);
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
-  const token = getCookie("token");
-  const isLoggedIn = useSelector((state: RootState) => state.loginStatus.value);
-  const curTab = useSelector((state: RootState) => state.curTab.value);
-  const [deleteLoading, setDeleteLoading] = useState(false);
-  const admin = getCookie("isAdmin");
   const navigate = useNavigate();
   let content = "";
   let className = "rounded-none ";
@@ -60,36 +27,6 @@ const ProductCards = (props: individualProductType) => {
     className += "right-[2.8rem] top-[1rem]";
     color = "primary";
   }
-
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
-  const handleDelete = async () => {
-    setDeleteLoading(true);
-    try {
-      const response = await axios.delete(`${apiUrl}/items/deleteItem/${props.item_id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (!response.data.success) {
-        console.log(response.data);
-        errorToast("Product Deletion Unsuccessful");
-      } else {
-        successToast("Product Successfully Deleted");
-      }
-    } catch (error) {
-      console.error(error);
-      errorToast("Product Deletion Unsuccessful");
-    }
-    setDeleteLoading(false);
-    setTimeout(() => {
-      window.location.reload();
-    }, 2000);
-  };
-
-  const handleEdit = () => {
-    navigate(`/Admin/editProduct/${props.item_id}`);
-  };
 
   return (
     <div
@@ -131,36 +68,7 @@ const ProductCards = (props: individualProductType) => {
             </>
           )}
         </div>
-        {isLoggedIn && admin === "true" && curTab === "Admin" ? (
-          <div className="w-full flex justify-between mt-[1rem]">
-            <Button startContent={<FaEdit />} radius="none" color="primary" variant="flat" onClick={handleEdit}>
-              Edit
-            </Button>
-            <Button startContent={<RiDeleteBinFill />} radius="none" color="danger" variant="flat" onClick={onOpen}>
-              Delete
-            </Button>
-            <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-              <ModalContent>
-                {(onClose) => (
-                  <>
-                    <ModalHeader className="flex flex-col gap-1">Confirm Delete</ModalHeader>
-                    <ModalBody>Are you sure you want to delete {props.title} ?</ModalBody>
-                    <ModalFooter>
-                      <Button color="primary" variant="light" onPress={onClose}>
-                        Close
-                      </Button>
-                      <Button color="danger" onClick={handleDelete} isLoading={deleteLoading}>
-                        Delete
-                      </Button>
-                    </ModalFooter>
-                  </>
-                )}
-              </ModalContent>
-            </Modal>
-          </div>
-        ) : null}
       </div>
-      <Toaster />
     </div>
   );
 };

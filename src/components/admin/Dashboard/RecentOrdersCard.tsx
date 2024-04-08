@@ -59,6 +59,7 @@ function OrdersCard(props: any) {
   const { orders, customer } = props;
   const [changedStatus, setStatus] = useState("");
   const navigate = useNavigate();
+
   const handleDetailsClick = (order: any) => {
     setSelectedOrder(order);
     onOpen();
@@ -73,7 +74,7 @@ function OrdersCard(props: any) {
       orderId: selectedOrder.order_id,
       status: changedStatus,
       userEmail: JSON.parse(selectedOrder?.shipping_info)?.email,
-      username: 'admin'
+      username: (customer?.filter((customer:any)=>customer?.user_id===selectedOrder?.user_id))[0].username
     }
     try {
       const changeStatusResponse = await axios.post(
@@ -161,7 +162,7 @@ function OrdersCard(props: any) {
               {email}
             </p>
             <p className="text-bold text-sm capitalize text-default-900">
-              admin
+              {(customer?.filter((customer:any)=>customer?.user_id===order?.user_id))[0].username}
             </p>
           </div>
         );
@@ -268,7 +269,7 @@ function OrdersCard(props: any) {
                     <span className="font-semibold text-yellow-500">
                       Name:
                     </span>{" "}
-                    {(customer?.filter((customer:any)=>customer?.user_id===selectedOrder?.user_id))[0].username}
+                    {((customer?.filter((customer:any)=>customer?.user_id===selectedOrder?.user_id))[0]).username}
                   </p>
                   <p>
                     <span className="font-semibold text-yellow-500">

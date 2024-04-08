@@ -32,7 +32,6 @@ export type productsType = {
   count: number;
 };
 
-
 export type individualProductType = {
   item_id: String;
   imageCount: String;
@@ -56,7 +55,6 @@ export type individualProductType = {
   created_at: Date;
 };
 
-
 export type Item = {
   discountedPrice: string;
   itemCount: string;
@@ -64,7 +62,6 @@ export type Item = {
   totalPrice: string;
   unit_price: string;
 };
-
 
 export type orderType = {
   order_id: string;
@@ -75,4 +72,18 @@ export type orderType = {
   date: string;
   shipping_info: string;
   formatted_date?: string;
+};
+
+export type customerDataType = {
+  user_id: String;
+  address: String;
+  state: String;
+  city: String;
+  address_code: String;
+  email: String;
+  phone: String;
+  username: String;
+  purchase_count: number;
+  registration_date: String;
+  visit_count: number;
 };

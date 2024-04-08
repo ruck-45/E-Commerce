@@ -44,11 +44,11 @@ const statusColorMap: {
 } = {
   pending: "primary",
   cancelled: "danger",
-  delived: "success",
+  delivered: "success",
   shipped: "secondary",
 };
 
-const status = ["pending", "delivered", "shipped", "cancelled"];
+const status = ["pending", "shipped", "delivered", "cancelled"];
 
 function OrdersCard(props: any) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -56,7 +56,7 @@ function OrdersCard(props: any) {
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
   const [isConfirm, setConfirm] = useState(false);
-  const { orders } = props;
+  const { orders, customer } = props;
   const [changedStatus, setStatus] = useState("");
   const navigate = useNavigate();
   const handleDetailsClick = (order: any) => {
@@ -69,29 +69,37 @@ function OrdersCard(props: any) {
   };
 
   const changeOrderStatus = async () => {
-
     try {
       const changeStatusResponse = await axios.post(
         `${apiUrl}/admin/updateOrderStatus`,
-        { orderId:(selectedOrder.order_id), status:(changedStatus) },
+        {
+          orderId: selectedOrder.order_id,
+          status: changedStatus,
+          userEmail: JSON.parse(selectedOrder?.shipping_info)?.email,
+          username: customer?.filter((customer:any)=>customer?.user_id===selectedOrder?.user_id)[0].username
+        },
         {
           headers: {
             Authorization: `Bearer ${getCookie("token")}`,
           },
         }
-        );
-        
-        if (changeStatusResponse.status === 200) {
-          toast.success('order status updated successfully');
-          setIsConfirmationModalOpen(false);
-        return true;
+      );
+
+      if (changeStatusResponse.status === 200) {
+        toast.success("order status updated successfully");
+        setIsConfirmationModalOpen(false);
+        window.location.reload();
       } else {
-        console.error("Failed to update order status:", changeStatusResponse.data);
+        console.error(
+          "Failed to update order status:",
+          changeStatusResponse.data
+        );
+        window.location.reload();
         return false;
       }
     } catch (error) {
       console.error("An error occurred while updating order status:", error);
-      toast.error('An error occurred while updating order status');
+      toast.error("An error occurred while updating order status");
       return false;
     }
   };
@@ -144,6 +152,10 @@ function OrdersCard(props: any) {
           <div className="flex flex-col">
             <p className="text-bold text-sm capitalize text-default-900">
               {email}
+              {customer.username}
+            </p>
+            <p className="text-bold text-sm capitalize text-default-900">
+              {customer.username}
             </p>
           </div>
         );
@@ -163,7 +175,7 @@ function OrdersCard(props: any) {
         break;
       case "actions":
         cellContent = (
-          <div className="relative flex items-center gap-2">
+          <div className="relative flex items-center gap-2 justify-center">
             <Tooltip content="Details">
               <Button
                 onClick={() => {
@@ -172,7 +184,7 @@ function OrdersCard(props: any) {
                   console.log("changed status", changedStatus);
                 }}
               >
-                <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                <span className="text-lg text-default-400 cursor-pointer active:opacity-50 ">
                   <EyeIcon />
                 </span>
               </Button>
@@ -190,10 +202,14 @@ function OrdersCard(props: any) {
 
   return (
     <div>
-      <Table aria-label="Example table with custom cells">
+      <Table
+        className="text-center"
+        aria-label="Example table with custom cells"
+      >
         <TableHeader columns={columns}>
           {(column) => (
             <TableColumn
+              className="text-center"
               key={column.uid}
               align={column.uid === "actions" ? "center" : "start"}
             >
@@ -253,9 +269,9 @@ function OrdersCard(props: any) {
                     {JSON.parse(selectedOrder.shipping_info)?.country}{" "}
                     {JSON.parse(selectedOrder.shipping_info)?.postal_code}
                   </p>
-                  <div className="py-[1rem]">
+                  <div className="py-[1rem] w-full">
                     {JSON.parse(selectedOrder.items).length > 0 && (
-                      <Table aria-label="Example static collection table">
+                      <Table aria-label="Example static collection table w-full">
                         <TableHeader>
                           <TableColumn>QTY</TableColumn>
                           <TableColumn>PRICE</TableColumn>
@@ -274,7 +290,7 @@ function OrdersCard(props: any) {
                                     )
                                   }
                                 >
-                                  <div className="h-[1.5rem] w-[2rem] cursor-pointer">
+                                  <div className="h-[2rem] w-[3rem] cursor-pointer justify-center">
                                     <Image
                                       src={`${apiUrl}/items/itemImages/${item.itemId}_img1.jpg`}
                                       radius="none"
@@ -295,6 +311,7 @@ function OrdersCard(props: any) {
               <ModalFooter className="flex items-center justify-between">
                 <div className="flex flex-grow">
                   <Select
+                    aria-label="select status"
                     placeholder={selectedOrder.status}
                     onChange={(value) => {
                       setStatus(value.target.value);
@@ -373,7 +390,7 @@ function OrdersCard(props: any) {
           </ModalFooter>
         </ModalContent>
       </Modal>
-      <Toaster/>
+      <Toaster />
     </div>
   );
 }

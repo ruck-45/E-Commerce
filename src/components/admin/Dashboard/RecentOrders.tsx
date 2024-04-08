@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 
 const RecentOrders = (props: any) => {
   const { orders } = props;
-  const [visibleOrders, setVisibleOrders] = useState(5);
 
   return (
     <div className="flex flex-col my-8 items-center w-[95rem] h-screen global-container">
@@ -15,13 +14,13 @@ const RecentOrders = (props: any) => {
       </div>
       {orders.length>0 ? (<div className="w-full" >
       <div className="w-full ">
-        <RecentOrdersCard orders={orders.slice(0, visibleOrders)} customer={props.customer}/>
+        <RecentOrdersCard orders={orders.slice(0,3)} customer={props.customer}/>
       </div>
-      {visibleOrders < orders.length && (
-        <div className="mt-4">
+      {orders.length>0 && (
+        <div className="mt-4 text-center">
           <Link to="/Admin/orders">
             <Button color="default" variant="light" className="bg-yellow-400">
-              Show More
+              Show All Orders
             </Button>
           </Link>
         </div>

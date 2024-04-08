@@ -69,26 +69,29 @@ function OrdersCard(props: any) {
   };
 
   const changeOrderStatus = async () => {
+    const values={
+      orderId: selectedOrder.order_id,
+      status: changedStatus,
+      userEmail: JSON.parse(selectedOrder?.shipping_info)?.email,
+      username: customer?.filter((customer:any)=>customer?.user_id===selectedOrder?.user_id)[0].username
+    }
     try {
       const changeStatusResponse = await axios.post(
         `${apiUrl}/admin/updateOrderStatus`,
-        {
-          orderId: selectedOrder.order_id,
-          status: changedStatus,
-          userEmail: JSON.parse(selectedOrder?.shipping_info)?.email,
-          username: customer?.filter((customer:any)=>customer?.user_id===selectedOrder?.user_id)[0].username
-        },
+        values,
         {
           headers: {
             Authorization: `Bearer ${getCookie("token")}`,
           },
         }
       );
+      console.log('values',values);
+
 
       if (changeStatusResponse.status === 200) {
         toast.success("order status updated successfully");
         setIsConfirmationModalOpen(false);
-        window.location.reload();
+        // window.location.reload();
       } else {
         console.error(
           "Failed to update order status:",
@@ -113,7 +116,7 @@ function OrdersCard(props: any) {
         cellContent = (
           <div className="flex flex-col">
             <p className="text-bold text-sm capitalize text-default-900">
-              {order_id.slice(0, 8)}....
+              {order_id.slice(0, 7)}....
               {order_id.slice(order_id.length - 5, order_id.length)}{" "}
             </p>
           </div>
@@ -148,14 +151,16 @@ function OrdersCard(props: any) {
         const email = order?.shipping_info
           ? JSON.parse(order.shipping_info)?.email
           : "";
+
+        const username=(customer?.filter((customer:any)=>customer?.user_id===order?.user_id))[0].username;
+
         cellContent = (
           <div className="flex flex-col">
             <p className="text-bold text-sm capitalize text-default-900">
               {email}
-              {customer.username}
             </p>
             <p className="text-bold text-sm capitalize text-default-900">
-              {customer.username}
+              {username}
             </p>
           </div>
         );
@@ -255,8 +260,14 @@ function OrdersCard(props: any) {
                   <p>
                     <span className="font-semibold text-yellow-500">
                       Email:
-                    </span>
+                    </span>{" "}
                     {JSON.parse(selectedOrder.shipping_info)?.email}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-yellow-500">
+                      Name:
+                    </span>{" "}
+                    {(customer?.filter((customer:any)=>customer?.user_id===selectedOrder?.user_id))[0].username}
                   </p>
                   <p>
                     <span className="font-semibold text-yellow-500">

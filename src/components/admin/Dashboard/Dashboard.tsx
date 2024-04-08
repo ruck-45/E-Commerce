@@ -16,13 +16,13 @@ const Dashboard: React.FC = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/users/orders`, {
+      const response = await axios.get(`${apiUrl}/admin/getOrders`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log(response.data.payload);
       setOrders(response.data.payload.orders);
-      console.log(response.data.payload.orders);
     } catch (error) {
       console.error("Error fetching orders:", error);
     }

@@ -50,8 +50,8 @@ type Product = {
   brand: string;
   title: string;
   color: string;
-  discountedPrice: number | string;
-  price: number | string;
+  discountedPrice: string;
+  price:  string;
   discountPercent: number;
   highlights: string[];
   details: string;
@@ -72,8 +72,8 @@ type OutputProduct = {
   brand: string;
   title: string;
   color: string;
-  discountedPrice: number | string;
-  price: number | string;
+  discountedPrice: string;
+  price:  string;
   discountPercent: number;
   highlights: string[];
   details: string;
@@ -246,13 +246,12 @@ export default function EditProduct() {
 
   const updateProduct = async () => {
     console.log("start update");
-    const percentage: Number = ((+product.price - +product.discountedPrice) / +product.price) * 100;
-    console.log(percentage);
+    const percentage: number = ((parseInt(product.price) - parseInt(product.discountedPrice)) / parseInt(product.price)) * 100;
     setProduct({
       ...product,
       imageArray: images,
       imageCount: images.length,
-      discountPercent: +percentage.toFixed(2),
+      discountPercent: percentage,
     });
 
     if (validateProduct()) {
@@ -283,8 +282,6 @@ export default function EditProduct() {
             itemId: id,
           },
         });
-
-        console.log("image response: ", imageResponse);
 
         if (!imageResponse.data.success) {
           toast.error(`Error While Uploading Images`);

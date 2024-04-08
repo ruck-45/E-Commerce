@@ -179,6 +179,13 @@ export default function AddProduct() {
       discountPercent: percentage,
     });
 
+    console.log("check product: ", {
+      ...product,
+      imageArray: images,
+      imageCount: images.length,
+      discountPercent: percentage,
+    });
+
     if (validateProduct()) {
       toast.error("please insert data in required field");
     } else {
@@ -192,8 +199,10 @@ export default function AddProduct() {
         toast.error("Total stock order quantity must be greater than order quantity");
         return;
       } else {
+        console.log("product beore convert : ", product);
         convertToOutputProduct(product);
-        console.log("product", product);
+        console.log("product after convert : ", product);
+        console.log("product", product);  
         console.log("output product", outputProduct);
         setIsLoading(true);
         try {

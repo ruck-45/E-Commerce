@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { LiaProductHunt } from "react-icons/lia";
-import { FaBorderStyle } from "react-icons/fa";
+import { FaBorderStyle, FaHome } from "react-icons/fa";
 import { Button } from "@nextui-org/react";
 import { removeCookie } from "../../../../utils/cookies";
 import { updateLoginStatus } from "../../../../Redux/Slices/loginStatusSlice";
@@ -53,10 +53,21 @@ const HomeLayout = (props: MyComponentProps) => {
   return (
     <>
       <div className="py-[1rem] px-[1.5rem] flex items-center justify-between bg-[#212224]">
-        <div className="drawer-content">
+        <div className="drawer-content flex items-center gap-[2rem]">
           <label htmlFor="my-drawer" className="cursor-pointer relative">
             <FiMenu onClick={changeWidth} size={"32px"} className="font-bold text-white" />
           </label>
+          <Link
+            to="../"
+            className="flex items-center gap-[0.5rem] hover:gap-[1rem] duration-100 text-white hover:text-default-200"
+          >
+            <div className="flex justify-center items-center gap-[0.4rem]">
+              <FaHome />
+              <p>Home</p>
+            </div>
+            <p> {"»"} </p>
+            <p> {"Admin Dashboard"} </p>
+          </Link>
         </div>
         <UserAvatar />
       </div>

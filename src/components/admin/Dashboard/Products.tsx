@@ -113,7 +113,7 @@ const Products = () => {
   }, [apiUrl, pageNumber, search, deleteReset]);
 
   return (
-    <div className="bg-[#28292b] flex flex-col justify-center items-center0 py-[5rem]">
+    <div className="bg-[#28292b] flex flex-col justify-center items-center0 py-[5rem] min-h-[100vh]">
       <div className="text-3xl text-white font-bold text-center">AVAILABLE PRODUCTS</div>
 
       <div className="mx-auto py-10 overflow-x-scroll">
@@ -294,7 +294,7 @@ const Products = () => {
             </TableBody>
           </Table>
         ) : (
-          <div className="w-full h-[100vh] flex justify-center items-center">
+          <div className="w-full h-[50vh] flex justify-center items-center">
             <p className="font-bold text-2xl text-default-300">No Items Found</p>
           </div>
         )}

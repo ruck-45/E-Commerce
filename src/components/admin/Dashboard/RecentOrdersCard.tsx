@@ -75,7 +75,6 @@ function OrdersCard(props: any) {
       status: changedStatus,
       userEmail: JSON.parse(selectedOrder?.shipping_info)?.email,
       username: customer?.filter((customer:any)=>customer?.user_id===selectedOrder?.user_id)[0].username
-      username: (customer?.filter((customer:any)=>customer?.user_id===selectedOrder?.user_id))[0].username
     }
     try {
       const changeStatusResponse = await axios.post(

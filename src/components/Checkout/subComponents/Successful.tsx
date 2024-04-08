@@ -15,14 +15,12 @@ const Successful = () => {
   const user_id = getCookie("userId");
   const token = getCookie("token");
 
-
-  const addToOrders = () => {};
-
   useEffect(() => {
     setTimeout(() => {
-      navigate("/MyOrders");
+      navigate("/Profile");
     },2000);
   }, []);
+
 
   return (
     <div className="min-h-screen successbg flex flex-col items-center px-[3rem]">

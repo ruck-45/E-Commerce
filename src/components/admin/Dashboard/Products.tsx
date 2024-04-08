@@ -13,7 +13,6 @@ import {
   ModalFooter,
   ModalHeader,
   Pagination,
-  Skeleton,
   Spinner,
   Table,
   TableBody,
@@ -23,7 +22,7 @@ import {
   TableRow,
   useDisclosure,
 } from "@nextui-org/react";
-import { createArray, scrollTop } from "../../../utils/controllers";
+import {  scrollTop } from "../../../utils/controllers";
 import { IoSearch } from "react-icons/io5";
 import { FaEye } from "react-icons/fa";
 import { MdEditSquare } from "react-icons/md";

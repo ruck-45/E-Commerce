@@ -257,7 +257,6 @@ function OrdersCard(props: any) {
                     {JSON.parse(selectedOrder.items).length > 0 && (
                       <Table aria-label="Example static collection table">
                         <TableHeader>
-                          <TableColumn>ITEMS</TableColumn>
                           <TableColumn>QTY</TableColumn>
                           <TableColumn>PRICE</TableColumn>
                           <TableColumn>Product</TableColumn>
@@ -266,19 +265,18 @@ function OrdersCard(props: any) {
                           {JSON.parse(selectedOrder.items).map(
                             (item: any, index: number) => (
                               <TableRow key={index}>
-                                <TableCell>{item.item_id}</TableCell>
-                                <TableCell>{item.itemQuantity}</TableCell>
-                                <TableCell>{item.amount}</TableCell>
+                                <TableCell>{item.itemCount}</TableCell>
+                                <TableCell>{item.discountedPrice}</TableCell>
                                 <TableCell
                                   onClick={() =>
                                     navigate(
-                                      `/ProductDetails/${item.price}/${item.item_id}`
+                                      `/ProductDetails/${item.price}/${item.itemId}`
                                     )
                                   }
                                 >
                                   <div className="h-[1.5rem] w-[2rem] cursor-pointer">
                                     <Image
-                                      src={`${apiUrl}/items/itemImages/${item.item_id}_img1.jpg`}
+                                      src={`${apiUrl}/items/itemImages/${item.itemId}_img1.jpg`}
                                       radius="none"
                                       loading="lazy"
                                     />

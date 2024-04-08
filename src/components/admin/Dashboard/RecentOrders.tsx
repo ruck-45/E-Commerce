@@ -15,7 +15,7 @@ const RecentOrders = (props: any) => {
       </div>
       {orders.length>0 ? (<div className="w-full" >
       <div className="w-full ">
-        <RecentOrdersCard orders={orders.slice(0, visibleOrders)} />
+        <RecentOrdersCard orders={orders.slice(0, visibleOrders)} customer={props.customer}/>
       </div>
       {visibleOrders < orders.length && (
         <div className="mt-4">

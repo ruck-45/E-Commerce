@@ -59,13 +59,14 @@ function OrdersCard(props: any) {
   const { orders, customer } = props;
   const [changedStatus, setStatus] = useState("");
   const navigate = useNavigate();
+
   const handleDetailsClick = (order: any) => {
     setSelectedOrder(order);
     onOpen();
   };
 
   const handleCancelOrder = async () => {
-    setIsConfirmationModalOpen(true); // Open the confirmation modal
+    setIsConfirmationModalOpen(true); 
   };
 
   const changeOrderStatus = async () => {
@@ -85,13 +86,12 @@ function OrdersCard(props: any) {
           },
         }
       );
-      console.log('values',values);
 
+      console.log('changeorderstataus',changeOrderStatus);
 
       if (changeStatusResponse.status === 200) {
         toast.success("order status updated successfully");
         setIsConfirmationModalOpen(false);
-        // window.location.reload();
       } else {
         console.error(
           "Failed to update order status:",
@@ -104,6 +104,9 @@ function OrdersCard(props: any) {
       console.error("An error occurred while updating order status:", error);
       toast.error("An error occurred while updating order status");
       return false;
+    }
+    finally{
+      window.location.reload();
     }
   };
 
@@ -151,8 +154,7 @@ function OrdersCard(props: any) {
         const email = order?.shipping_info
           ? JSON.parse(order.shipping_info)?.email
           : "";
-
-        const username=(customer?.filter((customer:any)=>customer?.user_id===order?.user_id))[0].username;
+        const username=customer?.filter((customer:any)=>customer?.user_id===selectedOrder?.user_id)[0].username;
 
         cellContent = (
           <div className="flex flex-col">
@@ -160,7 +162,7 @@ function OrdersCard(props: any) {
               {email}
             </p>
             <p className="text-bold text-sm capitalize text-default-900">
-              {username}
+              {(customer?.filter((customer:any)=>customer?.user_id===order?.user_id))[0].username}
             </p>
           </div>
         );
@@ -267,7 +269,7 @@ function OrdersCard(props: any) {
                     <span className="font-semibold text-yellow-500">
                       Name:
                     </span>{" "}
-                    {(customer?.filter((customer:any)=>customer?.user_id===selectedOrder?.user_id))[0].username}
+                    {((customer?.filter((customer:any)=>customer?.user_id===selectedOrder?.user_id))[0]).username}
                   </p>
                   <p>
                     <span className="font-semibold text-yellow-500">

@@ -74,6 +74,7 @@ function OrdersCard(props: any) {
       orderId: selectedOrder.order_id,
       status: changedStatus,
       userEmail: JSON.parse(selectedOrder?.shipping_info)?.email,
+      username: customer?.filter((customer:any)=>customer?.user_id===selectedOrder?.user_id)[0].username
       username: (customer?.filter((customer:any)=>customer?.user_id===selectedOrder?.user_id))[0].username
     }
     try {
@@ -154,7 +155,7 @@ function OrdersCard(props: any) {
         const email = order?.shipping_info
           ? JSON.parse(order.shipping_info)?.email
           : "";
-
+        const username=customer?.filter((customer:any)=>customer?.user_id===selectedOrder?.user_id)[0].username;
 
         cellContent = (
           <div className="flex flex-col">

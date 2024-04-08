@@ -1,4 +1,4 @@
-import { styled, TextField} from "@mui/material";
+import { styled, TextField } from "@mui/material";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import AllCoupons from "./AllCoupons";
@@ -25,7 +25,7 @@ type Coupon = {
 
 interface AddCouponProps {
   isOpen: boolean;
-  onClose: () => void; 
+  onClose: () => void;
 }
 
 const AddCoupon: React.FC<AddCouponProps> = ({ isOpen, onClose }) => {
@@ -41,9 +41,7 @@ const AddCoupon: React.FC<AddCouponProps> = ({ isOpen, onClose }) => {
   function handleUserInput(e: any) {
     const { name, value } = e.target;
     setIsError({ ...isError, [name]: { ...name, isError: false } });
-    const numberRequiredFields: (keyof Coupon)[] = [
-      "maxDiscountPrice",
-    ];
+    const numberRequiredFields: (keyof Coupon)[] = ["maxDiscountPrice"];
 
     if (numberRequiredFields.includes(name)) {
       if (+value < 0 || value === "") setCoupon({ ...coupon, [name]: "" });
@@ -78,35 +76,33 @@ const AddCoupon: React.FC<AddCouponProps> = ({ isOpen, onClose }) => {
       setIsError(errors);
       return;
     }
+    try {
+      const response = await fetch(`${apiUrl}/coupan/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          code: coupon.code,
+          amount: coupon.maxDiscountPrice,
+          couponId: Math.floor(Math.random() * 300000)
+          .toString()
+          .padStart(6, "0")
+        }),
+      });
 
-    const addCoupon = async () => {
-      try {
-        const response = await fetch(`${apiUrl}/coupon/create`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            code: coupon.code,
-            amount: coupon.maxDiscountPrice,
-          }),
-        });
-    
-        // Check if the response status is OK (200) or Created (201)
-        if (response.ok || response.status === 201) {
-          toast.success("Coupon added successfully");
-          setCoupon(initialCoupon);
-          onClose();
-        } else {
-          throw new Error("Failed to add coupon");
-        }
-      } catch (error) {
-        console.error("Error adding coupon:", error);
-        toast.error("Failed to add coupon");
+      if (response.ok || response.status === 200) {
+        toast.success("Coupon added successfully");
+        setCoupon(initialCoupon);
+        window.location.reload();
+      } else {
+        throw new Error("Failed to add coupon");
       }
-    };
-    
-
+    } catch (error) {
+      console.error("Error adding coupon:", error);
+      toast.error("Failed to add coupon");
+    }
+    onClose();
   };
 
   return (
@@ -173,7 +169,7 @@ const AddCoupon: React.FC<AddCouponProps> = ({ isOpen, onClose }) => {
           </div>
         </div>
       </div>
-      <Toaster/>
+      <Toaster />
     </div>
   );
 };

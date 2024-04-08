@@ -17,7 +17,7 @@ function MyOrders() {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/users/orders`, {
+      const response = await axios.get(`${apiUrl}/admin/getOrders`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

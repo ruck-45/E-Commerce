@@ -6,10 +6,8 @@ import { TextField, styled } from "@mui/material";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 
-
-
 type Coupon = {
-  coupon_id: number; 
+  coupon_id: number;
   code: string;
   amount: number;
 };
@@ -17,7 +15,7 @@ type Coupon = {
 interface EditCouponModalProps {
   isOpen: boolean;
   onClose: () => void;
-  coupon: any; 
+  coupon: any;
   onUpdateCoupon: (updatedCoupon: any) => void;
 }
 
@@ -27,72 +25,91 @@ const StyledTextField = styled(TextField)(({ theme, error }) => ({
   },
 }));
 
-
-const EditCouponModal: React.FC<EditCouponModalProps> = ({ isOpen, onClose, coupon, onUpdateCoupon }) => {
+const EditCouponModal: React.FC<EditCouponModalProps> = ({
+  isOpen,
+  onClose,
+  coupon,
+  onUpdateCoupon,
+}) => {
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
-  
+
   const [updatedCoupon, setUpdatedCoupon] = useState<Coupon>(coupon);
 
   const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setUpdatedCoupon((prevCoupon:Coupon) => ({
+    setUpdatedCoupon((prevCoupon: Coupon) => ({
       ...prevCoupon,
-      [name]: value
+      [name]: value,
     }));
   };
 
-  const handleUpdateCoupon = async() => {
-    console.log(updatedCoupon);
-    const response = await axios.put(`${apiUrl}/coupan/updateCoupon`, {
-      coupon_id: updatedCoupon.coupon_id,
-      code: updatedCoupon.code,
-      amount: +updatedCoupon.amount,
-    }, {
-      headers: {
-        'Content-Type': 'application/json',
+  const handleUpdateCoupon = async () => {
+    console.log("coupon update", coupon);
+    const response = await axios.put(
+      `${apiUrl}/coupan/updateCoupon`,
+      {
+        coupon_id: coupon.coupon_id,
+        code: updatedCoupon.code,
+        amount: +updatedCoupon.amount,
       },
-    });
-    if(response.status === 200){
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.status === 200) {
       toast.success("Coupon updated successfully");
       onClose();
       onUpdateCoupon(updatedCoupon);
-      // window.location.reload();
-    }
-    else{
+      window.location.reload();
+    } else {
       toast.error("Failed to update coupon");
     }
     onClose();
   };
 
   useEffect(() => {
-    setUpdatedCoupon(coupon); 
+    setUpdatedCoupon(coupon);
   }, [coupon]);
 
   return (
-    <div className={`fixed inset-0 z-10 flex items-center justify-center ${isOpen ? '' : 'hidden'}`}>
+    <div
+      className={`fixed inset-0 z-10 flex items-center justify-center ${
+        isOpen ? "" : "hidden"
+      }`}
+    >
       {/* Modal content */}
       <div className="absolute inset-0 bg-gray-400 opacity-30"></div>
-      <div className="bg-yellow-200 p-6 rounded-lg shadow-lg relative" style={{ height: '60vh' }}>
-        <Button onClick={onClose} variant="light" color="default" className="absolute top-0 right-0 m-2 bg-blue-300">
+      <div
+        className="bg-yellow-200 p-6 rounded-lg shadow-lg relative"
+        style={{ height: "60vh" }}
+      >
+        <Button
+          onClick={onClose}
+          variant="light"
+          color="default"
+          className="absolute top-0 right-0 m-2 bg-blue-300"
+        >
           Close
         </Button>
         <h3 className="text-2xl text-center mb-4">Edit Coupon</h3>
-        <div className="cp-form-wrapper mt-4" style={{ padding: '0 2rem' }}>
+        <div className="cp-form-wrapper mt-4" style={{ padding: "0 2rem" }}>
           <div className="cp-form my-4 ">
             <StyledTextField
-              style={{ marginTop: '2rem' }}
+              style={{ marginTop: "2rem" }}
               fullWidth
               onChange={handleUserInput}
-              value={updatedCoupon ? updatedCoupon.code : 'error'}
+              value={updatedCoupon ? updatedCoupon.code : "error"}
               name="code"
               label="Coupon Code"
               variant="outlined"
             />
             <StyledTextField
               fullWidth
-              style={{ marginTop: '2rem' }}
+              style={{ marginTop: "2rem" }}
               onChange={handleUserInput}
-              value={updatedCoupon ? updatedCoupon.amount : 'error'}
+              value={updatedCoupon ? updatedCoupon.amount : "error"}
               name="amount"
               label="Max Discount Price"
               variant="outlined"
@@ -100,7 +117,7 @@ const EditCouponModal: React.FC<EditCouponModalProps> = ({ isOpen, onClose, coup
             />
             <Button
               fullWidth
-              style={{ marginTop: '2rem' }}
+              style={{ marginTop: "2rem" }}
               onClick={handleUpdateCoupon}
               color="default"
               variant="light"
@@ -114,7 +131,6 @@ const EditCouponModal: React.FC<EditCouponModalProps> = ({ isOpen, onClose, coup
     </div>
   );
 };
-
 
 interface DeleteModalProps {
   isOpen: boolean;
@@ -160,10 +176,12 @@ const AllCoupons: React.FC = () => {
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
   const [selectedCouponId, setSelectedCouponId] = useState<number | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedCoupon, setSelectedCoupon] = useState<any>();
+  const couponsPerPage = 6;
+
+  const [currentpage, setCurrentPage] = useState(1);
 
   const handleEditCouponClick = (coupon: any) => {
     setSelectedCoupon(coupon);
@@ -173,8 +191,6 @@ const AllCoupons: React.FC = () => {
   const handleUpdateCoupon = (updatedCoupon: any) => {
     setIsEditModalOpen(false);
   };
-
-  const couponsPerPage = 7;
 
   useEffect(() => {
     getCoupons();
@@ -186,14 +202,12 @@ const AllCoupons: React.FC = () => {
     setCoupons(data.payload.payload);
   };
 
-  const handleDelete = (coupon:any) => {
-    console.log('delete cupon', coupon);
+  const handleDelete = (coupon: any) => {
     setSelectedCouponId(coupon.coupon_id);
     setShowDeleteModal(true);
   };
 
   const handleConfirmDelete = async () => {
-    console.log('coupon id',selectedCouponId);
     if (selectedCouponId) {
       try {
         const response = await fetch(`${apiUrl}/coupan/delete`, {
@@ -207,7 +221,7 @@ const AllCoupons: React.FC = () => {
         });
 
         if (response.ok) {
-          toast.success('coupon deleted successfully');
+          toast.success("coupon deleted successfully");
           setShowDeleteModal(false);
           window.location.reload();
         } else {
@@ -215,7 +229,7 @@ const AllCoupons: React.FC = () => {
         }
       } catch (error) {
         console.error("Error deleting coupon:", error);
-        toast.error('Error deleting coupon:');
+        toast.error("Error deleting coupon:");
       }
     }
   };
@@ -225,14 +239,24 @@ const AllCoupons: React.FC = () => {
     setSelectedCouponId(null);
   };
 
-  const indexOfLastCoupon = currentPage * couponsPerPage;
-  const indexOfFirstCoupon = indexOfLastCoupon - couponsPerPage;
-  const currentCoupons =
-    coupons.length === 0
-      ? []
-      : coupons.slice(indexOfFirstCoupon, indexOfLastCoupon);
+  const firstIndex = (currentpage - 1) * couponsPerPage;
+  const lastIndex = Math.min(currentpage * couponsPerPage, coupons.length);
 
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+  const currentCoupons =
+    coupons.length > 0 ? coupons.slice(firstIndex, lastIndex) : [];
+
+  const handlePreviousPage = () => {
+    if (currentpage >= 1) {
+      setCurrentPage(currentpage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    const totalPages = Math.ceil(coupons.length / couponsPerPage);
+    if (currentpage < totalPages) {
+      setCurrentPage(currentpage + 1);
+    }
+  };
 
   return (
     <div className="text text-center relative lg:mt-[-4rem]">
@@ -252,32 +276,40 @@ const AllCoupons: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {currentCoupons.length>0 ? currentCoupons.map((coupon: any) => (
-              <tr key={coupon.coupon_id}>
-                <td className="border px-4 py-2">{coupon.code}</td>
-                <td className="border px-4 py-2">${coupon.amount}</td>
-                <td className="border px-4 py-2">
-                  <Button
-                    variant="ghost"
-                    size="md"
-                    color="secondary"
-                    onClick={() => handleEditCouponClick(coupon)}
-                  >
-                    Edit
-                  </Button>
-                </td>
-                <td className="border px-4 py-2">
-                  <Button
-                    variant="ghost"
-                    size="md"
-                    color="warning"
-                    onClick={() => handleDelete(coupon)}
-                  >
-                    Delete
-                  </Button>
+            {currentCoupons.length > 0 ? (
+              currentCoupons.map((coupon: any,index:number) => (
+                <tr key={index}>
+                  <td className="border px-4 py-2">{coupon.code}</td>
+                  <td className="border px-4 py-2">${coupon.amount}</td>
+                  <td className="border px-4 py-2">
+                    <Button
+                      variant="ghost"
+                      size="md"
+                      color="secondary"
+                      onClick={() => handleEditCouponClick(coupon)}
+                    >
+                      Edit
+                    </Button>
+                  </td>
+                  <td className="border px-4 py-2">
+                    <Button
+                      variant="ghost"
+                      size="md"
+                      color="warning"
+                      onClick={() => handleDelete(coupon)}
+                    >
+                      Delete
+                    </Button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={4} className="text-center my-20">
+                  No coupons found!!!
                 </td>
               </tr>
-            )) : <span className="border-b-2 border-black"> No coupons found!!!</span>}
+            )}
           </tbody>
         </table>
       </div>
@@ -287,8 +319,8 @@ const AllCoupons: React.FC = () => {
             color="default"
             variant="light"
             className="bg-red-400"
-            onClick={() => paginate(currentPage - 1)}
-            disabled={currentPage === 1}
+            onClick={handlePreviousPage}
+            disabled={currentpage === 1}
           >
             Previous
           </Button>{" "}
@@ -296,8 +328,10 @@ const AllCoupons: React.FC = () => {
             color="default"
             variant="light"
             className="bg-yellow-400"
-            onClick={() => paginate(currentPage + 1)}
-            disabled={currentCoupons.length < couponsPerPage}
+            onClick={handleNextPage}
+            disabled={
+              currentpage === Math.ceil(coupons.length / couponsPerPage)
+            }
           >
             Next
           </Button>
@@ -314,8 +348,8 @@ const AllCoupons: React.FC = () => {
         coupon={selectedCoupon}
         onUpdateCoupon={handleUpdateCoupon}
         onClose={() => setIsEditModalOpen(false)}
-        />
-    <Toaster/>
+      />
+      <Toaster />
     </div>
   );
 };

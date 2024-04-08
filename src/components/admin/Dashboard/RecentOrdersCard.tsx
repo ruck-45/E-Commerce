@@ -11,6 +11,8 @@ import {
   Tooltip,
   getKeyValue,
   Image,
+  Select,
+  SelectItem,
 } from "@nextui-org/react";
 import { EditIcon } from "./ordersData/EditIcon";
 import { EyeIcon } from "./ordersData/EyeIcons";
@@ -27,6 +29,9 @@ import {
 import { RootState } from "../../../Redux/store";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { getCookie } from "../../../utils/cookies";
+import toast, { Toaster } from "react-hot-toast";
 
 const statusColorMap: {
   [status: string]:
@@ -38,19 +43,21 @@ const statusColorMap: {
     | "secondary";
 } = {
   pending: "primary",
-  canceled: "danger",
+  cancelled: "danger",
   delived: "success",
   shipped: "secondary",
 };
 
+const status = ["pending", "delivered", "shipped", "cancelled"];
 
 function OrdersCard(props: any) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [selectedOrder, setSelectedOrder] = useState<any>();
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
-  const [isCancelled, setIsCancelled] = useState(false);
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
+  const [isConfirm, setConfirm] = useState(false);
   const { orders } = props;
+  const [changedStatus, setStatus] = useState("");
   const navigate = useNavigate();
   const handleDetailsClick = (order: any) => {
     setSelectedOrder(order);
@@ -61,26 +68,32 @@ function OrdersCard(props: any) {
     setIsConfirmationModalOpen(true); // Open the confirmation modal
   };
 
-  const confirmCancelOrder = async () => {
-    // try {
-    //   // Make an HTTP request to cancel the order
-    //   const response = await axios.post('/cancel-order', {
-    //     orderId: 'YOUR_ORDER_ID_HERE', // Replace 'YOUR_ORDER_ID_HERE' with the actual order ID
-    //   });
+  const changeOrderStatus = async () => {
 
-    //   // Check if the order was successfully cancelled
-    //   if (response.status === 200) {
-    //     setIsCancelled(true);
-    //     console.log('Order cancelled successfully!');
-    //   } else {
-    //     console.error('Failed to cancel order:', response.data);
-    //   }
-    // } catch (error) {
-    //   console.error('An error occurred while cancelling the order:', error);
-    // }
-    console.log("Order cancelled");
-
-    setIsConfirmationModalOpen(false); // Close the confirmation modal
+    try {
+      const changeStatusResponse = await axios.post(
+        `${apiUrl}/admin/updateOrderStatus`,
+        { orderId:(selectedOrder.order_id), status:(changedStatus) },
+        {
+          headers: {
+            Authorization: `Bearer ${getCookie("token")}`,
+          },
+        }
+        );
+        
+        if (changeStatusResponse.status === 200) {
+          toast.success('order status updated successfully');
+          setIsConfirmationModalOpen(false);
+        return true;
+      } else {
+        console.error("Failed to update order status:", changeStatusResponse.data);
+        return false;
+      }
+    } catch (error) {
+      console.error("An error occurred while updating order status:", error);
+      toast.error('An error occurred while updating order status');
+      return false;
+    }
   };
 
   const renderCell = React.useCallback((order: any, columnKey: any) => {
@@ -152,7 +165,13 @@ function OrdersCard(props: any) {
         cellContent = (
           <div className="relative flex items-center gap-2">
             <Tooltip content="Details">
-              <Button onClick={() => handleDetailsClick(order)}>
+              <Button
+                onClick={() => {
+                  handleDetailsClick(order);
+                  setStatus(order.status);
+                  console.log("changed status", changedStatus);
+                }}
+              >
                 <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
                   <EyeIcon />
                 </span>
@@ -209,7 +228,6 @@ function OrdersCard(props: any) {
                         </span>{" "}
                         {selectedOrder.order_id}{" "}
                       </p>
-                      {console.log(selectedOrder)}
                     </>
                   )}
                   <p>
@@ -275,26 +293,50 @@ function OrdersCard(props: any) {
                   </div>
                 </div>
               </ModalBody>
-              
-              <ModalFooter>
-                <Button
-                  color="danger"
-                  variant="ghost"
-                  onPress={handleCancelOrder}
-                  className="mx-5"
-                  disabled={isCancelled} 
-                >
-                  Cancel Order
-                </Button>
 
-                <Button
-                  color="default"
-                  variant="light"
-                  onPress={onClose}
-                  className="bg-yellow-400"
-                >
-                  Close
-                </Button>
+              <ModalFooter className="flex items-center justify-between">
+                <div className="flex flex-grow">
+                  <Select
+                    placeholder={selectedOrder.status}
+                    onChange={(value) => {
+                      setStatus(value.target.value);
+                      setConfirm(true);
+                    }}
+                    color="warning"
+                    className="m-4"
+                    size="sm"
+                    isDisabled={
+                      selectedOrder.status === "cancelled" ||
+                      selectedOrder.status === "delivered"
+                    }
+                  >
+                    {status.map((item) => (
+                      <SelectItem key={item} value={item}>
+                        {item}
+                      </SelectItem>
+                    ))}
+                  </Select>
+                </div>
+                <div>
+                  {isConfirm && (
+                    <Button
+                      color="danger"
+                      variant="ghost"
+                      onPress={handleCancelOrder}
+                      className="mx-5"
+                    >
+                      Confirm
+                    </Button>
+                  )}
+                  <Button
+                    color="default"
+                    variant="light"
+                    onPress={onClose}
+                    className="bg-yellow-400"
+                  >
+                    Close
+                  </Button>
+                </div>
               </ModalFooter>
             </>
           )}
@@ -305,33 +347,35 @@ function OrdersCard(props: any) {
         onClose={() => setIsConfirmationModalOpen(false)}
         size="sm"
         className="border-black-700 text-red-500"
-        style={{border:'4px solid yellow'}}
+        style={{ border: "4px solid yellow" }}
       >
-        <ModalHeader >
-        </ModalHeader>
+        <ModalHeader></ModalHeader>
         <ModalContent>
-          <h4 className="text-center m-9">Are you sure you want to cancel the order?</h4>
-        <ModalFooter>
-                <Button
-                  color="danger"
-                  variant="ghost"
-                  onClick={() => setIsConfirmationModalOpen(false)}
-                  className="mx-5"
-                >
-                  OK
-                </Button>
+          <h4 className="text-center m-9">
+            Change current order status to {changedStatus}
+          </h4>
+          <ModalFooter>
+            <Button
+              color="danger"
+              variant="ghost"
+              onClick={changeOrderStatus}
+              className="mx-5"
+            >
+              OK
+            </Button>
 
-                <Button
-                  color="default"
-                  variant="light"
-                  onClick={() => setIsConfirmationModalOpen(false)}
-                  className="bg-yellow-400"
-                >
-                  Cancel
-                </Button>
-              </ModalFooter>
+            <Button
+              color="default"
+              variant="light"
+              onClick={() => setIsConfirmationModalOpen(false)}
+              className="bg-yellow-400"
+            >
+              Cancel
+            </Button>
+          </ModalFooter>
         </ModalContent>
       </Modal>
+      <Toaster/>
     </div>
   );
 }

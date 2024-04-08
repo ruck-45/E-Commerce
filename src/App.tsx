@@ -7,7 +7,7 @@ import NavBar from "./globalSubComponents/NavBar";
 import Home from "./components/Home/Home";
 import About from "./components/About/About";
 import Contact from "./components/Contact/Contact";
-import {MyOrders} from '../src/components/Profile/subComponents/Orders'
+import { MyOrders } from "../src/components/Profile/subComponents/Orders";
 import Auth from "./components/Auth/Auth";
 import Profile from "./components/Profile/Profile";
 import Privacy from "./components/Policy/Privacy";
@@ -139,12 +139,12 @@ function App() {
           <Route path="/Privacy" element={<Privacy />} />
           <Route path="/Terms" element={<Term />} />
           <Route path="/ResetPassword" element={<PasswordReset />} />
-          <Route path="/MyOrders" element={<MyOrders/>} />
+          <Route path="/MyOrders" element={<MyOrders />} />
           <Route path="*" element={<Navigate to="/Home" />} />
         </Routes>
       </div>
-      {curTab === "Auth" || curTab === "Password Reset" ? null : <Footer />}
-      {curTab === "Auth" || curTab === "Password Reset" ? null : <ScrollToTop />}
+      {curTab === "Auth" || curTab === "Password Reset" || curTab === "Admin" ? null : <Footer />}
+      {curTab === "Auth" || curTab === "Password Reset" || curTab === "Admin" ? null : <ScrollToTop />}
     </>
   );
 }

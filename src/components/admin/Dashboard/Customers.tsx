@@ -41,17 +41,21 @@ const CustomerList: React.FC = () => {
 
    
     return (
-    <div className="sticky top-0 bg-white">
+      <div className="sticky top-0 bg-white">
       <div className="bg-white px-4 pt-3 pb-4 h-full rounded-sm flex-1 overflow-auto">
         <h1 className="font-bold pt-7  text-2xl text-left xl:text-center">Customers List</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-3">
-          {customerList.map((customer:any) => (
-            <CustomerCard  {...customer} />
-          ))}
-        </div>
+        <table className="w-full">
+          <tbody className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-3">
+            {customerList.map((customer:any) => (
+              <tr key={customer.user_id}>
+                <td><CustomerCard  {...customer} /></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-      <Pagination />
     </div>
+    
   );
 };
 

@@ -60,6 +60,8 @@ function OrdersCard(props: any) {
   const [changedStatus, setStatus] = useState("");
   const navigate = useNavigate();
 
+  console.log('customer data list',customer);
+
   const handleDetailsClick = (order: any) => {
     setSelectedOrder(order);
     onOpen();
@@ -74,7 +76,7 @@ function OrdersCard(props: any) {
       orderId: selectedOrder.order_id,
       status: changedStatus,
       userEmail: JSON.parse(selectedOrder?.shipping_info)?.email,
-      username: customer?.filter((customer:any)=>customer?.user_id===selectedOrder?.user_id)[0].username
+      username: 'admin'
     }
     try {
       const changeStatusResponse = await axios.post(
@@ -109,6 +111,8 @@ function OrdersCard(props: any) {
       window.location.reload();
     }
   };
+
+  console.log('customer data',customer?.filter((customer:any)=>customer?.user_id===orders?.user_id));
 
   const renderCell = React.useCallback((order: any, columnKey: any) => {
     let cellContent;
@@ -154,7 +158,8 @@ function OrdersCard(props: any) {
         const email = order?.shipping_info
           ? JSON.parse(order.shipping_info)?.email
           : "";
-        const username=customer?.filter((customer:any)=>customer?.user_id===selectedOrder?.user_id)[0].username;
+
+        const data=(customer?.filter((customer:any)=>customer?.user_id===order?.user_id))[0];
 
         cellContent = (
           <div className="flex flex-col">
@@ -162,7 +167,7 @@ function OrdersCard(props: any) {
               {email}
             </p>
             <p className="text-bold text-sm capitalize text-default-900">
-              {(customer?.filter((customer:any)=>customer?.user_id===order?.user_id))[0].username}
+              {data && data.username}
             </p>
           </div>
         );

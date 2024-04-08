@@ -21,7 +21,6 @@ const Dashboard: React.FC = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(response.data.payload);
       setOrders(response.data.payload.orders);
     } catch (error) {
       console.error("Error fetching orders:", error);
@@ -30,11 +29,12 @@ const Dashboard: React.FC = () => {
 
   async function getAllCustomer() {
     try {
-      const response = await axios.get(`${apiUrl}/users/customers`);
-
-      const items = response.data.result;
-      console.log("print",items);
-      setCustomerList(items);
+      const response = await axios.get(`${apiUrl}/admin/customers`,
+      {headers: {
+        Authorization: `Bearer ${token}`,
+      },}
+      );
+      setCustomerList(response.data.payload.result);
     } catch (error) {
       console.log(error);
       setCustomerList([]);

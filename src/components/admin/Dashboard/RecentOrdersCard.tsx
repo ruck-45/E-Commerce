@@ -65,7 +65,7 @@ function OrdersCard(props: any) {
   };
 
   const handleCancelOrder = async () => {
-    setIsConfirmationModalOpen(true); // Open the confirmation modal
+    setIsConfirmationModalOpen(true); 
   };
 
   const changeOrderStatus = async () => {
@@ -73,7 +73,7 @@ function OrdersCard(props: any) {
       orderId: selectedOrder.order_id,
       status: changedStatus,
       userEmail: JSON.parse(selectedOrder?.shipping_info)?.email,
-      username: customer?.filter((customer:any)=>customer?.user_id===selectedOrder?.user_id)[0].username
+      username: 'admin'
     }
     try {
       const changeStatusResponse = await axios.post(
@@ -85,13 +85,12 @@ function OrdersCard(props: any) {
           },
         }
       );
-      console.log('values',values);
 
+      console.log('changeorderstataus',changeOrderStatus);
 
       if (changeStatusResponse.status === 200) {
         toast.success("order status updated successfully");
         setIsConfirmationModalOpen(false);
-        // window.location.reload();
       } else {
         console.error(
           "Failed to update order status:",
@@ -104,6 +103,9 @@ function OrdersCard(props: any) {
       console.error("An error occurred while updating order status:", error);
       toast.error("An error occurred while updating order status");
       return false;
+    }
+    finally{
+      window.location.reload();
     }
   };
 
@@ -152,7 +154,6 @@ function OrdersCard(props: any) {
           ? JSON.parse(order.shipping_info)?.email
           : "";
 
-        const username=(customer?.filter((customer:any)=>customer?.user_id===order?.user_id))[0].username;
 
         cellContent = (
           <div className="flex flex-col">
@@ -160,7 +161,7 @@ function OrdersCard(props: any) {
               {email}
             </p>
             <p className="text-bold text-sm capitalize text-default-900">
-              {username}
+              admin
             </p>
           </div>
         );

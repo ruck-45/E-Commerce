@@ -20,8 +20,9 @@ interface DashboardProps {
 
 const Dashboard: React.FC<DashboardProps> = ({ orders,customer })=> {
 
-  const deliveredOrders = orders.filter(order => order.status === "delivered");
-  const totalDeliveredAmount = deliveredOrders.reduce((acc, order) => acc + order.amount, 0);
+  const deliveredOrders = orders.filter(order => order.status === "shipped");
+  console.log(deliveredOrders);
+  const totalDeliveredAmount = deliveredOrders.reduce((acc, order) => acc + (order.order_price), 0);
   const [items,setItems]=useState([]);
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
 

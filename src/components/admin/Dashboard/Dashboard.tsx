@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import DashboardStatsGrid from "./DashboardStatsGrid";
 import RecentOrders from "./RecentOrders";
-import Pagination from "./Pagination";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../Redux/store";
 import { getCookie } from "../../../utils/cookies";

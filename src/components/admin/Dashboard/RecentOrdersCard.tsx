@@ -60,8 +60,6 @@ function OrdersCard(props: any) {
   const [changedStatus, setStatus] = useState("");
   const navigate = useNavigate();
 
-  console.log('customer data list',customer);
-
   const handleDetailsClick = (order: any) => {
     setSelectedOrder(order);
     onOpen();
@@ -112,7 +110,6 @@ function OrdersCard(props: any) {
     }
   };
 
-  console.log('customer data',customer?.filter((customer:any)=>customer?.user_id===orders?.user_id));
 
   const renderCell = React.useCallback((order: any, columnKey: any) => {
     let cellContent;
@@ -159,7 +156,7 @@ function OrdersCard(props: any) {
           ? JSON.parse(order.shipping_info)?.email
           : "";
 
-        const data=(customer?.filter((customer:any)=>customer?.user_id===order?.user_id))[0];
+        const data:[{username:''}]=(customer?.filter((customer:any)=>customer?.user_id===order?.user_id));
 
         cellContent = (
           <div className="flex flex-col">
@@ -167,7 +164,7 @@ function OrdersCard(props: any) {
               {email}
             </p>
             <p className="text-bold text-sm capitalize text-default-900">
-              {data && data.username}
+              {data.length>0 ? data[0].username : ''}
             </p>
           </div>
         );
@@ -274,7 +271,7 @@ function OrdersCard(props: any) {
                     <span className="font-semibold text-yellow-500">
                       Name:
                     </span>{" "}
-                    {((customer?.filter((customer:any)=>customer?.user_id===selectedOrder?.user_id))[0]).username}
+                    {((customer?.filter((customer:any)=>customer?.user_id===selectedOrder?.user_id))[0])?.username}
                   </p>
                   <p>
                     <span className="font-semibold text-yellow-500">

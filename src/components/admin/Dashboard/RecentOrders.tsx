@@ -26,7 +26,7 @@ const RecentOrders = (props: any) => {
         </div>
       )}
       </div>
-      ): <span className="text-gray-500 my-10"> No Orders To Show!!!</span> }
+      ): <span className="text-red-700 my-10 text-xl"> No Orders To Show!!!</span> }
     </div>
   );
 };

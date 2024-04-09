@@ -51,7 +51,7 @@ type Product = {
   title: string;
   color: string;
   discountedPrice: string;
-  price:  string;
+  price: string;
   discountPercent: number;
   highlights: string[];
   details: string;
@@ -73,7 +73,7 @@ type OutputProduct = {
   title: string;
   color: string;
   discountedPrice: string;
-  price:  string;
+  price: string;
   discountPercent: number;
   highlights: string[];
   details: string;
@@ -187,7 +187,7 @@ export default function EditProduct() {
       (async () => {
         try {
           const files = await convertUrlsToFilenames(fetchedImages);
-          setFinalImageArray(files)
+          setFinalImageArray(files);
           console.log("images: ", files);
         } catch (error) {
           console.error("Error:", error);
@@ -195,7 +195,6 @@ export default function EditProduct() {
       })();
 
       setImages(fetchedImages);
-
 
       const [dimensionHeight, dimensionWidth] = extractNumbersFromString(
         getProductResponse.data.payload.result.dimension
@@ -246,7 +245,8 @@ export default function EditProduct() {
 
   const updateProduct = async () => {
     console.log("start update");
-    const percentage: number = ((parseInt(product.price) - parseInt(product.discountedPrice)) / parseInt(product.price)) * 100;
+    const percentage: number =
+      ((parseInt(product.price) - parseInt(product.discountedPrice)) / parseInt(product.price)) * 100;
     setProduct({
       ...product,
       imageArray: images,
@@ -429,369 +429,357 @@ export default function EditProduct() {
   }
 
   return (
-    <>
-      <div className="cp-wrapper">
-        <div className="cp-container">
-          <h3 className="cp-title">Edit Product</h3>
-          <div className="cp-form-wrapper">
-            <div className="cp-form">
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <StyledTextField
-                    fullWidth
-                    onChange={handleUserInput}
-                    value={product.title}
-                    id="outlined-basic"
-                    name="title"
-                    label="Title"
-                    variant="outlined"
-                    error={isError.title.isError}
-                  />
-                  {isError.title.isError ? <span className="cp-errors">{validationErrors.TITLE}</span> : ""}
-                </Grid>
-                <Grid item xs={12}>
-                  <StyledTextField
-                    fullWidth
-                    onChange={handleUserInput}
-                    value={product.brand}
-                    id="outlined-basic"
-                    name="brand"
-                    label="Brand"
-                    variant="outlined"
-                    error={isError.brand.isError}
-                  />
-                  {isError.brand.isError ? <span className="cp-errors">{validationErrors.BRAND}</span> : ""}
-                </Grid>
-                <Grid item xs={12}>
-                  <StyledTextField
-                    fullWidth
-                    onChange={handleUserInput}
-                    value={product.color}
-                    id="outlined-basic"
-                    name="color"
-                    label="Color"
-                    variant="outlined"
-                    error={isError.color.isError}
-                  />
-                  {isError.color.isError ? <span className="cp-errors">{validationErrors.COLOR}</span> : ""}
-                </Grid>
-                <Grid item xs={6}>
-                  <StyledTextField
-                    fullWidth
-                    id="outlined-basic"
-                    label="Minimum Orders"
-                    name="quantity"
-                    variant="outlined"
-                    value={product.quantity}
-                    type="number"
-                    onChange={handleUserInput}
-                    error={isError.quantity.isError}
-                  />
-                  {isError.quantity.isError ? <span className="cp-errors">{validationErrors.REQUIRED}</span> : ""}
-                </Grid>
-                <Grid item xs={6}>
-                  <StyledTextField
-                    fullWidth
-                    id="outlined-basic"
-                    label="Stock Quantity"
-                    name="orders"
-                    variant="outlined"
-                    type="number"
-                    onChange={handleUserInput}
-                    value={product.orders}
-                    error={isError.orders.isError}
-                  />
-                  {isError.orders.isError ? <span className="cp-errors">{validationErrors.REQUIRED}</span> : ""}
-                </Grid>
-                <Grid item xs={6}>
-                  <StyledTextField
-                    fullWidth
-                    id="outlined-basic"
-                    label="Original Price ($)"
-                    name="price"
-                    variant="outlined"
-                    type="number"
-                    onChange={handleUserInput}
-                    error={isError.price.isError}
-                    value={product.price}
-                  />
-                  {isError.price.isError ? <span className="cp-errors">{validationErrors.REQUIRED}</span> : ""}
-                </Grid>
-                <Grid item xs={6}>
-                  <StyledTextField
-                    fullWidth
-                    id="outlined-basic"
-                    label="Discount Price ($)"
-                    name="discountedPrice"
-                    variant="outlined"
-                    type="number"
-                    onChange={handleUserInput}
-                    value={product.discountedPrice}
-                    error={isError.discountedPrice.isError}
-                  />
-                  {isError.discountedPrice.isError ? (
-                    <span className="cp-errors">{validationErrors.REQUIRED}</span>
-                  ) : (
-                    ""
-                  )}
-                </Grid>
-                <Grid item xs={6}>
-                  <StyledTextField
-                    fullWidth
-                    id="outlined-basic"
-                    label="Material"
-                    name="material"
-                    variant="outlined"
-                    onChange={handleUserInput}
-                    value={product.material}
-                    error={isError.material.isError}
-                  />
-                  {isError.material.isError ? <span className="cp-errors">{validationErrors.REQUIRED}</span> : ""}
-                </Grid>
-                <Grid item xs={3}>
-                  <StyledTextField
-                    fullWidth
-                    id="outlined-basic"
-                    label="Height (cm)"
-                    name="dimensionHeight"
-                    variant="outlined"
-                    type="number"
-                    onChange={handleUserInput}
-                    value={product.dimensionHeight}
-                    error={isError.dimensionHeight.isError}
-                  />
-                  {isError.dimensionHeight.isError ? (
-                    <span className="cp-errors">{validationErrors.REQUIRED}</span>
-                  ) : (
-                    ""
-                  )}
-                </Grid>
-                <Grid item xs={3}>
-                  <StyledTextField
-                    fullWidth
-                    id="outlined-basic"
-                    label="Width (cm)"
-                    name="dimensionWidth"
-                    variant="outlined"
-                    type="number"
-                    onChange={handleUserInput}
-                    value={product.dimensionWidth}
-                    error={isError.dimensionWidth.isError}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <textarea
-                    rows={4}
-                    cols={50}
-                    placeholder="HighLights"
-                    value={highlights}
-                    onChange={(e) => {
-                      setIsError((prevError) => ({
-                        ...prevError,
-                        highlights: { isError: false },
-                      }));
-                      setHighlights(e.target.value);
-                    }}
-                    className={isError.highlights.isError ? "cp-textarea-error" : "cp-textarea"}
-                  ></textarea>
-                  <Button onClick={addHighlight} className="rounded-md" color="secondary">
-                    Add Hightlight
-                  </Button>
-                  <div className="flex flex-wrap gap-[1rem] my-3">
-                    {product.highlights.length > 0 &&
-                      product.highlights.map((item: any, index: number) => (
-                        <Chip key={index} onDelete={() => chipDelete(index)} label={item} />
-                      ))}
-                  </div>
-                  {isError.highlights.isError ? <span className="cp-errors">{validationErrors.HIGHLIGHT}</span> : ""}
-                </Grid>
-
-                <Grid item xs={12}>
-                  <StyledTextField
-                    fullWidth
-                    id="outlined-basic"
-                    name="details"
-                    label="Details"
-                    variant="outlined"
-                    error={isError.details.isError}
-                    onChange={handleUserInput}
-                    value={product.details}
-                  />
-                  {isError.details.isError ? <span className="cp-errors">{validationErrors.DETAILS}</span> : ""}
-                </Grid>
-                <Grid item xs={12}>
-                  <StyledTextField
-                    fullWidth
-                    id="outlined-basic"
-                    name="topLevelCategory"
-                    label="Top Level Category"
-                    variant="outlined"
-                    error={isError.topLevelCategory.isError}
-                    onChange={handleUserInput}
-                    value={product.topLevelCategory}
-                  />
-                  {isError.topLevelCategory.isError ? (
-                    <span className="cp-errors">{validationErrors.FIRST_LEVEL_CATEGORY}</span>
-                  ) : (
-                    ""
-                  )}
-                </Grid>
-                <Grid item xs={12}>
-                  <StyledTextField
-                    fullWidth
-                    id="outlined-basic"
-                    name="secondLevelCategory"
-                    label="Second Level Category"
-                    variant="outlined"
-                    value={product.secondLevelCategory}
-                    error={isError.secondLevelCategory.isError}
-                    onChange={handleUserInput}
-                  />
-                  {isError.secondLevelCategory.isError ? (
-                    <span className="cp-errors">{validationErrors.SECOND_LEVEL_CATEGORY}</span>
-                  ) : (
-                    ""
-                  )}
-                </Grid>
-                <Grid item xs={12}>
-                  <StyledTextField
-                    fullWidth
-                    id="outlined-basic"
-                    name="thirdLevelCategory"
-                    label="Third Level Category"
-                    variant="outlined"
-                    error={isError.thirdLevelCategory.isError}
-                    value={product.thirdLevelCategory}
-                    onChange={handleUserInput}
-                  />
-                  {isError.thirdLevelCategory.isError ? (
-                    <span className="cp-errors">{validationErrors.THIRD_LEVEL_CATEGORY}</span>
-                  ) : (
-                    ""
-                  )}
-                </Grid>
-
-                <Grid item xs={12}>
-                  <textarea
-                    required
-                    rows={4}
-                    cols={50}
-                    onChange={handleUserInput}
-                    className={isError.description.isError ? "cp-textarea-error" : "cp-textarea"}
-                    placeholder="Desciption"
-                    name="description"
-                    value={product.description.toString()}
-                    minLength={20}
-                    maxLength={300}
-                  ></textarea>
-                  {isError.description.isError ? <span className="cp-errors">{validationErrors.DESCRIPTION}</span> : ""}
-                </Grid>
+    <div className="cp-wrapper">
+      <div className="cp-container">
+        <h3 className="cp-title">Edit Product</h3>
+        <div className="cp-form-wrapper">
+          <div className="cp-form">
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <StyledTextField
+                  fullWidth
+                  onChange={handleUserInput}
+                  value={product.title}
+                  id="outlined-basic"
+                  name="title"
+                  label="Title"
+                  variant="outlined"
+                  error={isError.title.isError}
+                />
+                {isError.title.isError ? <span className="cp-errors">{validationErrors.TITLE}</span> : ""}
               </Grid>
-            </div>
-
-            <div className="cp-img-upload">
-              <input
-                type="file"
-                hidden
-                id="actual-btn"
-                className="cp-file"
-                accept=".jpg,.jpeg"
-                onChange={(e) => {
-                  let tempArr = [];
-                  let finalTemp = [];
-                  if (e.target.files) {
-                    for (let i = 0; i < e.target.files.length; i++) {
-                      if (e.target.files[i].size > 1000000) {
-                        setShowImageError(true);
-                        setTimeout(() => {
-                          setShowImageError(false);
-                        }, 2000);
-                      } else {
-                        tempArr.push(URL.createObjectURL(e.target.files[i]));
-                        finalTemp.push(e.target.files[i]);
-                      }
-                    }
-                    setFinalImageArray([...finalImageArray, ...finalTemp]);
-                    setImages([...images, ...tempArr]);
-                  }
-                }}
-                multiple
-              />
-              <label htmlFor="actual-btn">Add Images</label>
-              <ImageList
-                sx={{
-                  width: "100%",
-                  maxWidth: "500px",
-                  margin: "0 auto",
-                  [theme.breakpoints.down("lg")]: {
-                    maxWidth: "400px",
-                  },
-                  [theme.breakpoints.down("md")]: {
-                    maxWidth: "300px",
-                  },
-                }}
-                cols={3}
-                rowHeight={164}
-                className="cp-img-list"
-              >
-                {images.length > 0 ? (
-                  images.map((item: any, i: any) => (
-                    <ImageListItem key={i}>
-                      <div className="img-content-wrapper">
-                        <img
-                          style={{
-                            margin: "10px",
-                            width: "164px",
-                            height: "164px",
-                          }}
-                          src={item}
-                          alt="image"
-                          loading="lazy"
-                        />
-                        <div className="cp-icon">
-                          <IconButton
-                            aria-label="delete"
-                            onClick={() => {
-                              setImages(
-                                images.filter((img: any) => img !== item)
-                              );
-                              setFinalImageArray((prevState: any) => {
-                                const updatedArray = [...prevState];
-                                updatedArray.splice(i, 1); 
-                                return updatedArray;
-                              });
-                              console.log('final image array after deletion',finalImageArray);
-                            }}
-                          >
-                            <DeleteIcon />
-                          </IconButton>
-                        </div>
-                      </div>
-                    </ImageListItem>
-                  ))
-                ) : (
-                  <div style={{ textAlign: "center", margin: "10px", color: "red" }}>*{validationErrors.NO_IMAGE}</div>
-                )}
-              </ImageList>
-              {showImageError && (
-                <div style={{ textAlign: "center" }} className="cp-errors">
-                  {" "}
-                  {validationErrors.IMAGE_SIZE_EXCEED}{" "}
+              <Grid item xs={12}>
+                <StyledTextField
+                  fullWidth
+                  onChange={handleUserInput}
+                  value={product.brand}
+                  id="outlined-basic"
+                  name="brand"
+                  label="Brand"
+                  variant="outlined"
+                  error={isError.brand.isError}
+                />
+                {isError.brand.isError ? <span className="cp-errors">{validationErrors.BRAND}</span> : ""}
+              </Grid>
+              <Grid item xs={12}>
+                <StyledTextField
+                  fullWidth
+                  onChange={handleUserInput}
+                  value={product.color}
+                  id="outlined-basic"
+                  name="color"
+                  label="Color"
+                  variant="outlined"
+                  error={isError.color.isError}
+                />
+                {isError.color.isError ? <span className="cp-errors">{validationErrors.COLOR}</span> : ""}
+              </Grid>
+              <Grid item xs={6}>
+                <StyledTextField
+                  fullWidth
+                  id="outlined-basic"
+                  label="Minimum Orders"
+                  name="quantity"
+                  variant="outlined"
+                  value={product.quantity}
+                  type="number"
+                  onChange={handleUserInput}
+                  error={isError.quantity.isError}
+                />
+                {isError.quantity.isError ? <span className="cp-errors">{validationErrors.REQUIRED}</span> : ""}
+              </Grid>
+              <Grid item xs={6}>
+                <StyledTextField
+                  fullWidth
+                  id="outlined-basic"
+                  label="Stock Quantity"
+                  name="orders"
+                  variant="outlined"
+                  type="number"
+                  onChange={handleUserInput}
+                  value={product.orders}
+                  error={isError.orders.isError}
+                />
+                {isError.orders.isError ? <span className="cp-errors">{validationErrors.REQUIRED}</span> : ""}
+              </Grid>
+              <Grid item xs={6}>
+                <StyledTextField
+                  fullWidth
+                  id="outlined-basic"
+                  label="Original Price ($)"
+                  name="price"
+                  variant="outlined"
+                  type="number"
+                  onChange={handleUserInput}
+                  error={isError.price.isError}
+                  value={product.price}
+                />
+                {isError.price.isError ? <span className="cp-errors">{validationErrors.REQUIRED}</span> : ""}
+              </Grid>
+              <Grid item xs={6}>
+                <StyledTextField
+                  fullWidth
+                  id="outlined-basic"
+                  label="Discount Price ($)"
+                  name="discountedPrice"
+                  variant="outlined"
+                  type="number"
+                  onChange={handleUserInput}
+                  value={product.discountedPrice}
+                  error={isError.discountedPrice.isError}
+                />
+                {isError.discountedPrice.isError ? <span className="cp-errors">{validationErrors.REQUIRED}</span> : ""}
+              </Grid>
+              <Grid item xs={6}>
+                <StyledTextField
+                  fullWidth
+                  id="outlined-basic"
+                  label="Material"
+                  name="material"
+                  variant="outlined"
+                  onChange={handleUserInput}
+                  value={product.material}
+                  error={isError.material.isError}
+                />
+                {isError.material.isError ? <span className="cp-errors">{validationErrors.REQUIRED}</span> : ""}
+              </Grid>
+              <Grid item xs={3}>
+                <StyledTextField
+                  fullWidth
+                  id="outlined-basic"
+                  label="Height (cm)"
+                  name="dimensionHeight"
+                  variant="outlined"
+                  type="number"
+                  onChange={handleUserInput}
+                  value={product.dimensionHeight}
+                  error={isError.dimensionHeight.isError}
+                />
+                {isError.dimensionHeight.isError ? <span className="cp-errors">{validationErrors.REQUIRED}</span> : ""}
+              </Grid>
+              <Grid item xs={3}>
+                <StyledTextField
+                  fullWidth
+                  id="outlined-basic"
+                  label="Width (cm)"
+                  name="dimensionWidth"
+                  variant="outlined"
+                  type="number"
+                  onChange={handleUserInput}
+                  value={product.dimensionWidth}
+                  error={isError.dimensionWidth.isError}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <textarea
+                  rows={4}
+                  cols={50}
+                  placeholder="HighLights"
+                  value={highlights}
+                  onChange={(e) => {
+                    setIsError((prevError) => ({
+                      ...prevError,
+                      highlights: { isError: false },
+                    }));
+                    setHighlights(e.target.value);
+                  }}
+                  className={isError.highlights.isError ? "cp-textarea-error" : "cp-textarea"}
+                ></textarea>
+                <Button onClick={addHighlight} className="rounded-md" color="secondary">
+                  Add Hightlight
+                </Button>
+                <div className="flex flex-wrap gap-[1rem] my-3">
+                  {product.highlights.length > 0 &&
+                    product.highlights.map((item: any, index: number) => (
+                      <Chip key={index} onDelete={() => chipDelete(index)} label={item} />
+                    ))}
                 </div>
-              )}
-            </div>
+                {isError.highlights.isError ? <span className="cp-errors">{validationErrors.HIGHLIGHT}</span> : ""}
+              </Grid>
+
+              <Grid item xs={12}>
+                <StyledTextField
+                  fullWidth
+                  id="outlined-basic"
+                  name="details"
+                  label="Details"
+                  variant="outlined"
+                  error={isError.details.isError}
+                  onChange={handleUserInput}
+                  value={product.details}
+                />
+                {isError.details.isError ? <span className="cp-errors">{validationErrors.DETAILS}</span> : ""}
+              </Grid>
+              <Grid item xs={12}>
+                <StyledTextField
+                  fullWidth
+                  id="outlined-basic"
+                  name="topLevelCategory"
+                  label="Top Level Category"
+                  variant="outlined"
+                  error={isError.topLevelCategory.isError}
+                  onChange={handleUserInput}
+                  value={product.topLevelCategory}
+                />
+                {isError.topLevelCategory.isError ? (
+                  <span className="cp-errors">{validationErrors.FIRST_LEVEL_CATEGORY}</span>
+                ) : (
+                  ""
+                )}
+              </Grid>
+              <Grid item xs={12}>
+                <StyledTextField
+                  fullWidth
+                  id="outlined-basic"
+                  name="secondLevelCategory"
+                  label="Second Level Category"
+                  variant="outlined"
+                  value={product.secondLevelCategory}
+                  error={isError.secondLevelCategory.isError}
+                  onChange={handleUserInput}
+                />
+                {isError.secondLevelCategory.isError ? (
+                  <span className="cp-errors">{validationErrors.SECOND_LEVEL_CATEGORY}</span>
+                ) : (
+                  ""
+                )}
+              </Grid>
+              <Grid item xs={12}>
+                <StyledTextField
+                  fullWidth
+                  id="outlined-basic"
+                  name="thirdLevelCategory"
+                  label="Third Level Category"
+                  variant="outlined"
+                  error={isError.thirdLevelCategory.isError}
+                  value={product.thirdLevelCategory}
+                  onChange={handleUserInput}
+                />
+                {isError.thirdLevelCategory.isError ? (
+                  <span className="cp-errors">{validationErrors.THIRD_LEVEL_CATEGORY}</span>
+                ) : (
+                  ""
+                )}
+              </Grid>
+
+              <Grid item xs={12}>
+                <textarea
+                  required
+                  rows={4}
+                  cols={50}
+                  onChange={handleUserInput}
+                  className={isError.description.isError ? "cp-textarea-error" : "cp-textarea"}
+                  placeholder="Desciption"
+                  name="description"
+                  value={product.description.toString()}
+                  minLength={20}
+                  maxLength={300}
+                ></textarea>
+                {isError.description.isError ? <span className="cp-errors">{validationErrors.DESCRIPTION}</span> : ""}
+              </Grid>
+            </Grid>
           </div>
-          <Button
-            className="w-full lg:w-[35rem] h-[3rem] mt-[30px] rounded-md"
-            onClick={updateProduct}
-            color="success"
-            isLoading={isLoading}
-            variant="shadow"
-          >
-            Submit
-          </Button>
+
+          <div className="cp-img-upload">
+            <input
+              type="file"
+              hidden
+              id="actual-btn"
+              className="cp-file"
+              accept=".jpg,.jpeg"
+              onChange={(e) => {
+                let tempArr = [];
+                let finalTemp = [];
+                if (e.target.files) {
+                  for (let i = 0; i < e.target.files.length; i++) {
+                    if (e.target.files[i].size > 1000000) {
+                      setShowImageError(true);
+                      setTimeout(() => {
+                        setShowImageError(false);
+                      }, 2000);
+                    } else {
+                      tempArr.push(URL.createObjectURL(e.target.files[i]));
+                      finalTemp.push(e.target.files[i]);
+                    }
+                  }
+                  setFinalImageArray([...finalImageArray, ...finalTemp]);
+                  setImages([...images, ...tempArr]);
+                }
+              }}
+              multiple
+            />
+            <label htmlFor="actual-btn">Add Images</label>
+            <ImageList
+              sx={{
+                width: "100%",
+                maxWidth: "500px",
+                margin: "0 auto",
+                [theme.breakpoints.down("lg")]: {
+                  maxWidth: "400px",
+                },
+                [theme.breakpoints.down("md")]: {
+                  maxWidth: "300px",
+                },
+              }}
+              cols={3}
+              rowHeight={164}
+              className="cp-img-list"
+            >
+              {images.length > 0 ? (
+                images.map((item: any, i: any) => (
+                  <ImageListItem key={i}>
+                    <div className="img-content-wrapper">
+                      <img
+                        style={{
+                          margin: "10px",
+                          width: "164px",
+                          height: "164px",
+                        }}
+                        src={item}
+                        alt="image"
+                        loading="lazy"
+                      />
+                      <div className="cp-icon">
+                        <IconButton
+                          aria-label="delete"
+                          onClick={() => {
+                            setImages(images.filter((img: any) => img !== item));
+                            setFinalImageArray((prevState: any) => {
+                              const updatedArray = [...prevState];
+                              updatedArray.splice(i, 1);
+                              return updatedArray;
+                            });
+                            console.log("final image array after deletion", finalImageArray);
+                          }}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </div>
+                    </div>
+                  </ImageListItem>
+                ))
+              ) : (
+                <div style={{ textAlign: "center", margin: "10px", color: "red" }}>*{validationErrors.NO_IMAGE}</div>
+              )}
+            </ImageList>
+            {showImageError && (
+              <div style={{ textAlign: "center" }} className="cp-errors">
+                {" "}
+                {validationErrors.IMAGE_SIZE_EXCEED}{" "}
+              </div>
+            )}
+          </div>
         </div>
+        <Button
+          className="w-full lg:w-[35rem] h-[3rem] mt-[30px] rounded-md"
+          onClick={updateProduct}
+          color="success"
+          isLoading={isLoading}
+          variant="solid"
+        >
+          Submit
+        </Button>
       </div>
-    </>
+    </div>
   );
 }

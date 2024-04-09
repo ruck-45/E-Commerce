@@ -1,9 +1,11 @@
-import { styled, TextField, Button } from "@mui/material";
+import { styled, TextField } from "@mui/material";
 import { useState } from "react";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import AllCoupons from "./AllCoupons";
-import { Modal } from "@nextui-org/react";
+import { Button, Modal } from "@nextui-org/react";
 import { Close } from "@mui/icons-material"; // Import the Close icon
+import { useSelector } from "react-redux";
+import { RootState } from "../../../Redux/store";
 
 const StyledTextField = styled(TextField)(({ theme, error }) => ({
   "& .MuiOutlinedInput-root": {
@@ -13,19 +15,17 @@ const StyledTextField = styled(TextField)(({ theme, error }) => ({
 
 const initialCoupon = {
   code: "",
-  discountPercent: "",
   maxDiscountPrice: "",
 };
 
 type Coupon = {
   code: string;
-  discountPercent: number | string;
   maxDiscountPrice: number | string;
 };
 
 interface AddCouponProps {
   isOpen: boolean;
-  onClose: () => void; // Add onClose prop
+  onClose: () => void;
 }
 
 const AddCoupon: React.FC<AddCouponProps> = ({ isOpen, onClose }) => {
@@ -34,16 +34,14 @@ const AddCoupon: React.FC<AddCouponProps> = ({ isOpen, onClose }) => {
     discountPercent: { isError: false, message: "" },
     maxDiscountPrice: { isError: false, message: "" },
   });
+  const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
 
   const [coupon, setCoupon] = useState<Coupon>(initialCoupon);
 
   function handleUserInput(e: any) {
     const { name, value } = e.target;
     setIsError({ ...isError, [name]: { ...name, isError: false } });
-    const numberRequiredFields: (keyof Coupon)[] = [
-      "discountPercent",
-      "maxDiscountPrice",
-    ];
+    const numberRequiredFields: (keyof Coupon)[] = ["maxDiscountPrice"];
 
     if (numberRequiredFields.includes(name)) {
       if (+value < 0 || value === "") setCoupon({ ...coupon, [name]: "" });
@@ -66,14 +64,6 @@ const AddCoupon: React.FC<AddCouponProps> = ({ isOpen, onClose }) => {
       hasErrors = true;
     }
 
-    if (+coupon.discountPercent <= 0) {
-      errors.discountPercent = {
-        isError: true,
-        message: "Discount percent must be greater than 0",
-      };
-      hasErrors = true;
-    }
-
     if (+coupon.maxDiscountPrice <= 0) {
       errors.maxDiscountPrice = {
         isError: true,
@@ -86,8 +76,33 @@ const AddCoupon: React.FC<AddCouponProps> = ({ isOpen, onClose }) => {
       setIsError(errors);
       return;
     }
-    // Add your logic for adding a coupon here
-    console.log("Adding coupon:", coupon);
+    try {
+      const response = await fetch(`${apiUrl}/coupan/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          code: coupon.code,
+          amount: coupon.maxDiscountPrice,
+          couponId: Math.floor(Math.random() * 300000)
+          .toString()
+          .padStart(6, "0")
+        }),
+      });
+
+      if (response.ok || response.status === 200) {
+        toast.success("Coupon added successfully");
+        setCoupon(initialCoupon);
+        window.location.reload();
+      } else {
+        throw new Error("Failed to add coupon");
+      }
+    } catch (error) {
+      console.error("Error adding coupon:", error);
+      toast.error("Failed to add coupon");
+    }
+    onClose();
   };
 
   return (
@@ -96,24 +111,24 @@ const AddCoupon: React.FC<AddCouponProps> = ({ isOpen, onClose }) => {
         isOpen ? "" : "hidden"
       }`}
     >
-      <div className="absolute inset-0 bg-gray-400 opacity-30" ></div>
+      <div className="absolute inset-0 bg-gray-400 opacity-30"></div>
       <div
-        className="bg-gray-400 p-6 rounded-lg shadow-lg relative"
-        style={{ height: "80vh"}}
+        className="bg-yellow-200 p-6 rounded-lg shadow-lg relative"
+        style={{ height: "60vh" }}
       >
         <Button
           onClick={onClose}
-          variant="text"
-          color="inherit"
-          className="absolute top-0 right-0 m-2"
+          variant="light"
+          color="default"
+          className="absolute top-0 right-0 m-2 bg-blue-300"
         >
-          <Close />
+          Close
         </Button>
         <h3 className="text-2xl text-center mb-4">Create Coupon</h3>
-        <div className="cp-form-wrapper mt-4" style={{padding:'0 2rem'}}>
+        <div className="cp-form-wrapper mt-4" style={{ padding: "0 2rem" }}>
           <div className="cp-form my-4 ">
             <StyledTextField
-              style={{marginTop:'2rem'}}
+              style={{ marginTop: "2rem" }}
               fullWidth
               onChange={handleUserInput}
               value={coupon.code}
@@ -125,26 +140,8 @@ const AddCoupon: React.FC<AddCouponProps> = ({ isOpen, onClose }) => {
               helperText={isError.code.isError ? isError.code.message : ""}
             />
             <StyledTextField
-             style={{marginTop:'2rem'}}
               fullWidth
-              onChange={handleUserInput}
-              value={coupon.discountPercent}
-              id="outlined-basic"
-              name="discountPercent"
-              label="Discount Percent"
-              variant="outlined"
-              type="number"
-              error={isError.discountPercent.isError}
-              helperText={
-                isError.discountPercent.isError
-                  ? isError.discountPercent.message
-                  : ""
-              }
-              
-            />
-            <StyledTextField
-              fullWidth
-              style={{marginTop:'2rem'}}
+              style={{ marginTop: "2rem" }}
               onChange={handleUserInput}
               value={coupon.maxDiscountPrice}
               id="outlined-basic"
@@ -161,17 +158,18 @@ const AddCoupon: React.FC<AddCouponProps> = ({ isOpen, onClose }) => {
             />
             <Button
               fullWidth
-              style={{marginTop:'2rem'}}
+              style={{ marginTop: "2rem" }}
               onClick={addCoupon}
-              color="success"
-              variant="contained"
-              className="rounded-xl"
+              color="default"
+              variant="light"
+              className="rounded-xl bg-green-400 "
             >
-              Add Coupon
+              Create Coupon
             </Button>
           </div>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };
@@ -189,13 +187,13 @@ export default function Coupon() {
 
   return (
     <div>
-      <div className="cp-wrapper p-4 sm:p-6 lg:p-8 mt-4 sm:mt-6 lg:mt-8">
+      <div className="p-4 sm:p-6 lg:p-8 mt-4 sm:mt-6 lg:mt-8">
         <div className="flex justify-end">
           <Button
+            variant="ghost"
+            size="md"
+            color="secondary"
             onClick={handleOpenModal}
-            color="success"
-            variant="contained"
-            className="rounded-sm"
           >
             Add Coupon
           </Button>
@@ -206,6 +204,7 @@ export default function Coupon() {
         <AddCoupon isOpen={isModalOpen} onClose={handleCloseModal} />
       </Modal>
       <AllCoupons />
+      <Toaster />
     </div>
   );
 }

@@ -15,32 +15,12 @@ const Successful = () => {
   const user_id = getCookie("userId");
   const token = getCookie("token");
 
-  const clearCart = async () => {
-    try {
-      const response = await axios.delete(`${apiUrl}/users/clear-cart/${user_id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (response.data.success) {
-        console.log("Cart cleared Successfully ...");
-      } else {
-        console.log("Cart clearing Failed ...");
-        console.log(response.data);
-      }
-    } catch (error) {
-      console.log("Cart clearing Failed ...");
-      console.error(error);
-    }
-  };
-
-  const addToOrders = () => {};
-
   useEffect(() => {
-    addToOrders();
-    clearCart();
+    setTimeout(() => {
+      navigate("/Profile");
+    },2000);
   }, []);
+
 
   return (
     <div className="min-h-screen successbg flex flex-col items-center px-[3rem]">
@@ -54,15 +34,20 @@ const Successful = () => {
         <h1 className="text-3xl text-green-700 mb-4 font-bold">Order Confirmed 👍</h1>
         <p className="text-lg text-green-600 mb-8">
           Thank you for your order. Your order has been successfully registered.
+          
         </p>
-        <button
+        <p className="text-lg text-green-600 mb-8">
+        Taking you to the My Orders page
+        </p>
+
+        {/* <button
           className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
           onClick={() => navigate("/Shop")}
         >
           Continue Shopping
-        </button>
+        </button> */}
       </div>
-      <div className="max-w-lg w-full bg-white p-8 rounded-[2rem] shadow-md mb-[5rem] border-t">
+      {/* <div className="max-w-lg w-full bg-white p-8 rounded-[2rem] shadow-md mb-[5rem] border-t">
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-2xl text-green-700 mb-4 font-bold">Order Summary</h1>
@@ -90,7 +75,7 @@ const Successful = () => {
             src="https://images.pexels.com/photos/4841372/pexels-photo-4841372.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
           />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

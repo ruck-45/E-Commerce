@@ -747,7 +747,7 @@ export default function AddProduct() {
             onClick={addProduct}
             color="success"
             isLoading={isLoading}
-            variant="shadow"
+            variant="solid"
           >
             Submit
           </Button>

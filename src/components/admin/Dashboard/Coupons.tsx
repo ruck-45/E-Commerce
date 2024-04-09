@@ -16,11 +16,15 @@ const StyledTextField = styled(TextField)(({ theme, error }) => ({
 const initialCoupon = {
   code: "",
   maxDiscountPrice: "",
+  discountPercent: "",
+  minAmount: ""
 };
 
 type Coupon = {
   code: string;
   maxDiscountPrice: number | string;
+  discountPercent: number | string;
+  minAmount: number | string;
 };
 
 interface AddCouponProps {
@@ -56,6 +60,7 @@ const AddCoupon: React.FC<AddCouponProps> = ({ isOpen, onClose }) => {
       code: { isError: false, message: "" },
       discountPercent: { isError: false, message: "" },
       maxDiscountPrice: { isError: false, message: "" },
+      minAmount: { isError: false, message: "" },
     };
     let hasErrors = false;
 
@@ -66,6 +71,20 @@ const AddCoupon: React.FC<AddCouponProps> = ({ isOpen, onClose }) => {
 
     if (+coupon.maxDiscountPrice <= 0) {
       errors.maxDiscountPrice = {
+        isError: true,
+        message: "Max discount price must be greater than 0",
+      };
+      hasErrors = true;
+    }
+    if (+coupon.discountPercent <= 0) {
+      errors.discountPercent = {
+        isError: true,
+        message: "Max discount price must be greater than 0",
+      };
+      hasErrors = true;
+    }
+    if (+coupon.minAmount <= 0) {
+      errors.minAmount = {
         isError: true,
         message: "Max discount price must be greater than 0",
       };
@@ -87,7 +106,9 @@ const AddCoupon: React.FC<AddCouponProps> = ({ isOpen, onClose }) => {
           amount: coupon.maxDiscountPrice,
           couponId: Math.floor(Math.random() * 300000)
           .toString()
-          .padStart(6, "0")
+          .padStart(6, "0"),
+          percent: coupon.discountPercent,
+          minAmount: coupon.minAmount
         }),
       });
 
@@ -114,7 +135,7 @@ const AddCoupon: React.FC<AddCouponProps> = ({ isOpen, onClose }) => {
       <div className="absolute inset-0 bg-gray-400 opacity-30"></div>
       <div
         className="bg-yellow-200 p-6 rounded-lg shadow-lg relative"
-        style={{ height: "60vh" }}
+        
       >
         <Button
           onClick={onClose}
@@ -125,8 +146,8 @@ const AddCoupon: React.FC<AddCouponProps> = ({ isOpen, onClose }) => {
           Close
         </Button>
         <h3 className="text-2xl text-center mb-4">Create Coupon</h3>
-        <div className="cp-form-wrapper mt-4" style={{ padding: "0 2rem" }}>
-          <div className="cp-form my-4 ">
+        <div className="mt-4" style={{ padding: "0 2rem" }}>
+          <div className="my-4 ">
             <StyledTextField
               style={{ marginTop: "2rem" }}
               fullWidth
@@ -155,6 +176,30 @@ const AddCoupon: React.FC<AddCouponProps> = ({ isOpen, onClose }) => {
                   ? isError.maxDiscountPrice.message
                   : ""
               }
+            />
+            <StyledTextField
+              style={{ marginTop: "2rem" }}
+              fullWidth
+              onChange={handleUserInput}
+              value={coupon.minAmount}
+              id="outlined-basic"
+              name="minAmount"
+              label="Minimum amount to apply the coupon code"
+              variant="outlined"
+              error={isError.code.isError}
+              helperText={isError.code.isError ? isError.code.message : ""}
+            />
+            <StyledTextField
+              style={{ marginTop: "2rem" }}
+              fullWidth
+              onChange={handleUserInput}
+              value={coupon.discountPercent}
+              id="outlined-basic"
+              name="discountPercent"
+              label="Discount percentage"
+              variant="outlined"
+              error={isError.code.isError}
+              helperText={isError.code.isError ? isError.code.message : ""}
             />
             <Button
               fullWidth

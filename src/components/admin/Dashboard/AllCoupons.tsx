@@ -5,18 +5,21 @@ import { RootState } from "../../../Redux/store";
 import { TextField, styled } from "@mui/material";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
+import './AllCoupons.css';
 
 type Coupon = {
   coupon_id: number;
   code: string;
-  amount: number;
+  amount: string;
+  percent:string;
+  minAmount:string;
 };
 
 interface EditCouponModalProps {
   isOpen: boolean;
   onClose: () => void;
   coupon: any;
-  onUpdateCoupon: (updatedCoupon: any) => void;
+  onUpdateCoupon: (updatedCoupon: Coupon) => void;
 }
 
 const StyledTextField = styled(TextField)(({ theme, error }) => ({
@@ -33,7 +36,7 @@ const EditCouponModal: React.FC<EditCouponModalProps> = ({
 }) => {
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
 
-  const [updatedCoupon, setUpdatedCoupon] = useState<Coupon>(coupon);
+  const [updatedCoupon, setUpdatedCoupon] = useState<any>(coupon);
 
   const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -51,6 +54,8 @@ const EditCouponModal: React.FC<EditCouponModalProps> = ({
         coupon_id: coupon.coupon_id,
         code: updatedCoupon.code,
         amount: +updatedCoupon.amount,
+        percent: +updatedCoupon.percent,
+        minAmount: +updatedCoupon.minAmount,
       },
       {
         headers: {
@@ -79,11 +84,10 @@ const EditCouponModal: React.FC<EditCouponModalProps> = ({
         isOpen ? "" : "hidden"
       }`}
     >
-      {/* Modal content */}
       <div className="absolute inset-0 bg-gray-400 opacity-30"></div>
       <div
         className="bg-yellow-200 p-6 rounded-lg shadow-lg relative"
-        style={{ height: "60vh" }}
+        
       >
         <Button
           onClick={onClose}
@@ -112,6 +116,26 @@ const EditCouponModal: React.FC<EditCouponModalProps> = ({
               value={updatedCoupon ? updatedCoupon.amount : "error"}
               name="amount"
               label="Max Discount Price"
+              variant="outlined"
+              type="number"
+            />
+            <StyledTextField
+              fullWidth
+              style={{ marginTop: "2rem" }}
+              onChange={handleUserInput}
+              value={updatedCoupon ? updatedCoupon.percent : "error"}
+              name="percent"
+              label="Discount percentage"
+              variant="outlined"
+              type="number"
+            />
+            <StyledTextField
+              fullWidth
+              style={{ marginTop: "2rem" }}
+              onChange={handleUserInput}
+              value={updatedCoupon ? updatedCoupon.minAmount : "error"}
+              name="minAmount"
+              label="Minimum amount to apply the coupon code"
               variant="outlined"
               type="number"
             />
@@ -259,18 +283,20 @@ const AllCoupons: React.FC = () => {
   };
 
   return (
-    <div className="text text-center relative lg:mt-[-4rem]">
+    <div className="text text-center relative lg:mt-[-4rem] sm:w-full w-[100%]">
       <h2 className="text-2xl text-center font-semibold mb-4 mt-8">
         <span className="border-b-2 border-black">All</span>{" "}
         <span className="border-b-2 border-black"> Coupons</span>
       </h2>
 
-      <div className="flex justify-center">
+    <div className="flex justify-center sm:overflow-x-scroll custom-wrapper">
         <table className="table-auto w-full  lg:max-w-[95%] text-center mt-4">
           <thead>
             <tr>
               <th className="px-4 py-2">Code</th>
               <th className="px-4 py-2">Max Discount Price</th>
+              <th className="px-4 py-2">Min Amount</th>
+              <th className="px-4 py-2">Discount %</th>
               <th className="px-4 py-2">Edit</th>
               <th className="px-4 py-2">Delete</th>
             </tr>
@@ -281,6 +307,8 @@ const AllCoupons: React.FC = () => {
                 <tr key={index}>
                   <td className="border px-4 py-2">{coupon.code}</td>
                   <td className="border px-4 py-2">${coupon.amount}</td>
+                  <td className="border px-4 py-2">{coupon.percent}%</td>
+                  <td className="border px-4 py-2">${coupon.minAmount}</td>
                   <td className="border px-4 py-2">
                     <Button
                       variant="ghost"
@@ -305,7 +333,7 @@ const AllCoupons: React.FC = () => {
               ))
             ) : (
               <tr>
-                <td colSpan={4} className="text-center my-20">
+                <td colSpan={6} className="text-center py-20">
                   No coupons found!!!
                 </td>
               </tr>

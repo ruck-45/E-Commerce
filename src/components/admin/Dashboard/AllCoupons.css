@@ -1,0 +1,17 @@
+.custom-wrapper{
+   
+}
+
+@media(max-width:600px){
+    .custom-wrapper{
+        overflow-x: scroll;
+        padding-left: 10%;
+    }
+}
+
+@media(max-width:425px){
+    .custom-wrapper{
+        overflow-x: scroll;
+        padding-left: 70%;
+    }
+}

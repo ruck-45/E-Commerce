@@ -1,9 +1,10 @@
+import "./Modal.css";
 import CartItem from "./CartItem";
 import { Button } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getCookie } from "../../utils/cookies";
-import { toast,Toaster } from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast";
 import { RootState } from "../../Redux/store";
 import { BsCartXFill } from "react-icons/bs";
 import { useEffect, useState } from "react";
@@ -17,6 +18,14 @@ import {
 } from "@nextui-org/react";
 import axios from "axios";
 
+type Coupon = {
+  code: string;
+  coupon_id: string;
+  amount: string;
+  percent: string;
+  minAmount: string;
+};
+
 const Cart = () => {
   const navigate = useNavigate();
   const [isApplicable, setApplicable] = useState(false);
@@ -24,9 +33,14 @@ const Cart = () => {
   const { cart, totalPrice, totalQuantity, totalDiscountPrice } = useSelector(
     (state: RootState) => state.allCart
   );
-  const [totalAmount, setTotalAmount]=useState(totalDiscountPrice);
-  const [code ,setCode]=useState('');
+  const [appliedCode, setAppliedCode] = useState('');
+  const [error, setError] = useState("");
+  const [cartLength, setCartLength] = useState(cart.length);
+  const [coupons, setCoupons] = useState<Coupon[]>([]);
+  const [totalAmount, setTotalAmount] = useState(totalDiscountPrice);
+  const [code, setCode] = useState("");
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
+  const [shake, setShake] = useState(false);
 
   const getDiscountPercent = () => {
     if (totalPrice > 0) {
@@ -38,56 +52,92 @@ const Cart = () => {
     }
   };
 
-const applyCoupon = async () => {
-  try {
-    const response = await axios.post(`${apiUrl}/coupan/apply`, {
-        code: code,
-        userId: getCookie("username")
-    });
-    if (response.status === 200){
-      console.log('coupon' ,response);
+  useEffect(() => {
+    getCoupons();
+    setCartLength(cart.length);
+  }, [cart]);
 
+  useEffect(() => {
+    if (error) {
+      setShake(true);
+      const shakeTimer = setTimeout(() => {
+        setShake(false);
+      }, 2000);
+      return () => clearTimeout(shakeTimer);
     }
+  }, [error]);
 
-  //   if (response.status === 200) {
-  //     setApplicable(true);
-  //     setTotalAmount((totalAmount-data));
-  //     toast.success('Coupon applied successfully');
-  //   } else if (response.status === 400) {
-  //     toast.error('You have already applied this coupon');
-  //   } else if (response.status === 404) {
-  //     toast.error('You have already applied this coupon');
-  //   } else {
-  //     toast.error('Error while applying this coupon');
-  //   }
-  } catch (error) {
-    toast.error('Error while applying this coupon');
-  }
-  setCouponModalOpen(false);
-};
+  const getCoupons = async () => {
+    const result = await fetch(`${apiUrl}/coupan/allCoupan`);
+    const data = await result.json();
+    setCoupons(data?.payload?.payload);
+  };
 
-useEffect(()=>{
-     setTotalAmount(totalDiscountPrice);
-},[totalDiscountPrice]);
+  const applyCoupon = async () => {
+    const codeString = code.toLocaleUpperCase();
+      console.log('code string: ' + codeString);
+    const couponExists = coupons.some((coupon) => coupon.code === code || coupon.code ===codeString);
 
+    if (!couponExists) {
+      setError("Invalid coupon code");
+      return;
+    } else {
+      toast.success("valid coupon code");
+    }
+    try {
+      const matchedCoupon = coupons.filter((coupon) => coupon.code === code || coupon.code ===codeString);
+      const response = await axios.get(`${apiUrl}/coupan/check`, {
+        params: {
+          coupon_id: matchedCoupon[0].coupon_id,
+          user_id: getCookie("userId"),
+        }
+      });
+      if(response.data.success){
+        if(+matchedCoupon[0].minAmount < totalAmount){
+          const discountAmount = Math.min(+matchedCoupon[0].amount, (totalDiscountPrice * +matchedCoupon[0].percent) / 100);
+          setTotalAmount(totalDiscountPrice-discountAmount);
+          setApplicable(true);
+          setAppliedCode(matchedCoupon[0].code);
+        }
+        else{
+          setCode('');
+          toast.error(`The total amount should be more than ${matchedCoupon[0].minAmount}`);
+          return;
+        }
+      }
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+    setCouponModalOpen(false);
+    setCode("");
+  };
+
+  useEffect(() => {
+    setTotalAmount(totalDiscountPrice);
+  }, [totalDiscountPrice]);
 
   const couponModal = () => {
-    setCouponModalOpen(true); 
+    setCouponModalOpen(true);
   };
 
   return (
     <>
-      <div className="text-sm float-right">
-        Have a coupon?{" "}
-        <span className="border cursor-pointer" onClick={couponModal}>
-          Click here!!!
-        </span>
-      </div>
+      {cartLength > 0 ? (
+        <div className="text-sm float-right">
+          Have a coupon?{" "}
+          <span className="border cursor-pointer" onClick={couponModal}>
+            Click here!!!
+          </span>
+        </div>
+      ) : (
+        ""
+      )}
 
       <Modal
         size="sm"
         isOpen={couponModalOpen}
         onClose={() => setCouponModalOpen(false)}
+        className={shake ? 'shake' : ''}
       >
         <ModalContent>
           {() => (
@@ -96,10 +146,21 @@ useEffect(()=>{
                 Enter coupon code
               </ModalHeader>
               <ModalBody>
-                <Input placeholder="Enter coupon code" value={code} onChange={(e)=>setCode(e.target.value)}/>
+                <Input
+                  placeholder="Enter coupon code"
+                  value={code}
+                  onChange={(e) => {
+                    setCode(e.target.value);
+                    setError("");
+                  }}
+                />
+                {error && <p className="mx-8 text-sm text-red-500">*{error}</p>}
               </ModalBody>
               <ModalFooter className="text-center justify-center">
-                <button onClick={applyCoupon} className="bg-blue-500 btn btn-sm hover:bg-green-700 text-white py-2 px-4 rounded">
+                <button
+                  onClick={applyCoupon}
+                  className="bg-blue-500 btn btn-sm hover:bg-green-700 text-white py-2 px-4 rounded"
+                >
                   Apply Coupon
                 </button>
               </ModalFooter>
@@ -148,15 +209,16 @@ useEffect(()=>{
                     <span>Delivery Charges</span>
                     <span className="text-green-700">Free</span>
                   </div>
-                  {isApplicable && (<div className="flex justify-between font-bold text-lg">
-                    <span>Coupon Applied : "{code}"</span>
-                  </div>)}
+                  {isApplicable && (
+                    <div className="flex justify-between">
+                      <span>Coupon Applied : </span>
+                      <span>"{appliedCode.toLocaleUpperCase()}"</span>
+                    </div>
+                  )}
                   <hr />
                   <div className="flex justify-between font-bold text-lg">
                     <span>Total Amount</span>
-                    <span className="text-green-700">
-                      ${totalAmount}
-                    </span>
+                    <span className="text-green-700">${totalAmount}</span>
                   </div>
                 </div>
 
@@ -196,7 +258,7 @@ useEffect(()=>{
           </div>
         )}
       </div>
-      <Toaster/>
+      <Toaster />
     </>
   );
 };

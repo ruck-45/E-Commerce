@@ -22,7 +22,7 @@ import {
   TableRow,
   useDisclosure,
 } from "@nextui-org/react";
-import {  scrollTop } from "../../../utils/controllers";
+import { scrollTop } from "../../../utils/controllers";
 import { IoSearch } from "react-icons/io5";
 import { FaEye } from "react-icons/fa";
 import { MdEditSquare } from "react-icons/md";
@@ -240,17 +240,17 @@ const Products = () => {
                 initialPage={1}
               />
             </div>
-            <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+            <Modal isOpen={isOpen} onOpenChange={onOpenChange} classNames={{ base: "rounded-none" }}>
               <ModalContent>
                 {(onClose) => (
                   <>
                     <ModalHeader className="flex flex-col gap-1">Confirm Delete</ModalHeader>
                     <ModalBody>Are you sure you want to delete {shopData[detleteItemIndex.current].title} ?</ModalBody>
                     <ModalFooter>
-                      <Button color="primary" variant="light" onPress={onClose}>
+                      <Button color="primary" variant="light" onPress={onClose} radius="none">
                         Close
                       </Button>
-                      <Button color="danger" onClick={handleDelete} isLoading={deleteLoading}>
+                      <Button color="danger" onClick={handleDelete} isLoading={deleteLoading} radius="none">
                         Delete
                       </Button>
                     </ModalFooter>

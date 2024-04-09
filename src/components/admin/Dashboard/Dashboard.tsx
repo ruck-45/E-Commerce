@@ -21,7 +21,7 @@ const Dashboard: React.FC = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      setOrders(response.data.payload.orders);
+      setOrders(response.data.payload.result);
     } catch (error) {
       console.error("Error fetching orders:", error);
     }

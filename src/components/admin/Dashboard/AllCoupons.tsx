@@ -209,6 +209,7 @@ const AllCoupons: React.FC = () => {
 
   const handleEditCouponClick = (coupon: any) => {
     setSelectedCoupon(coupon);
+    console.log('handle coupon ',coupon);
     setIsEditModalOpen(true);
   };
 
@@ -264,10 +265,10 @@ const AllCoupons: React.FC = () => {
   };
 
   const firstIndex = (currentpage - 1) * couponsPerPage;
-  const lastIndex = Math.min(currentpage * couponsPerPage, coupons.length);
+  const lastIndex = Math.min(currentpage * couponsPerPage, (coupons && coupons.length));
 
   const currentCoupons =
-    coupons.length > 0 ? coupons.slice(firstIndex, lastIndex) : [];
+    coupons && coupons.length > 0 ? coupons.slice(firstIndex, lastIndex) : [];
 
   const handlePreviousPage = () => {
     if (currentpage >= 1) {
@@ -302,7 +303,7 @@ const AllCoupons: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {currentCoupons.length > 0 ? (
+            {currentCoupons && currentCoupons.length > 0 ? (
               currentCoupons.map((coupon: any,index:number) => (
                 <tr key={index}>
                   <td className="border px-4 py-2">{coupon.code}</td>
@@ -341,7 +342,7 @@ const AllCoupons: React.FC = () => {
           </tbody>
         </table>
       </div>
-      {!(coupons.length === 0) && (
+      {!(coupons && coupons.length === 0) && (
         <div className="mt-4">
           <Button
             color="default"
@@ -358,7 +359,7 @@ const AllCoupons: React.FC = () => {
             className="bg-yellow-400"
             onClick={handleNextPage}
             disabled={
-              currentpage === Math.ceil(coupons.length / couponsPerPage)
+              currentpage === Math.ceil(coupons && coupons.length / couponsPerPage)
             }
           >
             Next

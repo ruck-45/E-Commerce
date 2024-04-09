@@ -104,13 +104,14 @@ const AddCoupon: React.FC<AddCouponProps> = ({ isOpen, onClose }) => {
         body: JSON.stringify({
           code: coupon.code,
           amount: coupon.maxDiscountPrice,
-          couponId: Math.floor(Math.random() * 300000)
+          coupon_id: Math.floor(Math.random() * 300000)
           .toString()
           .padStart(6, "0"),
           percent: coupon.discountPercent,
           minAmount: coupon.minAmount
         }),
       });
+      console.log('coupon response',response);
 
       if (response.ok || response.status === 200) {
         toast.success("Coupon added successfully");

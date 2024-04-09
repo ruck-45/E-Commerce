@@ -7,6 +7,7 @@ import { Item, orderType } from "../../../utils/types";
 import PendingOrdersCard from "./OrdersCard";
 type OrdersSectionProps = {
   data: orderType[];
+  status: boolean
 };
 
 const OrdersSection = (props: OrdersSectionProps) => {
@@ -55,7 +56,7 @@ const OrdersSection = (props: OrdersSectionProps) => {
   };
 
   const items = props.data.map((item) => 
-    JSON.parse(item.items).map((itemData: Item) => <PendingOrdersCard item={itemData} order={item} />)
+    JSON.parse(item.items).map((itemData: Item) => <PendingOrdersCard item={itemData} order={item} status={props.status} />)
   );
 
   const flattenedItems = items.flat(Infinity);

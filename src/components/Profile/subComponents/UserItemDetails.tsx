@@ -115,14 +115,14 @@ const UserItemDetails = () => {
           <h1 className="font-bold  text-2xl">PENDING ORDERS</h1>
         </div>
         <Divider />
-        {pendingOrders.length > 0 ? <PendingOrdersSection data={pendingOrders} /> : <div>No items Found</div>}
+        {pendingOrders.length > 0 ? <PendingOrdersSection data={pendingOrders} status={true} /> : <div>No items Found</div>}
       </div>
       <div className="flex flex-col gap-1">
         <div className="flex justify-between">
           <h1 className="font-bold  text-2xl">DELIVERED ORDERS</h1>
         </div>
         <Divider />
-        {deliveredOrders.length > 0 ? <PendingOrdersSection data={deliveredOrders} /> : <div>No items Found</div>}
+        {deliveredOrders.length > 0 ? <PendingOrdersSection data={deliveredOrders} status={false} /> : <div>No items Found</div>}
       </div>
       <div className="flex flex-col gap-1">
         <div className="flex justify-between">

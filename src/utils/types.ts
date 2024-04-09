@@ -87,3 +87,32 @@ export type customerDataType = {
   registration_date: String;
   visit_count: number;
 };
+
+export type allOrdersItemsType = {
+  discountedPrice: string;
+  itemCount: string;
+  itemId: string;
+  totalPrice: string;
+  unit_price: string;
+};
+
+export type allOrdersShippingInfo = {
+  city: string;
+  country: string;
+  email: string;
+  line1: string;
+  line2: string;
+  phone: string;
+  postal_code: string;
+  state: string;
+};
+
+export type allOrderType = {
+  date: string;
+  items: allOrdersItemsType[];
+  order_id: string;
+  order_price: number;
+  shipping_info: allOrdersShippingInfo;
+  user_id: string;
+  status: string;
+};

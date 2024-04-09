@@ -125,7 +125,7 @@ const Cart = () => {
       {cartLength > 0 ? (
         <div className="text-sm float-right">
           Have a coupon?{" "}
-          <span className="border cursor-pointer" onClick={couponModal}>
+          <span className="cursor-pointer text-[#1976d2]" onClick={couponModal}>
             Click here!!!
           </span>
         </div>
@@ -137,14 +137,12 @@ const Cart = () => {
         size="sm"
         isOpen={couponModalOpen}
         onClose={() => setCouponModalOpen(false)}
-        className={shake ? 'shake' : ''}
+        className={shake ? "shake" : ""}
       >
         <ModalContent>
           {() => (
             <>
-              <ModalHeader className="flex flex-col gap-1">
-                Enter coupon code
-              </ModalHeader>
+              <ModalHeader className="flex flex-col gap-1">Enter coupon code</ModalHeader>
               <ModalBody>
                 <Input
                   placeholder="Enter coupon code"
@@ -187,9 +185,7 @@ const Cart = () => {
                 <div className="space-y-3 font-semibold">
                   <div className="flex justify-between pt-3 text-black ">
                     <span>Total Price</span>
-                    <span className="opacity-30 line-through">
-                      ${totalPrice}
-                    </span>
+                    <span className="opacity-30 line-through">${totalPrice}</span>
                   </div>
                   <div className="flex justify-between text-black ">
                     <span>Discount Price</span>
@@ -201,9 +197,7 @@ const Cart = () => {
                   </div>
                   <div className="flex justify-between">
                     <span>Discount</span>
-                    <span className="text-green-700">
-                      - {getDiscountPercent()}%
-                    </span>
+                    <span className="text-green-700">- {getDiscountPercent()}%</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Delivery Charges</span>
@@ -240,18 +234,9 @@ const Cart = () => {
           <div className="h-[50vh] flex flex-col items-center gap-[2rem]">
             <BsCartXFill className="text-default-500 text-[10rem]" />
             <div className="text-center">
-              <p className="text-default-600 text-[2rem] font-bold">
-                Cart is Empty !!
-              </p>
-              <p className="text-default-500">
-                Looks like you have no items in your shopping cart.
-              </p>
-              <Button
-                color="primary"
-                variant="contained"
-                sx={{ marginTop: "2rem" }}
-                onClick={() => navigate("/Shop")}
-              >
+              <p className="text-default-600 text-[2rem] font-bold">Cart is Empty !!</p>
+              <p className="text-default-500">Looks like you have no items in your shopping cart.</p>
+              <Button color="primary" variant="contained" sx={{ marginTop: "2rem" }} onClick={() => navigate("/Shop")}>
                 Shop now
               </Button>
             </div>

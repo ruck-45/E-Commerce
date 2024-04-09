@@ -164,7 +164,7 @@ function OrdersCard(props: any) {
               {email}
             </p>
             <p className="text-bold text-sm capitalize text-default-900">
-              {data.length>0 ? data[0].username : ''}
+              {data && data.length>0 ? data[0].username : ''}
             </p>
           </div>
         );
@@ -266,12 +266,6 @@ function OrdersCard(props: any) {
                       Email:
                     </span>{" "}
                     {JSON.parse(selectedOrder.shipping_info)?.email}
-                  </p>
-                  <p>
-                    <span className="font-semibold text-yellow-500">
-                      Name:
-                    </span>{" "}
-                    {((customer?.filter((customer:any)=>customer?.user_id===selectedOrder?.user_id))[0])?.username}
                   </p>
                   <p>
                     <span className="font-semibold text-yellow-500">

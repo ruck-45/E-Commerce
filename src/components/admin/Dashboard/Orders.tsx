@@ -22,17 +22,17 @@ function MyOrders() {
           Authorization: `Bearer ${token}`,
         },
       });
-      // setOrders(response.data.payload.orders);
+      setOrders(response.data.payload.orders);
       setCurrentPage(1);
     } catch (error) {
       console.error("Error fetching orders:", error);
     }
   };
-  console.log("current page", currentPage);
 
   useEffect(() => {
     fetchOrders();
   }, []);
+
 
   useEffect(() => {
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -53,33 +53,31 @@ function MyOrders() {
       <div className="text-3xl font-bold text-center text-green-700 p-[1rem] border-b-1">
         All Orders
       </div>
-      <div className="w-full ">
-        <OrdersCard orders={currentOrders} />
+      { orders && orders.length > 0 ? 
+        (<><div className="w-full ">
+          <OrdersCard orders={currentOrders} />
+        </div><div className="flex mt-4">
+            <Button
+              color="default"
+              variant="light"
+              onClick={handlePrevPage}
+              className="bg-blue-400 mx-4"
+              disabled={currentPage === 1}
+            >
+              Previous
+            </Button>
+            <Button
+              color="default"
+              variant="light"
+              onClick={handleNextPage}
+              className="bg-yellow-400"
+              disabled={currentOrders.length < itemsPerPage}
+            >
+              Next
+            </Button>
+          </div></>)
+        : <div className="mt-10 text-xl text-red-700"> No Orders To Show!!!  </div> }
       </div>
-      {orders.length > 0 ? (
-        <div className="flex mt-4">
-          <Button
-            color="default"
-            variant="light"
-            onClick={handlePrevPage}
-            className="bg-blue-400 mx-4"
-            disabled={currentPage === 1}
-          >
-            Previous
-          </Button>
-          <Button
-            color="default"
-            variant="light"
-            onClick={handleNextPage}
-            className="bg-yellow-400"
-            disabled={currentOrders.length < itemsPerPage}
-          >
-            Next
-          </Button>
-        </div>
-       ) : <div className="mt-10 text-xl text-red-700"> No Orders To Show!!!  </div>
-      }
-    </div>
   );
 }
 

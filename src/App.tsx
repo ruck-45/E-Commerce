@@ -55,7 +55,6 @@ function App() {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("response: ", response);
       if (response.data.success) {
         const data = response.data.payload.cart;
         for (let i = 0; i < data.length; i++) {

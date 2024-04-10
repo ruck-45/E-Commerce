@@ -190,7 +190,6 @@ function OrdersCard(props: any) {
                 onClick={() => {
                   handleDetailsClick(order);
                   setStatus(order.status);
-                  console.log("changed status", changedStatus);
                 }}
               >
                 <span className="text-lg text-default-400 cursor-pointer active:opacity-50 ">

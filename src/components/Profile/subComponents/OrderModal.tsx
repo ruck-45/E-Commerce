@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Modal,
   ModalContent,
@@ -18,12 +18,50 @@ import {
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../../Redux/store";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import toast, { Toaster, ToastPosition } from "react-hot-toast";
+import { getCookie } from "../../../utils/cookies";
 
-const OrderModal: React.FC<any> = ({ order, onClose, show }) => {
+const toastSetting: {
+  position: ToastPosition;
+} = { position: "top-center" };
+
+const successToast = (message: string): void => {
+  toast.success(message, toastSetting);
+};
+
+const errorToast = (message: string): void => {
+  toast.error(message, toastSetting);
+};
+
+const OrderModal: React.FC<any> = ({ order, onClose, show, status }) => {
+  const token = getCookie("token")
   const navigate = useNavigate();
   const apiUrl = useSelector((state: RootState) => state.apiConfig.value);
   const orderItem = JSON.parse(order.items);
-  console.log("orderItem: ", orderItem);
+  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
+
+
+  const cancelOrder = async (e: any) => {
+    e.preventDefault();
+    try {
+      const cancelOrderRes = await axios.post(`${apiUrl}/users/cancelOrder/${order.order_id}`,{},  {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      console.log("cancelOrder", cancelOrderRes);
+      if (!cancelOrderRes.data.success) {
+        errorToast(`Error while Cancelling order`)
+      }
+      successToast(`Order canceled successfully`)
+      setIsConfirmationModalOpen(false);
+      window.location.reload();
+    } catch (error) {
+      errorToast(`Internal Server Error`)
+    }
+  }
+
   return (
     <>
       <Modal
@@ -32,6 +70,7 @@ const OrderModal: React.FC<any> = ({ order, onClose, show }) => {
         onOpenChange={onClose}
         size="2xl"
         scrollBehavior="outside"
+        radius="none"
       >
         <ModalContent>
           {(show) => (
@@ -40,35 +79,51 @@ const OrderModal: React.FC<any> = ({ order, onClose, show }) => {
                 Order Details
               </ModalHeader>
               <Divider />
+              <Divider />
+              <Divider />
               <ModalBody className="flex flex-col text-start py-[1rem]">
-                <div className="text-gray-600 text-lg">
-                  <strong>Order ID:</strong> {order.order_id.slice(0, 9)}...
-                  {order.order_id.slice(order.order_id.length - 3 - order.order_id.length)}
+                <div className="text-gray-600 text-sm">
+                  <strong>Order ID:</strong>{" "}
+                  <span style={{ float: "right" }}>
+                    {order.order_id.slice(0, 9)}...
+                    {order.order_id.slice(order.order_id.length - 3 - order.order_id.length)}
+                  </span>
                 </div>
-                <div className="text-gray-600 text-lg">
-                  <strong>Order Date:</strong> {order.date.slice(0, 10)}
+                <Divider className="bg-black" />
+                <div className="text-gray-600 text-sm">
+                  <strong>Order Date:</strong> <span style={{ float: "right" }}>{order.date.slice(0, 10)}</span>
                 </div>
-                <div className="text-gray-600 text-lg">
-                  <strong>Total Price:</strong> {order.order_price}
+                <Divider className="bg-black" />
+                <div className="text-gray-600 text-sm">
+                  <strong>Total Price:</strong> <span style={{ float: "right" }}>{order.order_price}</span>
                 </div>
-                <div className="text-gray-600 text-lg">
-                  <strong>Order Status:</strong> <span className="text-green-600">{order.status}</span>
+                <Divider className="bg-black h-[0.5px]" />
+                <div className="text-gray-600 text-sm">
+                  <strong>Order Status:</strong>{" "}
+                  <span className="text-green-600" style={{ float: "right" }}>
+                    {order.status}
+                  </span>
                 </div>
-                <div className="text-gray-600 text-lg">
+                <Divider className="bg-black" />
+                <div className="text-gray-600 text-sm">
                   <strong>Shipping Adress:</strong>{" "}
-                  <span className="text-black-600">
+                  <span className="text-black-600" style={{ float: "right" }}>
                     {JSON.parse(order.shipping_info).line1} {JSON.parse(order.shipping_info).line2}{" "}
                     {JSON.parse(order.shipping_info).city} {JSON.parse(order.shipping_info).state}{" "}
                     {JSON.parse(order.shipping_info).country} , {JSON.parse(order.shipping_info).postal_code}
                   </span>
                 </div>
-                <div className="text-gray-600 text-lg">
+                <Divider className="bg-black" />
+                <div className="text-gray-600 text-sm">
                   <strong>Phone :</strong>{" "}
-                  <span className="text-gray-600">{JSON.parse(order.shipping_info).phone}</span>
+                  <span className="text-gray-600" style={{ float: "right" }}>
+                    {JSON.parse(order.shipping_info).phone}
+                  </span>
                 </div>
+                <Divider className="bg-black h-[0.5px]" />
                 <div className="text-center text-black font-bold text-2xl">Products:</div>
                 <Divider />
-                <Table  removeWrapper aria-label="Example static collection table">
+                <Table removeWrapper aria-label="Example static collection table">
                   <TableHeader>
                     <TableColumn>S.NO</TableColumn>
                     <TableColumn>QUANTITY</TableColumn>
@@ -105,8 +160,21 @@ const OrderModal: React.FC<any> = ({ order, onClose, show }) => {
                 </Table>
               </ModalBody>
               <Divider />
+              <Divider />
+              <Divider />
               <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
+                {status && (
+                  <Button
+                    color="success"
+                    radius="none"
+                    variant="ghost"
+                    onPress={() => setIsConfirmationModalOpen(true)}
+                    className=""
+                  >
+                    Cancel Order
+                  </Button>
+                )}
+                <Button color="danger" radius="none" variant="solid" onPress={onClose}>
                   Close
                 </Button>
               </ModalFooter>
@@ -129,6 +197,33 @@ const OrderModal: React.FC<any> = ({ order, onClose, show }) => {
           onClick={onClose} // Close modal when clicking on the backdrop
         />
       )}
+      <Modal
+        isOpen={isConfirmationModalOpen}
+        onClose={() => setIsConfirmationModalOpen(false)}
+        size="sm"
+        className="border-black-700 text-red-500"
+        style={{ border: "2px solid yellow" }}
+        radius="none"
+      >
+        <ModalHeader></ModalHeader>
+        <ModalContent>
+          <h4 className="text-center m-9 text-lg">Are you sure you want to cancel the order ?</h4>
+          <Divider/>
+          <ModalFooter>
+            <Button color="danger" variant="light" className="mx-5" onClick={cancelOrder}>
+              OK
+            </Button>
+            <Button
+              color="success"
+              variant="ghost"
+              onClick={() => setIsConfirmationModalOpen(false)}
+            >
+              Cancel
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+      <Toaster />
     </>
   );
 };

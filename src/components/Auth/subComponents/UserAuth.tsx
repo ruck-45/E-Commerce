@@ -153,26 +153,26 @@ const UserAuth = () => {
           password: password.current,
           remember: rememberMe,
         });
-        if (response.data.success) {
-          const cookieOptions = { expires: response.data.payload.expires };
+        if (response.data && response.data?.success) {
+          const cookieOptions = { expires: response.data?.payload.expires };
 
-          setCookie("token", response.data.payload.token, cookieOptions);
+          setCookie("token", response.data?.payload.token, cookieOptions);
           setCookie("email", email.current, cookieOptions);
-          setCookie("username", response.data.payload.userName, cookieOptions);
-          setCookie("expiration", response.data.payload.expires, cookieOptions);
-          setCookie("isAdmin", response.data.payload.isEmployee, cookieOptions);
-          setCookie("userId", response.data.payload.userId, cookieOptions);
+          setCookie("username", response.data?.payload.userName, cookieOptions);
+          setCookie("expiration", response.data?.payload.expires, cookieOptions);
+          setCookie("isAdmin", response.data?.payload.isEmployee, cookieOptions);
+          setCookie("userId", response.data?.payload.userId, cookieOptions);
 
           dispatch(updateLoginStatus(true));
 
           successToast("Login Successfully");
           navigate(loginRedirect);
         } else {
-          errorToast(response.data.payload.message);
+          errorToast(response.data?.payload.message);
           setHandleLoginButton(false);
         }
       } catch (error: any) {
-        errorToast(error.response.data.payload.message);
+        errorToast('Error occurred while login');
         setHandleLoginButton(false);
       }
     } else {
@@ -194,7 +194,7 @@ const UserAuth = () => {
           password: password.current,
         });
 
-        if (response.data.success) {
+        if (response.data?.success) {
           successToast("Registration successful");
           dispatch(updateToLoginStatus(true));
           navigate("/Auth");
